@@ -1,6 +1,7 @@
 // Corre periodicamente (GitHub Actions) y guarda un snapshot estatico en data/odds.json.
-// El sitio nunca llama a odds-api.io directamente: asi la API key no queda expuesta
-// en el navegador y no se gasta la cuota gratuita (100/hora, 500/dia) por cada visita.
+// El sitio nunca llama a odds-api.io ni hace esta cantidad de llamadas a la MLB Stats API
+// desde el navegador: todo el trabajo pesado (cuotas + proyeccion estadistica por jugador)
+// se hace aca, una vez cada 2 horas, y el sitio solo lee el resultado ya calculado.
 
 const API_KEY = process.env.ODDS_API_KEY;
 if (!API_KEY) {
@@ -9,7 +10,9 @@ if (!API_KEY) {
 }
 
 const BOOKMAKERS = "Bet365,DraftKings";
-const BASE = "https://api.odds-api.io/v3";
+const ODDS_BASE = "https://api.odds-api.io/v3";
+const MLB_BASE = "https://statsapi.mlb.com/api/v1";
+const SEASON = new Date().getFullYear();
 
 async function getJSON(url) {
   const res = await fetch(url);
@@ -17,9 +20,9 @@ async function getJSON(url) {
   return res.json();
 }
 
-// Nombres exactos confirmados contra la API real (odds-api.io usa "ML" y "Totals"
-// para las lineas de partido completo; hay decoys parecidos como "Team Total Home",
-// "First 5 Innings Totals" o "Alternative Run Line" que NO son el total del partido).
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+// ---------- Cuotas de partido completo (nombres exactos confirmados contra la API real) ----------
 function extractGameOdds(oddsResponse) {
   const result = { moneyline: {}, total: {} };
   for (const [bookmaker, markets] of Object.entries(oddsResponse.bookmakers ?? {})) {
@@ -36,13 +39,215 @@ function extractGameOdds(oddsResponse) {
   return result;
 }
 
-const sleep = ms => new Promise(r => setTimeout(r, ms));
+// ---------- Props de jugador ----------
+const PROP_MARKETS = {
+  "Hits O/U": { kind: "hitting" },
+  "Home Runs O/U": { kind: "hitting" },
+  "Total Bases O/U": { kind: "hitting" },
+  "Pitcher Strikeouts O/U": { kind: "pitching" }
+};
+
+function extractProps(oddsResponse) {
+  // player -> market -> { line, over, under, bookmaker }
+  const props = [];
+  const preferredOrder = ["Bet365", "DraftKings"];
+  const seen = new Set();
+  for (const bookmaker of preferredOrder) {
+    const markets = oddsResponse.bookmakers?.[bookmaker];
+    if (!markets) continue;
+    for (const market of markets) {
+      const cfg = PROP_MARKETS[market.name];
+      if (!cfg) continue;
+      for (const o of market.odds) {
+        if (!o.label || o.hdp == null) continue;
+        const dedupeKey = `${market.name}|${o.label}`;
+        if (seen.has(dedupeKey)) continue; // ya lo tenemos de un libro con mas prioridad
+        seen.add(dedupeKey);
+        props.push({
+          market: market.name,
+          kind: cfg.kind,
+          player: o.label,
+          line: o.hdp,
+          over: o.over ?? null,
+          under: o.under ?? null,
+          bookmaker
+        });
+      }
+    }
+  }
+  return props;
+}
+
+// ---------- Poisson, para estimar probabilidad de superar una linea ----------
+function factorial(n) {
+  let f = 1;
+  for (let i = 2; i <= n; i++) f *= i;
+  return f;
+}
+function poissonPMF(k, lambda) {
+  return Math.exp(-lambda) * Math.pow(lambda, k) / factorial(k);
+}
+function poissonProbOver(line, lambda) {
+  // P(X > line), line suele ser X.5
+  const k = Math.floor(line);
+  let cdf = 0;
+  for (let i = 0; i <= k; i++) cdf += poissonPMF(i, lambda);
+  return Math.max(0, Math.min(1, 1 - cdf));
+}
+function binomialProbAtLeastOneHit(avg, atBatsPerGame) {
+  const p0 = Math.pow(1 - avg, atBatsPerGame);
+  return Math.max(0, Math.min(1, 1 - p0));
+}
+function decimalToImpliedProb(decimalOdds) {
+  const d = parseFloat(decimalOdds);
+  return d > 0 ? 1 / d : null;
+}
+
+// ---------- Busqueda y stats de jugador (cacheado por nombre dentro de esta corrida) ----------
+const playerCache = new Map();
+
+async function getPlayerProjection(name) {
+  if (playerCache.has(name)) return playerCache.get(name);
+  const projection = await fetchPlayerProjection(name);
+  playerCache.set(name, projection);
+  return projection;
+}
+
+async function fetchPlayerProjection(name) {
+  try {
+    const search = await getJSON(`${MLB_BASE}/people/search?names=${encodeURIComponent(name)}`);
+    const person = (search.people ?? []).find(p => p.active) ?? search.people?.[0];
+    if (!person) return null;
+    const isPitcher = person.primaryPosition?.code === "1";
+    const group = isPitcher ? "pitching" : "hitting";
+    const statsData = await getJSON(
+      `${MLB_BASE}/people/${person.id}/stats?stats=season&group=${group}&season=${SEASON}`
+    );
+    const split = statsData.stats?.[0]?.splits?.[0];
+    const stat = split?.stat;
+    if (!stat) return null;
+    // /people/search no trae el equipo actual; el split de stats de temporada si.
+    const team = split?.team?.name ?? null;
+
+    if (isPitcher) {
+      const starts = stat.gamesStarted || stat.gamesPlayed || 0;
+      if (!starts) return null;
+      return { isPitcher: true, team, kPerStart: stat.strikeOuts / starts, tbPerGame: null, hrPerGame: null, avg: null, abPerGame: null };
+    }
+    const gamesPlayed = stat.gamesPlayed || 0;
+    if (!gamesPlayed) return null;
+    return {
+      isPitcher: false,
+      team,
+      avg: parseFloat(stat.avg) || 0,
+      abPerGame: (stat.atBats || 0) / gamesPlayed,
+      hrPerGame: (stat.homeRuns || 0) / gamesPlayed,
+      tbPerGame: (stat.totalBases || 0) / gamesPlayed
+    };
+  } catch {
+    return null;
+  }
+}
+
+function pickSide(overOdds, underOdds, ourProbOver) {
+  // Elegimos el lado (over/under) que tenga cuota disponible y mejor separacion vs nuestra probabilidad.
+  const impliedOver = overOdds != null ? decimalToImpliedProb(overOdds) : null;
+  const impliedUnder = underOdds != null ? decimalToImpliedProb(underOdds) : null;
+  const edgeOver = impliedOver != null ? ourProbOver - impliedOver : -Infinity;
+  const edgeUnder = impliedUnder != null ? (1 - ourProbOver) - impliedUnder : -Infinity;
+  if (edgeOver >= edgeUnder) {
+    return { side: "over", odds: overOdds, ourProb: ourProbOver, impliedProb: impliedOver, edge: edgeOver };
+  }
+  return { side: "under", odds: underOdds, ourProb: 1 - ourProbOver, impliedProb: impliedUnder, edge: edgeUnder };
+}
+
+async function evaluateProp(prop, awayTeam, homeTeam) {
+  const proj = await getPlayerProjection(prop.player);
+  if (!proj) return null;
+  // odds-api.io a veces mezcla props de jugadores que no juegan este partido
+  // (visto en vivo: un prop de Home Runs de un jugador de otro equipo colado
+  // en el mercado de un partido distinto). Si no coincide con ninguno de los
+  // dos equipos, lo descartamos aunque tengamos datos del jugador.
+  if (proj.team && proj.team !== awayTeam && proj.team !== homeTeam) return null;
+
+  let ourProbOver = null;
+  if (prop.market === "Pitcher Strikeouts O/U" && proj.isPitcher && proj.kPerStart) {
+    ourProbOver = poissonProbOver(prop.line, proj.kPerStart);
+  } else if (prop.market === "Hits O/U" && !proj.isPitcher && proj.avg != null) {
+    // Hits O/U casi siempre es linea 0.5 (al menos 1 hit)
+    ourProbOver = prop.line < 1
+      ? binomialProbAtLeastOneHit(proj.avg, proj.abPerGame || 4)
+      : poissonProbOver(prop.line, proj.avg * (proj.abPerGame || 4));
+  } else if (prop.market === "Home Runs O/U" && !proj.isPitcher && proj.hrPerGame != null) {
+    ourProbOver = poissonProbOver(prop.line, proj.hrPerGame);
+  } else if (prop.market === "Total Bases O/U" && !proj.isPitcher && proj.tbPerGame != null) {
+    ourProbOver = poissonProbOver(prop.line, proj.tbPerGame);
+  }
+  if (ourProbOver == null || isNaN(ourProbOver)) return null;
+
+  const pick = pickSide(prop.over, prop.under, ourProbOver);
+  if (pick.odds == null || pick.impliedProb == null) return null;
+
+  return {
+    ...prop,
+    side: pick.side,
+    odds: pick.odds,
+    ourProb: Math.round(pick.ourProb * 1000) / 1000,
+    impliedProb: Math.round(pick.impliedProb * 1000) / 1000,
+    edge: Math.round(pick.edge * 1000) / 1000,
+    isValue: pick.edge >= 0.08
+  };
+}
+
+// ---------- Parlays recomendados ----------
+function buildParlays(allEvaluatedProps) {
+  const valuePicks = allEvaluatedProps
+    .filter(p => p.isValue)
+    .sort((a, b) => b.edge - a.edge);
+
+  function toParlay(legs, label) {
+    if (!legs.length) return null;
+    const combinedOdds = legs.reduce((acc, l) => acc * parseFloat(l.odds), 1);
+    const combinedProb = legs.reduce((acc, l) => acc * l.ourProb, 1);
+    return {
+      label,
+      legs: legs.map(l => ({
+        player: l.player, market: l.market, side: l.side, line: l.line,
+        odds: l.odds, ourProb: l.ourProb, game: l.game
+      })),
+      combinedOdds: Math.round(combinedOdds * 100) / 100,
+      combinedProb: Math.round(combinedProb * 1000) / 1000
+    };
+  }
+
+  // Evitar repetir el mismo jugador en un parlay, y preferir jugadores de partidos distintos.
+  function pickDiverseLegs(pool, count) {
+    const legs = [];
+    const usedPlayers = new Set();
+    for (const p of pool) {
+      if (usedPlayers.has(p.player)) continue;
+      legs.push(p);
+      usedPlayers.add(p.player);
+      if (legs.length >= count) break;
+    }
+    return legs;
+  }
+
+  const conservative = toParlay(
+    pickDiverseLegs(valuePicks.filter(p => p.ourProb >= 0.62), 2),
+    "Conservador (2 picks)"
+  );
+  const balanced = toParlay(pickDiverseLegs(valuePicks, 3), "Balanceado (3 picks)");
+  const longshot = toParlay(pickDiverseLegs(valuePicks, 4), "Alto pago (4 picks)");
+
+  return [conservative, balanced, longshot].filter(Boolean);
+}
 
 async function main() {
   let allEvents;
   try {
     allEvents = await getJSON(
-      `${BASE}/events?apiKey=${API_KEY}&sport=baseball&league=usa-mlb&status=pending&limit=60`
+      `${ODDS_BASE}/events?apiKey=${API_KEY}&sport=baseball&league=usa-mlb&status=pending&limit=60`
     );
   } catch (e) {
     if (String(e.message).includes("429")) {
@@ -52,41 +257,59 @@ async function main() {
     throw e;
   }
 
-  // Las lineas de ML/Totals recien aparecen horas antes del primer lanzamiento,
-  // asi que no tiene sentido (ni ahorra cuota) pedir partidos muy lejanos.
   const cutoff = Date.now() + 2 * 24 * 60 * 60 * 1000;
   const events = allEvents.filter(ev => new Date(ev.date).getTime() <= cutoff);
 
   const games = {};
+  const allEvaluatedProps = [];
   let withOdds = 0;
 
   for (const ev of events) {
     try {
       await sleep(300);
-      const odds = await getJSON(`${BASE}/odds?apiKey=${API_KEY}&eventId=${ev.id}&bookmakers=${BOOKMAKERS}`);
-      const parsed = extractGameOdds(odds);
-      const hasData = Object.keys(parsed.moneyline).length || Object.keys(parsed.total).length;
+      const odds = await getJSON(`${ODDS_BASE}/odds?apiKey=${API_KEY}&eventId=${ev.id}&bookmakers=${BOOKMAKERS}`);
+      const gameOdds = extractGameOdds(odds);
+      const rawProps = extractProps(odds);
+
+      const evaluatedProps = [];
+      for (const prop of rawProps) {
+        const evaluated = await evaluateProp(prop, ev.away, ev.home);
+        if (evaluated) {
+          evaluatedProps.push(evaluated);
+          allEvaluatedProps.push({ ...evaluated, game: `${ev.away} @ ${ev.home}` });
+        }
+      }
+
+      const hasData = Object.keys(gameOdds.moneyline).length || Object.keys(gameOdds.total).length;
       if (hasData) withOdds++;
+
       games[`${ev.away}@${ev.home}@${ev.date.slice(0, 10)}`] = {
         home: ev.home,
         away: ev.away,
         date: ev.date,
-        ...parsed
+        ...gameOdds,
+        props: evaluatedProps
       };
     } catch (e) {
       console.error(`Error en evento ${ev.id}:`, e.message);
     }
   }
 
+  const parlays = buildParlays(allEvaluatedProps);
+
   const output = {
     updatedAt: new Date().toISOString(),
-    games
+    games,
+    parlays
   };
 
   const fs = await import("node:fs/promises");
   await fs.mkdir("data", { recursive: true });
   await fs.writeFile("data/odds.json", JSON.stringify(output, null, 2));
-  console.log(`Listo: ${Object.keys(games).length} partidos, ${withOdds} con cuotas de moneyline/total disponibles.`);
+  console.log(
+    `Listo: ${Object.keys(games).length} partidos, ${withOdds} con moneyline/total, ` +
+    `${allEvaluatedProps.length} props evaluadas, ${allEvaluatedProps.filter(p => p.isValue).length} value picks, ${parlays.length} parlays.`
+  );
 }
 
 main().catch(e => {
