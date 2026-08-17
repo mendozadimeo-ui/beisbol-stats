@@ -204,41 +204,60 @@
     flex-wrap: wrap;
     gap: 8px;
   }
-  .pick-teams { font-size: 15px; font-weight: 600; }
+  .pick-teams { font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
   .pick-time { color: var(--muted); font-size: 12px; }
-  .pick-side {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 0;
-    border-bottom: 1px solid var(--border);
+  .pick-badges { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+  .tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: help;
+  }
+  .tag.hot { background: rgba(62,207,142,0.15); color: var(--win); }
+  .tag.cold { background: rgba(79,176,255,0.15); color: var(--accent); }
+  .tag.neutral { background: rgba(138,153,168,0.15); color: var(--muted); }
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 10px;
   }
-  .pick-side:last-of-type { border-bottom: none; }
-  .pick-side .side-name { font-weight: 600; }
-  .pick-side .side-name.edge { color: var(--accent); }
-  .pick-side .side-meta { color: var(--muted); font-size: 12px; text-align: right; }
-  .pitcher-meta { color: var(--muted); font-size: 12px; }
-  .pick-signal {
-    margin-top: 12px;
-    padding: 10px 12px;
-    border-radius: 8px;
+  .compare-col {
     background: var(--panel-2);
-    font-size: 13px;
+    border-radius: 8px;
+    padding: 10px 12px;
   }
-  .pick-signal .tag {
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 999px;
-    font-size: 11px;
+  .compare-team {
+    display: flex;
+    align-items: center;
+    gap: 6px;
     font-weight: 700;
-    text-transform: uppercase;
-    margin-right: 8px;
+    font-size: 13px;
+    margin-bottom: 6px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
   }
-  .tag.lean { background: rgba(62,207,142,0.15); color: var(--win); }
-  .tag.even { background: rgba(138,153,168,0.15); color: var(--muted); }
-  .pick-reasons { margin: 6px 0 0; padding-left: 18px; color: var(--muted); font-size: 12px; }
-  .weather-line, .park-line { color: var(--muted); font-size: 12px; margin-top: 4px; }
+  .compare-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    padding: 2px 0;
+    gap: 6px;
+  }
+  .compare-row span { color: var(--muted); flex-shrink: 0; }
+  .compare-row b { text-align: right; font-weight: 600; }
+  .chip-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+  .chip {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 11px;
+    padding: 4px 9px;
+    border-radius: 999px;
+    cursor: help;
+    white-space: nowrap;
+  }
   .trend-tag {
     display: inline-block;
     padding: 1px 7px;
@@ -679,64 +698,72 @@ async function renderPickCard(game, standingsMap) {
   const leanHome = diff > 0;
   const isEven = Math.abs(diff) < 1.5;
 
-  const reasons = [];
-  if (awayForm.t) reasons.push(`${away.team.name}: ${(awayForm.t.pct).toFixed(3)} PCT, racha ${awayForm.t.streakCode}, últimos 10: ${awayForm.t.last10Wins}-${awayForm.t.last10Losses}`);
-  if (homeForm.t) reasons.push(`${home.team.name}: ${(homeForm.t.pct).toFixed(3)} PCT, racha ${homeForm.t.streakCode}, últimos 10: ${homeForm.t.last10Wins}-${homeForm.t.last10Losses}`);
-  if (awayPitcher && awaySnap) reasons.push(`Abridor visitante ${awayPitcher.fullName}: ERA ${awaySnap.era ?? "-"}, últimas ${awaySnap.last5Count || 5} aperturas ERA ${awaySnap.last5Era != null ? awaySnap.last5Era.toFixed(2) : "-"}`);
-  if (homePitcher && homeSnap) reasons.push(`Abridor local ${homePitcher.fullName}: ERA ${homeSnap.era ?? "-"}, últimas ${homeSnap.last5Count || 5} aperturas ERA ${homeSnap.last5Era != null ? homeSnap.last5Era.toFixed(2) : "-"}`);
-  if (awayBullpen) reasons.push(`Bullpen visitante: ${away.team.name} usó ${awayBullpen.count} ${pitcherWord(awayBullpen.count)} en su último juego (${formatShortDate(awayBullpen.date)})`);
-  if (homeBullpen) reasons.push(`Bullpen local: ${home.team.name} usó ${homeBullpen.count} ${pitcherWord(homeBullpen.count)} en su último juego (${formatShortDate(homeBullpen.date)})`);
-
   let weatherNudge = 0;
-  let weatherLine = "";
+  let weatherChip = "";
+  let weatherTitle = "";
   if (weather?.roofed) {
-    weatherLine = "🏟️ Estadio con techo — el clima no debería afectar el juego.";
+    weatherChip = "🏟️ Techo";
+    weatherTitle = "Estadio con techo — el clima no debería afectar el juego.";
   } else if (weather) {
     if (weather.temp >= 85) weatherNudge = 0.2;
     else if (weather.temp <= 50) weatherNudge = -0.2;
-    const rainNote = weather.precipProb >= 50 ? ` · ⚠️ ${weather.precipProb}% prob. de lluvia` : "";
-    weatherLine = `🌤️ ${weather.temp}°F · viento ${weather.windSpeed} mph ${weather.windDir}${rainNote}`;
+    const rainNote = weather.precipProb >= 50 ? ` · ⚠️${weather.precipProb}% lluvia` : "";
+    weatherChip = `🌤️ ${weather.temp}°F · ${weather.windSpeed}mph ${weather.windDir}${rainNote}`;
+    weatherTitle = `Temperatura ${weather.temp}°F, viento ${weather.windSpeed} mph dirección ${weather.windDir}${weather.precipProb >= 50 ? `, ${weather.precipProb}% de probabilidad de lluvia` : ""}.`;
   }
-  const parkLine = park ? `🏟️ ${park.name}: ${park.parkLabel}${park.note ? ` — ${park.note}` : ""}` : "";
-  const bullpenLine = (awayBullpen || homeBullpen)
-    ? `🧢 Bullpen último juego: ${away.team.name} ${awayBullpen ? awayBullpen.count : "-"} pitchers · ${home.team.name} ${homeBullpen ? homeBullpen.count : "-"} pitchers`
+  const parkChip = park ? `🏟️ ${park.parkLabel}` : "";
+  const parkTitle = park ? `${park.name}: ${park.note ?? ""}` : "";
+  const bullpenChip = (awayBullpen || homeBullpen)
+    ? `🧢 ${awayBullpen ? awayBullpen.count : "-"}-${homeBullpen ? homeBullpen.count : "-"} pitchers usados`
+    : "";
+  const bullpenTitle = (awayBullpen || homeBullpen)
+    ? `Bullpen último juego — ${away.team.name}: ${awayBullpen ? awayBullpen.count : "-"} ${pitcherWord(awayBullpen?.count ?? 0)} (${awayBullpen ? formatShortDate(awayBullpen.date) : "-"}). ${home.team.name}: ${homeBullpen ? homeBullpen.count : "-"} ${pitcherWord(homeBullpen?.count ?? 0)} (${homeBullpen ? formatShortDate(homeBullpen.date) : "-"}).`
     : "";
 
-  let totalLean = "Sin datos suficientes de abridores para estimar el total.";
+  let totalBadge = { label: "Total: sin datos", cls: "neutral", title: "Faltan datos de abridores para estimar el total." };
   if (awaySnap?.era != null && homeSnap?.era != null) {
     const combined = (awaySnap.era + homeSnap.era) / 2;
     const parkAdj = (park?.parkFactor ?? 0) + weatherNudge;
     const adjusted = combined - parkAdj;
-    if (adjusted < 3.6) totalLean = `ERA combinada de abridores (${combined.toFixed(2)}) + contexto de parque/clima → posible partido de pocas carreras (Under).`;
-    else if (adjusted > 4.6) totalLean = `ERA combinada de abridores (${combined.toFixed(2)}) + contexto de parque/clima → posible partido de muchas carreras (Over).`;
-    else totalLean = `ERA combinada de abridores (${combined.toFixed(2)}) pareja, incluso con parque/clima → sin inclinación clara en el total.`;
+    const detail = `ERA combinada de abridores ${combined.toFixed(2)}, ajustada por parque/clima.`;
+    if (adjusted < 3.6) totalBadge = { label: "📉 Total: Under", cls: "cold", title: detail };
+    else if (adjusted > 4.6) totalBadge = { label: "📈 Total: Over", cls: "hot", title: detail };
+    else totalBadge = { label: "Total: parejo", cls: "neutral", title: detail };
   }
+  const favBadge = isEven
+    ? { label: "⚖️ Parejo", cls: "neutral", title: "Sin ventaja estadística clara entre ambos equipos." }
+    : { label: `🏆 ${leanHome ? home.team.name : away.team.name}`, cls: "hot", title: "Mejores números recientes: récord, racha y abridor." };
 
-  const leanLabel = isEven
-    ? `<span class="tag even">Parejo</span> Sin ventaja estadística clara entre ambos equipos.`
-    : `<span class="tag lean">Inclinación</span> ${leanHome ? home.team.name : away.team.name} muestra mejores números recientes (récord, racha y abridor).`;
+  function compareCol(team, form, snap, pitcher) {
+    return `
+      <div class="compare-col">
+        <div class="compare-team"><img class="team-logo-sm" src="${logoURL(team.id)}" alt="">${team.name}</div>
+        <div class="compare-row"><span>PCT</span><b>${form.t ? form.t.pct.toFixed(3) : "-"}</b></div>
+        <div class="compare-row"><span>Racha</span><b class="${form.t?.streakType === "wins" ? "streak-w" : "streak-l"}">${form.t ? form.t.streakCode : "-"}</b></div>
+        <div class="compare-row"><span>Últ. 10</span><b>${form.t ? `${form.t.last10Wins}-${form.t.last10Losses}` : "-"}</b></div>
+        <div class="compare-row"><span>Abridor</span><b>${pitcher ? pitcher.fullName : "TBD"}</b></div>
+        <div class="compare-row"><span>ERA</span><b>${snap?.era ?? "-"} ${pitcherTrendTag(snap)}</b></div>
+      </div>`;
+  }
 
   return `
     <div class="pick-card">
       <div class="pick-header">
-        <div class="pick-teams">${away.team.name} @ ${home.team.name}</div>
+        <div class="pick-teams"><img class="team-logo-sm" src="${logoURL(away.team.id)}" alt="">${away.team.name} @ ${home.team.name}<img class="team-logo-sm" src="${logoURL(home.team.id)}" alt=""></div>
         <div class="pick-time">${new Date(game.gameDate).toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit" })}</div>
       </div>
-      <div class="pick-side">
-        <span class="side-name ${!leanHome && !isEven ? "edge" : ""}"><img class="team-logo-sm" src="${logoURL(away.team.id)}" alt=""> ${away.team.name}</span>
-        <span class="side-meta">${awayPitcher ? awayPitcher.fullName : "Abridor TBD"} · ERA ${awaySnap?.era ?? "-"} ${pitcherTrendTag(awaySnap)}</span>
+      <div class="pick-badges">
+        <span class="tag ${favBadge.cls}" title="${favBadge.title}">${favBadge.label}</span>
+        <span class="tag ${totalBadge.cls}" title="${totalBadge.title}">${totalBadge.label}</span>
       </div>
-      <div class="pick-side">
-        <span class="side-name ${leanHome && !isEven ? "edge" : ""}"><img class="team-logo-sm" src="${logoURL(home.team.id)}" alt=""> ${home.team.name}</span>
-        <span class="side-meta">${homePitcher ? homePitcher.fullName : "Abridor TBD"} · ERA ${homeSnap?.era ?? "-"} ${pitcherTrendTag(homeSnap)}</span>
+      <div class="compare-grid">
+        ${compareCol(away.team, awayForm, awaySnap, awayPitcher)}
+        ${compareCol(home.team, homeForm, homeSnap, homePitcher)}
       </div>
-      <div class="pick-signal">
-        <div>${leanLabel}</div>
-        <ul class="pick-reasons">${reasons.map(r => `<li>${r}</li>`).join("")}</ul>
-        <div style="margin-top:6px;">${totalLean}</div>
-        ${parkLine ? `<div class="park-line">${parkLine}</div>` : ""}
-        ${weatherLine ? `<div class="weather-line">${weatherLine}</div>` : ""}
-        ${bullpenLine ? `<div class="weather-line">${bullpenLine}</div>` : ""}
+      <div class="chip-row">
+        ${parkChip ? `<span class="chip" title="${parkTitle}">${parkChip}</span>` : ""}
+        ${weatherChip ? `<span class="chip" title="${weatherTitle}">${weatherChip}</span>` : ""}
+        ${bullpenChip ? `<span class="chip" title="${bullpenTitle}">${bullpenChip}</span>` : ""}
       </div>
     </div>`;
 }
