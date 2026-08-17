@@ -39,9 +39,18 @@ function extractGameOdds(oddsResponse) {
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 async function main() {
-  const allEvents = await getJSON(
-    `${BASE}/events?apiKey=${API_KEY}&sport=baseball&league=usa-mlb&status=pending&limit=60`
-  );
+  let allEvents;
+  try {
+    allEvents = await getJSON(
+      `${BASE}/events?apiKey=${API_KEY}&sport=baseball&league=usa-mlb&status=pending&limit=60`
+    );
+  } catch (e) {
+    if (String(e.message).includes("429")) {
+      console.log("Cuota horaria agotada, se reintenta en la proxima corrida programada. Sin cambios.");
+      return;
+    }
+    throw e;
+  }
 
   // Las lineas de ML/Totals recien aparecen horas antes del primer lanzamiento,
   // asi que no tiene sentido (ni ahorra cuota) pedir partidos muy lejanos.
