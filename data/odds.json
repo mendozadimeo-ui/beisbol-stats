@@ -1,0 +1,297 @@
+{
+  "updatedAt": "2026-08-17T04:59:20.786Z",
+  "games": {
+    "St. Louis Cardinals@Cincinnati Reds@2026-08-17": {
+      "home": "Cincinnati Reds",
+      "away": "St. Louis Cardinals",
+      "date": "2026-08-17T22:40:00Z",
+      "moneyline": {},
+      "total": {}
+    },
+    "Baltimore Orioles@Tampa Bay Rays@2026-08-17": {
+      "home": "Tampa Bay Rays",
+      "away": "Baltimore Orioles",
+      "date": "2026-08-17T22:05:00Z",
+      "moneyline": {
+        "Bet365": {
+          "home": "1.62",
+          "away": "2.35"
+        },
+        "DraftKings": {
+          "home": "1.59",
+          "away": "2.37"
+        }
+      },
+      "total": {
+        "Bet365": {
+          "line": 7.5,
+          "over": "1.83",
+          "under": "2.00"
+        },
+        "DraftKings": {
+          "line": 8,
+          "over": "1.98",
+          "under": "1.84"
+        }
+      }
+    },
+    "Miami Marlins@Philadelphia Phillies@2026-08-17": {
+      "home": "Philadelphia Phillies",
+      "away": "Miami Marlins",
+      "date": "2026-08-17T22:40:00Z",
+      "moneyline": {
+        "Bet365": {
+          "home": "1.43",
+          "away": "2.90"
+        },
+        "DraftKings": {
+          "home": "1.40",
+          "away": "3.01"
+        }
+      },
+      "total": {
+        "Bet365": {
+          "line": 8,
+          "over": "1.83",
+          "under": "2.00"
+        },
+        "DraftKings": {
+          "line": 8,
+          "over": "1.86",
+          "under": "1.95"
+        }
+      }
+    },
+    "Detroit Tigers@Pittsburgh Pirates@2026-08-17": {
+      "home": "Pittsburgh Pirates",
+      "away": "Detroit Tigers",
+      "date": "2026-08-17T23:05:00Z",
+      "moneyline": {
+        "Bet365": {
+          "home": "2.00",
+          "away": "1.83"
+        },
+        "DraftKings": {
+          "home": "2.02",
+          "away": "1.81"
+        }
+      },
+      "total": {
+        "Bet365": {
+          "line": 8,
+          "over": "1.90",
+          "under": "1.90"
+        },
+        "DraftKings": {
+          "line": 8,
+          "over": "1.86",
+          "under": "1.95"
+        }
+      }
+    },
+    "San Diego Padres@New York Mets@2026-08-17": {
+      "home": "New York Mets",
+      "away": "San Diego Padres",
+      "date": "2026-08-17T23:10:00Z",
+      "moneyline": {
+        "Bet365": {
+          "home": "1.83",
+          "away": "2.00"
+        },
+        "DraftKings": {
+          "home": "1.83",
+          "away": "2.00"
+        }
+      },
+      "total": {
+        "Bet365": {
+          "line": 8,
+          "over": "1.86",
+          "under": "1.95"
+        },
+        "DraftKings": {
+          "line": 8,
+          "over": "1.86",
+          "under": "1.95"
+        }
+      }
+    },
+    "Arizona Diamondbacks@Boston Red Sox@2026-08-17": {
+      "home": "Boston Red Sox",
+      "away": "Arizona Diamondbacks",
+      "date": "2026-08-17T23:10:00Z",
+      "moneyline": {
+        "Bet365": {
+          "home": "1.66",
+          "away": "2.25"
+        },
+        "DraftKings": {
+          "home": "1.63",
+          "away": "2.30"
+        }
+      },
+      "total": {
+        "Bet365": {
+          "line": 9,
+          "over": "1.95",
+          "under": "1.86"
+        },
+        "DraftKings": {
+          "line": 9,
+          "over": "1.94",
+          "under": "1.87"
+        }
+      }
+    },
+    "Athletics@Kansas City Royals@2026-08-17": {
+      "home": "Kansas City Royals",
+      "away": "Athletics",
+      "date": "2026-08-17T23:40:00Z",
+      "moneyline": {
+        "Bet365": {
+          "home": "1.50",
+          "away": "2.65"
+        },
+        "DraftKings": {
+          "home": "1.50",
+          "away": "2.63"
+        }
+      },
+      "total": {
+        "Bet365": {
+          "line": 9,
+          "over": "1.86",
+          "under": "1.95"
+        },
+        "DraftKings": {
+          "line": 9,
+          "over": "1.88",
+          "under": "1.93"
+        }
+      }
+    },
+    "Atlanta Braves@Minnesota Twins@2026-08-17": {
+      "home": "Minnesota Twins",
+      "away": "Atlanta Braves",
+      "date": "2026-08-17T23:40:00Z",
+      "moneyline": {
+        "Bet365": {
+          "home": "2.10",
+          "away": "1.76"
+        },
+        "DraftKings": {
+          "home": "2.09",
+          "away": "1.75"
+        }
+      },
+      "total": {
+        "Bet365": {
+          "line": 9,
+          "over": "1.90",
+          "under": "1.90"
+        },
+        "DraftKings": {
+          "line": 9,
+          "over": "1.88",
+          "under": "1.93"
+        }
+      }
+    },
+    "Chicago White Sox@Chicago Cubs@2026-08-18": {
+      "home": "Chicago Cubs",
+      "away": "Chicago White Sox",
+      "date": "2026-08-18T00:05:00Z",
+      "moneyline": {
+        "Bet365": {
+          "home": "1.60",
+          "away": "2.40"
+        },
+        "DraftKings": {
+          "home": "1.58",
+          "away": "2.42"
+        }
+      },
+      "total": {
+        "Bet365": {
+          "line": 8,
+          "over": "1.86",
+          "under": "1.95"
+        },
+        "DraftKings": {
+          "line": 8.5,
+          "over": "1.98",
+          "under": "1.84"
+        }
+      }
+    },
+    "Los Angeles Dodgers@Colorado Rockies@2026-08-18": {
+      "home": "Colorado Rockies",
+      "away": "Los Angeles Dodgers",
+      "date": "2026-08-18T00:40:00Z",
+      "moneyline": {
+        "Bet365": {
+          "home": "3.00",
+          "away": "1.40"
+        },
+        "DraftKings": {
+          "home": "3.17",
+          "away": "1.36"
+        }
+      },
+      "total": {
+        "Bet365": {
+          "line": 11,
+          "over": "1.95",
+          "under": "1.86"
+        },
+        "DraftKings": {
+          "line": 11,
+          "over": "1.98",
+          "under": "1.84"
+        }
+      }
+    },
+    "New York Yankees@Baltimore Orioles@2026-08-18": {
+      "home": "Baltimore Orioles",
+      "away": "New York Yankees",
+      "date": "2026-08-18T22:35:00Z",
+      "moneyline": {},
+      "total": {}
+    },
+    "St. Louis Cardinals@Cincinnati Reds@2026-08-18": {
+      "home": "Cincinnati Reds",
+      "away": "St. Louis Cardinals",
+      "date": "2026-08-18T22:40:00Z",
+      "moneyline": {},
+      "total": {}
+    },
+    "Miami Marlins@Philadelphia Phillies@2026-08-18": {
+      "home": "Philadelphia Phillies",
+      "away": "Miami Marlins",
+      "date": "2026-08-18T22:40:00Z",
+      "moneyline": {},
+      "total": {}
+    },
+    "Toronto Blue Jays@Tampa Bay Rays@2026-08-18": {
+      "home": "Tampa Bay Rays",
+      "away": "Toronto Blue Jays",
+      "date": "2026-08-18T22:40:00Z",
+      "moneyline": {},
+      "total": {}
+    },
+    "Detroit Tigers@Pittsburgh Pirates@2026-08-18": {
+      "home": "Pittsburgh Pirates",
+      "away": "Detroit Tigers",
+      "date": "2026-08-18T22:40:00Z",
+      "moneyline": {},
+      "total": {}
+    },
+    "San Francisco Giants@Cleveland Guardians@2026-08-18": {
+      "home": "Cleveland Guardians",
+      "away": "San Francisco Giants",
+      "date": "2026-08-18T22:40:00Z",
+      "moneyline": {},
+      "total": {}
+    }
+  }
+}

@@ -258,6 +258,12 @@
     cursor: help;
     white-space: nowrap;
   }
+  .chip-odds {
+    background: rgba(62,207,142,0.1);
+    border-color: rgba(62,207,142,0.35);
+    color: var(--win);
+    font-weight: 700;
+  }
   .trend-tag {
     display: inline-block;
     padding: 1px 7px;
@@ -676,7 +682,45 @@ function pitcherWord(n) {
   return n === 1 ? "pitcher" : "pitchers";
 }
 
-async function renderPickCard(game, standingsMap) {
+function shortTeamName(name) {
+  const twoWord = ["Red Sox", "White Sox", "Blue Jays"];
+  const match = twoWord.find(w => name.endsWith(w));
+  if (match) return match;
+  return name.split(" ").pop();
+}
+
+function oddsChip(away, home, gameDateISO, oddsMap) {
+  const key = `${away.team.name}@${home.team.name}@${gameDateISO.slice(0, 10)}`;
+  const entry = oddsMap[key];
+  if (!entry) return { chip: "", title: "" };
+  const mlBooks = Object.keys(entry.moneyline ?? {});
+  const totalBooks = Object.keys(entry.total ?? {});
+  if (!mlBooks.length && !totalBooks.length) return { chip: "", title: "" };
+
+  const parts = [];
+  if (mlBooks.length) {
+    const ml = entry.moneyline[mlBooks[0]];
+    parts.push(`${shortTeamName(away.team.name)} ${ml.away} / ${shortTeamName(home.team.name)} ${ml.home}`);
+  }
+  if (totalBooks.length) {
+    parts.push(`O/U ${entry.total[totalBooks[0]].line}`);
+  }
+  const chip = `💰 ${parts.join(" · ")}`;
+
+  const titleLines = [];
+  mlBooks.forEach(bk => {
+    const ml = entry.moneyline[bk];
+    titleLines.push(`${bk} ML — ${away.team.name}: ${ml.away} · ${home.team.name}: ${ml.home}`);
+  });
+  totalBooks.forEach(bk => {
+    const t = entry.total[bk];
+    titleLines.push(`${bk} Total — línea ${t.line} (Over ${t.over ?? "-"} / Under ${t.under ?? "-"})`);
+  });
+  titleLines.push("Cuotas decimales. Datos de Bet365/DraftKings, actualizados cada 2 horas.");
+  return { chip, title: titleLines.join("\n") };
+}
+
+async function renderPickCard(game, standingsMap, oddsMap) {
   const away = game.teams.away, home = game.teams.home;
   const awayForm = teamFormScore(away.team.id, standingsMap);
   const homeForm = teamFormScore(home.team.id, standingsMap);
@@ -734,6 +778,8 @@ async function renderPickCard(game, standingsMap) {
     ? { label: "⚖️ Parejo", cls: "neutral", title: "Sin ventaja estadística clara entre ambos equipos." }
     : { label: `🏆 ${leanHome ? home.team.name : away.team.name}`, cls: "hot", title: "Mejores números recientes: récord, racha y abridor." };
 
+  const odds = oddsChip(away, home, game.gameDate, oddsMap ?? {});
+
   function compareCol(team, form, snap, pitcher) {
     return `
       <div class="compare-col">
@@ -764,24 +810,35 @@ async function renderPickCard(game, standingsMap) {
         ${parkChip ? `<span class="chip" title="${parkTitle}">${parkChip}</span>` : ""}
         ${weatherChip ? `<span class="chip" title="${weatherTitle}">${weatherChip}</span>` : ""}
         ${bullpenChip ? `<span class="chip" title="${bullpenTitle}">${bullpenChip}</span>` : ""}
+        ${odds.chip ? `<span class="chip chip-odds" title="${odds.title}">${odds.chip}</span>` : ""}
       </div>
     </div>`;
+}
+
+async function loadOddsSnapshot() {
+  try {
+    const data = await getJSON("data/odds.json");
+    return data.games ?? {};
+  } catch {
+    return {};
+  }
 }
 
 async function loadPicks(date) {
   const el = document.getElementById("picksList");
   el.innerHTML = '<div class="loading">Calculando señales…</div>';
   try {
-    const [scheduleData, standingsMap] = await Promise.all([
+    const [scheduleData, standingsMap, oddsMap] = await Promise.all([
       getJSON(`${API}/schedule?sportId=1&date=${date}&hydrate=probablePitcher`),
-      buildStandingsMap()
+      buildStandingsMap(),
+      loadOddsSnapshot()
     ]);
     const games = (scheduleData.dates?.[0]?.games ?? []).filter(g => g.status.abstractGameState === "Preview");
     if (!games.length) {
       el.innerHTML = '<div class="muted">No hay partidos por jugarse ese día (ya finalizaron o no hay calendario).</div>';
       return;
     }
-    const cardsHTML = await Promise.all(games.map(g => renderPickCard(g, standingsMap)));
+    const cardsHTML = await Promise.all(games.map(g => renderPickCard(g, standingsMap, oddsMap)));
     el.innerHTML = cardsHTML.join("");
   } catch (e) {
     el.innerHTML = `<div class="error">No se pudieron calcular las señales (${e.message}).</div>`;
