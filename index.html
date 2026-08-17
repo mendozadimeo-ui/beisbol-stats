@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Béisbol Stats</title>
+<style>
+  :root {
+    --bg: #0f1720;
+    --panel: #17212c;
+    --panel-2: #1f2b38;
+    --border: #2a3644;
+    --text: #e7edf3;
+    --muted: #8a99a8;
+    --accent: #4fb0ff;
+    --win: #3ecf8e;
+    --loss: #ef5b5b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+  }
+  header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  header h1 { font-size: 20px; margin: 0; flex-shrink: 0; }
+  header h1 span { color: var(--accent); }
+  nav {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  nav::-webkit-scrollbar { display: none; }
+  nav button {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  nav button.active {
+    color: var(--text);
+    border-color: var(--accent);
+    background: var(--panel-2);
+  }
+  main {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    overflow-x: hidden;
+  }
+  .tab { display: none; }
+  .tab.active { display: block; }
+  .toolbar {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  input[type="date"], input[type="text"], select {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+  }
+  .game-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .teams { display: flex; flex-direction: column; gap: 4px; font-size: 15px; }
+  .team-line { display: flex; justify-content: space-between; gap: 20px; min-width: 260px; }
+  .team-line.winner { font-weight: 700; }
+  .pitchers-row { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .probable-pitcher { cursor: pointer; }
+  .probable-pitcher:hover { color: var(--accent); text-decoration: underline; }
+  .status { color: var(--muted); font-size: 13px; text-align: right; min-width: 90px; }
+  .status.live { color: var(--win); font-weight: 600; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { padding: 6px 8px; text-align: right; border-bottom: 1px solid var(--border); }
+  th:first-child, td:first-child { text-align: left; }
+  th { color: var(--muted); font-weight: 500; font-size: 12px; text-transform: uppercase; }
+  .streak-w { color: var(--win); font-weight: 600; }
+  .streak-l { color: var(--loss); font-weight: 600; }
+  .division-title { color: var(--accent); font-size: 14px; margin: 18px 0 8px; font-weight: 600; }
+  .muted { color: var(--muted); }
+  .player-results { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; }
+  .player-result-item {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .player-result-item:hover { border-color: var(--accent); }
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 10px;
+    margin: 14px 0;
+  }
+  .stat-box {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+  }
+  .stat-box .v { font-size: 18px; font-weight: 700; }
+  .stat-box .l { font-size: 11px; color: var(--muted); text-transform: uppercase; margin-top: 2px; }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .badge.hot { background: rgba(62,207,142,0.15); color: var(--win); }
+  .badge.cold { background: rgba(239,91,91,0.15); color: var(--loss); }
+  .badge.neutral { background: rgba(138,153,168,0.15); color: var(--muted); }
+  .loading, .error { color: var(--muted); padding: 20px 0; }
+  .error { color: var(--loss); }
+  .back-link { color: var(--accent); cursor: pointer; font-size: 13px; margin-bottom: 10px; display: inline-block; }
+  .disclaimer {
+    background: rgba(79,176,255,0.08);
+    border: 1px solid rgba(79,176,255,0.25);
+    color: var(--muted);
+    font-size: 12px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+  .pick-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 14px;
+  }
+  .pick-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .pick-teams { font-size: 15px; font-weight: 600; }
+  .pick-time { color: var(--muted); font-size: 12px; }
+  .pick-side {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    gap: 10px;
+  }
+  .pick-side:last-of-type { border-bottom: none; }
+  .pick-side .side-name { font-weight: 600; }
+  .pick-side .side-name.edge { color: var(--accent); }
+  .pick-side .side-meta { color: var(--muted); font-size: 12px; text-align: right; }
+  .pitcher-meta { color: var(--muted); font-size: 12px; }
+  .pick-signal {
+    margin-top: 12px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: var(--panel-2);
+    font-size: 13px;
+  }
+  .pick-signal .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-right: 8px;
+  }
+  .tag.lean { background: rgba(62,207,142,0.15); color: var(--win); }
+  .tag.even { background: rgba(138,153,168,0.15); color: var(--muted); }
+  .pick-reasons { margin: 6px 0 0; padding-left: 18px; color: var(--muted); font-size: 12px; }
+  .weather-line, .park-line { color: var(--muted); font-size: 12px; margin-top: 4px; }
+  .trend-tag {
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 700;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .trend-tag.up { background: rgba(62,207,142,0.15); color: var(--win); }
+  .trend-tag.down { background: rgba(239,91,91,0.15); color: var(--loss); }
+  .trend-tag.flat { background: rgba(138,153,168,0.15); color: var(--muted); }
+  .group-toggle { display: flex; gap: 6px; }
+  .group-toggle button {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 7px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .group-toggle button.active { color: var(--text); border-color: var(--accent); background: var(--panel-2); }
+  .stat-chips { display: flex; gap: 6px; overflow-x: auto; padding: 4px 0 10px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .stat-chips::-webkit-scrollbar { display: none; }
+  .stat-chips button {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 6px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .stat-chips button.active { background: var(--accent); color: #06131f; border-color: var(--accent); }
+  .leader-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 6px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+  }
+  .leader-row:hover { background: var(--panel-2); }
+  .leader-rank { color: var(--muted); font-size: 13px; width: 20px; flex-shrink: 0; }
+  .leader-photo {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--panel-2) center/cover no-repeat;
+    flex-shrink: 0;
+    border: 1px solid var(--border);
+  }
+  .leader-name { font-weight: 600; flex: 1; min-width: 0; }
+  .leader-team { color: var(--muted); font-size: 12px; display: block; font-weight: 400; }
+  .leader-value { font-size: 16px; font-weight: 700; }
+  .player-header-row { display: flex; align-items: center; gap: 14px; }
+  .player-photo-lg { width: 64px; height: 64px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>⚾ Béisbol <span>Stats</span></h1>
+  <nav>
+    <button class="tab-btn active" data-tab="scores">Marcadores</button>
+    <button class="tab-btn" data-tab="picks">Picks del Día</button>
+    <button class="tab-btn" data-tab="leaders">Líderes</button>
+    <button class="tab-btn" data-tab="standings">Posiciones</button>
+    <button class="tab-btn" data-tab="players">Jugadores</button>
+  </nav>
+</header>
+
+<main>
+
+  <section id="tab-scores" class="tab active">
+    <div class="toolbar">
+      <input type="date" id="scoreDate">
+      <span class="muted" id="scoreDateLabel"></span>
+    </div>
+    <div id="scoresList"><div class="loading">Cargando marcadores…</div></div>
+  </section>
+
+  <section id="tab-picks" class="tab">
+    <div class="disclaimer">
+      Análisis estadístico automático a partir de récord, racha y forma del abridor. No es una predicción garantizada — es contexto para que decidas vos. Apostá con responsabilidad.
+    </div>
+    <div class="toolbar">
+      <input type="date" id="picksDate">
+    </div>
+    <div id="picksList"><div class="loading">Calculando señales…</div></div>
+  </section>
+
+  <section id="tab-leaders" class="tab">
+    <div class="group-toggle" id="leaderGroupToggle">
+      <button data-group="hitting" class="active">Bateo</button>
+      <button data-group="pitching">Pitcheo</button>
+    </div>
+    <div class="stat-chips" id="leaderChips"></div>
+    <div id="leadersList"><div class="loading">Cargando líderes…</div></div>
+  </section>
+
+  <section id="tab-standings" class="tab">
+    <div class="toolbar">
+      <select id="leagueSelect">
+        <option value="103,104">Ambas ligas</option>
+        <option value="103">American League</option>
+        <option value="104">National League</option>
+      </select>
+    </div>
+    <div id="standingsList"><div class="loading">Cargando posiciones…</div></div>
+  </section>
+
+  <section id="tab-players" class="tab">
+    <div class="toolbar">
+      <input type="text" id="playerSearch" placeholder="Buscar jugador (ej: Judge, Ohtani)">
+    </div>
+    <div id="playerResults" class="player-results"></div>
+    <div id="playerDetail"></div>
+  </section>
+
+</main>
+
+<script>
+const API = "https://statsapi.mlb.com/api/v1";
+const currentSeason = new Date().getFullYear();
+
+const DIVISION_NAMES = {
+  200: "AL Oeste", 201: "AL Este", 202: "AL Central",
+  203: "NL Oeste", 204: "NL Este", 205: "NL Central"
+};
+
+// Coordenadas oficiales (API de MLB). Factor de parque: aproximación histórica/reputacional
+// (no es un cálculo en vivo) para dar contexto de si el estadio favorece bateo o pitcheo.
+const VENUES = {
+  133: { name: "Sutter Health Park", lat: 38.57994, lon: -121.51246, roofed: false, parkFactor: 0.2, parkLabel: "Favorece bateo (parque chico)", note: "Estadio de ligas menores con dimensiones reducidas — favorece jonrones inesperados." },
+  134: { name: "PNC Park", lat: 40.446904, lon: -80.005753, roofed: false, parkFactor: -0.25, parkLabel: "Favorece pitcheo", note: "Jardines profundos que castigan el poder y favorecen dobles/triples." },
+  135: { name: "Petco Park", lat: 32.707861, lon: -117.157278, roofed: false, parkFactor: -0.3, parkLabel: "Favorece pitcheo", note: "Aire húmedo marino y jardines amplios que suprimen el jonrón." },
+  136: { name: "T-Mobile Park", lat: 47.591333, lon: -122.33251, roofed: false, parkFactor: -0.35, parkLabel: "Favorece pitcheo (aire marino)", note: "Aire frío y denso del Pacífico — la bola no viaja, ideal para pitcheo." },
+  137: { name: "Oracle Park", lat: 37.778383, lon: -122.389448, roofed: false, parkFactor: -0.45, parkLabel: "Favorece pitcheo fuerte (marine layer)", note: "La bruma marina nocturna lo hace el parque más difícil para jonronear de las Mayores." },
+  138: { name: "Busch Stadium", lat: 38.62256667, lon: -90.19286667, roofed: false, parkFactor: -0.2, parkLabel: "Favorece pitcheo (leve)", note: "Jardines grandes — leve ventaja al pitcheo." },
+  139: { name: "Tropicana Field", lat: 27.767778, lon: -82.6525, roofed: true, parkFactor: -0.1, parkLabel: "Neutral (techo)", note: "Estadio techado y controlado, sin factores climáticos — leve favor al pitcheo." },
+  140: { name: "Globe Life Field", lat: 32.747299, lon: -97.081818, roofed: true, parkFactor: 0, parkLabel: "Neutral (techo retráctil)", note: "Techo casi siempre cerrado con A/C — condiciones estables y neutras." },
+  141: { name: "Rogers Centre", lat: 43.64155, lon: -79.38915, roofed: true, parkFactor: 0.1, parkLabel: "Leve bateo (techo retráctil)", note: "Superficie rápida bajo techo — leve ventaja ofensiva." },
+  142: { name: "Target Field", lat: 44.981829, lon: -93.277891, roofed: false, parkFactor: 0, parkLabel: "Neutral", note: "Parque equilibrado, sin extremos marcados." },
+  143: { name: "Citizens Bank Park", lat: 39.90539086, lon: -75.16716957, roofed: false, parkFactor: 0.35, parkLabel: "Favorece bateo", note: "Jardines cortos, sobre todo a la izquierda — uno de los mejores para jonronear." },
+  144: { name: "Truist Park", lat: 33.890672, lon: -84.467641, roofed: false, parkFactor: 0.1, parkLabel: "Leve bateo", note: "Dimensiones estándar con leve tendencia ofensiva en verano." },
+  145: { name: "Rate Field", lat: 41.83, lon: -87.634167, roofed: false, parkFactor: 0.15, parkLabel: "Leve bateo", note: "Viento variable de Chicago — algo ofensivo en general." },
+  146: { name: "loanDepot park", lat: 25.77796236, lon: -80.21951795, roofed: true, parkFactor: -0.35, parkLabel: "Favorece pitcheo (techo)", note: "Techo cerrado, A/C y jardines profundos — muy duro para el jonrón." },
+  147: { name: "Yankee Stadium", lat: 40.82919482, lon: -73.9264977, roofed: false, parkFactor: 0.3, parkLabel: "Favorece bateo (porche corto)", note: "El jardín derecho corto es un imán de jonrones para bateadores zurdos." },
+  158: { name: "American Family Field", lat: 43.02838, lon: -87.97099, roofed: true, parkFactor: 0.1, parkLabel: "Leve bateo (techo retráctil)", note: "Techo retráctil, condiciones controladas — leve favor ofensivo." },
+  108: { name: "Angel Stadium", lat: 33.80019044, lon: -117.8823996, roofed: false, parkFactor: 0, parkLabel: "Neutral", note: "Dimensiones estándar, sin sesgo marcado." },
+  109: { name: "Chase Field", lat: 33.445302, lon: -112.066687, roofed: true, parkFactor: 0.25, parkLabel: "Leve bateo (techo retráctil)", note: "Techo casi siempre cerrado con A/C — el aire seco de Phoenix favorece algo el bateo." },
+  110: { name: "Oriole Park at Camden Yards", lat: 39.283787, lon: -76.621689, roofed: false, parkFactor: 0, parkLabel: "Neutral", note: "Tras mover la barda izquierda en 2022 es mucho más parejo que antes." },
+  111: { name: "Fenway Park", lat: 42.346456, lon: -71.097441, roofed: false, parkFactor: 0.3, parkLabel: "Favorece bateo (dobles, Green Monster)", note: "El Green Monster genera muchos dobles, aunque no tantos jonrones como parece." },
+  112: { name: "Wrigley Field", lat: 41.948171, lon: -87.655503, roofed: false, parkFactor: 0, parkLabel: "Variable (depende mucho del viento)", note: "El más impredecible: viento a favor = lluvia de jonrones, viento en contra = mata la ofensiva." },
+  113: { name: "Great American Ball Park", lat: 39.097389, lon: -84.506611, roofed: false, parkFactor: 0.4, parkLabel: "Favorece bateo", note: "Dimensiones chicas — uno de los parques más generosos con el jonrón." },
+  114: { name: "Progressive Field", lat: 41.495861, lon: -81.685255, roofed: false, parkFactor: -0.1, parkLabel: "Neutral/leve pitcheo", note: "Clima fresco que suele bajar el promedio ofensivo." },
+  115: { name: "Coors Field", lat: 39.756042, lon: -104.994136, roofed: false, parkFactor: 0.9, parkLabel: "Favorece bateo extremo (altitud)", note: "La altitud de Denver reduce el quiebre de los lanzamientos y ayuda a la bola a volar — el parque más ofensivo de las Mayores." },
+  116: { name: "Comerica Park", lat: 42.3391151, lon: -83.048695, roofed: false, parkFactor: -0.3, parkLabel: "Favorece pitcheo", note: "Jardines muy profundos, históricamente duro para el poder." },
+  117: { name: "Daikin Park", lat: 29.756967, lon: -95.355509, roofed: true, parkFactor: 0.1, parkLabel: "Neutral/leve bateo (techo retráctil)", note: "El Crawford Boxes en el jardín izquierdo es corto — favorece jonrones de zurdos." },
+  118: { name: "Kauffman Stadium", lat: 39.051567, lon: -94.480483, roofed: false, parkFactor: -0.25, parkLabel: "Favorece pitcheo", note: "Jardines amplios y césped natural — favorece pitcheo y bases robadas." },
+  119: { name: "Dodger Stadium", lat: 34.07368, lon: -118.24053, roofed: false, parkFactor: -0.15, parkLabel: "Leve pitcheo", note: "Aire nocturno pesado en Los Ángeles — leve ventaja al pitcheo." },
+  120: { name: "Nationals Park", lat: 38.872861, lon: -77.007501, roofed: false, parkFactor: 0, parkLabel: "Neutral", note: "Parque parejo, sin tendencias marcadas." },
+  121: { name: "Citi Field", lat: 40.75753012, lon: -73.84559155, roofed: false, parkFactor: -0.2, parkLabel: "Favorece pitcheo (leve)", note: "Tras achicar las bardas en 2012 es más parejo, pero sigue favoreciendo algo al pitcheo." }
+};
+
+const COMPASS = ["N", "NE", "E", "SE", "S", "SO", "O", "NO"];
+function windDirLabel(deg) {
+  if (deg == null) return "-";
+  return COMPASS[Math.round(deg / 45) % 8];
+}
+
+async function getWeatherSnapshot(teamId, gameDateISO) {
+  const venue = VENUES[teamId];
+  if (!venue) return null;
+  if (venue.roofed) return { roofed: true };
+  try {
+    const dateStr = gameDateISO.slice(0, 10);
+    const hourStr = gameDateISO.slice(0, 13); // YYYY-MM-DDTHH
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${venue.lat}&longitude=${venue.lon}&hourly=temperature_2m,precipitation_probability,wind_speed_10m,wind_direction_10m&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=UTC&start_date=${dateStr}&end_date=${dateStr}`;
+    const data = await getJSON(url);
+    const idx = data.hourly?.time?.findIndex(t => t.startsWith(hourStr));
+    if (idx == null || idx < 0) return null;
+    return {
+      roofed: false,
+      temp: Math.round(data.hourly.temperature_2m[idx]),
+      windSpeed: Math.round(data.hourly.wind_speed_10m[idx]),
+      windDir: windDirLabel(data.hourly.wind_direction_10m[idx]),
+      precipProb: data.hourly.precipitation_probability[idx]
+    };
+  } catch {
+    return null;
+  }
+}
+
+function todayISO() {
+  const d = new Date();
+  return d.toISOString().slice(0, 10);
+}
+
+async function getJSON(url) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error("HTTP " + res.status);
+  return res.json();
+}
+
+// ---------- Tabs ----------
+document.querySelectorAll(".tab-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById("tab-" + btn.dataset.tab).classList.add("active");
+  });
+});
+
+// ---------- Marcadores ----------
+const scoreDateInput = document.getElementById("scoreDate");
+scoreDateInput.value = todayISO();
+scoreDateInput.addEventListener("change", () => loadScores(scoreDateInput.value));
+
+function statusClass(state) {
+  if (state === "Live" || state === "In Progress") return "status live";
+  return "status";
+}
+
+function pitcherLine(team) {
+  const p = team.probablePitcher;
+  if (!p) return "";
+  return `<span class="probable-pitcher" data-player-id="${p.id}">🥎 ${p.fullName}</span>`;
+}
+
+function formatGame(game) {
+  const away = game.teams.away, home = game.teams.home;
+  const state = game.status.detailedState;
+  const finished = game.status.abstractGameState === "Final";
+  const notStarted = game.status.abstractGameState === "Preview";
+  const awayScore = away.score ?? "-";
+  const homeScore = home.score ?? "-";
+  const awayWin = finished && away.score > home.score;
+  const homeWin = finished && home.score > away.score;
+  return `
+    <div class="card game-row">
+      <div class="teams">
+        <div class="team-line ${awayWin ? "winner" : ""}">
+          <span>${away.team.name}</span><span>${awayScore}</span>
+        </div>
+        <div class="team-line ${homeWin ? "winner" : ""}">
+          <span>${home.team.name}</span><span>${homeScore}</span>
+        </div>
+        ${notStarted ? `<div class="pitchers-row">${pitcherLine(away)} vs ${pitcherLine(home)}</div>` : ""}
+      </div>
+      <div class="${statusClass(state)}">${state}</div>
+    </div>`;
+}
+
+async function loadScores(date) {
+  const el = document.getElementById("scoresList");
+  document.getElementById("scoreDateLabel").textContent = date;
+  el.innerHTML = '<div class="loading">Cargando marcadores…</div>';
+  try {
+    const data = await getJSON(`${API}/schedule?sportId=1&date=${date}&hydrate=probablePitcher`);
+    const games = data.dates?.[0]?.games ?? [];
+    if (!games.length) {
+      el.innerHTML = '<div class="muted">No hay partidos programados para este día.</div>';
+      return;
+    }
+    el.innerHTML = games.map(formatGame).join("");
+    el.querySelectorAll(".probable-pitcher").forEach(span => {
+      span.addEventListener("click", () => openPlayerInTab(span.dataset.playerId));
+    });
+  } catch (e) {
+    el.innerHTML = `<div class="error">No se pudieron cargar los marcadores (${e.message}).</div>`;
+  }
+}
+
+function openPlayerInTab(playerId) {
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === "players"));
+  document.querySelectorAll(".tab").forEach(t => t.classList.toggle("active", t.id === "tab-players"));
+  loadPlayerDetail(playerId);
+}
+
+// ---------- Picks del Día ----------
+const picksDateInput = document.getElementById("picksDate");
+picksDateInput.value = todayISO();
+picksDateInput.addEventListener("change", () => loadPicks(picksDateInput.value));
+
+async function buildStandingsMap() {
+  const data = await getJSON(`${API}/standings?leagueId=103,104&season=${currentSeason}&standingsTypes=regularSeason`);
+  const map = {};
+  (data.records ?? []).forEach(division => {
+    division.teamRecords.forEach(r => {
+      const last10 = r.records?.splitRecords?.find(s => s.type === "lastTen");
+      map[r.team.id] = {
+        pct: parseFloat(r.leagueRecord.pct) || 0.5,
+        streakType: r.streak?.streakType,
+        streakNumber: r.streak?.streakNumber ?? 0,
+        streakCode: r.streak?.streakCode ?? "-",
+        last10Wins: last10 ? last10.wins : 0,
+        last10Losses: last10 ? last10.losses : 0
+      };
+    });
+  });
+  return map;
+}
+
+async function getPitcherSnapshot(id) {
+  try {
+    const [seasonData, logData] = await Promise.all([
+      getJSON(`${API}/people/${id}/stats?stats=season&group=pitching&season=${currentSeason}`),
+      getJSON(`${API}/people/${id}/stats?stats=gameLog&group=pitching&season=${currentSeason}`)
+    ]);
+    const season = seasonData.stats?.[0]?.splits?.[0]?.stat;
+    const log = logData.stats?.[0]?.splits ?? [];
+    const last5 = log.slice(-5);
+    const last5ER = last5.reduce((s, g) => s + (g.stat.earnedRuns ?? 0), 0);
+    const last5IP = last5.reduce((s, g) => s + (parseFloat(g.stat.inningsPitched) || 0), 0);
+    const last5Era = last5IP ? (last5ER / last5IP * 9) : null;
+    return {
+      era: season?.era != null ? parseFloat(season.era) : null,
+      whip: season?.whip ?? "-",
+      last5Era,
+      last5Count: last5.length
+    };
+  } catch {
+    return { era: null, whip: "-", last5Era: null, last5Count: 0 };
+  }
+}
+
+function teamFormScore(teamId, standingsMap) {
+  const t = standingsMap[teamId];
+  if (!t) return { score: 0, t: null };
+  const streakSigned = t.streakType === "wins" ? t.streakNumber : -t.streakNumber;
+  const last10Diff = t.last10Wins - t.last10Losses;
+  const score = (t.pct - 0.5) * 20 + streakSigned * 1.5 + last10Diff * 1.2;
+  return { score, t };
+}
+
+function pitcherScore(era) {
+  if (era == null || isNaN(era)) return 0;
+  return (4.20 - era);
+}
+
+function pitcherTrendTag(snap) {
+  if (!snap || snap.era == null || snap.last5Era == null) return "";
+  const delta = snap.last5Era - snap.era;
+  if (delta < -0.75) return `<span class="trend-tag up">Mejorando</span>`;
+  if (delta > 0.75) return `<span class="trend-tag down">Empeorando</span>`;
+  return `<span class="trend-tag flat">Estable</span>`;
+}
+
+async function getBullpenUsage(teamId, beforeDateISO) {
+  try {
+    const before = new Date(beforeDateISO);
+    const end = new Date(before); end.setUTCDate(end.getUTCDate() - 1);
+    const start = new Date(before); start.setUTCDate(start.getUTCDate() - 7);
+    const fmt = d => d.toISOString().slice(0, 10);
+    const data = await getJSON(`${API}/schedule?sportId=1&teamId=${teamId}&startDate=${fmt(start)}&endDate=${fmt(end)}`);
+    const finals = (data.dates ?? []).flatMap(d => d.games).filter(g => g.status.abstractGameState === "Final");
+    if (!finals.length) return null;
+    const last = finals[finals.length - 1];
+    const box = await getJSON(`${API}/game/${last.gamePk}/boxscore`);
+    const side = box.teams.home.team.id === teamId ? "home" : "away";
+    const count = box.teams[side]?.pitchers?.length ?? null;
+    return count != null ? { count, date: last.officialDate } : null;
+  } catch {
+    return null;
+  }
+}
+
+function formatShortDate(iso) {
+  const [y, m, d] = iso.split("-");
+  return `${d}/${m}`;
+}
+
+function pitcherWord(n) {
+  return n === 1 ? "pitcher" : "pitchers";
+}
+
+async function renderPickCard(game, standingsMap) {
+  const away = game.teams.away, home = game.teams.home;
+  const awayForm = teamFormScore(away.team.id, standingsMap);
+  const homeForm = teamFormScore(home.team.id, standingsMap);
+
+  const awayPitcher = away.probablePitcher;
+  const homePitcher = home.probablePitcher;
+  const [awaySnap, homeSnap, weather, awayBullpen, homeBullpen] = await Promise.all([
+    awayPitcher ? getPitcherSnapshot(awayPitcher.id) : Promise.resolve(null),
+    homePitcher ? getPitcherSnapshot(homePitcher.id) : Promise.resolve(null),
+    getWeatherSnapshot(home.team.id, game.gameDate),
+    getBullpenUsage(away.team.id, game.gameDate),
+    getBullpenUsage(home.team.id, game.gameDate)
+  ]);
+  const park = VENUES[home.team.id];
+
+  const awayScore = awayForm.score + pitcherScore(awaySnap?.era) * 1.5;
+  const homeScore = homeForm.score + pitcherScore(homeSnap?.era) * 1.5 + 0.3; // leve ventaja de local
+  const diff = homeScore - awayScore;
+  const leanHome = diff > 0;
+  const isEven = Math.abs(diff) < 1.5;
+
+  const reasons = [];
+  if (awayForm.t) reasons.push(`${away.team.name}: ${(awayForm.t.pct).toFixed(3)} PCT, racha ${awayForm.t.streakCode}, últimos 10: ${awayForm.t.last10Wins}-${awayForm.t.last10Losses}`);
+  if (homeForm.t) reasons.push(`${home.team.name}: ${(homeForm.t.pct).toFixed(3)} PCT, racha ${homeForm.t.streakCode}, últimos 10: ${homeForm.t.last10Wins}-${homeForm.t.last10Losses}`);
+  if (awayPitcher && awaySnap) reasons.push(`Abridor visitante ${awayPitcher.fullName}: ERA ${awaySnap.era ?? "-"}, últimas ${awaySnap.last5Count || 5} aperturas ERA ${awaySnap.last5Era != null ? awaySnap.last5Era.toFixed(2) : "-"}`);
+  if (homePitcher && homeSnap) reasons.push(`Abridor local ${homePitcher.fullName}: ERA ${homeSnap.era ?? "-"}, últimas ${homeSnap.last5Count || 5} aperturas ERA ${homeSnap.last5Era != null ? homeSnap.last5Era.toFixed(2) : "-"}`);
+  if (awayBullpen) reasons.push(`Bullpen visitante: ${away.team.name} usó ${awayBullpen.count} ${pitcherWord(awayBullpen.count)} en su último juego (${formatShortDate(awayBullpen.date)})`);
+  if (homeBullpen) reasons.push(`Bullpen local: ${home.team.name} usó ${homeBullpen.count} ${pitcherWord(homeBullpen.count)} en su último juego (${formatShortDate(homeBullpen.date)})`);
+
+  let weatherNudge = 0;
+  let weatherLine = "";
+  if (weather?.roofed) {
+    weatherLine = "🏟️ Estadio con techo — el clima no debería afectar el juego.";
+  } else if (weather) {
+    if (weather.temp >= 85) weatherNudge = 0.2;
+    else if (weather.temp <= 50) weatherNudge = -0.2;
+    const rainNote = weather.precipProb >= 50 ? ` · ⚠️ ${weather.precipProb}% prob. de lluvia` : "";
+    weatherLine = `🌤️ ${weather.temp}°F · viento ${weather.windSpeed} mph ${weather.windDir}${rainNote}`;
+  }
+  const parkLine = park ? `🏟️ ${park.name}: ${park.parkLabel}${park.note ? ` — ${park.note}` : ""}` : "";
+  const bullpenLine = (awayBullpen || homeBullpen)
+    ? `🧢 Bullpen último juego: ${away.team.name} ${awayBullpen ? awayBullpen.count : "-"} pitchers · ${home.team.name} ${homeBullpen ? homeBullpen.count : "-"} pitchers`
+    : "";
+
+  let totalLean = "Sin datos suficientes de abridores para estimar el total.";
+  if (awaySnap?.era != null && homeSnap?.era != null) {
+    const combined = (awaySnap.era + homeSnap.era) / 2;
+    const parkAdj = (park?.parkFactor ?? 0) + weatherNudge;
+    const adjusted = combined - parkAdj;
+    if (adjusted < 3.6) totalLean = `ERA combinada de abridores (${combined.toFixed(2)}) + contexto de parque/clima → posible partido de pocas carreras (Under).`;
+    else if (adjusted > 4.6) totalLean = `ERA combinada de abridores (${combined.toFixed(2)}) + contexto de parque/clima → posible partido de muchas carreras (Over).`;
+    else totalLean = `ERA combinada de abridores (${combined.toFixed(2)}) pareja, incluso con parque/clima → sin inclinación clara en el total.`;
+  }
+
+  const leanLabel = isEven
+    ? `<span class="tag even">Parejo</span> Sin ventaja estadística clara entre ambos equipos.`
+    : `<span class="tag lean">Inclinación</span> ${leanHome ? home.team.name : away.team.name} muestra mejores números recientes (récord, racha y abridor).`;
+
+  return `
+    <div class="pick-card">
+      <div class="pick-header">
+        <div class="pick-teams">${away.team.name} @ ${home.team.name}</div>
+        <div class="pick-time">${new Date(game.gameDate).toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit" })}</div>
+      </div>
+      <div class="pick-side">
+        <span class="side-name ${!leanHome && !isEven ? "edge" : ""}">${away.team.name}</span>
+        <span class="side-meta">${awayPitcher ? awayPitcher.fullName : "Abridor TBD"} · ERA ${awaySnap?.era ?? "-"} ${pitcherTrendTag(awaySnap)}</span>
+      </div>
+      <div class="pick-side">
+        <span class="side-name ${leanHome && !isEven ? "edge" : ""}">${home.team.name}</span>
+        <span class="side-meta">${homePitcher ? homePitcher.fullName : "Abridor TBD"} · ERA ${homeSnap?.era ?? "-"} ${pitcherTrendTag(homeSnap)}</span>
+      </div>
+      <div class="pick-signal">
+        <div>${leanLabel}</div>
+        <ul class="pick-reasons">${reasons.map(r => `<li>${r}</li>`).join("")}</ul>
+        <div style="margin-top:6px;">${totalLean}</div>
+        ${parkLine ? `<div class="park-line">${parkLine}</div>` : ""}
+        ${weatherLine ? `<div class="weather-line">${weatherLine}</div>` : ""}
+        ${bullpenLine ? `<div class="weather-line">${bullpenLine}</div>` : ""}
+      </div>
+    </div>`;
+}
+
+async function loadPicks(date) {
+  const el = document.getElementById("picksList");
+  el.innerHTML = '<div class="loading">Calculando señales…</div>';
+  try {
+    const [scheduleData, standingsMap] = await Promise.all([
+      getJSON(`${API}/schedule?sportId=1&date=${date}&hydrate=probablePitcher`),
+      buildStandingsMap()
+    ]);
+    const games = (scheduleData.dates?.[0]?.games ?? []).filter(g => g.status.abstractGameState === "Preview");
+    if (!games.length) {
+      el.innerHTML = '<div class="muted">No hay partidos por jugarse ese día (ya finalizaron o no hay calendario).</div>';
+      return;
+    }
+    const cardsHTML = await Promise.all(games.map(g => renderPickCard(g, standingsMap)));
+    el.innerHTML = cardsHTML.join("");
+  } catch (e) {
+    el.innerHTML = `<div class="error">No se pudieron calcular las señales (${e.message}).</div>`;
+  }
+}
+
+// ---------- Líderes ----------
+const LEADER_CATEGORIES = {
+  hitting: [
+    { key: "homeRuns", label: "HR" },
+    { key: "hits", label: "H" },
+    { key: "onBasePlusSlugging", label: "OPS" },
+    { key: "battingAverage", label: "AVG" },
+    { key: "rbi", label: "RBI" },
+    { key: "totalBases", label: "TB" },
+    { key: "doubles", label: "2B" },
+    { key: "triples", label: "3B" },
+    { key: "stolenBases", label: "SB" },
+    { key: "baseOnBalls", label: "BB" },
+    { key: "strikeOuts", label: "SO" },
+    { key: "onBasePercentage", label: "OBP" },
+    { key: "sluggingPercentage", label: "SLG" }
+  ],
+  pitching: [
+    { key: "earnedRunAverage", label: "ERA" },
+    { key: "walksAndHitsPerInningPitched", label: "WHIP" },
+    { key: "wins", label: "W" },
+    { key: "strikeOuts", label: "K" },
+    { key: "strikeoutsPer9Inn", label: "K/9" },
+    { key: "strikeoutWalkRatio", label: "K/BB" },
+    { key: "saves", label: "SV" },
+    { key: "inningsPitched", label: "IP" },
+    { key: "winPercentage", label: "W%" }
+  ]
+};
+let leaderGroup = "hitting";
+let leaderCategory = "homeRuns";
+
+document.querySelectorAll("#leaderGroupToggle button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    leaderGroup = btn.dataset.group;
+    leaderCategory = LEADER_CATEGORIES[leaderGroup][0].key;
+    document.querySelectorAll("#leaderGroupToggle button").forEach(b => b.classList.toggle("active", b === btn));
+    renderLeaderChips();
+    loadLeaders();
+  });
+});
+
+function renderLeaderChips() {
+  const chipsEl = document.getElementById("leaderChips");
+  chipsEl.innerHTML = LEADER_CATEGORIES[leaderGroup].map(c =>
+    `<button data-key="${c.key}" class="${c.key === leaderCategory ? "active" : ""}">${c.label}</button>`
+  ).join("");
+  chipsEl.querySelectorAll("button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      leaderCategory = btn.dataset.key;
+      chipsEl.querySelectorAll("button").forEach(b => b.classList.toggle("active", b === btn));
+      loadLeaders();
+    });
+  });
+}
+
+function headshotURL(playerId) {
+  return `https://img.mlbstatic.com/mlb-photos/image/upload/w_72,q_100/v1/people/${playerId}/headshot/67/current`;
+}
+
+async function loadLeaders() {
+  const el = document.getElementById("leadersList");
+  el.innerHTML = '<div class="loading">Cargando líderes…</div>';
+  try {
+    const data = await getJSON(`${API}/stats/leaders?leaderCategories=${leaderCategory}&season=${currentSeason}&sportId=1&limit=25&statGroup=${leaderGroup}`);
+    const leaders = data.leagueLeaders?.[0]?.leaders ?? [];
+    if (!leaders.length) {
+      el.innerHTML = '<div class="muted">Sin datos para esta categoría.</div>';
+      return;
+    }
+    el.innerHTML = leaders.map(l => `
+      <div class="leader-row" data-player-id="${l.person.id}">
+        <span class="leader-rank">${l.rank}</span>
+        <span class="leader-photo" style="background-image:url('${headshotURL(l.person.id)}')"></span>
+        <span class="leader-name">${l.person.fullName}<span class="leader-team">${l.team?.name ?? ""}</span></span>
+        <span class="leader-value">${l.value}</span>
+      </div>`).join("");
+    el.querySelectorAll(".leader-row").forEach(row => {
+      row.addEventListener("click", () => openPlayerInTab(row.dataset.playerId));
+    });
+  } catch (e) {
+    el.innerHTML = `<div class="error">No se pudieron cargar los líderes (${e.message}).</div>`;
+  }
+}
+
+renderLeaderChips();
+
+// ---------- Posiciones ----------
+document.getElementById("leagueSelect").addEventListener("change", loadStandings);
+
+function streakHTML(streak) {
+  if (!streak?.streakCode) return "-";
+  const cls = streak.streakType === "wins" ? "streak-w" : "streak-l";
+  return `<span class="${cls}">${streak.streakCode}</span>`;
+}
+
+function last10(rec) {
+  const split = rec.records?.splitRecords?.find(s => s.type === "lastTen");
+  return split ? `${split.wins}-${split.losses}` : "-";
+}
+
+async function loadStandings() {
+  const el = document.getElementById("standingsList");
+  const leagueId = document.getElementById("leagueSelect").value;
+  el.innerHTML = '<div class="loading">Cargando posiciones…</div>';
+  try {
+    const data = await getJSON(`${API}/standings?leagueId=${leagueId}&season=${currentSeason}&standingsTypes=regularSeason`);
+    if (!data.records?.length) {
+      el.innerHTML = '<div class="muted">Sin datos de posiciones disponibles.</div>';
+      return;
+    }
+    el.innerHTML = data.records.map(division => {
+      const rows = division.teamRecords
+        .slice()
+        .sort((a, b) => Number(a.divisionRank) - Number(b.divisionRank))
+        .map(r => `
+          <tr>
+            <td>${r.team.name}</td>
+            <td>${r.gamesPlayed}</td>
+            <td>${r.leagueRecord.wins}</td>
+            <td>${r.leagueRecord.losses}</td>
+            <td>${r.leagueRecord.pct}</td>
+            <td>${r.gamesBack}</td>
+            <td>${streakHTML(r.streak)}</td>
+            <td>${last10(r)}</td>
+          </tr>`).join("");
+      return `
+        <div class="division-title">${DIVISION_NAMES[division.division.id] ?? "Division " + division.division.id}</div>
+        <table>
+          <thead><tr>
+            <th>Equipo</th><th>PJ</th><th>G</th><th>P</th><th>PCT</th><th>DIF</th><th>Racha</th><th>Últ. 10</th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>`;
+    }).join("");
+  } catch (e) {
+    el.innerHTML = `<div class="error">No se pudieron cargar las posiciones (${e.message}).</div>`;
+  }
+}
+
+// ---------- Jugadores ----------
+let searchTimer = null;
+document.getElementById("playerSearch").addEventListener("input", (e) => {
+  clearTimeout(searchTimer);
+  const q = e.target.value.trim();
+  document.getElementById("playerDetail").innerHTML = "";
+  if (q.length < 3) {
+    document.getElementById("playerResults").innerHTML = "";
+    return;
+  }
+  searchTimer = setTimeout(() => searchPlayers(q), 350);
+});
+
+async function searchPlayers(query) {
+  const el = document.getElementById("playerResults");
+  el.innerHTML = '<div class="loading">Buscando…</div>';
+  try {
+    const data = await getJSON(`${API}/people/search?names=${encodeURIComponent(query)}`);
+    const people = (data.people ?? []).filter(p => p.active).slice(0, 8);
+    if (!people.length) {
+      el.innerHTML = '<div class="muted">Sin resultados.</div>';
+      return;
+    }
+    el.innerHTML = people.map(p => `
+      <div class="player-result-item" data-id="${p.id}">
+        <span class="leader-photo" style="background-image:url('${headshotURL(p.id)}')"></span>
+        <span style="flex:1">${p.fullName}</span>
+        <span class="muted">${p.currentTeam?.name ?? ""} · ${p.primaryPosition?.abbreviation ?? ""}</span>
+      </div>`).join("");
+    el.querySelectorAll(".player-result-item").forEach(item => {
+      item.addEventListener("click", () => loadPlayerDetail(item.dataset.id));
+    });
+  } catch (e) {
+    el.innerHTML = `<div class="error">No se pudo buscar (${e.message}).</div>`;
+  }
+}
+
+function classifyForm(recentValue, seasonValue, higherIsBetter = true) {
+  if (recentValue == null || seasonValue == null || isNaN(recentValue) || isNaN(seasonValue)) {
+    return { label: "Sin datos", cls: "neutral" };
+  }
+  const diff = higherIsBetter ? recentValue - seasonValue : seasonValue - recentValue;
+  const threshold = seasonValue * 0.12 || 0.02;
+  if (diff > threshold) return { label: "En racha positiva", cls: "hot" };
+  if (diff < -threshold) return { label: "En racha negativa", cls: "cold" };
+  return { label: "Rendimiento estable", cls: "neutral" };
+}
+
+async function loadPlayerDetail(id) {
+  const el = document.getElementById("playerDetail");
+  el.innerHTML = '<div class="loading">Cargando jugador…</div>';
+  try {
+    const personData = await getJSON(`${API}/people/${id}`);
+    const person = personData.people[0];
+    const isPitcher = person.primaryPosition?.code === "1";
+    const group = isPitcher ? "pitching" : "hitting";
+
+    const [seasonData, logData] = await Promise.all([
+      getJSON(`${API}/people/${id}/stats?stats=season&group=${group}&season=${currentSeason}`),
+      getJSON(`${API}/people/${id}/stats?stats=gameLog&group=${group}&season=${currentSeason}`)
+    ]);
+
+    const seasonSplit = seasonData.stats?.[0]?.splits?.[0];
+    const season = seasonSplit?.stat;
+    const teamName = seasonSplit?.team?.name ?? "Sin equipo";
+    const log = logData.stats?.[0]?.splits ?? [];
+    const lastN = log.slice(-10);
+
+    let statBoxesHTML, formHTML, logTableHTML;
+
+    if (!season) {
+      statBoxesHTML = '<div class="muted">Sin estadísticas registradas esta temporada.</div>';
+      formHTML = "";
+      logTableHTML = "";
+    } else if (isPitcher) {
+      const gamesStarted = season.gamesStarted ?? 0;
+      const so9 = gamesStarted || season.gamesPlayed
+        ? (season.strikeOuts / (parseFloat(season.inningsPitched) || 1) * 9).toFixed(2)
+        : "-";
+      statBoxesHTML = `
+        <div class="stat-box"><div class="v">${season.era ?? "-"}</div><div class="l">ERA</div></div>
+        <div class="stat-box"><div class="v">${season.wins}-${season.losses}</div><div class="l">W-L</div></div>
+        <div class="stat-box"><div class="v">${season.whip ?? "-"}</div><div class="l">WHIP</div></div>
+        <div class="stat-box"><div class="v">${season.inningsPitched ?? "-"}</div><div class="l">IP</div></div>
+        <div class="stat-box"><div class="v">${season.strikeOuts}</div><div class="l">K</div></div>
+        <div class="stat-box"><div class="v">${so9}</div><div class="l">K/9</div></div>
+        <div class="stat-box"><div class="v">${season.baseOnBalls ?? "-"}</div><div class="l">BB</div></div>
+        <div class="stat-box"><div class="v">${season.strikeoutWalkRatio ?? "-"}</div><div class="l">K/BB</div></div>
+        <div class="stat-box"><div class="v">${season.hits ?? "-"}</div><div class="l">Hits permit.</div></div>
+        <div class="stat-box"><div class="v">${season.homeRuns ?? "-"}</div><div class="l">HR permit.</div></div>
+        <div class="stat-box"><div class="v">${season.avg ?? "-"}</div><div class="l">AVG rival</div></div>
+        <div class="stat-box"><div class="v">${season.saves ?? 0}</div><div class="l">Saves</div></div>
+      `;
+      const lastERA = lastN.reduce((sum, g) => sum + (g.stat.earnedRuns ?? 0), 0) /
+        (lastN.reduce((sum, g) => sum + (g.stat.inningsPitched ? parseFloat(g.stat.inningsPitched) : 0), 0) || 1) * 9;
+      const form = classifyForm(lastERA, parseFloat(season.era), false);
+      formHTML = `<p><span class="badge ${form.cls}">${form.label}</span> <span class="muted">ERA últimas ${lastN.length} apariciones: ${lastERA.toFixed(2)} vs temporada ${season.era}</span></p>`;
+      logTableHTML = logTable(lastN, [
+        ["Fecha", g => g.date],
+        ["Rival", g => g.opponent.name],
+        ["IP", g => g.stat.inningsPitched],
+        ["K", g => g.stat.strikeOuts],
+        ["BB", g => g.stat.baseOnBalls],
+        ["H", g => g.stat.hits],
+        ["HR", g => g.stat.homeRuns],
+        ["ER", g => g.stat.earnedRuns],
+        ["Resultado", g => g.isWin ? "G" : (g.isSave ? "S" : "-")]
+      ]);
+    } else {
+      statBoxesHTML = `
+        <div class="stat-box"><div class="v">${season.avg}</div><div class="l">AVG</div></div>
+        <div class="stat-box"><div class="v">${season.obp}</div><div class="l">OBP</div></div>
+        <div class="stat-box"><div class="v">${season.slg}</div><div class="l">SLG</div></div>
+        <div class="stat-box"><div class="v">${season.ops}</div><div class="l">OPS</div></div>
+        <div class="stat-box"><div class="v">${season.hits}</div><div class="l">H</div></div>
+        <div class="stat-box"><div class="v">${season.doubles}</div><div class="l">2B</div></div>
+        <div class="stat-box"><div class="v">${season.triples}</div><div class="l">3B</div></div>
+        <div class="stat-box"><div class="v">${season.homeRuns}</div><div class="l">HR</div></div>
+        <div class="stat-box"><div class="v">${season.totalBases}</div><div class="l">TB</div></div>
+        <div class="stat-box"><div class="v">${season.rbi}</div><div class="l">RBI</div></div>
+        <div class="stat-box"><div class="v">${season.baseOnBalls}</div><div class="l">BB</div></div>
+        <div class="stat-box"><div class="v">${season.strikeOuts}</div><div class="l">SO</div></div>
+        <div class="stat-box"><div class="v">${season.stolenBases}</div><div class="l">SB</div></div>
+        <div class="stat-box"><div class="v">${(parseFloat(season.slg) - parseFloat(season.avg)).toFixed(3)}</div><div class="l">ISO</div></div>
+      `;
+      const lastHits = lastN.reduce((sum, g) => sum + (g.stat.hits ?? 0), 0);
+      const lastAB = lastN.reduce((sum, g) => sum + (g.stat.atBats ?? 0), 0);
+      const lastAVG = lastAB ? lastHits / lastAB : null;
+      const form = classifyForm(lastAVG, parseFloat(season.avg), true);
+      formHTML = `<p><span class="badge ${form.cls}">${form.label}</span> <span class="muted">AVG últimos ${lastN.length} juegos: ${lastAVG !== null ? lastAVG.toFixed(3) : "-"} vs temporada ${season.avg}</span></p>`;
+      logTableHTML = logTable(lastN, [
+        ["Fecha", g => g.date],
+        ["Rival", g => g.opponent.name],
+        ["AB", g => g.stat.atBats],
+        ["H", g => g.stat.hits],
+        ["2B", g => g.stat.doubles],
+        ["3B", g => g.stat.triples],
+        ["HR", g => g.stat.homeRuns],
+        ["TB", g => g.stat.totalBases],
+        ["RBI", g => g.stat.rbi],
+        ["Resultado", g => g.isWin ? "G" : "P"]
+      ]);
+    }
+
+    el.innerHTML = `
+      <span class="back-link" id="clearPlayer">← Volver a la búsqueda</span>
+      <div class="player-header-row">
+        <span class="leader-photo player-photo-lg" style="background-image:url('${headshotURL(id)}')"></span>
+        <h2>${person.fullName} <span class="muted">#${person.primaryNumber ?? ""} · ${teamName} · ${person.primaryPosition?.abbreviation ?? ""}</span></h2>
+      </div>
+      <div class="stat-grid">${statBoxesHTML}</div>
+      ${formHTML}
+      ${logTableHTML}
+    `;
+    document.getElementById("clearPlayer").addEventListener("click", () => {
+      el.innerHTML = "";
+      document.getElementById("playerSearch").value = "";
+      document.getElementById("playerResults").innerHTML = "";
+    });
+  } catch (e) {
+    el.innerHTML = `<div class="error">No se pudo cargar el jugador (${e.message}).</div>`;
+  }
+}
+
+function logTable(games, columns) {
+  if (!games.length) return "";
+  const rows = games.slice().reverse().map(g => `
+    <tr>${columns.map(([, fn]) => `<td>${fn(g) ?? "-"}</td>`).join("")}</tr>
+  `).join("");
+  return `
+    <table>
+      <thead><tr>${columns.map(([label]) => `<th>${label}</th>`).join("")}</tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+}
+
+// ---------- Init ----------
+loadScores(todayISO());
+loadStandings();
+loadPicks(todayISO());
+loadLeaders();
+</script>
+
+</body>
+</html>
