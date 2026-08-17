@@ -200,17 +200,23 @@ async function evaluateProp(prop, awayTeam, homeTeam) {
 }
 
 // ---------- Parlays recomendados ----------
+const BATTING_MARKETS = new Set(["Hits O/U", "Home Runs O/U", "Total Bases O/U"]);
+const REUSE_EDGE_THRESHOLD = 0.20; // pick muy fuerte: se deja repetir en mas de un parlay igual
+
 function buildParlays(allEvaluatedProps) {
   const valuePicks = allEvaluatedProps
     .filter(p => p.isValue)
     .sort((a, b) => b.edge - a.edge);
+  const battingPicks = valuePicks.filter(p => BATTING_MARKETS.has(p.market));
+  const pitchingPicks = valuePicks.filter(p => p.market === "Pitcher Strikeouts O/U");
 
-  function toParlay(legs, label) {
-    if (!legs.length) return null;
+  function toParlay(legs, label, category) {
+    if (legs.length < 2) return null;
     const combinedOdds = legs.reduce((acc, l) => acc * parseFloat(l.odds), 1);
     const combinedProb = legs.reduce((acc, l) => acc * l.ourProb, 1);
     return {
       label,
+      category,
       legs: legs.map(l => ({
         player: l.player, market: l.market, side: l.side, line: l.line,
         odds: l.odds, ourProb: l.ourProb, game: l.game
@@ -220,27 +226,47 @@ function buildParlays(allEvaluatedProps) {
     };
   }
 
-  // Evitar repetir el mismo jugador en un parlay, y preferir jugadores de partidos distintos.
-  function pickDiverseLegs(pool, count) {
+  // globalUsed se comparte entre todos los parlays que armamos en esta corrida, para no
+  // repetir siempre los mismos 2-3 jugadores de mayor edge en todas las combinaciones.
+  // Si un pick es muy fuerte (edge alto) lo dejamos repetir igual, total nunca esta de mas
+  // avisar de un pick asi.
+  const globalUsed = new Set();
+  function pickLegs(pool, count) {
     const legs = [];
-    const usedPlayers = new Set();
+    const localUsed = new Set();
     for (const p of pool) {
-      if (usedPlayers.has(p.player)) continue;
-      legs.push(p);
-      usedPlayers.add(p.player);
       if (legs.length >= count) break;
+      if (localUsed.has(p.player)) continue;
+      if (globalUsed.has(p.player) && p.edge < REUSE_EDGE_THRESHOLD) continue;
+      legs.push(p);
+      localUsed.add(p.player);
     }
+    if (legs.length < count) {
+      for (const p of pool) {
+        if (legs.length >= count) break;
+        if (localUsed.has(p.player)) continue;
+        legs.push(p);
+        localUsed.add(p.player);
+      }
+    }
+    legs.forEach(p => globalUsed.add(p.player));
     return legs;
   }
 
-  const conservative = toParlay(
-    pickDiverseLegs(valuePicks.filter(p => p.ourProb >= 0.62), 2),
-    "Conservador (2 picks)"
-  );
-  const balanced = toParlay(pickDiverseLegs(valuePicks, 3), "Balanceado (3 picks)");
-  const longshot = toParlay(pickDiverseLegs(valuePicks, 4), "Alto pago (4 picks)");
+  const parlays = [];
+  function add(pool, count, label, category) {
+    const parlay = toParlay(pickLegs(pool, count), label, category);
+    if (parlay) parlays.push(parlay);
+  }
 
-  return [conservative, balanced, longshot].filter(Boolean);
+  add(battingPicks, 2, "Solo bateo (2 picks)", "bateo");
+  add(battingPicks, 3, "Solo bateo (3 picks)", "bateo");
+  add(pitchingPicks, 2, "Solo pitcheo (2 picks)", "pitcheo");
+  add(valuePicks, 3, "Mixto (3 picks)", "mixto");
+  add(valuePicks, 4, "Mixto (4 picks)", "mixto");
+  add(valuePicks, 5, "Alto pago (5 picks)", "mixto");
+
+  return parlays;
 }
 
 async function main() {

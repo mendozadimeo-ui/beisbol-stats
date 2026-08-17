@@ -266,6 +266,7 @@
   }
   .ml-inline {
     display: flex;
+    flex-wrap: wrap;
     gap: 6px;
     margin-top: 4px;
     font-size: 12px;
@@ -596,8 +597,8 @@ function moneylineInline(away, home, gameDateISO, oddsMap) {
   const awayFav = parseFloat(ml.away) < parseFloat(ml.home);
   return `
     <div class="ml-inline">
-      <span class="ml-odd ${awayFav ? "fav" : ""}">${toAmerican(ml.away)}</span>
-      <span class="ml-odd ${!awayFav ? "fav" : ""}">${toAmerican(ml.home)}</span>
+      <span class="ml-odd ${awayFav ? "fav" : ""}">${formatOdds(ml.away)}</span>
+      <span class="ml-odd ${!awayFav ? "fav" : ""}">${formatOdds(ml.home)}</span>
       <span class="muted">${books[0]}</span>
     </div>`;
 }
@@ -776,7 +777,7 @@ function oddsChip(away, home, gameDateISO, oddsMap) {
   const parts = [];
   if (mlBooks.length) {
     const ml = entry.moneyline[mlBooks[0]];
-    parts.push(`${shortTeamName(away.team.name)} ${toAmerican(ml.away)} / ${shortTeamName(home.team.name)} ${toAmerican(ml.home)}`);
+    parts.push(`${shortTeamName(away.team.name)} ${formatOdds(ml.away)} / ${shortTeamName(home.team.name)} ${formatOdds(ml.home)}`);
   }
   if (totalBooks.length) {
     parts.push(`O/U ${entry.total[totalBooks[0]].line}`);
@@ -786,11 +787,11 @@ function oddsChip(away, home, gameDateISO, oddsMap) {
   const titleLines = [];
   mlBooks.forEach(bk => {
     const ml = entry.moneyline[bk];
-    titleLines.push(`${bk} ML — ${away.team.name}: ${ml.away} · ${home.team.name}: ${ml.home}`);
+    titleLines.push(`${bk} ML — ${away.team.name}: ${formatOdds(ml.away)} · ${home.team.name}: ${formatOdds(ml.home)}`);
   });
   totalBooks.forEach(bk => {
     const t = entry.total[bk];
-    titleLines.push(`${bk} Total — línea ${t.line} (Over ${t.over ?? "-"} / Under ${t.under ?? "-"})`);
+    titleLines.push(`${bk} Total — línea ${t.line} (Over ${formatOdds(t.over)} / Under ${formatOdds(t.under)})`);
   });
   titleLines.push("Cuotas decimales. Datos de Bet365/DraftKings, actualizados cada 2 horas.");
   return { chip, title: titleLines.join("\n") };
@@ -812,7 +813,7 @@ function propRow(prop) {
       <span class="prop-desc"><b>${prop.player}</b> — ${label} ${sideLabel} ${prop.line} <span class="muted">(${pct}% seg. nuestra proyección)</span></span>
       <span class="prop-odds">
         ${prop.isValue ? '<span class="value-tag">Value</span>' : ""}
-        <b>${toAmerican(prop.odds)}</b>
+        <b>${formatOdds(prop.odds)}</b>
       </span>
     </div>`;
 }
@@ -936,9 +937,9 @@ async function renderPickCard(game, standingsMap, oddsMap) {
   const favBadge = isEven
     ? { label: "⚖️ Parejo", cls: "neutral", title: "Sin ventaja estadística clara entre ambos equipos." }
     : {
-        label: `🏆 ${favTeam.name}${favOdds != null ? ` ${toAmerican(favOdds)}` : ""}`,
+        label: `🏆 ${favTeam.name}${favOdds != null ? ` ${formatOdds(favOdds)}` : ""}`,
         cls: "hot",
-        title: `Mejores números recientes (récord, racha y abridor).${favOdds != null ? ` Cuota de mercado: ${toAmerican(favOdds)} (${mlBooks[0]}).` : " Sin cuota de mercado disponible todavía."}`
+        title: `Mejores números recientes (récord, racha y abridor).${favOdds != null ? ` Cuota de mercado: ${formatOdds(favOdds)} (${mlBooks[0]}).` : " Sin cuota de mercado disponible todavía."}`
       };
 
   const odds = oddsChip(away, home, game.gameDate, oddsMap ?? {});
@@ -1000,23 +1001,62 @@ function toAmerican(decimalOddsStr) {
   return american > 0 ? `+${american}` : `${american}`;
 }
 
-function renderParlaysSection(parlays) {
-  if (!parlays || !parlays.length) return "";
-  const cards = parlays.map(p => `
+// Cuota americana + decimal juntas, para no obligar a nadie a hacer la conversion mental.
+function formatOdds(decimalOddsStr) {
+  if (decimalOddsStr == null) return "-";
+  const d = parseFloat(decimalOddsStr);
+  if (!d || isNaN(d)) return "-";
+  return `${toAmerican(decimalOddsStr)} (${d.toFixed(2)})`;
+}
+
+const PARLAY_CATEGORY_META = {
+  bateo: { icon: "🥎", label: "Bateo" },
+  pitcheo: { icon: "⚾", label: "Pitcheo" },
+  mixto: { icon: "🎯", label: "Mixto" }
+};
+let currentParlays = [];
+let parlayFilter = "todos";
+
+function renderParlayCards(parlays) {
+  const filtered = parlayFilter === "todos" ? parlays : parlays.filter(p => p.category === parlayFilter);
+  if (!filtered.length) return '<div class="muted" style="margin-bottom:16px;">No hay parlays en esta categoría hoy.</div>';
+  return filtered.map(p => {
+    const meta = PARLAY_CATEGORY_META[p.category] ?? { icon: "🎲", label: "" };
+    return `
     <div class="parlay-card">
       <div class="parlay-header">
-        <span class="parlay-label">${p.label}</span>
-        <span class="parlay-odds">${toAmerican(String(p.combinedOdds))} <span class="muted">(${p.combinedOdds}x)</span></span>
+        <span class="parlay-label">${meta.icon} ${p.label}</span>
+        <span class="parlay-odds">${formatOdds(String(p.combinedOdds))}</span>
       </div>
       <ul class="parlay-legs">
         ${p.legs.map(l => `<li><b>${l.player}</b> — ${l.market} ${l.side === "over" ? "Over" : "Under"} ${l.line} <span class="muted">(${l.game}, ${Math.round(l.ourProb * 100)}% según nuestra proyección)</span></li>`).join("")}
       </ul>
       <div class="parlay-prob">Probabilidad combinada estimada: ${Math.round(p.combinedProb * 100)}% — asume que los picks son independientes entre sí, lo cual es una simplificación.</div>
-    </div>`).join("");
+    </div>`;
+  }).join("");
+}
+
+function renderParlaysSection(parlays) {
+  currentParlays = parlays ?? [];
+  if (!currentParlays.length) return "";
+  const categories = ["todos", ...new Set(currentParlays.map(p => p.category))];
+  const filterHTML = categories.length > 2 ? `
+    <div class="group-toggle" id="parlayFilterToggle">
+      ${categories.map(c => `<button data-cat="${c}" class="${c === parlayFilter ? "active" : ""}">${c === "todos" ? "Todos" : `${PARLAY_CATEGORY_META[c]?.icon ?? ""} ${PARLAY_CATEGORY_META[c]?.label ?? c}`}</button>`).join("")}
+    </div>` : "";
   return `
     <div class="disclaimer">🎲 Parlays sugeridos combinando los picks con mayor diferencia entre nuestra proyección estadística y la cuota del mercado. Más cuota = más difícil que pegue. Siempre hay factor suerte — esto no es una garantía.</div>
-    <div class="parlays-grid">${cards}</div>`;
+    ${filterHTML}
+    <div class="parlays-grid" id="parlaysGrid">${renderParlayCards(currentParlays)}</div>`;
 }
+
+document.addEventListener("click", e => {
+  const btn = e.target.closest("#parlayFilterToggle button");
+  if (!btn) return;
+  parlayFilter = btn.dataset.cat;
+  document.querySelectorAll("#parlayFilterToggle button").forEach(b => b.classList.toggle("active", b === btn));
+  document.getElementById("parlaysGrid").innerHTML = renderParlayCards(currentParlays);
+});
 
 async function loadPicks(date) {
   const el = document.getElementById("picksList");
