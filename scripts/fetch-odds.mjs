@@ -226,6 +226,201 @@ async function fetchMatchup(batterId, pitcherId) {
   }
 }
 
+// ---------- Parques (factor real de HR), clima, y abridores probables ----------
+// Factor de parque real (escala aprox. -1 a 1, ya usado como referencia visual en
+// el sitio). positivo = favorece bateo, negativo = favorece pitcheo. Coors Field
+// (altura) es el mas extremo en +, Oracle Park (marine layer) el mas extremo en -.
+const VENUES = {
+  133: { name: "Sutter Health Park", lat: 38.57994, lon: -121.51246, roofed: false, parkFactor: 0.2, parkLabel: "Favorece bateo (parque chico)" },
+  134: { name: "PNC Park", lat: 40.446904, lon: -80.005753, roofed: false, parkFactor: -0.25, parkLabel: "Favorece pitcheo" },
+  135: { name: "Petco Park", lat: 32.707861, lon: -117.157278, roofed: false, parkFactor: -0.3, parkLabel: "Favorece pitcheo" },
+  136: { name: "T-Mobile Park", lat: 47.591333, lon: -122.33251, roofed: false, parkFactor: -0.35, parkLabel: "Favorece pitcheo (aire marino)" },
+  137: { name: "Oracle Park", lat: 37.778383, lon: -122.389448, roofed: false, parkFactor: -0.45, parkLabel: "Favorece pitcheo fuerte (marine layer)" },
+  138: { name: "Busch Stadium", lat: 38.62256667, lon: -90.19286667, roofed: false, parkFactor: -0.2, parkLabel: "Favorece pitcheo (leve)" },
+  139: { name: "Tropicana Field", lat: 27.767778, lon: -82.6525, roofed: true, parkFactor: -0.1, parkLabel: "Neutral (techo)" },
+  140: { name: "Globe Life Field", lat: 32.747299, lon: -97.081818, roofed: true, parkFactor: 0, parkLabel: "Neutral (techo retractil)" },
+  141: { name: "Rogers Centre", lat: 43.64155, lon: -79.38915, roofed: true, parkFactor: 0.1, parkLabel: "Leve bateo (techo retractil)" },
+  142: { name: "Target Field", lat: 44.981829, lon: -93.277891, roofed: false, parkFactor: 0, parkLabel: "Neutral" },
+  143: { name: "Citizens Bank Park", lat: 39.90539086, lon: -75.16716957, roofed: false, parkFactor: 0.35, parkLabel: "Favorece bateo" },
+  144: { name: "Truist Park", lat: 33.890672, lon: -84.467641, roofed: false, parkFactor: 0.1, parkLabel: "Leve bateo" },
+  145: { name: "Rate Field", lat: 41.83, lon: -87.634167, roofed: false, parkFactor: 0.15, parkLabel: "Leve bateo" },
+  146: { name: "loanDepot park", lat: 25.77796236, lon: -80.21951795, roofed: true, parkFactor: -0.35, parkLabel: "Favorece pitcheo (techo)" },
+  147: { name: "Yankee Stadium", lat: 40.82919482, lon: -73.9264977, roofed: false, parkFactor: 0.3, parkLabel: "Favorece bateo (porche corto)" },
+  158: { name: "American Family Field", lat: 43.02838, lon: -87.97099, roofed: true, parkFactor: 0.1, parkLabel: "Leve bateo (techo retractil)" },
+  108: { name: "Angel Stadium", lat: 33.80019044, lon: -117.8823996, roofed: false, parkFactor: 0, parkLabel: "Neutral" },
+  109: { name: "Chase Field", lat: 33.445302, lon: -112.066687, roofed: true, parkFactor: 0.25, parkLabel: "Leve bateo (techo retractil)" },
+  110: { name: "Oriole Park at Camden Yards", lat: 39.283787, lon: -76.621689, roofed: false, parkFactor: 0, parkLabel: "Neutral" },
+  111: { name: "Fenway Park", lat: 42.346456, lon: -71.097441, roofed: false, parkFactor: 0.3, parkLabel: "Favorece bateo (Green Monster)" },
+  112: { name: "Wrigley Field", lat: 41.948171, lon: -87.655503, roofed: false, parkFactor: 0, parkLabel: "Variable (depende del viento)" },
+  113: { name: "Great American Ball Park", lat: 39.097389, lon: -84.506611, roofed: false, parkFactor: 0.4, parkLabel: "Favorece bateo" },
+  114: { name: "Progressive Field", lat: 41.495861, lon: -81.685255, roofed: false, parkFactor: -0.1, parkLabel: "Neutral/leve pitcheo" },
+  115: { name: "Coors Field", lat: 39.756042, lon: -104.994136, roofed: false, parkFactor: 0.9, parkLabel: "Favorece bateo extremo (altitud)" },
+  116: { name: "Comerica Park", lat: 42.3391151, lon: -83.048695, roofed: false, parkFactor: -0.3, parkLabel: "Favorece pitcheo" },
+  117: { name: "Daikin Park", lat: 29.756967, lon: -95.355509, roofed: true, parkFactor: 0.1, parkLabel: "Neutral/leve bateo (techo retractil)" },
+  118: { name: "Kauffman Stadium", lat: 39.051567, lon: -94.480483, roofed: false, parkFactor: -0.25, parkLabel: "Favorece pitcheo" },
+  119: { name: "Dodger Stadium", lat: 34.07368, lon: -118.24053, roofed: false, parkFactor: -0.15, parkLabel: "Leve pitcheo" },
+  120: { name: "Nationals Park", lat: 38.872861, lon: -77.007501, roofed: false, parkFactor: 0, parkLabel: "Neutral" },
+  121: { name: "Citi Field", lat: 40.75753012, lon: -73.84559155, roofed: false, parkFactor: -0.2, parkLabel: "Favorece pitcheo (leve)" }
+};
+
+let teamIdByNameCache = null;
+async function getTeamIdMap() {
+  if (teamIdByNameCache) return teamIdByNameCache;
+  const data = await getJSON(`${MLB_BASE}/teams?sportId=1`);
+  teamIdByNameCache = {};
+  for (const t of data.teams ?? []) teamIdByNameCache[t.name] = t.id;
+  return teamIdByNameCache;
+}
+
+const weatherCache = new Map();
+async function fetchWeather(venue, gameDateISO) {
+  if (!venue || venue.roofed) return null;
+  const dateStr = gameDateISO.slice(0, 10);
+  const hourStr = gameDateISO.slice(0, 13);
+  const key = `${venue.lat},${venue.lon},${hourStr}`;
+  if (weatherCache.has(key)) return weatherCache.get(key);
+  try {
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${venue.lat}&longitude=${venue.lon}&hourly=temperature_2m,wind_speed_10m&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=UTC&start_date=${dateStr}&end_date=${dateStr}`;
+    const data = await getJSON(url);
+    const idx = data.hourly?.time?.findIndex(t => t.startsWith(hourStr));
+    const result = idx != null && idx >= 0
+      ? { temp: data.hourly.temperature_2m[idx], windSpeed: data.hourly.wind_speed_10m[idx] }
+      : null;
+    weatherCache.set(key, result);
+    return result;
+  } catch {
+    weatherCache.set(key, null);
+    return null;
+  }
+}
+
+// Abridores probables por partido, desde el calendario oficial (no depende de que
+// odds-api.io haya posteado un prop de K para ese abridor, a diferencia de antes).
+const probablePitchersCache = new Map();
+async function fetchProbablePitchers(dateISO) {
+  if (probablePitchersCache.has(dateISO)) return probablePitchersCache.get(dateISO);
+  const map = {};
+  try {
+    const data = await getJSON(`${MLB_BASE}/schedule?sportId=1&date=${dateISO}&hydrate=probablePitcher`);
+    for (const g of data.dates?.[0]?.games ?? []) {
+      const away = g.teams.away.probablePitcher;
+      const home = g.teams.home.probablePitcher;
+      map[`${g.teams.away.team.name}@${g.teams.home.team.name}`] = {
+        away: away ? { id: away.id, name: away.fullName } : null,
+        home: home ? { id: home.id, name: home.fullName } : null
+      };
+    }
+  } catch { /* seguimos sin ajuste de abridor si falla */ }
+  probablePitchersCache.set(dateISO, map);
+  return map;
+}
+
+const pitcherHandCache = new Map();
+async function getPitcherHand(pitcherId) {
+  if (pitcherHandCache.has(pitcherId)) return pitcherHandCache.get(pitcherId);
+  try {
+    const data = await getJSON(`${MLB_BASE}/people/${pitcherId}`);
+    const hand = data.people?.[0]?.pitchHand?.code ?? null;
+    pitcherHandCache.set(pitcherId, hand);
+    return hand;
+  } catch {
+    pitcherHandCache.set(pitcherId, null);
+    return null;
+  }
+}
+
+// Split del bateador contra la mano del abridor de hoy, temporada actual.
+// Con menos de 15 turnos no confiamos en la muestra (queda null).
+const batterSplitCache = new Map();
+async function getBatterSplitVsHand(batterId, hand) {
+  if (!hand) return null;
+  const sitCode = hand === "L" ? "vl" : "vr";
+  const key = `${batterId}-${sitCode}`;
+  if (batterSplitCache.has(key)) return batterSplitCache.get(key);
+  try {
+    const data = await getJSON(
+      `${MLB_BASE}/people/${batterId}/stats?stats=statSplits&group=hitting&season=${SEASON}&sitCodes=${sitCode}`
+    );
+    const stat = data.stats?.[0]?.splits?.[0]?.stat;
+    const result = stat && stat.atBats >= 15
+      ? { hrPerAB: (stat.homeRuns || 0) / stat.atBats, tbPerAB: (stat.totalBases || 0) / stat.atBats, atBats: stat.atBats }
+      : null;
+    batterSplitCache.set(key, result);
+    return result;
+  } catch {
+    batterSplitCache.set(key, null);
+    return null;
+  }
+}
+
+// Forma reciente: promedio de los ultimos 15 partidos jugados, para pesarlo un
+// poco junto al promedio de toda la temporada (una racha caliente o fria real).
+const recentRateCache = new Map();
+async function getBatterRecentRate(batterId) {
+  if (recentRateCache.has(batterId)) return recentRateCache.get(batterId);
+  try {
+    const data = await getJSON(`${MLB_BASE}/people/${batterId}/stats?stats=gameLog&group=hitting&season=${SEASON}`);
+    const log = (data.stats?.[0]?.splits ?? []).slice(-15);
+    const totalAB = log.reduce((a, g) => a + (g.stat.atBats || 0), 0);
+    const result = totalAB > 0 ? {
+      hrPerAB: log.reduce((a, g) => a + (g.stat.homeRuns || 0), 0) / totalAB,
+      tbPerAB: log.reduce((a, g) => a + (g.stat.totalBases || 0), 0) / totalAB,
+      games: log.length
+    } : null;
+    recentRateCache.set(batterId, result);
+    return result;
+  } catch {
+    recentRateCache.set(batterId, null);
+    return null;
+  }
+}
+
+function clamp(x, lo, hi) { return Math.max(lo, Math.min(hi, x)); }
+
+// Combina parque + clima + split vs mano + historial puntual vs el abridor +
+// forma reciente en un solo multiplicador sobre la tasa base (HR o TB por
+// partido), mas un texto corto explicando que peso mas. Todo acotado para que
+// una muestra chica (ej. 3 turnos de por vida contra un abridor) no dispare la
+// proyeccion a un extremo -- esto es contexto real, no una certeza.
+function buildAdjustment(statKey, seasonPerAB, ctx) {
+  let mult = 1;
+  const why = [];
+
+  if (ctx.venue) {
+    mult *= clamp(1 + ctx.venue.parkFactor * 0.12, 0.85, 1.15);
+    if (Math.abs(ctx.venue.parkFactor) >= 0.15) why.push(`${ctx.venue.name} (${ctx.venue.parkLabel.toLowerCase()})`);
+  }
+  if (ctx.weather?.temp != null) {
+    mult *= clamp(1 + (ctx.weather.temp - 70) * 0.0015, 0.94, 1.08);
+    if (ctx.weather.temp >= 85) why.push(`${Math.round(ctx.weather.temp)}°F, el calor ayuda a la pelota a viajar`);
+    else if (ctx.weather.temp <= 55) why.push(`${Math.round(ctx.weather.temp)}°F, el frío le resta distancia a la pelota`);
+  }
+  if (ctx.handSplit && seasonPerAB > 0) {
+    const splitRate = statKey === "hr" ? ctx.handSplit.hrPerAB : ctx.handSplit.tbPerAB;
+    const ratio = clamp(splitRate / seasonPerAB, 0.75, 1.35);
+    mult *= ratio;
+    if (Math.abs(ratio - 1) >= 0.1) {
+      const handLabel = ctx.pitcherHand === "L" ? "zurdos" : "derechos";
+      why.push(`${ratio > 1 ? "mejor" : "peor"} de lo normal vs lanzadores ${handLabel} esta temporada`);
+    }
+  }
+  if (ctx.matchup && ctx.matchup.ab >= 8 && statKey === "hr" && seasonPerAB > 0) {
+    const matchupRate = ctx.matchup.hr / ctx.matchup.ab;
+    const ratio = clamp(matchupRate / seasonPerAB, 0.85, 1.2);
+    mult *= ratio;
+    why.push(`${ctx.matchup.hr} HR en ${ctx.matchup.ab} turnos de por vida vs ${ctx.pitcherName}`);
+  }
+  if (ctx.recentRate && seasonPerAB > 0) {
+    const recentVal = statKey === "hr" ? ctx.recentRate.hrPerAB : ctx.recentRate.tbPerAB;
+    const ratio = clamp(recentVal / seasonPerAB, 0.7, 1.4);
+    mult *= (0.7 + ratio * 0.3); // se pesa mas suave: 15 partidos es muestra chica
+    if (ratio >= 1.25) why.push(`en racha en los últimos ${ctx.recentRate.games} partidos`);
+    else if (ratio <= 0.75) why.push(`bajón en los últimos ${ctx.recentRate.games} partidos`);
+  }
+
+  return { mult: clamp(mult, 0.6, 1.8), why: why.length ? why.join(" · ") : null };
+}
+
 // Un pick "de valor" no es solo edge positivo: tambien tiene que ser realista
 // (nuestra propia proyeccion le da bastante chance de pasar) y tiene que dejar
 // ganancia real si pasa. Sin esto, un edge matematico positivo puede colar
@@ -252,7 +447,7 @@ function pickSide(overOdds, underOdds, ourProbOver) {
   return { side: "under", odds: underOdds, ourProb: 1 - ourProbOver, impliedProb: impliedUnder, edge: edgeUnder };
 }
 
-async function evaluateProp(prop, awayTeam, homeTeam) {
+async function evaluateProp(prop, awayTeam, homeTeam, gameCtx) {
   const proj = await getPlayerProjection(prop.player);
   if (!proj) return null;
   // odds-api.io a veces mezcla props de jugadores que no juegan este partido
@@ -262,17 +457,43 @@ async function evaluateProp(prop, awayTeam, homeTeam) {
   if (proj.team && proj.team !== awayTeam && proj.team !== homeTeam) return null;
 
   let ourProbOver = null;
+  let why = null;
+  const opposingPitcher = gameCtx && (proj.team === homeTeam ? gameCtx.awayPitcher : gameCtx.homePitcher);
+  const abPerGame = proj.abPerGame || 4;
+
   if (prop.market === "Pitcher Strikeouts O/U" && proj.isPitcher && proj.kPerStart) {
     ourProbOver = poissonProbOver(prop.line, proj.kPerStart);
   } else if (prop.market === "Hits O/U" && !proj.isPitcher && proj.avg != null) {
-    // Hits O/U casi siempre es linea 0.5 (al menos 1 hit)
+    // Hits O/U casi siempre es linea 0.5 (al menos 1 hit) -- modelo ya afinado,
+    // no le metemos los ajustes de parque/clima/matchup de HR y TB.
     ourProbOver = prop.line < 1
-      ? binomialProbAtLeastOneHit(proj.avg, proj.abPerGame || 4)
-      : poissonProbOver(prop.line, proj.avg * (proj.abPerGame || 4));
+      ? binomialProbAtLeastOneHit(proj.avg, abPerGame)
+      : poissonProbOver(prop.line, proj.avg * abPerGame);
   } else if (prop.market === "Home Runs O/U" && !proj.isPitcher && proj.hrPerGame != null) {
-    ourProbOver = poissonProbOver(prop.line, proj.hrPerGame);
+    const seasonHrPerAB = abPerGame > 0 ? proj.hrPerGame / abPerGame : 0;
+    const [handSplit, matchup, recentRate] = await Promise.all([
+      opposingPitcher?.hand ? getBatterSplitVsHand(proj.id, opposingPitcher.hand) : null,
+      opposingPitcher?.id ? getMatchup(proj.id, opposingPitcher.id) : null,
+      getBatterRecentRate(proj.id)
+    ]);
+    const adj = buildAdjustment("hr", seasonHrPerAB, {
+      venue: gameCtx?.venue, weather: gameCtx?.weather, handSplit, matchup, recentRate,
+      pitcherHand: opposingPitcher?.hand, pitcherName: opposingPitcher?.name
+    });
+    ourProbOver = poissonProbOver(prop.line, proj.hrPerGame * adj.mult);
+    why = adj.why;
   } else if (prop.market === "Total Bases O/U" && !proj.isPitcher && proj.tbPerGame != null) {
-    ourProbOver = poissonProbOver(prop.line, proj.tbPerGame);
+    const seasonTbPerAB = abPerGame > 0 ? proj.tbPerGame / abPerGame : 0;
+    const [handSplit, recentRate] = await Promise.all([
+      opposingPitcher?.hand ? getBatterSplitVsHand(proj.id, opposingPitcher.hand) : null,
+      getBatterRecentRate(proj.id)
+    ]);
+    const adj = buildAdjustment("tb", seasonTbPerAB, {
+      venue: gameCtx?.venue, weather: gameCtx?.weather, handSplit, matchup: null, recentRate,
+      pitcherHand: opposingPitcher?.hand, pitcherName: opposingPitcher?.name
+    });
+    ourProbOver = poissonProbOver(prop.line, proj.tbPerGame * adj.mult);
+    why = adj.why;
   }
   if (ourProbOver == null || isNaN(ourProbOver)) return null;
 
@@ -287,7 +508,10 @@ async function evaluateProp(prop, awayTeam, homeTeam) {
     ourProb: Math.round(pick.ourProb * 1000) / 1000,
     impliedProb: Math.round(pick.impliedProb * 1000) / 1000,
     edge: Math.round(pick.edge * 1000) / 1000,
-    isValue: isRealValue(pick.edge, pick.ourProb, pick.odds, 0.08)
+    isValue: isRealValue(pick.edge, pick.ourProb, pick.odds, 0.08),
+    pitcherHand: opposingPitcher?.hand ?? null,
+    pitcherName: opposingPitcher?.name ?? null,
+    why
   };
 }
 
@@ -566,29 +790,45 @@ async function main() {
       const gameOdds = extractGameOdds(odds);
       const rawProps = extractProps(odds);
 
+      // Contexto del partido para ajustar HR/TB de bateadores: abridores probables
+      // (calendario oficial, no depende de que odds-api.io haya posteado un prop
+      // de K), su mano, el parque real del local y el clima real de la hora del
+      // partido.
+      const dateISO = ev.date.slice(0, 10);
+      const [probablePitchers, teamIds] = await Promise.all([
+        fetchProbablePitchers(dateISO),
+        getTeamIdMap()
+      ]);
+      const pitcherPair = probablePitchers[`${ev.away}@${ev.home}`] ?? {};
+      const venue = teamIds[ev.home] != null ? VENUES[teamIds[ev.home]] ?? null : null;
+      const weather = venue ? await fetchWeather(venue, ev.date) : null;
+      async function withHand(p) {
+        if (!p) return null;
+        return { id: p.id, name: p.name, hand: await getPitcherHand(p.id) };
+      }
+      const gameCtx = {
+        venue, weather,
+        awayPitcher: await withHand(pitcherPair.away),
+        homePitcher: await withHand(pitcherPair.home)
+      };
+
       const evaluatedProps = [];
       for (const prop of rawProps) {
-        const evaluated = await evaluateProp(prop, ev.away, ev.home);
+        const evaluated = await evaluateProp(prop, ev.away, ev.home, gameCtx);
         if (evaluated) {
           evaluatedProps.push(evaluated);
           allEvaluatedProps.push({ ...evaluated, game: `${ev.away} @ ${ev.home}` });
         }
       }
 
-      // Historial bateador vs abridor rival, para los bateadores con props en este partido.
-      const pitchersByTeam = {};
-      for (const prop of evaluatedProps) {
-        if (prop.market !== "Pitcher Strikeouts O/U") continue;
-        const proj = await getPlayerProjection(prop.player);
-        if (proj?.id && proj.team) pitchersByTeam[proj.team] = { id: proj.id, name: prop.player };
-      }
+      // Historial bateador vs abridor rival, para los bateadores con props en este
+      // partido (para mostrar en la tarjeta, no solo para el ajuste de HR).
       for (const prop of evaluatedProps) {
         if (!BATTING_MARKETS.has(prop.market)) continue;
         const proj = await getPlayerProjection(prop.player);
         if (!proj?.id || !proj.team) continue;
-        const opposingTeam = proj.team === ev.home ? ev.away : ev.home;
-        const pitcher = pitchersByTeam[opposingTeam];
-        if (!pitcher) continue;
+        const pitcher = proj.team === ev.home ? gameCtx.awayPitcher : gameCtx.homePitcher;
+        if (!pitcher?.id) continue;
         const matchup = await getMatchup(proj.id, pitcher.id);
         if (matchup) prop.matchup = { pitcher: pitcher.name, ...matchup };
       }
