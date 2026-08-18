@@ -226,6 +226,20 @@ async function fetchMatchup(batterId, pitcherId) {
   }
 }
 
+// Un pick "de valor" no es solo edge positivo: tambien tiene que ser realista
+// (nuestra propia proyeccion le da bastante chance de pasar) y tiene que dejar
+// ganancia real si pasa. Sin esto, un edge matematico positivo puede colar
+// falsos value picks tipo "99% de probabilidad a cuota 1.01" (no deja nada de
+// ganancia) o "12% de probabilidad a cuota 15.00" (dificil que ocurra en la
+// practica). No hay techo de cuota maxima: una cuota alta con probabilidad
+// realista sigue siendo un pick valido, y no queremos descartar los mejores
+// pagos a proposito.
+const MIN_REALISTIC_PROB = 0.55;
+const MIN_PAYOUT_ODDS = 1.20;
+function isRealValue(edge, ourProb, odds, edgeThreshold) {
+  return edge >= edgeThreshold && ourProb >= MIN_REALISTIC_PROB && odds >= MIN_PAYOUT_ODDS;
+}
+
 function pickSide(overOdds, underOdds, ourProbOver) {
   // Elegimos el lado (over/under) que tenga cuota disponible y mejor separacion vs nuestra probabilidad.
   const impliedOver = overOdds != null ? decimalToImpliedProb(overOdds) : null;
@@ -273,7 +287,7 @@ async function evaluateProp(prop, awayTeam, homeTeam) {
     ourProb: Math.round(pick.ourProb * 1000) / 1000,
     impliedProb: Math.round(pick.impliedProb * 1000) / 1000,
     edge: Math.round(pick.edge * 1000) / 1000,
-    isValue: pick.edge >= 0.08
+    isValue: isRealValue(pick.edge, pick.ourProb, pick.odds, 0.08)
   };
 }
 
@@ -295,7 +309,7 @@ function evaluateMoneylineLegs(ev, gameOdds, standingsMap) {
       market: "Moneyline", kind: "moneyline", player: ev.away, line: null, side: "gana",
       odds: ml.away, bookmaker: "Bovada",
       ourProb: Math.round(awayProb * 1000) / 1000, impliedProb: Math.round(awayImplied * 1000) / 1000,
-      edge, isValue: edge >= 0.06
+      edge, isValue: isRealValue(edge, awayProb, ml.away, 0.06)
     });
   }
   if (homeImplied != null) {
@@ -304,7 +318,7 @@ function evaluateMoneylineLegs(ev, gameOdds, standingsMap) {
       market: "Moneyline", kind: "moneyline", player: ev.home, line: null, side: "gana",
       odds: ml.home, bookmaker: "Bovada",
       ourProb: Math.round(homeProb * 1000) / 1000, impliedProb: Math.round(homeImplied * 1000) / 1000,
-      edge, isValue: edge >= 0.06
+      edge, isValue: isRealValue(edge, homeProb, ml.home, 0.06)
     });
   }
   return legs;
@@ -526,14 +540,29 @@ async function main() {
 
   const standingsMap = await fetchStandingsMap().catch(() => ({}));
 
+  // /odds/multi trae hasta 10 eventos por llamada y cuenta como 1 sola call,
+  // en vez de gastar 1 call por partido (antes: hasta 60 calls por corrida).
+  const oddsById = {};
+  for (let i = 0; i < events.length; i += 10) {
+    const batch = events.slice(i, i + 10);
+    await sleep(300);
+    try {
+      const eventIds = batch.map(ev => ev.id).join(",");
+      const list = await getJSON(`${ODDS_BASE}/odds/multi?apiKey=${API_KEY}&eventIds=${eventIds}&bookmakers=${BOOKMAKERS}`);
+      for (const item of list) oddsById[item.eventId] = item;
+    } catch (e) {
+      console.error(`Error en batch de odds (${batch.map(ev => ev.id).join(",")}):`, e.message);
+    }
+  }
+
   const games = {};
   const allEvaluatedProps = [];
   let withOdds = 0;
 
   for (const ev of events) {
     try {
-      await sleep(300);
-      const odds = await getJSON(`${ODDS_BASE}/odds?apiKey=${API_KEY}&eventId=${ev.id}&bookmakers=${BOOKMAKERS}`);
+      const odds = oddsById[ev.id];
+      if (!odds) continue;
       const gameOdds = extractGameOdds(odds);
       const rawProps = extractProps(odds);
 

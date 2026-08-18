@@ -1,8 +1,9 @@
 name: Update football snapshot
 
 on:
-  schedule:
-    - cron: "45 */2 * * *"
+  # Cron pausado para liberar cuota horaria de odds-api.io mientras se suman
+  # NBA y NFL. Se puede correr manual desde Actions, o reactivar el schedule
+  # cuando la cuota lo permita.
   workflow_dispatch: {}
 
 permissions:
