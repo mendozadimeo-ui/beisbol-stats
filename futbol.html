@@ -150,6 +150,7 @@
   <h1>⚽ Fútbol <span>Stats</span></h1>
   <nav>
     <button class="tab-btn active" data-tab="scores">Marcadores</button>
+    <button class="tab-btn" data-tab="picks">Picks</button>
     <button class="tab-btn" data-tab="standings">Posiciones</button>
   </nav>
   <div class="sport-switch">
@@ -167,6 +168,15 @@
     </div>
     <div class="league-chips" id="scoresLeagueChips"></div>
     <div id="scoresList"><div class="loading">Cargando partidos…</div></div>
+  </section>
+
+  <section id="tab-picks" class="tab">
+    <div class="disclaimer">
+      Proyección propia (modelo de Poisson de goles, según fuerza de ataque/defensa de la tabla de posiciones) comparada contra la cuota real. Solo disponible en Premier League, La Liga y Serie A — Champions League, Europa League y Conference League no tienen tabla de posiciones de donde sacar la fuerza de los equipos, así que no muestran picks. No es una predicción garantizada — es contexto para que decidas vos. Apostá con responsabilidad.
+    </div>
+    <div class="league-chips" id="picksLeagueChips"></div>
+    <div id="picksParlays"></div>
+    <div id="picksList"><div class="loading">Calculando señales…</div></div>
   </section>
 
   <section id="tab-standings" class="tab">
@@ -214,6 +224,7 @@ function formatOdds(decimalOddsStr) {
 let footballData = null;
 let scoresLeague = "epl";
 let standingsLeague = "epl";
+let picksLeague = "epl";
 
 async function loadFootballData() {
   if (footballData) return footballData;
@@ -283,6 +294,80 @@ function formatMatch(m) {
     </div>`;
 }
 
+function pickLabel(p) {
+  if (p.market === "Moneyline") return p.side === "draw" ? "Empate" : `Gana ${p.team}`;
+  return p.side === "over" ? "Over 2.5 goles" : "Under 2.5 goles";
+}
+
+function pickCardHTML(p) {
+  return `
+    <div class="card">
+      <div class="match-row">
+        <div class="match-teams">
+          <div class="team-line"><span>${pickLabel(p)}</span></div>
+          <div class="kickoff-time">${p.game}</div>
+        </div>
+        <div style="text-align:right;">
+          <div class="ml-odd fav" style="display:inline-block;">${formatOdds(p.odds)}</div>
+          <div class="muted" style="font-size:11px; margin-top:4px;">Prob: ${Math.round(p.ourProb * 100)}% · Edge: ${Math.round(p.edge * 100)}% · ${p.bookmaker}</div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function parlayCardHTML(pl) {
+  return `
+    <div class="card">
+      <div class="match-row">
+        <b>${pl.label}</b>
+        <span class="ml-odd fav">${pl.combinedOdds.toFixed(2)}x</span>
+      </div>
+      <div class="muted" style="font-size:13px; margin-top:8px; line-height:1.7;">
+        ${pl.legs.map(l => `${pickLabel(l)} — ${l.game}, ${formatOdds(l.odds)}`).join("<br>")}
+      </div>
+      <div class="muted" style="margin-top:8px; font-size:12px;">Jugable en ${pl.bookmaker} · Prob. combinada estimada: ${Math.round(pl.combinedProb * 100)}%</div>
+    </div>`;
+}
+
+async function loadPicksTab() {
+  const el = document.getElementById("picksList");
+  const parlaysEl = document.getElementById("picksParlays");
+  el.innerHTML = '<div class="loading">Calculando señales…</div>';
+  try {
+    const data = await loadFootballData();
+    renderLeagueChips("picksLeagueChips", picksLeague, league => {
+      picksLeague = league;
+      loadPicksTab();
+    });
+    const matches = data.matches[picksLeague] ?? [];
+    const hasStandings = !!data.standings[picksLeague];
+    const allPicks = [];
+    for (const m of matches) {
+      for (const p of m.picks ?? []) {
+        if (p.isValue) allPicks.push({ ...p, game: `${m.away} @ ${m.home}` });
+      }
+    }
+    allPicks.sort((a, b) => b.edge - a.edge);
+
+    const parlays = data.parlays?.[picksLeague] ?? [];
+    parlaysEl.innerHTML = parlays.length
+      ? `<h3 style="font-size:15px; margin:0 0 10px;">Parlays recomendados</h3>${parlays.map(parlayCardHTML).join("")}`
+      : "";
+
+    if (!hasStandings) {
+      el.innerHTML = '<div class="muted">Esta liga no tiene tabla de posiciones todavía, así que no hay forma de estimar la fuerza de los equipos para armar picks.</div>';
+      return;
+    }
+    if (!allPicks.length) {
+      el.innerHTML = '<div class="muted">No hay picks de valor para los próximos partidos de esta liga por ahora.</div>';
+      return;
+    }
+    el.innerHTML = `<h3 style="font-size:15px; margin:16px 0 10px;">Picks individuales</h3>` + allPicks.map(pickCardHTML).join("");
+  } catch (e) {
+    el.innerHTML = `<div class="error">No se pudieron cargar los picks (${e.message}).</div>`;
+  }
+}
+
 async function loadScores() {
   const el = document.getElementById("scoresList");
   el.innerHTML = '<div class="loading">Cargando partidos…</div>';
@@ -325,7 +410,7 @@ async function loadStandingsTab() {
       ${season ? `<div class="muted" style="margin-bottom:10px;">Temporada ${season}${season < "2026" ? " (última completa — todavía no arrancó la carga de la nueva)" : ""}</div>` : ""}
       <table>
         <thead><tr>
-          <th>Equipo</th><th>PJ</th><th>G</th><th>E</th><th>P</th><th>Pts</th>
+          <th>Equipo</th><th>PJ</th><th>G</th><th>E</th><th>P</th><th>GF</th><th>GC</th><th>Pts</th>
         </tr></thead>
         <tbody>
           ${rows.map(r => `
@@ -335,7 +420,9 @@ async function loadStandingsTab() {
               <td>${r.wins}</td>
               <td>${r.ties ?? 0}</td>
               <td>${r.losses}</td>
-              <td><b>${r.points_for}</b></td>
+              <td>${r.points_for}</td>
+              <td>${r.points_against}</td>
+              <td><b>${r.wins * 3 + (r.ties ?? 0)}</b></td>
             </tr>`).join("")}
         </tbody>
       </table>`;
@@ -345,6 +432,7 @@ async function loadStandingsTab() {
 }
 
 loadScores();
+loadPicksTab();
 loadStandingsTab();
 </script>
 
