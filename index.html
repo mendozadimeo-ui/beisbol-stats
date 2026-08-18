@@ -1021,10 +1021,12 @@ function propRow(prop) {
 
 function topPropRow(prop) {
   const pct = Math.round(prop.ourProb * 100);
+  const label = MARKET_LABELS[prop.market] ?? prop.market;
   return `
     <div class="prop-row">
       <div>
-        <span class="prop-desc"><b>${prop.player}</b> <span class="muted">(${prop.game})</span> — ${pct}% seg. nuestra proyección</span>
+        <span class="prop-desc"><b>${prop.player}</b> — Over ${prop.line} ${label} <span class="muted">(${prop.game})</span> — ${pct}% seg. nuestra proyección</span>
+        ${prop.why ? `<div class="matchup-line">${prop.why}</div>` : ""}
       </div>
       <span class="prop-odds">
         <b>${formatOdds(prop.odds)}</b>
@@ -1466,7 +1468,10 @@ async function loadPicks(date) {
     }
     document.getElementById("hrSection").innerHTML = buildTopPropsSection(
       todaysOddsMap, "🚀 Posibles Home Runs de Hoy",
-      p => p.market === "Home Runs O/U" && p.side === "over",
+      // Solo la linea estandar (0.5 = "pega al menos 1 HR"). Hay mercados raros
+      // de 1.5+ (2 o mas HR en el partido) con cuotas altisimas (+5000) que no
+      // tienen nada que ver con "va a pegar un home run" y solo confunden aca.
+      p => p.market === "Home Runs O/U" && p.side === "over" && p.line === 0.5,
       "No hay proyecciones de home runs con cuota jugable para hoy."
     );
     document.getElementById("tbSection").innerHTML = buildTopPropsSection(
