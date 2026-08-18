@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-18T06:34:07.632Z",
+  "updatedAt": "2026-08-18T06:49:31.167Z",
   "leagues": {
     "epl": "Premier League",
     "laliga": "La Liga",
@@ -19,7 +19,8 @@
         "kickoff": "2026-08-21T19:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "e1701597-0166-4167-b1d5-661964f025eb",
@@ -30,7 +31,8 @@
         "kickoff": "2026-08-22T11:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "6a48fad1-2a01-4d3f-8680-65ac54e5ea71",
@@ -41,7 +43,8 @@
         "kickoff": "2026-08-22T14:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "9dea17d9-dbb8-4722-a564-85249e5c4b7c",
@@ -52,7 +55,8 @@
         "kickoff": "2026-08-22T14:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "f9e2ac7c-081f-48f5-bae3-063db098dea5",
@@ -63,7 +67,8 @@
         "kickoff": "2026-08-22T14:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "972c6768-077d-4ed3-8120-4b0604435a92",
@@ -74,7 +79,8 @@
         "kickoff": "2026-08-22T16:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "3da8d7bf-c0b0-4250-a851-cb2309a9de5a",
@@ -85,7 +91,8 @@
         "kickoff": "2026-08-23T13:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "c41cac2a-34af-4a04-adca-4c05e811dcdb",
@@ -96,7 +103,8 @@
         "kickoff": "2026-08-23T13:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "80e90947-9077-47bf-ab5a-f7c205d5bcde",
@@ -107,7 +115,8 @@
         "kickoff": "2026-08-23T15:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "12a39487-379d-4c84-ac40-a197c51d8308",
@@ -118,7 +127,8 @@
         "kickoff": "2026-08-24T19:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "4e16c684-1136-4bb4-b939-bb7f8f623bf7",
@@ -129,7 +139,8 @@
         "kickoff": "2026-08-28T19:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "44942f74-23ef-463e-bc62-1fc783c9ac1f",
@@ -140,7 +151,8 @@
         "kickoff": "2026-08-29T11:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "5a6aab46-0770-4fa0-87d7-400e2624aa05",
@@ -151,7 +163,8 @@
         "kickoff": "2026-08-29T14:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "6bb9f192-f408-480d-93df-2e53f8a7d065",
@@ -162,7 +175,8 @@
         "kickoff": "2026-08-29T14:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "b0e05f88-81c5-45e8-94a0-0df43b62ac0a",
@@ -173,7 +187,8 @@
         "kickoff": "2026-08-29T16:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "232b4543-674e-4810-91f4-4c88d2d3add6",
@@ -184,7 +199,8 @@
         "kickoff": "2026-08-30T13:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "52f587dd-850c-4e3d-80eb-ee905e6ea4dd",
@@ -195,7 +211,8 @@
         "kickoff": "2026-08-30T13:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "e34e3889-c838-402e-8425-90f129080b7b",
@@ -206,7 +223,8 @@
         "kickoff": "2026-08-30T13:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "be435f37-bdf4-4c9d-a52f-703a82f172c6",
@@ -217,7 +235,8 @@
         "kickoff": "2026-08-30T15:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "10f3c104-2744-4efe-8bc3-d24d17f6a8c5",
@@ -228,7 +247,8 @@
         "kickoff": "2026-08-31T19:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "82e8e4c4-e53e-4848-a7f4-2915a428fed6",
@@ -239,7 +259,8 @@
         "kickoff": "2026-09-04T19:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "300a1c4e-3246-4eff-83b9-83b1619e7034",
@@ -250,7 +271,8 @@
         "kickoff": "2026-09-05T11:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "1ca0fed8-e8c9-45d0-b30f-894125abb0c8",
@@ -261,7 +283,8 @@
         "kickoff": "2026-09-05T14:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "345e568f-5d69-4c46-b3e9-4345bb94946f",
@@ -272,7 +295,8 @@
         "kickoff": "2026-09-05T14:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "6867ab32-10fd-4e5b-bcfc-6d3ad7271206",
@@ -283,7 +307,8 @@
         "kickoff": "2026-09-05T14:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "afaf8814-08a6-41bc-addd-5a9536106618",
@@ -294,7 +319,8 @@
         "kickoff": "2026-09-05T14:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "e55684e0-5c57-4b4b-bd61-9f8cd3aebef6",
@@ -305,7 +331,8 @@
         "kickoff": "2026-09-05T14:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "6925daef-ec40-4a87-ac8e-1621d7340ba3",
@@ -316,7 +343,8 @@
         "kickoff": "2026-09-05T16:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "81e729fe-277e-4e91-b490-3cb14d253025",
@@ -327,7 +355,8 @@
         "kickoff": "2026-09-06T13:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "8a1bbad9-5e8b-4b32-b9af-6231876891a2",
@@ -338,7 +367,8 @@
         "kickoff": "2026-09-06T15:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "11bf5088-eb22-416a-b6f9-c7d1890f5ea0",
@@ -349,7 +379,8 @@
         "kickoff": "2026-09-12T14:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "9938688a-8cc1-40f1-a9e3-06ee130cc397",
@@ -360,7 +391,8 @@
         "kickoff": "2026-09-12T14:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "9cd1d21b-e12a-4739-8fcf-be8edd96c1a5",
@@ -371,7 +403,8 @@
         "kickoff": "2026-09-12T14:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "af7baf03-dca0-4197-918b-eaf9b7369a51",
@@ -382,7 +415,8 @@
         "kickoff": "2026-09-12T14:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "f79bbc80-aaa1-4b13-89c8-f3fd149df370",
@@ -393,7 +427,8 @@
         "kickoff": "2026-09-12T14:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "4ea7dd4e-f726-426a-aee5-6198ad15229a",
@@ -404,7 +439,8 @@
         "kickoff": "2026-09-12T16:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "5dcc9597-b943-4854-9b72-80e5610161df",
@@ -415,7 +451,8 @@
         "kickoff": "2026-09-12T19:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "8fd50129-f8d5-435b-ac30-7339b37f97fa",
@@ -426,7 +463,8 @@
         "kickoff": "2026-09-13T13:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "3c6a08f8-7387-4376-b9e7-0949d0dc3f5e",
@@ -437,7 +475,8 @@
         "kickoff": "2026-09-13T15:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "441a19a9-c473-4aaa-b1a2-a831eb4a57d3",
@@ -448,7 +487,8 @@
         "kickoff": "2026-09-14T19:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "bf369793-c5b7-4813-8ce7-7df48a5e3005",
@@ -459,7 +499,8 @@
         "kickoff": "2026-09-18T19:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "51b509f1-f7e2-4cde-9a8c-a08270c7d1a4",
@@ -470,7 +511,8 @@
         "kickoff": "2026-09-19T11:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "17f62516-7c91-460e-a83a-0d0f48ce28ef",
@@ -481,7 +523,8 @@
         "kickoff": "2026-09-19T14:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "2ab8e0d1-364a-4051-9fc9-60c940a8d52d",
@@ -492,7 +535,8 @@
         "kickoff": "2026-09-19T14:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "378c8517-dc74-4c18-ae82-89d3185d10db",
@@ -503,7 +547,8 @@
         "kickoff": "2026-09-19T14:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "639da1c9-cdb3-4617-a434-58a0d40174e3",
@@ -514,7 +559,8 @@
         "kickoff": "2026-09-19T14:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "e5509edc-b83d-4179-bb3f-9fa0bcc5dbc6",
@@ -525,7 +571,8 @@
         "kickoff": "2026-09-19T14:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "7824c38d-55ae-4dbd-88d0-36e62dfd23e0",
@@ -536,7 +583,8 @@
         "kickoff": "2026-09-19T16:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "23f0de19-9ad9-4aaf-bad2-c2b25f297538",
@@ -547,7 +595,8 @@
         "kickoff": "2026-09-20T13:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "1932e6db-813b-4a4a-a43c-481212918e7e",
@@ -558,7 +607,8 @@
         "kickoff": "2026-09-20T15:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       }
     ],
     "laliga": [
@@ -574,7 +624,8 @@
           "home": 1,
           "away": 0
         },
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "77ce6d18-a5de-41f5-b46f-de6ae27f4f7d",
@@ -588,7 +639,8 @@
           "home": 1,
           "away": 1
         },
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "4990730f-12e4-49b9-bef5-73b3095e7e58",
@@ -599,7 +651,8 @@
         "kickoff": "2026-08-19T19:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "4ad23ec2-9c15-4f21-a2d6-5eca8ec4e84d",
@@ -610,7 +663,8 @@
         "kickoff": "2026-08-19T19:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "64e421ee-a817-4184-94f5-93599ab31bc2",
@@ -621,7 +675,8 @@
         "kickoff": "2026-08-20T19:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "5e858ed0-e147-4482-af6f-c014be212c2c",
@@ -632,7 +687,8 @@
         "kickoff": "2026-08-21T19:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "b3514034-3dea-45f7-8e89-f8cfc0f0218c",
@@ -643,7 +699,8 @@
         "kickoff": "2026-08-22T15:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "869dd284-2130-4cc2-9d84-a8c7fb4ce528",
@@ -654,7 +711,8 @@
         "kickoff": "2026-08-22T17:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "f84941eb-666a-4de1-80b2-1683cf9227b6",
@@ -665,7 +723,8 @@
         "kickoff": "2026-08-22T19:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "eda94d0c-bb21-4768-9227-73f1e6e210aa",
@@ -676,7 +735,8 @@
         "kickoff": "2026-08-23T15:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "bbbe48ff-4451-4a80-a98f-351143c9d0d6",
@@ -687,7 +747,8 @@
         "kickoff": "2026-08-23T17:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "c6912d06-85c1-4df2-8113-f9786e581f6f",
@@ -698,7 +759,8 @@
         "kickoff": "2026-08-23T19:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "a66ae259-8e80-4292-9899-7a4d2e5bdef3",
@@ -709,7 +771,8 @@
         "kickoff": "2026-08-24T17:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "bfb46005-aa19-4f54-9667-bf2649b21181",
@@ -720,7 +783,8 @@
         "kickoff": "2026-08-24T19:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "c8939910-2990-4df2-821a-2b4e981e3457",
@@ -731,7 +795,8 @@
         "kickoff": "2026-08-25T19:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "9096223d-294c-435b-a807-1633e6e27cac",
@@ -742,7 +807,8 @@
         "kickoff": "2026-08-26T19:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "fc1fb308-ba77-4a92-a971-c1bbbef83403",
@@ -753,7 +819,8 @@
         "kickoff": "2026-08-27T18:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "5cba199d-1e2f-4f9d-889a-9f633fc62260",
@@ -764,7 +831,8 @@
         "kickoff": "2026-08-27T19:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "7a29020d-84f7-4d75-b845-e06fd088c60b",
@@ -775,7 +843,8 @@
         "kickoff": "2026-08-28T17:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "18c4b480-a59c-4f1b-824e-2b2908791903",
@@ -786,7 +855,8 @@
         "kickoff": "2026-08-28T19:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "799dbdf2-4b48-4aa4-b232-3cb71e8eaf5d",
@@ -797,7 +867,8 @@
         "kickoff": "2026-08-29T15:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "13f8ccbd-bc11-4362-a0ad-0b4cc3de8b1e",
@@ -808,7 +879,8 @@
         "kickoff": "2026-08-29T17:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "8302f3ae-4db4-4e76-a31f-689d596ec8c1",
@@ -819,7 +891,8 @@
         "kickoff": "2026-08-29T19:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "0b695961-5172-43df-964e-6988ec64140b",
@@ -830,7 +903,8 @@
         "kickoff": "2026-08-30T15:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "b1d16ecc-0927-4340-be3d-20c8f2e5b9ed",
@@ -841,7 +915,8 @@
         "kickoff": "2026-08-30T17:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "17f6dde3-43dc-4fdb-9578-c6c254aab4ef",
@@ -852,7 +927,8 @@
         "kickoff": "2026-08-30T19:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "93847242-dd4d-41ee-86b5-1420cf4f0dff",
@@ -863,7 +939,8 @@
         "kickoff": "2026-08-31T17:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "98490532-2df1-4ac0-bcbb-84fafabd471a",
@@ -874,7 +951,8 @@
         "kickoff": "2026-08-31T19:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "7555ad1b-fc36-4d97-a242-81d5b51265c3",
@@ -885,7 +963,8 @@
         "kickoff": "2026-09-03T19:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "bce79110-a903-4f11-9b13-20d927db055c",
@@ -896,7 +975,8 @@
         "kickoff": "2026-09-04T19:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "e814eb3d-c7ac-470e-b65d-8c37343b1d9a",
@@ -907,7 +987,8 @@
         "kickoff": "2026-09-05T14:15:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "1ee031b4-d3f1-4f6e-847b-eec5cd72427c",
@@ -918,7 +999,8 @@
         "kickoff": "2026-09-05T16:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "dd3a4191-06b4-4dd8-915d-7b877a5f81c1",
@@ -929,7 +1011,8 @@
         "kickoff": "2026-09-05T19:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "68eafcfc-f517-44e6-8681-59bff85b1b75",
@@ -940,7 +1023,8 @@
         "kickoff": "2026-09-06T14:15:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "7952a08d-0aa2-4b9c-b940-aba9077f78e6",
@@ -951,7 +1035,8 @@
         "kickoff": "2026-09-06T16:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "ccf41bff-9236-444a-b59a-a9122e28aa5e",
@@ -962,7 +1047,8 @@
         "kickoff": "2026-09-06T16:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "0dbd6c15-27ba-4a5f-b6b7-55c5b6f17409",
@@ -973,7 +1059,8 @@
         "kickoff": "2026-09-06T19:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "d3b3b97b-896f-41ab-9ced-64ff47c97868",
@@ -984,7 +1071,8 @@
         "kickoff": "2026-09-07T17:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "07352a76-4ecf-4681-938c-91d3cacf5326",
@@ -995,7 +1083,8 @@
         "kickoff": "2026-09-07T19:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "05ebb0ff-394e-4300-84f5-d00ace6e67eb",
@@ -1006,7 +1095,8 @@
         "kickoff": "2026-09-13T00:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "0f9a26e3-d98e-4d83-98c8-6fdc637712ff",
@@ -1017,7 +1107,8 @@
         "kickoff": "2026-09-13T00:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "3307d809-8863-4b33-9228-a362f5356925",
@@ -1028,7 +1119,8 @@
         "kickoff": "2026-09-13T00:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "3502e6b6-d57a-45a8-b847-766237d7c1e4",
@@ -1039,7 +1131,8 @@
         "kickoff": "2026-09-13T00:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "45504fe9-ae59-4572-ba63-850c4f2b9497",
@@ -1050,7 +1143,8 @@
         "kickoff": "2026-09-13T00:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "8ea9fb1c-32d9-4e7f-aa4f-47e6b2f08ce1",
@@ -1061,7 +1155,8 @@
         "kickoff": "2026-09-13T00:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "b581602f-f8ca-4074-af2b-f9e8facb5db0",
@@ -1072,7 +1167,8 @@
         "kickoff": "2026-09-13T00:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "c80443d4-1b08-4956-8bae-00d7c1160b96",
@@ -1083,7 +1179,8 @@
         "kickoff": "2026-09-13T00:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "dc2f5298-97a7-4d53-b530-759f1bfb9cf3",
@@ -1094,7 +1191,8 @@
         "kickoff": "2026-09-13T00:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "e0120159-60df-46e1-ac34-1fe73b3fb90f",
@@ -1105,7 +1203,8 @@
         "kickoff": "2026-09-13T00:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "071017d7-b8ef-4280-8e25-932d049b6cf3",
@@ -1116,7 +1215,8 @@
         "kickoff": "2026-09-16T00:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       }
     ],
     "seriea": [
@@ -1129,7 +1229,8 @@
         "kickoff": "2026-08-22T16:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "f3d09c42-9204-4850-9374-226de228a04b",
@@ -1140,7 +1241,8 @@
         "kickoff": "2026-08-22T16:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "de81a37d-abad-4116-9142-e95f588460ee",
@@ -1151,7 +1253,8 @@
         "kickoff": "2026-08-22T18:45:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "ea76e1c1-d6a5-4d8d-bc34-625ccdbb8679",
@@ -1162,7 +1265,8 @@
         "kickoff": "2026-08-22T18:45:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "754c304f-113a-4605-9155-9b8aff4751e9",
@@ -1173,7 +1277,8 @@
         "kickoff": "2026-08-23T16:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "7d9115af-5282-405b-88ce-519b74a02f8f",
@@ -1184,7 +1289,8 @@
         "kickoff": "2026-08-23T16:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "1c1d0953-ace9-4597-8859-1bd4ef423cae",
@@ -1195,7 +1301,8 @@
         "kickoff": "2026-08-23T18:45:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "5179f707-003d-4dc7-822e-c15ba460c323",
@@ -1206,7 +1313,8 @@
         "kickoff": "2026-08-23T18:45:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "96cf49bb-c931-4ffd-86a6-4855ba2e8cee",
@@ -1217,7 +1325,8 @@
         "kickoff": "2026-08-24T16:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "df504d9d-1854-4e76-aa21-4d0a77269ce2",
@@ -1228,7 +1337,8 @@
         "kickoff": "2026-08-24T18:45:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "f0ca18fb-88ba-41d5-bc2b-419e216fbaa0",
@@ -1239,7 +1349,8 @@
         "kickoff": "2026-08-28T18:45:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "1656618a-0386-4fe2-a82c-f49b99b938cf",
@@ -1250,7 +1361,8 @@
         "kickoff": "2026-08-29T16:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "398ef66e-08cf-4469-9012-8a2e19bb5eec",
@@ -1261,7 +1373,8 @@
         "kickoff": "2026-08-29T16:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "414b5192-b86d-4607-b292-60ca8ccb05aa",
@@ -1272,7 +1385,8 @@
         "kickoff": "2026-08-29T16:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "d54e39d4-d395-4220-a1b1-a8bab5905bfc",
@@ -1283,7 +1397,8 @@
         "kickoff": "2026-08-29T18:45:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "d9373abb-b9bc-4bd6-9dd3-8e7c25545d52",
@@ -1294,7 +1409,8 @@
         "kickoff": "2026-08-30T16:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "34edbce5-eb1e-40a0-a434-aa0640ebbefc",
@@ -1305,7 +1421,8 @@
         "kickoff": "2026-08-30T18:45:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "f559239d-12b2-4e7f-ab3d-561bfb53ed90",
@@ -1316,7 +1433,8 @@
         "kickoff": "2026-08-30T18:45:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "d390ef15-974f-4f9f-82d3-c8113fffbcad",
@@ -1327,7 +1445,8 @@
         "kickoff": "2026-08-31T16:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "9ce691c4-ca03-4193-8773-ed9f13d3b20f",
@@ -1338,7 +1457,8 @@
         "kickoff": "2026-08-31T18:45:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "56376a50-3fa5-48a3-9cad-c83d51d9f756",
@@ -1349,7 +1469,8 @@
         "kickoff": "2026-09-04T18:45:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "9c69f38b-cf2e-4b30-9792-8a6edee54277",
@@ -1360,7 +1481,8 @@
         "kickoff": "2026-09-05T13:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "7bc2ba32-2477-472e-a6f9-1d124c5441de",
@@ -1371,7 +1493,8 @@
         "kickoff": "2026-09-05T16:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "9f602dfd-860a-4f08-aa87-742e84dc9874",
@@ -1382,7 +1505,8 @@
         "kickoff": "2026-09-05T18:45:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "4066c5d8-f586-4160-ab85-353695cfaaca",
@@ -1393,7 +1517,8 @@
         "kickoff": "2026-09-06T13:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "5e31735a-0137-4cfc-aaa8-d12df2d19292",
@@ -1404,7 +1529,8 @@
         "kickoff": "2026-09-06T13:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "7918390f-9735-4bc7-9d3e-2a0bba9e9da2",
@@ -1415,7 +1541,8 @@
         "kickoff": "2026-09-06T16:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "f11c25d9-7e10-4cd0-b8fa-9b39827768ce",
@@ -1426,7 +1553,8 @@
         "kickoff": "2026-09-06T18:45:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "49654874-8dae-4940-babe-82b10aa8619c",
@@ -1437,7 +1565,8 @@
         "kickoff": "2026-09-07T16:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "3f33eafb-875f-425a-875d-fb816d2384d8",
@@ -1448,7 +1577,8 @@
         "kickoff": "2026-09-07T18:45:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "8a6c7dfe-4f07-4e61-ba8b-80ddba17ad82",
@@ -1459,7 +1589,8 @@
         "kickoff": "2026-09-11T18:45:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "71c604d0-0193-4e75-aba4-cc76822e3508",
@@ -1470,7 +1601,8 @@
         "kickoff": "2026-09-12T13:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "d01600df-a329-4fc4-84a4-714e4b96c5fd",
@@ -1481,7 +1613,8 @@
         "kickoff": "2026-09-12T16:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "b6c8ddb0-7e65-4dd4-81ea-2a4ca809721a",
@@ -1492,7 +1625,8 @@
         "kickoff": "2026-09-12T18:45:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "793f8033-8765-4a05-80e5-cc7ad6ac380c",
@@ -1503,7 +1637,8 @@
         "kickoff": "2026-09-13T10:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "35e66a6b-ab59-45ea-bb24-72ecf6984580",
@@ -1514,7 +1649,8 @@
         "kickoff": "2026-09-13T13:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "acc9d33d-7fac-4411-8002-72cb2a5f273d",
@@ -1525,7 +1661,8 @@
         "kickoff": "2026-09-13T13:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "aaa90023-5292-43cb-a69e-7a2591fa9c1d",
@@ -1536,7 +1673,8 @@
         "kickoff": "2026-09-13T16:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "14947c23-b88d-438a-8459-d3427d7a0a4a",
@@ -1547,7 +1685,8 @@
         "kickoff": "2026-09-13T18:45:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "ab1856a5-411e-4d0b-b9ea-8f280f520039",
@@ -1558,7 +1697,8 @@
         "kickoff": "2026-09-14T18:45:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "9f799860-f7ed-4fab-b9df-005e501465c6",
@@ -1569,7 +1709,8 @@
         "kickoff": "2026-09-18T18:45:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "b6174a9c-3dde-4d42-a358-50441506c5b8",
@@ -1580,7 +1721,8 @@
         "kickoff": "2026-09-19T13:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "ff863061-f215-4768-9d57-93d62ce87eca",
@@ -1591,7 +1733,8 @@
         "kickoff": "2026-09-19T13:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "9839bad4-1a34-4d7d-b11e-659bdb350f3d",
@@ -1602,7 +1745,8 @@
         "kickoff": "2026-09-19T16:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "e781e3a4-de68-49e8-8b9a-8c262abf73b3",
@@ -1613,7 +1757,8 @@
         "kickoff": "2026-09-19T18:45:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "1e29f84f-4203-47ac-be19-5283fd7d0884",
@@ -1624,7 +1769,8 @@
         "kickoff": "2026-09-20T10:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "acb3cd8d-7845-4dfe-8b19-4a5dcbf11336",
@@ -1635,7 +1781,8 @@
         "kickoff": "2026-09-20T13:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "c2e7f002-196f-4502-bae3-0390aad787d6",
@@ -1646,7 +1793,8 @@
         "kickoff": "2026-09-20T13:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "36810bd0-1293-448e-afb6-4211d02b3d5e",
@@ -1657,7 +1805,8 @@
         "kickoff": "2026-09-20T16:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       },
       {
         "id": "96f522bc-4308-4e71-a748-6eef2191649b",
@@ -1668,7 +1817,8 @@
         "kickoff": "2026-09-20T18:45:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": null,
+        "picks": []
       }
     ],
     "ucl": [
@@ -3451,5 +3601,13 @@
     "ucl": null,
     "uel": null,
     "uecl": null
+  },
+  "parlays": {
+    "epl": [],
+    "laliga": [],
+    "seriea": [],
+    "ucl": [],
+    "uel": [],
+    "uecl": []
   }
 }
