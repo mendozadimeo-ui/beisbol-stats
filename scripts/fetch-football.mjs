@@ -132,6 +132,166 @@ function extractFootballOdds(oddsResponse) {
   return result;
 }
 
+// ---------- Fuerza de equipos y modelo de Poisson (picks de valor) ----------
+// Futbol no tiene props de jugador confiables (BBS no da stats individuales), asi
+// que el modelo es a nivel de partido: fuerza de ataque/defensa de cada equipo
+// relativa al promedio de goles de la liga (estandar de la industria para
+// proyectar resultados de futbol), a partir de goles a favor/en contra reales de
+// la tabla de posiciones. Con eso, dos Poisson independientes (goles de local,
+// goles de visitante) dan la probabilidad de local/empate/visitante y de over/under.
+function poissonPMF(k, lambda) {
+  let f = 1;
+  for (let i = 2; i <= k; i++) f *= i;
+  return Math.exp(-lambda) * Math.pow(lambda, k) / f;
+}
+
+function computeLeagueStrength(standingsData) {
+  const rows = standingsData?.standings?.[0]?.rows ?? [];
+  const withGames = rows.filter(r => r.games_played > 0);
+  if (!withGames.length) return null;
+  const totalGoals = withGames.reduce((a, r) => a + (r.points_for || 0), 0);
+  const totalGames = withGames.reduce((a, r) => a + r.games_played, 0);
+  const leagueAvgGoals = totalGoals / totalGames;
+  if (!leagueAvgGoals) return null;
+  const teamStrength = {};
+  for (const r of withGames) {
+    teamStrength[r.team_name] = {
+      attack: (r.points_for / r.games_played) / leagueAvgGoals,
+      defense: (r.points_against / r.games_played) / leagueAvgGoals
+    };
+  }
+  return { teamStrength, leagueAvgGoals };
+}
+
+const HOME_ADVANTAGE = 1.12; // ventaja de local tipica en futbol (~10-15% mas goles)
+function expectedGoals(homeTeam, awayTeam, strength) {
+  const h = strength.teamStrength[homeTeam], a = strength.teamStrength[awayTeam];
+  if (!h || !a) return null;
+  return {
+    homeXG: strength.leagueAvgGoals * h.attack * a.defense * HOME_ADVANTAGE,
+    awayXG: strength.leagueAvgGoals * a.attack * h.defense
+  };
+}
+
+function matchProbabilities(homeXG, awayXG, maxGoals = 8) {
+  let pHome = 0, pDraw = 0, pAway = 0, pOver25 = 0;
+  for (let h = 0; h <= maxGoals; h++) {
+    for (let a = 0; a <= maxGoals; a++) {
+      const p = poissonPMF(h, homeXG) * poissonPMF(a, awayXG);
+      if (h > a) pHome += p; else if (h === a) pDraw += p; else pAway += p;
+      if (h + a >= 3) pOver25 += p;
+    }
+  }
+  return { pHome, pDraw, pAway, pOver25, pUnder25: 1 - pOver25 };
+}
+
+function decimalToImpliedProb(decimalOdds) {
+  const d = parseFloat(decimalOdds);
+  return d > 0 ? 1 / d : null;
+}
+
+// Mismo criterio de "value real" que MLB/NBA/NFL: edge positivo, probabilidad
+// realista y cuota que deje ganancia real. Sin techo de cuota maxima. Ver
+// fetch-odds.mjs para el razonamiento completo de por que se agrego esto.
+const MIN_REALISTIC_PROB = 0.55;
+const MIN_PAYOUT_ODDS = 1.20;
+function isRealValue(edge, ourProb, odds, edgeThreshold) {
+  return edge >= edgeThreshold && ourProb >= MIN_REALISTIC_PROB && odds >= MIN_PAYOUT_ODDS;
+}
+
+function evaluateFootballPicks(match, strength) {
+  if (!match.odds || !strength) return [];
+  const xg = expectedGoals(match.home, match.away, strength);
+  if (!xg) return [];
+  const probs = matchProbabilities(xg.homeXG, xg.awayXG);
+  const picks = [];
+
+  const mlBook = match.odds.moneyline?.Bovada ? "Bovada" : Object.keys(match.odds.moneyline ?? {})[0];
+  const ml = mlBook ? match.odds.moneyline[mlBook] : null;
+  if (ml) {
+    const outcomes = [
+      { side: "home", team: match.home, ourProb: probs.pHome, odds: ml.home },
+      { side: "draw", team: null, ourProb: probs.pDraw, odds: ml.draw },
+      { side: "away", team: match.away, ourProb: probs.pAway, odds: ml.away }
+    ];
+    for (const o of outcomes) {
+      const implied = decimalToImpliedProb(o.odds);
+      if (implied == null) continue;
+      const edge = Math.round((o.ourProb - implied) * 1000) / 1000;
+      picks.push({
+        market: "Moneyline", side: o.side, team: o.team,
+        odds: o.odds, bookmaker: mlBook,
+        ourProb: Math.round(o.ourProb * 1000) / 1000, impliedProb: Math.round(implied * 1000) / 1000,
+        edge, isValue: isRealValue(edge, o.ourProb, o.odds, 0.08)
+      });
+    }
+  }
+
+  const totalBooks = Object.keys(match.odds.total ?? {});
+  const totalBook = totalBooks.includes("Bovada") ? "Bovada" : totalBooks[0];
+  const t = totalBook ? match.odds.total[totalBook] : null;
+  if (t && Math.abs(t.line - 2.5) < 0.1) { // solo evaluamos si la linea real es ~2.5
+    const outcomes = [
+      { side: "over", ourProb: probs.pOver25, odds: t.over },
+      { side: "under", ourProb: probs.pUnder25, odds: t.under }
+    ];
+    for (const o of outcomes) {
+      const implied = decimalToImpliedProb(o.odds);
+      if (implied == null) continue;
+      const edge = Math.round((o.ourProb - implied) * 1000) / 1000;
+      picks.push({
+        market: "Total 2.5 goles", side: o.side, team: null,
+        odds: o.odds, bookmaker: totalBook,
+        ourProb: Math.round(o.ourProb * 1000) / 1000, impliedProb: Math.round(implied * 1000) / 1000,
+        edge, isValue: isRealValue(edge, o.ourProb, o.odds, 0.08)
+      });
+    }
+  }
+  return picks;
+}
+
+// Parlays: solo con picks de la misma casa (jugable en un solo lugar), sin repetir
+// el mismo partido dos veces dentro del mismo combo.
+function buildFootballParlays(matches) {
+  const valuePicks = [];
+  for (const m of matches) {
+    for (const p of m.picks ?? []) {
+      if (p.isValue) valuePicks.push({ ...p, game: `${m.away} @ ${m.home}` });
+    }
+  }
+  if (!valuePicks.length) return [];
+  valuePicks.sort((a, b) => b.edge - a.edge);
+
+  const counts = {};
+  for (const p of valuePicks) counts[p.bookmaker] = (counts[p.bookmaker] || 0) + 1;
+  const bestBookmaker = Object.keys(counts).sort((a, b) => counts[b] - counts[a])[0];
+  const pool = valuePicks.filter(p => p.bookmaker === bestBookmaker);
+
+  function toParlay(legs, label) {
+    if (legs.length < 2) return null;
+    const combinedOdds = legs.reduce((acc, l) => acc * parseFloat(l.odds), 1);
+    const combinedProb = legs.reduce((acc, l) => acc * l.ourProb, 1);
+    return {
+      label, bookmaker: bestBookmaker,
+      legs: legs.map(l => ({ team: l.team, market: l.market, side: l.side, odds: l.odds, ourProb: l.ourProb, game: l.game })),
+      combinedOdds: Math.round(combinedOdds * 100) / 100,
+      combinedProb: Math.round(combinedProb * 1000) / 1000
+    };
+  }
+  function pickLegs(count) {
+    const legs = [];
+    const usedGames = new Set();
+    for (const p of pool) {
+      if (legs.length >= count) break;
+      if (usedGames.has(p.game)) continue;
+      legs.push(p);
+      usedGames.add(p.game);
+    }
+    return legs;
+  }
+  return [toParlay(pickLegs(2), "Value picks (2)"), toParlay(pickLegs(3), "Value picks (3)")].filter(Boolean);
+}
+
 // ---------- Fixtures y tabla (BBS) ----------
 async function fetchLeagueData(leagueKey) {
   const [matchesRes, standingsRes] = await Promise.all([
@@ -190,38 +350,46 @@ async function main() {
     previous = JSON.parse(await fs.readFile("data/football.json", "utf8"));
   } catch { /* primera corrida, o archivo corrupto: segui sin fallback */ }
 
-  const output = { updatedAt: new Date().toISOString(), leagues: {}, matches: {}, standings: {} };
+  const output = { updatedAt: new Date().toISOString(), leagues: {}, matches: {}, standings: {}, parlays: {} };
 
   for (const [key, cfg] of Object.entries(LEAGUES)) {
     output.leagues[key] = cfg.name;
     console.log(`Trayendo ${cfg.name}...`);
 
     if (cfg.source === "odds-api") {
+      // Sin tabla de posiciones por esta via -> sin modelo de fuerza de equipos ->
+      // sin picks para estas 3 ligas. Mismo criterio de honestidad que con la tabla.
       output.standings[key] = null;
       const fresh = ODDS_API_KEY ? await fetchOddsApiFixtures(cfg.oddsLeagues) : [];
       output.matches[key] = fresh.length ? fresh : (previous?.matches?.[key] ?? []);
+      output.parlays[key] = [];
       continue;
     }
 
     const { matches, standings } = await fetchLeagueData(key);
     output.standings[key] = standings;
+    const strength = computeLeagueStrength(standings);
 
     let oddsByMatch = {};
     if (ODDS_API_KEY && cfg.oddsLeagues) {
       oddsByMatch = await fetchOddsForLeague(cfg.oddsLeagues);
     }
 
-    output.matches[key] = matches.map(m => {
+    const leagueMatches = matches.map(m => {
       const oddsKey = `${normalizeTeam(m.away.name)}|${normalizeTeam(m.home.name)}`;
       const odds = oddsByMatch[oddsKey] ?? null;
-      return {
+      const match = {
         id: m.id,
         home: m.home.name, homeLogo: m.home.logo_url,
         away: m.away.name, awayLogo: m.away.logo_url,
         kickoff: m.kickoff_utc, status: m.status, score: m.score,
         odds
       };
+      match.picks = strength ? evaluateFootballPicks(match, strength) : [];
+      return match;
     });
+    output.matches[key] = leagueMatches;
+    output.parlays[key] = buildFootballParlays(leagueMatches);
   }
 
   const fs = await import("node:fs/promises");
@@ -230,7 +398,8 @@ async function main() {
 
   const totalMatches = Object.values(output.matches).reduce((a, arr) => a + arr.length, 0);
   const withOdds = Object.values(output.matches).reduce((a, arr) => a + arr.filter(m => m.odds).length, 0);
-  console.log(`Listo: ${Object.keys(LEAGUES).length} ligas, ${totalMatches} partidos, ${withOdds} con cuotas.`);
+  const valuePicks = Object.values(output.matches).reduce((a, arr) => a + arr.reduce((b, m) => b + (m.picks ?? []).filter(p => p.isValue).length, 0), 0);
+  console.log(`Listo: ${Object.keys(LEAGUES).length} ligas, ${totalMatches} partidos, ${withOdds} con cuotas, ${valuePicks} value picks.`);
 }
 
 main().catch(e => {
