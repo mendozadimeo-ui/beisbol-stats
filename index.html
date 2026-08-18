@@ -543,8 +543,14 @@ async function getWeatherSnapshot(teamId, gameDateISO) {
 }
 
 function todayISO() {
+  // OJO: no usar toISOString() aca — devuelve la fecha en UTC, que puede ser
+  // "mañana" o "ayer" respecto del dia calendario real del usuario segun su
+  // huso horario. Usamos los getters locales para que "Hoy" sea su hoy.
   const d = new Date();
-  return d.toISOString().slice(0, 10);
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
 }
 
 async function getJSON(url) {
