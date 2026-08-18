@@ -513,7 +513,7 @@ async function main() {
 
   // Partidos de NFL son semanales: ventana mas amplia que MLB/NBA (2 dias) para que
   // no quede vacio toda la semana. 6 dias cubre de martes a la semana siguiente.
-  const cutoff = Date.now() + 30 * 24 * 60 * 60 * 1000; // TEMP verificacion final, revertir a 6
+  const cutoff = Date.now() + 6 * 24 * 60 * 60 * 1000;
   const events = allEvents.filter(ev => new Date(ev.date).getTime() <= cutoff);
 
   const standingsMap = await fetchStandingsMap().catch(() => ({}));
