@@ -1,34 +1,33 @@
 const API_KEY = process.env.ODDS_API_KEY;
 const BASE = "https://api.odds-api.io/v3";
 
-async function get(path, log = true) {
+async function get(path) {
   const res = await fetch(`${BASE}${path}`);
-  const text = await res.text();
-  if (log) {
-    console.log(`\n--- GET ${path.replace(API_KEY, "***")} -> ${res.status} ---`);
-    console.log(text.slice(0, 4000));
-  }
-  if (!res.ok) return null;
-  try { return JSON.parse(text); } catch { return null; }
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
 }
 
 async function main() {
-  await get(`/sports?apiKey=${API_KEY}`);
-  await get(`/leagues?sport=football&apiKey=${API_KEY}`);
+  const events = await get(`/events?apiKey=${API_KEY}&sport=american-football&league=usa-nfl&status=pending&limit=15`);
+  const soon = [...events].sort((a, b) => new Date(a.date) - new Date(b.date))[0];
+  console.log(`evento: id ${soon.id}, ${soon.away} @ ${soon.home}, ${soon.date}`);
 
-  for (const [sport, league] of [["football", "usa-nfl"], ["football", "nfl"], ["american-football", "usa-nfl"]]) {
-    const events = await get(`/events?apiKey=${API_KEY}&sport=${sport}&league=${league}&status=pending&limit=15`, false);
-    if (!events || !events.length) { console.log(`\n${league}: sin eventos`); continue; }
-    const soon = [...events].sort((a, b) => new Date(a.date) - new Date(b.date))[0];
-    console.log(`\n${league}: ${events.length} eventos, mas cercano ${soon.date} (id ${soon.id}, ${soon.away} @ ${soon.home})`);
-    const odds = await get(`/odds?apiKey=${API_KEY}&eventId=${soon.id}&bookmakers=Bovada,Bet365`, false);
-    if (!odds) continue;
-    const marketNames = new Set();
-    for (const arr of Object.values(odds.bookmakers ?? {})) {
-      for (const m of arr) marketNames.add(m.name);
+  const odds = await get(`/odds?apiKey=${API_KEY}&eventId=${soon.id}&bookmakers=Bovada,Bet365`);
+  for (const [bookmaker, markets] of Object.entries(odds.bookmakers ?? {})) {
+    console.log(`\n=== ${bookmaker}: ${markets.length} mercados ===`);
+    for (const m of markets) {
+      console.log(`  ${m.name} (${m.odds.length} lineas)`);
     }
-    console.log(`${league} mercados:`, [...marketNames]);
-    console.log(`${league} odds completo:`, JSON.stringify(odds).slice(0, 3500));
+  }
+
+  // Bloque completo de "Player Props" y de un mercado dedicado, para ver el formato exacto de label
+  for (const [bookmaker, markets] of Object.entries(odds.bookmakers ?? {})) {
+    const pp = markets.find(m => m.name === "Player Props");
+    if (pp) console.log(`\n${bookmaker} Player Props sample:`, JSON.stringify(pp.odds.slice(0, 5)));
+    const dedicated = markets.filter(m => m.name !== "Player Props" && m.name.includes("O/U") && !["Totals"].includes(m.name));
+    for (const d of dedicated.slice(0, 4)) {
+      console.log(`${bookmaker} "${d.name}" sample:`, JSON.stringify(d.odds.slice(0, 3)));
+    }
   }
 }
 
