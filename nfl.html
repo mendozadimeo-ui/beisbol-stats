@@ -140,6 +140,102 @@
   .parlay-legs { margin-top: 8px; font-size: 13px; color: var(--muted); line-height: 1.7; }
   .loading, .error, .muted { color: var(--muted); padding: 12px 0; }
   .error { color: var(--loss); }
+
+  .toolbar { display: flex; gap: 10px; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
+  input[type="text"] {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { padding: 6px 8px; text-align: right; border-bottom: 1px solid var(--border); }
+  th:first-child, td:first-child { text-align: left; }
+  th { color: var(--muted); font-weight: 500; font-size: 12px; text-transform: uppercase; }
+
+  .group-toggle { display: flex; gap: 6px; }
+  .group-toggle button {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 7px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .group-toggle button.active { color: var(--text); border-color: var(--accent); background: var(--panel-2); }
+  .stat-chips { display: flex; gap: 6px; overflow-x: auto; padding: 4px 0 10px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .stat-chips::-webkit-scrollbar { display: none; }
+  .stat-chips button {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 6px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .stat-chips button.active { background: var(--accent); color: #1a1206; border-color: var(--accent); }
+  .leader-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 6px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+  }
+  .leader-row:hover { background: var(--panel-2); }
+  .leader-rank { color: var(--muted); font-size: 13px; width: 20px; flex-shrink: 0; }
+  .leader-photo {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--panel-2) center/cover no-repeat;
+    flex-shrink: 0;
+    border: 1px solid var(--border);
+  }
+  .leader-name { font-weight: 600; flex: 1; min-width: 0; }
+  .leader-team { color: var(--muted); font-size: 12px; display: block; font-weight: 400; }
+  .leader-value { font-size: 16px; font-weight: 700; }
+
+  .player-results { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; }
+  .player-result-item {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .player-result-item:hover { border-color: var(--accent); }
+  .player-header-row { display: flex; align-items: center; gap: 14px; }
+  .player-photo-lg { width: 64px; height: 64px; }
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 10px;
+    margin: 14px 0;
+  }
+  .stat-box {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+  }
+  .stat-box .v { font-size: 18px; font-weight: 700; }
+  .stat-box .l { font-size: 11px; color: var(--muted); text-transform: uppercase; margin-top: 2px; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+  .badge.hot { background: rgba(52,211,153,0.15); color: var(--win); }
+  .badge.cold { background: rgba(247,100,100,0.15); color: var(--loss); }
+  .badge.neutral { background: rgba(139,147,167,0.15); color: var(--muted); }
+  .back-link { color: var(--accent); cursor: pointer; font-size: 13px; margin-bottom: 10px; display: inline-block; }
 </style>
 </head>
 <body>
@@ -149,6 +245,8 @@
   <nav>
     <button class="tab-btn active" data-tab="scores">Marcadores</button>
     <button class="tab-btn" data-tab="picks">Picks</button>
+    <button class="tab-btn" data-tab="leaders">Líderes</button>
+    <button class="tab-btn" data-tab="players">Jugadores</button>
   </nav>
   <div class="sport-switch">
     <a href="index.html" class="sport-pill" data-sport="baseball" title="Béisbol">⚾</a>
@@ -172,6 +270,23 @@
     </div>
     <div id="parlaysSection"></div>
     <div id="picksList"><div class="loading">Calculando señales…</div></div>
+  </section>
+
+  <section id="tab-leaders" class="tab">
+    <div class="group-toggle" id="leaderGroupToggle">
+      <button data-group="ataque" class="active">Ataque</button>
+      <button data-group="defensa">Defensa</button>
+    </div>
+    <div class="stat-chips" id="leaderChips"></div>
+    <div id="leadersList"><div class="loading">Cargando líderes…</div></div>
+  </section>
+
+  <section id="tab-players" class="tab">
+    <div class="toolbar">
+      <input type="text" id="playerSearch" placeholder="Buscar jugador (ej: Mahomes, Jefferson)">
+    </div>
+    <div id="playerResults" class="player-results"></div>
+    <div id="playerDetail"></div>
   </section>
 
 </main>
@@ -329,6 +444,272 @@ async function loadPicks() {
 
 loadScores();
 loadPicks();
+
+// ---------- Lideres ----------
+const ESPN_NFL_WEB = "https://site.web.api.espn.com/apis/common/v3/sports/football/nfl";
+const ESPN_SEARCH = "https://site.web.api.espn.com/apis/search/v2";
+const ESPN_LEADERS = "https://site.web.api.espn.com/apis/site/v3/sports/football/nfl/leaders";
+
+// Temporada 2025 (ultima regular completa): la 2026 recien esta en pretemporada,
+// con 1-2 partidos jugados por equipo -- muestra insuficiente para lideres reales.
+const LEADERS_SEASON = 2025;
+
+const LEADER_CATEGORIES = {
+  ataque: [
+    { key: "passingYards", label: "YDS PASE" },
+    { key: "passingTouchdowns", label: "TD PASE" },
+    { key: "rushingYards", label: "YDS CARRERA" },
+    { key: "rushingTouchdowns", label: "TD CARRERA" },
+    { key: "receivingYards", label: "YDS RECEP." },
+    { key: "receivingTouchdowns", label: "TD RECEP." },
+    { key: "receptions", label: "RECEPCIONES" },
+    { key: "quarterbackRating", label: "RATING QB" }
+  ],
+  defensa: [
+    { key: "totalTackles", label: "TACKLES" },
+    { key: "sacks", label: "SACKS" },
+    { key: "interceptions", label: "INTERCEPC." },
+    { key: "passesDefended", label: "PASES DEF." }
+  ]
+};
+let leaderGroup = "ataque";
+let leaderCategory = "passingYards";
+
+document.querySelectorAll("#leaderGroupToggle button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    leaderGroup = btn.dataset.group;
+    leaderCategory = LEADER_CATEGORIES[leaderGroup][0].key;
+    document.querySelectorAll("#leaderGroupToggle button").forEach(b => b.classList.toggle("active", b === btn));
+    renderLeaderChips();
+    loadLeaders();
+  });
+});
+
+function renderLeaderChips() {
+  const chipsEl = document.getElementById("leaderChips");
+  chipsEl.innerHTML = LEADER_CATEGORIES[leaderGroup].map(c =>
+    `<button data-key="${c.key}" class="${c.key === leaderCategory ? "active" : ""}">${c.label}</button>`
+  ).join("");
+  chipsEl.querySelectorAll("button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      leaderCategory = btn.dataset.key;
+      chipsEl.querySelectorAll("button").forEach(b => b.classList.toggle("active", b === btn));
+      loadLeaders();
+    });
+  });
+}
+
+function headshotURL(playerId) {
+  return `https://a.espncdn.com/i/headshots/nfl/players/full/${playerId}.png`;
+}
+
+async function loadLeaders() {
+  const el = document.getElementById("leadersList");
+  el.innerHTML = '<div class="loading">Cargando líderes…</div>';
+  try {
+    const data = await getJSON(`${ESPN_LEADERS}?season=${LEADERS_SEASON}`);
+    const cat = (data.leaders?.categories ?? []).find(c => c.name === leaderCategory);
+    const leaders = cat?.leaders ?? [];
+    if (!leaders.length) {
+      el.innerHTML = '<div class="muted">Sin datos para esta categoría.</div>';
+      return;
+    }
+    el.innerHTML = leaders.map((l, i) => `
+      <div class="leader-row" data-player-id="${l.athlete.id}">
+        <span class="leader-rank">${i + 1}</span>
+        <span class="leader-photo" style="background-image:url('${headshotURL(l.athlete.id)}')"></span>
+        <span class="leader-name">${l.athlete.displayName}<span class="leader-team">${l.athlete.jersey ? "#" + l.athlete.jersey : ""}</span></span>
+        <span class="leader-value">${l.displayValue}</span>
+      </div>`).join("");
+    el.querySelectorAll(".leader-row").forEach(row => {
+      row.addEventListener("click", () => openPlayerInTab(row.dataset.playerId));
+    });
+  } catch (e) {
+    el.innerHTML = `<div class="error">No se pudieron cargar los líderes (${e.message}).</div>`;
+  }
+}
+
+function openPlayerInTab(id) {
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === "players"));
+  document.querySelectorAll(".tab").forEach(t => t.classList.toggle("active", t.id === "tab-players"));
+  loadPlayerDetail(id);
+}
+
+renderLeaderChips();
+loadLeaders();
+
+// ---------- Jugadores ----------
+let searchTimer = null;
+document.getElementById("playerSearch").addEventListener("input", (e) => {
+  clearTimeout(searchTimer);
+  const q = e.target.value.trim();
+  document.getElementById("playerDetail").innerHTML = "";
+  if (q.length < 3) {
+    document.getElementById("playerResults").innerHTML = "";
+    return;
+  }
+  searchTimer = setTimeout(() => searchPlayers(q), 350);
+});
+
+async function searchPlayers(query) {
+  const el = document.getElementById("playerResults");
+  el.innerHTML = '<div class="loading">Buscando…</div>';
+  try {
+    const data = await getJSON(`${ESPN_SEARCH}?query=${encodeURIComponent(query)}&limit=8`);
+    const group = (data.results ?? []).find(r => r.type === "player");
+    const people = (group?.contents ?? []).filter(c => c.sport === "football" && c.defaultLeagueSlug === "nfl");
+    if (!people.length) {
+      el.innerHTML = '<div class="muted">Sin resultados.</div>';
+      return;
+    }
+    el.innerHTML = people.map(p => {
+      const idMatch = /a:(\d+)/.exec(p.uid || "");
+      const id = idMatch?.[1];
+      return `
+      <div class="player-result-item" data-id="${id}">
+        <span class="leader-photo" style="background-image:url('${headshotURL(id)}')"></span>
+        <span style="flex:1">${p.displayName}</span>
+        <span class="muted">${p.subtitle ?? ""}</span>
+      </div>`;
+    }).join("");
+    el.querySelectorAll(".player-result-item").forEach(item => {
+      item.addEventListener("click", () => loadPlayerDetail(item.dataset.id));
+    });
+  } catch (e) {
+    el.innerHTML = `<div class="error">No se pudo buscar (${e.message}).</div>`;
+  }
+}
+
+function classifyForm(recentValue, seasonValue, higherIsBetter = true) {
+  if (recentValue == null || seasonValue == null || isNaN(recentValue) || isNaN(seasonValue)) {
+    return { label: "Sin datos", cls: "neutral" };
+  }
+  const diff = higherIsBetter ? recentValue - seasonValue : seasonValue - recentValue;
+  const threshold = Math.abs(seasonValue) * 0.15 || 1;
+  if (diff > threshold) return { label: "En racha positiva", cls: "hot" };
+  if (diff < -threshold) return { label: "En racha negativa", cls: "cold" };
+  return { label: "Rendimiento estable", cls: "neutral" };
+}
+
+// Que categoria de stats mostrar segun la posicion (un WR no tiene "passing", etc).
+const POSITION_CATEGORY = {
+  QB: "passing", RB: "rushing", FB: "rushing", WR: "receiving", TE: "receiving",
+  CB: "defensive", S: "defensive", SS: "defensive", FS: "defensive", LB: "defensive",
+  DE: "defensive", DT: "defensive", NT: "defensive", OLB: "defensive", ILB: "defensive",
+  K: "scoring", P: "scoring"
+};
+const CATEGORY_STAT_BOXES = {
+  passing: [["YDS", "passingYards"], ["TD", "passingTouchdowns"], ["INT", "interceptions"], ["CMP%", "completionPct"], ["RTG", "QBRating"], ["YPA", "yardsPerPassAttempt"]],
+  rushing: [["YDS", "rushingYards"], ["TD", "rushingTouchdowns"], ["CAR", "rushingAttempts"], ["YPC", "yardsPerRushAttempt"], ["LNG", "longRushing"]],
+  receiving: [["YDS", "receivingYards"], ["TD", "receivingTouchdowns"], ["REC", "receptions"], ["YPR", "yardsPerReception"], ["LNG", "longReception"]],
+  defensive: [["TACKLES", "totalTackles"], ["SACKS", "sacks"], ["INT", "interceptions"], ["PD", "passesDefended"]],
+  scoring: [["PTS", "totalPoints"]]
+};
+const PRIMARY_STAT_BY_CATEGORY = { passing: "passingYards", rushing: "rushingYards", receiving: "receivingYards", defensive: "totalTackles", scoring: "totalPoints" };
+
+async function loadPlayerDetail(id) {
+  const el = document.getElementById("playerDetail");
+  el.innerHTML = '<div class="loading">Cargando jugador…</div>';
+  try {
+    const [profile, statsData, gamelog] = await Promise.all([
+      getJSON(`${ESPN_NFL_WEB}/athletes/${id}`).catch(() => null),
+      getJSON(`${ESPN_NFL_WEB}/athletes/${id}/stats`),
+      getJSON(`${ESPN_NFL_WEB}/athletes/${id}/gamelog`).catch(() => null)
+    ]);
+    const athlete = profile?.athlete;
+    const posAbbr = athlete?.position?.abbreviation;
+
+    // Elegimos la categoria por posicion cuando la conocemos; si no, la que
+    // tenga datos de la temporada mas reciente (por si la posicion no matchea).
+    let categoryName = POSITION_CATEGORY[posAbbr];
+    let bestCategory = statsData.categories?.find(c => c.name === categoryName);
+    let bestEntry = bestCategory?.statistics?.find(e => e.season.year === LEADERS_SEASON)
+      ?? bestCategory?.statistics?.slice().sort((a, b) => b.season.year - a.season.year)[0];
+
+    if (!bestEntry) {
+      let bestYear = 0;
+      for (const cat of statsData.categories ?? []) {
+        for (const entry of cat.statistics ?? []) {
+          const gpIdx = cat.names.indexOf("gamesPlayed");
+          const games = gpIdx >= 0 ? parseInt(entry.stats[gpIdx]) || 0 : 0;
+          if (games >= 1 && entry.season.year > bestYear) {
+            bestCategory = cat; bestEntry = entry; bestYear = entry.season.year;
+          }
+        }
+      }
+    }
+
+    if (!bestCategory || !bestEntry) {
+      el.innerHTML = '<div class="muted">Sin estadísticas registradas para este jugador.</div>';
+      return;
+    }
+
+    const idx = name => bestCategory.names.indexOf(name);
+    const val = name => { const i = idx(name); return i >= 0 ? bestEntry.stats[i] : null; };
+    const boxesCfg = CATEGORY_STAT_BOXES[bestCategory.name] ?? [];
+    const statBoxesHTML = boxesCfg.map(([label, key]) => `<div class="stat-box"><div class="v">${val(key) ?? "-"}</div><div class="l">${label}</div></div>`).join("");
+
+    // Racha reciente: promedio de los ultimos partidos del gamelog vs. promedio
+    // de la temporada de arriba, mismo criterio que usa el pipeline de picks.
+    let formHTML = "", logTableHTML = "";
+    const glNames = gamelog?.names ?? [];
+    const regSeason = (gamelog?.seasonTypes ?? []).find(st => /regular season/i.test(st.displayName ?? ""));
+    if (regSeason) {
+      const meta = gamelog.events ?? {};
+      const recentGames = (regSeason.categories ?? []).flatMap(c => c.events ?? [])
+        .map(ev => ({ stats: ev.stats, date: meta[ev.eventId]?.gameDate, opponent: meta[ev.eventId]?.opponent?.displayName }))
+        .filter(g => g.date)
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
+        .slice(0, 8);
+
+      const primaryStat = PRIMARY_STAT_BY_CATEGORY[bestCategory.name];
+      const glIdx = glNames.indexOf(primaryStat);
+      const gpIdx = idx("gamesPlayed");
+      if (glIdx >= 0 && recentGames.length && gpIdx >= 0) {
+        const recentVals = recentGames.map(g => parseFloat(g.stats[glIdx])).filter(v => !isNaN(v));
+        const recentAvg = recentVals.length ? recentVals.reduce((a, b) => a + b, 0) / recentVals.length : null;
+        const gamesPlayed = parseInt(bestEntry.stats[gpIdx]) || 0;
+        const seasonAvg = gamesPlayed > 0 ? parseFloat(val(primaryStat)) / gamesPlayed : null;
+        const form = classifyForm(recentAvg, seasonAvg, true);
+        formHTML = `<p><span class="badge ${form.cls}">${form.label}</span> <span class="muted">Promedio últimos ${recentVals.length} partidos: ${recentAvg != null ? recentAvg.toFixed(1) : "-"} vs promedio de temporada ${seasonAvg != null ? seasonAvg.toFixed(1) : "-"}</span></p>`;
+      }
+
+      if (recentGames.length) {
+        const dateCol = ["Fecha", g => new Date(g.date).toLocaleDateString("es-AR")];
+        const oppCol = ["Rival", g => g.opponent ?? "-"];
+        const cols = bestCategory.name === "passing"
+          ? [dateCol, oppCol, ["YDS", g => g.stats[glNames.indexOf("passingYards")]], ["TD", g => g.stats[glNames.indexOf("passingTouchdowns")]], ["INT", g => g.stats[glNames.indexOf("interceptions")]]]
+          : bestCategory.name === "rushing"
+          ? [dateCol, oppCol, ["YDS", g => g.stats[glNames.indexOf("rushingYards")]], ["TD", g => g.stats[glNames.indexOf("rushingTouchdowns")]]]
+          : bestCategory.name === "receiving"
+          ? [dateCol, oppCol, ["REC", g => g.stats[glNames.indexOf("receptions")]], ["YDS", g => g.stats[glNames.indexOf("receivingYards")]], ["TD", g => g.stats[glNames.indexOf("receivingTouchdowns")]]]
+          : [dateCol, oppCol];
+        logTableHTML = `<table><thead><tr>${cols.map(([l]) => `<th>${l}</th>`).join("")}</tr></thead><tbody>${recentGames.map(g => `<tr>${cols.map(([, fn]) => `<td>${fn(g) ?? "-"}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+      }
+    }
+
+    const name = athlete?.displayName ?? `Jugador #${id}`;
+    const team = athlete?.team?.displayName ?? "";
+    const posText = athlete?.position?.abbreviation ?? "";
+    el.innerHTML = `
+      <span class="back-link" id="clearPlayer">← Volver a la búsqueda</span>
+      <div class="player-header-row">
+        <span class="leader-photo player-photo-lg" style="background-image:url('${headshotURL(id)}')"></span>
+        <h2>${name} <span class="muted">#${athlete?.jersey ?? ""} · ${team} · ${posText} · temporada ${bestEntry.season.year}</span></h2>
+      </div>
+      <div class="stat-grid">${statBoxesHTML}</div>
+      ${formHTML}
+      ${logTableHTML}
+    `;
+    document.getElementById("clearPlayer").addEventListener("click", () => {
+      el.innerHTML = "";
+      document.getElementById("playerSearch").value = "";
+      document.getElementById("playerResults").innerHTML = "";
+    });
+  } catch (e) {
+    el.innerHTML = `<div class="error">No se pudo cargar el jugador (${e.message}).</div>`;
+  }
+}
 </script>
 
 </body>
