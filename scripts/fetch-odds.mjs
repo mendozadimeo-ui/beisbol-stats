@@ -53,9 +53,10 @@ async function fetchStandingsMap() {
   // El endpoint de standings devuelve nombres cortos ("Dodgers"), pero el resto
   // del pipeline (odds-api.io, schedule, etc.) usa nombres completos ("Los Angeles
   // Dodgers"). Cruzamos por team.id, que es consistente en toda la API de MLB.
-  const [standingsData, teamsData] = await Promise.all([
+  const [standingsData, teamsData, injuries] = await Promise.all([
     getJSON(`${MLB_BASE}/standings?leagueId=103,104&season=${SEASON}&standingsTypes=regularSeason`),
-    getJSON(`${MLB_BASE}/teams?sportId=1`)
+    getJSON(`${MLB_BASE}/teams?sportId=1`),
+    fetchMlbInjuries().catch(() => ({ countByTeamId: {} }))
   ]);
   const byId = {};
   for (const division of standingsData.records ?? []) {
@@ -65,7 +66,8 @@ async function fetchStandingsMap() {
       byId[r.team.id] = {
         pct: parseFloat(r.leagueRecord.pct) || 0.5,
         streakSigned: r.streak?.streakType === "wins" ? streakNum : -streakNum,
-        last10Diff: last10 ? last10.wins - last10.losses : 0
+        last10Diff: last10 ? last10.wins - last10.losses : 0,
+        injuryCount: injuries.countByTeamId[r.team.id] || 0
       };
     }
   }
@@ -78,6 +80,11 @@ async function fetchStandingsMap() {
 
 // Metodo Log5 (Bill James): probabilidad de que el equipo A le gane a B a partir
 // de sus porcentajes de victoria en la temporada, mas un ajuste chico por racha y localia.
+// El ajuste por lesionados es deliberadamente chico y crudo: contamos cuantos
+// jugadores del roster de 40 estan inactivos por equipo, sin distinguir si es
+// un titular clave o un suplente (no tenemos ese dato con precision) -- es
+// honesto reflejar solo "este equipo tiene mas bajas que el rival", no fingir
+// que sabemos cuanto vale cada ausencia especifica.
 function estimateWinProb(teamName, oppName, standingsMap, isHome) {
   const t = standingsMap[teamName];
   const o = standingsMap[oppName];
@@ -86,7 +93,9 @@ function estimateWinProb(teamName, oppName, standingsMap, isHome) {
   const pb = Math.min(0.9, Math.max(0.1, o.pct));
   let p = (pa - pa * pb) / (pa + pb - 2 * pa * pb);
   const streakAdj = (t.streakSigned - o.streakSigned) * 0.01 + (t.last10Diff - o.last10Diff) * 0.008;
-  p += streakAdj + (isHome ? 0.02 : -0.02);
+  const injuryDiff = (t.injuryCount ?? 0) - (o.injuryCount ?? 0);
+  const injuryAdj = Math.max(-0.03, Math.min(0.03, -injuryDiff * 0.006));
+  p += streakAdj + injuryAdj + (isHome ? 0.02 : -0.02);
   return Math.max(0.05, Math.min(0.95, p));
 }
 
@@ -281,7 +290,8 @@ async function getTeamIdMap() {
 let mlbInjuriesCache = null;
 async function fetchMlbInjuries() {
   if (mlbInjuriesCache) return mlbInjuriesCache;
-  const map = {};
+  const byPlayerId = {};
+  const countByTeamId = {};
   try {
     const teamIds = Object.values(await getTeamIdMap());
     for (const id of teamIds) {
@@ -289,14 +299,21 @@ async function fetchMlbInjuries() {
         const roster = await getJSON(`${MLB_BASE}/teams/${id}/roster?rosterType=40Man`);
         for (const p of roster.roster ?? []) {
           if (p.status?.code && p.status.code !== "A") {
-            map[p.person.id] = { code: p.status.code, description: p.status.description, note: p.note ?? null };
+            byPlayerId[p.person.id] = { code: p.status.code, description: p.status.description, note: p.note ?? null };
+            // Para el ajuste de fuerza de equipo solo contamos lesiones reales
+            // (codigos "D..." = lista de lesionados). "RM" (reasignado a ligas
+            // menores) es rotacion normal de roster, no dice nada de si el
+            // equipo llega mas debil a HOY -- contarlo diluiria la señal.
+            if (p.status.code.startsWith("D")) {
+              countByTeamId[id] = (countByTeamId[id] || 0) + 1;
+            }
           }
         }
       } catch { /* seguimos con los demas equipos si uno falla */ }
     }
   } catch { /* seguimos sin filtro de lesionados si falla del todo */ }
-  mlbInjuriesCache = map;
-  return map;
+  mlbInjuriesCache = { byPlayerId, countByTeamId };
+  return mlbInjuriesCache;
 }
 
 const weatherCache = new Map();
@@ -503,7 +520,7 @@ async function evaluateProp(prop, awayTeam, homeTeam, gameCtx) {
   // a ligas menores, etc) -- no importa si el prop es de bateo o de pitcheo,
   // si no esta activo no va a jugar.
   const injuries = await fetchMlbInjuries();
-  if (injuries[proj.id]) return null;
+  if (injuries.byPlayerId[proj.id]) return null;
 
   let ourProbOver = null;
   let why = null;
