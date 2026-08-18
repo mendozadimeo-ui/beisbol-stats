@@ -15,13 +15,21 @@ const ODDS_BASE = "https://api.odds-api.io/v3";
 
 // Ligas que mostramos, y su equivalente de liga en odds-api.io (si todavia no
 // arranco la temporada esa liga no tiene eventos ahi, y se maneja como "sin cuotas").
+// Nota: "spain-la-liga" (guion) no existe en odds-api.io, el slug real es
+// "spain-laliga" -- estaba mal desde el principio, nunca trajo cuotas de La Liga.
+//
+// Europa League y Conference League llevan "source: odds-api" porque Big Balls
+// Sports Data (fixtures/tabla) no las tiene en su catalogo en absoluto (confirmado
+// contra la API real). Para esas dos armamos el fixture directo desde los eventos
+// de odds-api.io en vez de BBS -- por eso no van a tener tabla de posiciones,
+// la pestana de Posiciones lo va a mostrar como "sin tabla disponible", honesto.
 const LEAGUES = {
   epl: { name: "Premier League", oddsLeague: "england-premier-league" },
-  laliga: { name: "La Liga", oddsLeague: "spain-la-liga" },
+  laliga: { name: "La Liga", oddsLeague: "spain-laliga" },
   seriea: { name: "Serie A", oddsLeague: "italy-serie-a" },
-  bundesliga: { name: "Bundesliga", oddsLeague: "germany-bundesliga" },
-  ligue1: { name: "Ligue 1", oddsLeague: "france-ligue-1" },
-  ucl: { name: "Champions League", oddsLeague: "international-clubs-uefa-champions-league" }
+  ucl: { name: "Champions League", oddsLeague: "international-clubs-uefa-champions-league" },
+  uel: { name: "Europa League", oddsLeague: "international-clubs-uefa-europa-league", source: "odds-api" },
+  uecl: { name: "Conference League", oddsLeague: "international-clubs-uefa-conference-league", source: "odds-api" }
 };
 const BOOKMAKERS = "Bovada,Bet365";
 const BOOKMAKER_ORDER = ["Bovada", "Bet365"];
@@ -106,12 +114,53 @@ async function fetchLeagueData(leagueKey) {
   return { matches: matchesRes.data ?? [], standings: standingsRes.data ?? null };
 }
 
+// ---------- Fixtures directo desde odds-api.io (ligas sin datos en BBS) ----------
+// El mismo evento nos da equipos + fecha + cuotas en una sola pasada. No hay tabla
+// de posiciones posible por esta via (odds-api.io no la tiene).
+async function fetchOddsApiFixtures(oddsLeagueSlug) {
+  try {
+    const events = await getJSON(
+      `${ODDS_BASE}/events?apiKey=${ODDS_API_KEY}&sport=football&league=${oddsLeagueSlug}&status=pending&limit=40`
+    );
+    const cutoff = Date.now() + 5 * 24 * 60 * 60 * 1000;
+    const soon = events.filter(ev => new Date(ev.date).getTime() <= cutoff);
+    const matches = [];
+    for (const ev of soon) {
+      await sleep(300);
+      let odds = null;
+      try {
+        const raw = await getJSON(`${ODDS_BASE}/odds?apiKey=${ODDS_API_KEY}&eventId=${ev.id}&bookmakers=${BOOKMAKERS}`);
+        odds = extractFootballOdds(raw);
+      } catch (e) {
+        console.error(`  odds error evento ${ev.id}:`, e.message);
+      }
+      matches.push({
+        id: ev.id, home: ev.home, homeLogo: null, away: ev.away, awayLogo: null,
+        kickoff: ev.date, status: ev.status === "pending" ? "scheduled" : ev.status,
+        score: ev.status !== "pending" && ev.scores ? { home: ev.scores.home, away: ev.scores.away } : null,
+        odds
+      });
+    }
+    return matches;
+  } catch (e) {
+    console.error(`Fixtures odds-api no disponibles para ${oddsLeagueSlug}:`, e.message);
+    return [];
+  }
+}
+
 async function main() {
   const output = { updatedAt: new Date().toISOString(), leagues: {}, matches: {}, standings: {} };
 
   for (const [key, cfg] of Object.entries(LEAGUES)) {
     output.leagues[key] = cfg.name;
     console.log(`Trayendo ${cfg.name}...`);
+
+    if (cfg.source === "odds-api") {
+      output.standings[key] = null;
+      output.matches[key] = ODDS_API_KEY ? await fetchOddsApiFixtures(cfg.oddsLeague) : [];
+      continue;
+    }
+
     const { matches, standings } = await fetchLeagueData(key);
     output.standings[key] = standings;
 
