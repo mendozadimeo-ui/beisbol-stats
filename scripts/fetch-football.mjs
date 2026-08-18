@@ -21,8 +21,7 @@ const LEAGUES = {
   seriea: { name: "Serie A", oddsLeague: "italy-serie-a" },
   bundesliga: { name: "Bundesliga", oddsLeague: "germany-bundesliga" },
   ligue1: { name: "Ligue 1", oddsLeague: "france-ligue-1" },
-  ucl: { name: "Champions League", oddsLeague: "international-clubs-uefa-champions-league" },
-  mls: { name: "MLS", oddsLeague: "usa-mls" }
+  ucl: { name: "Champions League", oddsLeague: "international-clubs-uefa-champions-league" }
 };
 const BOOKMAKERS = "Bovada,Bet365";
 const BOOKMAKER_ORDER = ["Bovada", "Bet365"];
