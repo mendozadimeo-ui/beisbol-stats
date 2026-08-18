@@ -383,6 +383,38 @@
   .ml-odd.fav { color: var(--win); }
   .props-section { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border); }
   .props-title { font-size: 11px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; letter-spacing: 0.03em; }
+  .prob-meter { height: 5px; border-radius: 999px; background: var(--panel-2); overflow: hidden; margin-top: 5px; }
+  .prob-meter-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
+  .hero-pick {
+    background: linear-gradient(135deg, rgba(var(--accent-rgb),0.14), var(--panel));
+    border: 1px solid var(--accent);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin-bottom: 18px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-pick-label {
+    font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
+  }
+  .hero-pick-main { font-size: 19px; font-weight: 800; margin-bottom: 2px; }
+  .hero-pick-sub { color: var(--muted); font-size: 13px; margin-bottom: 14px; }
+  .hero-pick-stats { display: flex; gap: 24px; align-items: baseline; flex-wrap: wrap; margin-bottom: 4px; }
+  .hero-pick-prob-wrap { min-width: 140px; }
+  .hero-pick-prob { font-size: 30px; font-weight: 800; color: var(--accent); line-height: 1; }
+  .hero-pick-prob-label { font-size: 11px; color: var(--muted); text-transform: uppercase; margin-top: 2px; }
+  .hero-pick-odds { font-size: 18px; font-weight: 700; }
+  .hero-pick-odds-label { font-size: 11px; color: var(--muted); text-transform: uppercase; }
+  .hero-pick-why {
+    margin-top: 14px; font-size: 13px; color: var(--muted); line-height: 1.5;
+    padding-top: 12px; border-top: 1px solid var(--border);
+  }
+  .confidence-badge {
+    display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 11px; font-weight: 700;
+  }
+  .confidence-badge.alta { background: rgba(var(--accent-rgb),0.18); color: var(--accent); }
+  .confidence-badge.media { background: rgba(234,179,8,0.18); color: #eab308; }
   .prop-row {
     display: flex;
     justify-content: space-between;
@@ -587,6 +619,7 @@
     <div class="toolbar">
       <input type="date" id="picksDate">
     </div>
+    <div id="heroPickSection"></div>
     <div id="gameSelectorSection" class="game-selector"></div>
     <div id="parlaysSection"></div>
     <div id="hrSection"></div>
@@ -1077,15 +1110,72 @@ function topPropRow(prop) {
   const pct = Math.round(prop.ourProb * 100);
   const label = MARKET_LABELS[prop.market] ?? prop.market;
   return `
-    <div class="prop-row">
-      <div>
-        <span class="prop-desc"><b>${prop.player}</b> — Over ${prop.line} ${label} <span class="muted">(${prop.game})</span> — ${pct}% seg. nuestra proyección</span>
+    <div class="prop-row" style="align-items:flex-start;">
+      <div style="flex:1; min-width:0;">
+        <span class="prop-desc"><b>${prop.player}</b> — Over ${prop.line} ${label} <span class="muted">(${prop.game})</span> — ${pct}%</span>
+        <div class="prob-meter"><div class="prob-meter-fill" style="width:${pct}%"></div></div>
         ${prop.why ? `<div class="matchup-line">${prop.why}</div>` : ""}
       </div>
       <span class="prop-odds">
         <b>${formatOdds(prop.odds)}</b>
         <span class="book-tag ${prop.bookmaker === "Bovada" ? "bovada" : ""}">${prop.bookmaker}</span>
       </span>
+    </div>`;
+}
+
+// "Mejor pick del dia": no el de mayor edge matematico, sino el de mayor
+// probabilidad real entre los que ya pasaron el filtro de valor -- lo mas
+// creible que puede pasar hoy, no la apuesta mas jugada al azar.
+function pickLabel(p) {
+  if (p.market === "Moneyline") return `Gana ${p.player}`;
+  const label = MARKET_LABELS[p.market] ?? p.market;
+  const sideLabel = p.side === "over" ? "Over" : p.side === "under" ? "Under" : "";
+  return `${p.player} — ${label} ${sideLabel} ${p.line ?? ""}`.trim();
+}
+
+function confidenceBadge(prob) {
+  if (prob >= 0.7) return '<span class="confidence-badge alta">Alta confianza</span>';
+  if (prob >= 0.6) return '<span class="confidence-badge media">Confianza media</span>';
+  return "";
+}
+
+function computeBestPickOfDay(oddsMap) {
+  let best = null;
+  for (const [key, game] of Object.entries(oddsMap)) {
+    const [awayName, homeName] = key.split("@");
+    const candidates = [...(game.props ?? []), ...(game.moneylinePicks ?? [])];
+    for (const p of candidates) {
+      if (!p.isValue) continue;
+      if (!best || p.ourProb > best.ourProb || (p.ourProb === best.ourProb && p.edge > best.edge)) {
+        best = { ...p, game: `${awayName} @ ${homeName}` };
+      }
+    }
+  }
+  return best;
+}
+
+function renderHeroPick(oddsMap) {
+  const el = document.getElementById("heroPickSection");
+  const best = computeBestPickOfDay(oddsMap);
+  if (!best) { el.innerHTML = ""; return; }
+  const pct = Math.round(best.ourProb * 100);
+  el.innerHTML = `
+    <div class="hero-pick">
+      <div class="hero-pick-label">⭐ Mejor pick del día ${confidenceBadge(best.ourProb)}</div>
+      <div class="hero-pick-main">${pickLabel(best)}</div>
+      <div class="hero-pick-sub">${best.game}</div>
+      <div class="hero-pick-stats">
+        <div class="hero-pick-prob-wrap">
+          <div class="hero-pick-prob">${pct}%</div>
+          <div class="hero-pick-prob-label">nuestra proyección</div>
+          <div class="prob-meter"><div class="prob-meter-fill" style="width:${pct}%"></div></div>
+        </div>
+        <div>
+          <div class="hero-pick-odds">${formatOdds(best.odds)}</div>
+          <div class="hero-pick-odds-label">${best.bookmaker}</div>
+        </div>
+      </div>
+      ${best.why ? `<div class="hero-pick-why">📊 ${best.why}</div>` : ""}
     </div>`;
 }
 
@@ -1504,6 +1594,7 @@ async function loadPicks(date) {
     selectedGameKeys = new Set();
     if (!games.length) {
       el.innerHTML = '<div class="muted">No hay partidos por jugarse ese día (ya finalizaron o no hay calendario).</div>';
+      document.getElementById("heroPickSection").innerHTML = "";
       document.getElementById("gameSelectorSection").innerHTML = "";
       document.getElementById("parlaysSection").innerHTML = "";
       document.getElementById("hrSection").innerHTML = "";
@@ -1520,6 +1611,7 @@ async function loadPicks(date) {
       const key = `${g.teams.away.team.name}@${g.teams.home.team.name}@${date}`;
       if (oddsMap[key]) todaysOddsMap[key] = oddsMap[key];
     }
+    renderHeroPick(todaysOddsMap);
     document.getElementById("hrSection").innerHTML = buildTopPropsSection(
       todaysOddsMap, "🚀 Posibles Home Runs de Hoy",
       // Solo la linea estandar (0.5 = "pega al menos 1 HR"). Hay mercados raros
