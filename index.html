@@ -512,8 +512,8 @@
     <button class="tab-btn" data-tab="results">Resultados</button>
   </nav>
   <div class="sport-switch">
-    <a href="index.html" class="sport-pill active" title="Béisbol">⚾</a>
-    <a href="futbol.html" class="sport-pill" title="Fútbol">⚽</a>
+    <a href="index.html" class="sport-pill active" data-sport="baseball" title="Béisbol">⚾</a>
+    <a href="futbol.html" class="sport-pill" data-sport="football" title="Fútbol">⚽</a>
   </div>
 </header>
 
@@ -603,6 +603,9 @@
   }
   document.getElementById("landingBaseball").addEventListener("click", () => {
     document.getElementById("sportLanding").style.display = "none";
+  });
+  document.querySelectorAll(".sport-pill[data-sport]").forEach(el => {
+    el.addEventListener("click", () => localStorage.setItem("preferredSport", el.dataset.sport));
   });
 })();
 

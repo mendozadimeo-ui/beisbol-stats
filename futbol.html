@@ -153,8 +153,8 @@
     <button class="tab-btn" data-tab="standings">Posiciones</button>
   </nav>
   <div class="sport-switch">
-    <a href="index.html" class="sport-pill" title="Béisbol">⚾</a>
-    <a href="futbol.html" class="sport-pill active" title="Fútbol">⚽</a>
+    <a href="index.html" class="sport-pill" data-sport="baseball" title="Béisbol">⚾</a>
+    <a href="futbol.html" class="sport-pill active" data-sport="football" title="Fútbol">⚽</a>
   </div>
 </header>
 
@@ -177,6 +177,9 @@
 
 <script>
 localStorage.setItem("preferredSport", "football");
+document.querySelectorAll(".sport-pill[data-sport]").forEach(el => {
+  el.addEventListener("click", () => localStorage.setItem("preferredSport", el.dataset.sport));
+});
 
 document.querySelectorAll(".tab-btn").forEach(btn => {
   btn.addEventListener("click", () => {
