@@ -33,9 +33,14 @@ const LEAGUES = {
   epl: { name: "Premier League", oddsLeagues: ["england-premier-league"] },
   laliga: { name: "La Liga", oddsLeagues: ["spain-laliga"] },
   seriea: { name: "Serie A", oddsLeagues: ["italy-serie-a"] },
+  // UCL tambien via odds-api: el catalogo de BBS para esta liga esta desactualizado
+  // (devuelve fixtures y tabla de la temporada 2025-26 anterior, ya terminada --
+  // confirmado contra datos reales), asi que los partidos de la fase de playoff
+  // de esta semana no aparecian nunca.
   ucl: {
     name: "Champions League",
-    oddsLeagues: ["international-clubs-uefa-champions-league", "international-clubs-uefa-champions-league-playoff-round"]
+    oddsLeagues: ["international-clubs-uefa-champions-league", "international-clubs-uefa-champions-league-playoff-round"],
+    source: "odds-api"
   },
   uel: {
     name: "Europa League",
@@ -175,6 +180,16 @@ async function fetchOddsApiFixtures(oddsLeagueSlugs) {
 }
 
 async function main() {
+  // Si odds-api.io esta con la cuota agotada, un fetch fallido de una liga que
+  // depende 100% de esa API (UCL/UEL/UECL) devuelve [] -- sin esto, esa corrida
+  // pisaria partidos reales de la corrida anterior con "no hay nada". Guardamos
+  // el snapshot previo para no perder datos buenos por una falla temporal.
+  let previous = null;
+  try {
+    const fs = await import("node:fs/promises");
+    previous = JSON.parse(await fs.readFile("data/football.json", "utf8"));
+  } catch { /* primera corrida, o archivo corrupto: segui sin fallback */ }
+
   const output = { updatedAt: new Date().toISOString(), leagues: {}, matches: {}, standings: {} };
 
   for (const [key, cfg] of Object.entries(LEAGUES)) {
@@ -183,7 +198,8 @@ async function main() {
 
     if (cfg.source === "odds-api") {
       output.standings[key] = null;
-      output.matches[key] = ODDS_API_KEY ? await fetchOddsApiFixtures(cfg.oddsLeagues) : [];
+      const fresh = ODDS_API_KEY ? await fetchOddsApiFixtures(cfg.oddsLeagues) : [];
+      output.matches[key] = fresh.length ? fresh : (previous?.matches?.[key] ?? []);
       continue;
     }
 
