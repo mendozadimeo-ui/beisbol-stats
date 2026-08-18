@@ -23,13 +23,30 @@ const ODDS_BASE = "https://api.odds-api.io/v3";
 // contra la API real). Para esas dos armamos el fixture directo desde los eventos
 // de odds-api.io en vez de BBS -- por eso no van a tener tabla de posiciones,
 // la pestana de Posiciones lo va a mostrar como "sin tabla disponible", honesto.
+//
+// oddsLeagues es un array: en agosto las 3 copas UEFA todavia no arrancaron la
+// fase de liga (arranca en septiembre), asi que el slug base esta vacio y lo
+// unico con partidos reales es la variante "-playoff-round". Consultamos ambos
+// slugs y los combinamos -- asi se ve la fase de playoff ahora, y en septiembre
+// el slug base empieza a traer datos solo, sin tocar el codigo de nuevo.
 const LEAGUES = {
-  epl: { name: "Premier League", oddsLeague: "england-premier-league" },
-  laliga: { name: "La Liga", oddsLeague: "spain-laliga" },
-  seriea: { name: "Serie A", oddsLeague: "italy-serie-a" },
-  ucl: { name: "Champions League", oddsLeague: "international-clubs-uefa-champions-league" },
-  uel: { name: "Europa League", oddsLeague: "international-clubs-uefa-europa-league", source: "odds-api" },
-  uecl: { name: "Conference League", oddsLeague: "international-clubs-uefa-conference-league", source: "odds-api" }
+  epl: { name: "Premier League", oddsLeagues: ["england-premier-league"] },
+  laliga: { name: "La Liga", oddsLeagues: ["spain-laliga"] },
+  seriea: { name: "Serie A", oddsLeagues: ["italy-serie-a"] },
+  ucl: {
+    name: "Champions League",
+    oddsLeagues: ["international-clubs-uefa-champions-league", "international-clubs-uefa-champions-league-playoff-round"]
+  },
+  uel: {
+    name: "Europa League",
+    oddsLeagues: ["international-clubs-uefa-europa-league", "international-clubs-uefa-europa-league-playoff-round"],
+    source: "odds-api"
+  },
+  uecl: {
+    name: "Conference League",
+    oddsLeagues: ["international-clubs-uefa-conference-league", "international-clubs-uefa-conference-league-playoff-round"],
+    source: "odds-api"
+  }
 };
 const BOOKMAKERS = "Bovada,Bet365";
 const BOOKMAKER_ORDER = ["Bovada", "Bet365"];
@@ -56,27 +73,29 @@ function normalizeTeam(name) {
 }
 
 // ---------- Cuotas (odds-api.io) ----------
-async function fetchOddsForLeague(oddsLeagueSlug) {
+async function fetchOddsForLeague(oddsLeagueSlugs) {
   const oddsByMatch = {}; // key: normAway|normHome -> {moneyline, total}
-  try {
-    const events = await getJSON(
-      `${ODDS_BASE}/events?apiKey=${ODDS_API_KEY}&sport=football&league=${oddsLeagueSlug}&status=pending&limit=40`
-    );
-    const cutoff = Date.now() + 5 * 24 * 60 * 60 * 1000; // solo los proximos 5 dias, para no gastar cuota en fixtures lejanos
-    const soon = events.filter(ev => new Date(ev.date).getTime() <= cutoff);
-    for (const ev of soon) {
-      await sleep(300);
-      try {
-        const odds = await getJSON(`${ODDS_BASE}/odds?apiKey=${ODDS_API_KEY}&eventId=${ev.id}&bookmakers=${BOOKMAKERS}`);
-        const parsed = extractFootballOdds(odds);
-        const key = `${normalizeTeam(ev.away)}|${normalizeTeam(ev.home)}`;
-        oddsByMatch[key] = parsed;
-      } catch (e) {
-        console.error(`  odds error evento ${ev.id}:`, e.message);
+  for (const slug of oddsLeagueSlugs) {
+    try {
+      const events = await getJSON(
+        `${ODDS_BASE}/events?apiKey=${ODDS_API_KEY}&sport=football&league=${slug}&status=pending&limit=40`
+      );
+      const cutoff = Date.now() + 5 * 24 * 60 * 60 * 1000; // solo los proximos 5 dias, para no gastar cuota en fixtures lejanos
+      const soon = events.filter(ev => new Date(ev.date).getTime() <= cutoff);
+      for (const ev of soon) {
+        await sleep(300);
+        try {
+          const odds = await getJSON(`${ODDS_BASE}/odds?apiKey=${ODDS_API_KEY}&eventId=${ev.id}&bookmakers=${BOOKMAKERS}`);
+          const parsed = extractFootballOdds(odds);
+          const key = `${normalizeTeam(ev.away)}|${normalizeTeam(ev.home)}`;
+          oddsByMatch[key] = parsed;
+        } catch (e) {
+          console.error(`  odds error evento ${ev.id}:`, e.message);
+        }
       }
+    } catch (e) {
+      console.error(`Odds no disponibles para ${slug}:`, e.message);
     }
-  } catch (e) {
-    console.error(`Odds no disponibles para ${oddsLeagueSlug}:`, e.message);
   }
   return oddsByMatch;
 }
@@ -117,35 +136,39 @@ async function fetchLeagueData(leagueKey) {
 // ---------- Fixtures directo desde odds-api.io (ligas sin datos en BBS) ----------
 // El mismo evento nos da equipos + fecha + cuotas en una sola pasada. No hay tabla
 // de posiciones posible por esta via (odds-api.io no la tiene).
-async function fetchOddsApiFixtures(oddsLeagueSlug) {
-  try {
-    const events = await getJSON(
-      `${ODDS_BASE}/events?apiKey=${ODDS_API_KEY}&sport=football&league=${oddsLeagueSlug}&status=pending&limit=40`
-    );
-    const cutoff = Date.now() + 5 * 24 * 60 * 60 * 1000;
-    const soon = events.filter(ev => new Date(ev.date).getTime() <= cutoff);
-    const matches = [];
-    for (const ev of soon) {
-      await sleep(300);
-      let odds = null;
-      try {
-        const raw = await getJSON(`${ODDS_BASE}/odds?apiKey=${ODDS_API_KEY}&eventId=${ev.id}&bookmakers=${BOOKMAKERS}`);
-        odds = extractFootballOdds(raw);
-      } catch (e) {
-        console.error(`  odds error evento ${ev.id}:`, e.message);
+async function fetchOddsApiFixtures(oddsLeagueSlugs) {
+  const matches = [];
+  const seenIds = new Set();
+  for (const slug of oddsLeagueSlugs) {
+    try {
+      const events = await getJSON(
+        `${ODDS_BASE}/events?apiKey=${ODDS_API_KEY}&sport=football&league=${slug}&status=pending&limit=40`
+      );
+      const cutoff = Date.now() + 5 * 24 * 60 * 60 * 1000;
+      const soon = events.filter(ev => new Date(ev.date).getTime() <= cutoff);
+      for (const ev of soon) {
+        if (seenIds.has(ev.id)) continue;
+        seenIds.add(ev.id);
+        await sleep(300);
+        let odds = null;
+        try {
+          const raw = await getJSON(`${ODDS_BASE}/odds?apiKey=${ODDS_API_KEY}&eventId=${ev.id}&bookmakers=${BOOKMAKERS}`);
+          odds = extractFootballOdds(raw);
+        } catch (e) {
+          console.error(`  odds error evento ${ev.id}:`, e.message);
+        }
+        matches.push({
+          id: ev.id, home: ev.home, homeLogo: null, away: ev.away, awayLogo: null,
+          kickoff: ev.date, status: ev.status === "pending" ? "scheduled" : ev.status,
+          score: ev.status !== "pending" && ev.scores ? { home: ev.scores.home, away: ev.scores.away } : null,
+          odds
+        });
       }
-      matches.push({
-        id: ev.id, home: ev.home, homeLogo: null, away: ev.away, awayLogo: null,
-        kickoff: ev.date, status: ev.status === "pending" ? "scheduled" : ev.status,
-        score: ev.status !== "pending" && ev.scores ? { home: ev.scores.home, away: ev.scores.away } : null,
-        odds
-      });
+    } catch (e) {
+      console.error(`Fixtures odds-api no disponibles para ${slug}:`, e.message);
     }
-    return matches;
-  } catch (e) {
-    console.error(`Fixtures odds-api no disponibles para ${oddsLeagueSlug}:`, e.message);
-    return [];
   }
+  return matches;
 }
 
 async function main() {
@@ -157,7 +180,7 @@ async function main() {
 
     if (cfg.source === "odds-api") {
       output.standings[key] = null;
-      output.matches[key] = ODDS_API_KEY ? await fetchOddsApiFixtures(cfg.oddsLeague) : [];
+      output.matches[key] = ODDS_API_KEY ? await fetchOddsApiFixtures(cfg.oddsLeagues) : [];
       continue;
     }
 
@@ -165,8 +188,8 @@ async function main() {
     output.standings[key] = standings;
 
     let oddsByMatch = {};
-    if (ODDS_API_KEY && cfg.oddsLeague) {
-      oddsByMatch = await fetchOddsForLeague(cfg.oddsLeague);
+    if (ODDS_API_KEY && cfg.oddsLeagues) {
+      oddsByMatch = await fetchOddsForLeague(cfg.oddsLeagues);
     }
 
     output.matches[key] = matches.map(m => {
