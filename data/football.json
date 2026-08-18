@@ -1,13 +1,12 @@
 {
-  "updatedAt": "2026-08-18T03:27:33.198Z",
+  "updatedAt": "2026-08-18T06:13:22.137Z",
   "leagues": {
     "epl": "Premier League",
     "laliga": "La Liga",
     "seriea": "Serie A",
-    "bundesliga": "Bundesliga",
-    "ligue1": "Ligue 1",
     "ucl": "Champions League",
-    "mls": "MLS"
+    "uel": "Europa League",
+    "uecl": "Conference League"
   },
   "matches": {
     "epl": [
@@ -23,26 +22,26 @@
         "odds": {
           "moneyline": {
             "Bovada": {
-              "home": "1.18",
+              "home": "1.20",
               "draw": "7.00",
               "away": "14.00"
             },
             "Bet365": {
-              "home": "1.166",
-              "draw": "7.500",
+              "home": "1.181",
+              "draw": "7.000",
               "away": "15.000"
             }
           },
           "total": {
             "Bovada": {
               "line": 3,
-              "over": "1.91",
-              "under": "1.91"
+              "over": "1.93",
+              "under": "1.89"
             },
             "Bet365": {
               "line": 2.5,
-              "over": "1.550",
-              "under": "2.375"
+              "over": "1.575",
+              "under": "2.350"
             }
           }
         }
@@ -178,7 +177,7 @@
           "moneyline": {
             "Bovada": {
               "home": "2.30",
-              "draw": "3.45",
+              "draw": "3.40",
               "away": "3.10"
             },
             "Bet365": {
@@ -195,8 +194,8 @@
           "total": {
             "Bovada": {
               "line": 2.5,
-              "over": "1.89",
-              "under": "1.93"
+              "over": "1.93",
+              "under": "1.89"
             },
             "Bet365": {
               "line": 2.5,
@@ -1842,1110 +1841,6 @@
         "odds": null
       }
     ],
-    "bundesliga": [
-      {
-        "id": "d7d32d56-609f-4816-970e-5cc8da018cac",
-        "home": "Bayern Munich",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/01ogkh1716960412.png",
-        "away": "VfB Stuttgart",
-        "awayLogo": "https://i.imgur.com/v0tkpNx.png",
-        "kickoff": "2026-08-28T20:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "381811f6-36c6-4c16-b991-f69c3bd9cc6e",
-        "home": "FC Cologne",
-        "homeLogo": null,
-        "away": "TSG Hoffenheim",
-        "awayLogo": "https://i.imgur.com/gF0PfEl.png",
-        "kickoff": "2026-08-29T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "555ecdc7-f11d-4689-8097-a6000a237756",
-        "home": "RB Leipzig",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/zjgapo1594244951.png",
-        "away": "Borussia Mönchengladbach",
-        "awayLogo": "https://i.imgur.com/KSIk0Eu.png",
-        "kickoff": "2026-08-29T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "7793d825-c4b1-4fcf-858f-000fd0e73845",
-        "home": "1. FC Union Berlin",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/q0o5001599679795.png",
-        "away": "Eintracht Frankfurt",
-        "awayLogo": "https://i.imgur.com/X8NFkOb.png",
-        "kickoff": "2026-08-29T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "a6935601-ebc3-44b3-9f9d-8d48430b1d7b",
-        "home": "SV Elversberg",
-        "homeLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/SV_Elversberg_Logo.svg/500px-SV_Elversberg_Logo.svg.png",
-        "away": "Bayer Leverkusen",
-        "awayLogo": null,
-        "kickoff": "2026-08-29T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "a79b582a-5de4-4074-906d-eea9531fc9b4",
-        "home": "Mainz",
-        "homeLogo": "https://crests.football-data.org/15.png",
-        "away": "SC Paderborn 07",
-        "awayLogo": "https://upload.wikimedia.org/wikipedia/commons/e/e3/SC_Paderborn_07_Logo.svg",
-        "kickoff": "2026-08-29T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "0bd3666f-3e8f-4e2b-a3c5-c29b674c04bc",
-        "home": "Borussia Dortmund",
-        "homeLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Borussia_Dortmund_logo.svg/960px-Borussia_Dortmund_logo.svg.png",
-        "away": "Hamburger SV",
-        "awayLogo": "https://crests.football-data.org/7.png",
-        "kickoff": "2026-08-29T18:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "35796f32-29bc-4939-bd7e-e118d3338f21",
-        "home": "SC Freiburg",
-        "homeLogo": "https://i.imgur.com/r3mvi0h.png",
-        "away": "Werder Bremen",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/tkvqan1716960454.png",
-        "kickoff": "2026-08-30T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "f4249da9-f3fe-457e-afcf-e6fe36843dcc",
-        "home": "FC Augsburg",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/xqyyvq1473453233.png",
-        "away": "Schalke 04",
-        "awayLogo": "https://upload.wikimedia.org/wikipedia/commons/9/97/FC_Schalke_04_Logo.png",
-        "kickoff": "2026-08-30T17:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "74682e62-c3c0-4b7f-a06c-e6673af94804",
-        "home": "VfB Stuttgart",
-        "homeLogo": "https://i.imgur.com/v0tkpNx.png",
-        "away": "FC Cologne",
-        "awayLogo": null,
-        "kickoff": "2026-09-04T20:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "263dc8ed-76fb-4c40-8e24-6a3a4b7da13c",
-        "home": "TSG Hoffenheim",
-        "homeLogo": "https://i.imgur.com/gF0PfEl.png",
-        "away": "Borussia Dortmund",
-        "awayLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Borussia_Dortmund_logo.svg/960px-Borussia_Dortmund_logo.svg.png",
-        "kickoff": "2026-09-05T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "385320dc-ced1-400b-910e-115d7d9d385d",
-        "home": "Bayer Leverkusen",
-        "homeLogo": null,
-        "away": "1. FC Union Berlin",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/q0o5001599679795.png",
-        "kickoff": "2026-09-05T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "5d16b39b-3005-41b8-9af9-c30450fb12c7",
-        "home": "Borussia Mönchengladbach",
-        "homeLogo": "https://i.imgur.com/KSIk0Eu.png",
-        "away": "SV Elversberg",
-        "awayLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/SV_Elversberg_Logo.svg/500px-SV_Elversberg_Logo.svg.png",
-        "kickoff": "2026-09-05T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "71972ee6-ebe5-4921-9aba-3841889eb052",
-        "home": "Werder Bremen",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/tkvqan1716960454.png",
-        "away": "RB Leipzig",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/zjgapo1594244951.png",
-        "kickoff": "2026-09-05T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "bbdd66ad-c0d1-47c4-b6ee-5cc59d5b0c27",
-        "home": "SC Paderborn 07",
-        "homeLogo": "https://upload.wikimedia.org/wikipedia/commons/e/e3/SC_Paderborn_07_Logo.svg",
-        "away": "SC Freiburg",
-        "awayLogo": "https://i.imgur.com/r3mvi0h.png",
-        "kickoff": "2026-09-05T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "cd09da8b-48a5-4ef2-a977-a5731f84bc11",
-        "home": "Schalke 04",
-        "homeLogo": "https://upload.wikimedia.org/wikipedia/commons/9/97/FC_Schalke_04_Logo.png",
-        "away": "Bayern Munich",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/01ogkh1716960412.png",
-        "kickoff": "2026-09-05T18:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "0c108ea5-1e30-4749-8c5b-22cd634ffcac",
-        "home": "Hamburger SV",
-        "homeLogo": "https://crests.football-data.org/7.png",
-        "away": "Mainz",
-        "awayLogo": "https://crests.football-data.org/15.png",
-        "kickoff": "2026-09-06T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "cb740aa1-eeba-4940-b521-0f6a6575ae12",
-        "home": "Eintracht Frankfurt",
-        "homeLogo": "https://i.imgur.com/X8NFkOb.png",
-        "away": "FC Augsburg",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/xqyyvq1473453233.png",
-        "kickoff": "2026-09-06T17:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "48b6053d-545c-46e6-a559-56210e11516d",
-        "home": "1. FC Union Berlin",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/q0o5001599679795.png",
-        "away": "Schalke 04",
-        "awayLogo": "https://upload.wikimedia.org/wikipedia/commons/9/97/FC_Schalke_04_Logo.png",
-        "kickoff": "2026-09-11T20:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "1b112458-a1fc-4ecc-9850-c3250db2743a",
-        "home": "Borussia Dortmund",
-        "homeLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Borussia_Dortmund_logo.svg/960px-Borussia_Dortmund_logo.svg.png",
-        "away": "SC Paderborn 07",
-        "awayLogo": "https://upload.wikimedia.org/wikipedia/commons/e/e3/SC_Paderborn_07_Logo.svg",
-        "kickoff": "2026-09-12T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "201c4232-8916-4074-b22e-a62d355310ee",
-        "home": "TSG Hoffenheim",
-        "homeLogo": "https://i.imgur.com/gF0PfEl.png",
-        "away": "VfB Stuttgart",
-        "awayLogo": "https://i.imgur.com/v0tkpNx.png",
-        "kickoff": "2026-09-12T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "253fb8b0-c4db-4c90-863d-92fc1db615d0",
-        "home": "Mainz",
-        "homeLogo": "https://crests.football-data.org/15.png",
-        "away": "Eintracht Frankfurt",
-        "awayLogo": "https://i.imgur.com/X8NFkOb.png",
-        "kickoff": "2026-09-12T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "6a6a57af-ac96-45af-9f64-ceec0c1f88f4",
-        "home": "FC Augsburg",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/xqyyvq1473453233.png",
-        "away": "Bayer Leverkusen",
-        "awayLogo": null,
-        "kickoff": "2026-09-12T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "97c9f094-2d0d-4632-bd6b-5e04aacd4a20",
-        "home": "SC Freiburg",
-        "homeLogo": "https://i.imgur.com/r3mvi0h.png",
-        "away": "Borussia Mönchengladbach",
-        "awayLogo": "https://i.imgur.com/KSIk0Eu.png",
-        "kickoff": "2026-09-12T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "a63a9298-f40b-4c01-8adb-4a1689ebe76d",
-        "home": "FC Cologne",
-        "homeLogo": null,
-        "away": "Werder Bremen",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/tkvqan1716960454.png",
-        "kickoff": "2026-09-12T18:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "fdf2b819-c5f0-49de-80d9-11de2c431c77",
-        "home": "RB Leipzig",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/zjgapo1594244951.png",
-        "away": "Hamburger SV",
-        "awayLogo": "https://crests.football-data.org/7.png",
-        "kickoff": "2026-09-13T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "83f975d3-0474-4519-9079-499836fd254b",
-        "home": "SV Elversberg",
-        "homeLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/SV_Elversberg_Logo.svg/500px-SV_Elversberg_Logo.svg.png",
-        "away": "Bayern Munich",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/01ogkh1716960412.png",
-        "kickoff": "2026-09-13T17:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "ab9c1fe7-fdc3-4d5b-a1ee-6c371d4cbd8f",
-        "home": "Bayern Munich",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/01ogkh1716960412.png",
-        "away": "1. FC Union Berlin",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/q0o5001599679795.png",
-        "kickoff": "2026-09-18T20:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "5173f796-256e-443d-b79b-969a7675ae95",
-        "home": "Eintracht Frankfurt",
-        "homeLogo": "https://i.imgur.com/X8NFkOb.png",
-        "away": "SC Freiburg",
-        "awayLogo": "https://i.imgur.com/r3mvi0h.png",
-        "kickoff": "2026-09-19T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "59fd2e20-23d8-4180-a743-7e711423a7a6",
-        "home": "Borussia Mönchengladbach",
-        "homeLogo": "https://i.imgur.com/KSIk0Eu.png",
-        "away": "Mainz",
-        "awayLogo": "https://crests.football-data.org/15.png",
-        "kickoff": "2026-09-19T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "b8d72d18-5c62-415e-b3d6-d013c5117f7e",
-        "home": "Hamburger SV",
-        "homeLogo": "https://crests.football-data.org/7.png",
-        "away": "FC Cologne",
-        "awayLogo": null,
-        "kickoff": "2026-09-19T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "bc6c0290-d0e8-49de-9f16-317a6b0b1869",
-        "home": "Werder Bremen",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/tkvqan1716960454.png",
-        "away": "FC Augsburg",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/xqyyvq1473453233.png",
-        "kickoff": "2026-09-19T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "40f4a21a-6d77-44c1-a404-8ec9d9037301",
-        "home": "VfB Stuttgart",
-        "homeLogo": "https://i.imgur.com/v0tkpNx.png",
-        "away": "Borussia Dortmund",
-        "awayLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Borussia_Dortmund_logo.svg/960px-Borussia_Dortmund_logo.svg.png",
-        "kickoff": "2026-09-19T18:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "4a31c62e-0c1d-43fe-99a2-44f15c5267f9",
-        "home": "Bayer Leverkusen",
-        "homeLogo": null,
-        "away": "RB Leipzig",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/zjgapo1594244951.png",
-        "kickoff": "2026-09-20T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "640f5311-3103-4504-be75-8656ccb5dd41",
-        "home": "Schalke 04",
-        "homeLogo": "https://upload.wikimedia.org/wikipedia/commons/9/97/FC_Schalke_04_Logo.png",
-        "away": "SV Elversberg",
-        "awayLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/SV_Elversberg_Logo.svg/500px-SV_Elversberg_Logo.svg.png",
-        "kickoff": "2026-09-20T17:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "d2a366c1-ad8c-4f83-9fde-73c8e2cbdb21",
-        "home": "SC Paderborn 07",
-        "homeLogo": "https://upload.wikimedia.org/wikipedia/commons/e/e3/SC_Paderborn_07_Logo.svg",
-        "away": "TSG Hoffenheim",
-        "awayLogo": "https://i.imgur.com/gF0PfEl.png",
-        "kickoff": "2026-09-20T19:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "40c499e5-fddb-48f6-945a-efa8be883765",
-        "home": "1. FC Union Berlin",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/q0o5001599679795.png",
-        "away": "SV Elversberg",
-        "awayLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/SV_Elversberg_Logo.svg/500px-SV_Elversberg_Logo.svg.png",
-        "kickoff": "2026-10-10T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "8cb1cd33-2579-4c2b-b25c-c15be8d7ba1f",
-        "home": "Borussia Dortmund",
-        "homeLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Borussia_Dortmund_logo.svg/960px-Borussia_Dortmund_logo.svg.png",
-        "away": "Werder Bremen",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/tkvqan1716960454.png",
-        "kickoff": "2026-10-10T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "97eff84d-b5a2-4491-a361-98c0c1253752",
-        "home": "Mainz",
-        "homeLogo": "https://crests.football-data.org/15.png",
-        "away": "Bayer Leverkusen",
-        "awayLogo": null,
-        "kickoff": "2026-10-10T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "a5008bc4-983d-4dc0-b5d9-a9bc808e0730",
-        "home": "FC Augsburg",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/xqyyvq1473453233.png",
-        "away": "Bayern Munich",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/01ogkh1716960412.png",
-        "kickoff": "2026-10-10T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "ce4105ec-0961-4e70-ba8e-915e900985b7",
-        "home": "TSG Hoffenheim",
-        "homeLogo": "https://i.imgur.com/gF0PfEl.png",
-        "away": "Hamburger SV",
-        "awayLogo": "https://crests.football-data.org/7.png",
-        "kickoff": "2026-10-10T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "d086d450-f3a9-4246-9cc8-eaf5abbb68ee",
-        "home": "SC Freiburg",
-        "homeLogo": "https://i.imgur.com/r3mvi0h.png",
-        "away": "Schalke 04",
-        "awayLogo": "https://upload.wikimedia.org/wikipedia/commons/9/97/FC_Schalke_04_Logo.png",
-        "kickoff": "2026-10-10T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "d2748ba2-355f-43ca-bc0c-11f685163a8d",
-        "home": "SC Paderborn 07",
-        "homeLogo": "https://upload.wikimedia.org/wikipedia/commons/e/e3/SC_Paderborn_07_Logo.svg",
-        "away": "VfB Stuttgart",
-        "awayLogo": "https://i.imgur.com/v0tkpNx.png",
-        "kickoff": "2026-10-10T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "d42eaaad-ac2a-4b5e-802b-d90f053fd22f",
-        "home": "FC Cologne",
-        "homeLogo": null,
-        "away": "Borussia Mönchengladbach",
-        "awayLogo": "https://i.imgur.com/KSIk0Eu.png",
-        "kickoff": "2026-10-10T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "f0794e61-6358-4eab-b8f3-81a30258f185",
-        "home": "RB Leipzig",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/zjgapo1594244951.png",
-        "away": "Eintracht Frankfurt",
-        "awayLogo": "https://i.imgur.com/X8NFkOb.png",
-        "kickoff": "2026-10-10T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "042e2d92-a5de-472c-9533-4d849b6005b3",
-        "home": "Bayer Leverkusen",
-        "homeLogo": null,
-        "away": "SC Freiburg",
-        "awayLogo": "https://i.imgur.com/r3mvi0h.png",
-        "kickoff": "2026-10-17T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "07142fc0-863b-4bba-ad3e-049c261726fc",
-        "home": "SV Elversberg",
-        "homeLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/SV_Elversberg_Logo.svg/500px-SV_Elversberg_Logo.svg.png",
-        "away": "FC Augsburg",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/xqyyvq1473453233.png",
-        "kickoff": "2026-10-17T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "1ff1fbac-82bc-4d91-95dc-74d5e76e4b83",
-        "home": "Eintracht Frankfurt",
-        "homeLogo": "https://i.imgur.com/X8NFkOb.png",
-        "away": "FC Cologne",
-        "awayLogo": null,
-        "kickoff": "2026-10-17T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "2d8b1ce8-abb2-4dbb-8509-a4db1f318503",
-        "home": "Werder Bremen",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/tkvqan1716960454.png",
-        "away": "SC Paderborn 07",
-        "awayLogo": "https://upload.wikimedia.org/wikipedia/commons/e/e3/SC_Paderborn_07_Logo.svg",
-        "kickoff": "2026-10-17T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "454c6707-b061-414b-934a-746afc9eaabf",
-        "home": "Hamburger SV",
-        "homeLogo": "https://crests.football-data.org/7.png",
-        "away": "VfB Stuttgart",
-        "awayLogo": "https://i.imgur.com/v0tkpNx.png",
-        "kickoff": "2026-10-17T15:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      }
-    ],
-    "ligue1": [
-      {
-        "id": "9264eb78-03e5-4563-8f8b-579d1d52d3b9",
-        "home": "Marseille",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/uutsyt1473504764.png",
-        "away": "Strasbourg",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/b8k77w1766625501.png",
-        "kickoff": "2026-08-21T18:45:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "ed36bd91-da4f-44ea-9642-25cd23cac484",
-        "home": "Lens",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/3pxoum1598797195.png",
-        "away": "AJ Auxerre",
-        "awayLogo": "https://crests.football-data.org/519.png",
-        "kickoff": "2026-08-22T15:15:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "4e3aa9ff-e877-4391-ae7a-89b1bf4bf16d",
-        "home": "Nice",
-        "homeLogo": "https://crests.football-data.org/522.png",
-        "away": "Lorient",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/sxsttw1473504748.png",
-        "kickoff": "2026-08-22T18:45:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "b1bca89f-c01a-4e8e-aacd-0c0f3e5e9442",
-        "home": "Le Mans",
-        "homeLogo": "https://upload.wikimedia.org/wikipedia/en/5/57/Le_Mans_FC_logo.svg",
-        "away": "Brest",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/z69be41598797026.png",
-        "kickoff": "2026-08-22T18:45:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "bf18de2b-aa54-4123-9ba1-3b61c315f2c1",
-        "home": "Toulouse",
-        "homeLogo": "https://crests.football-data.org/511.png",
-        "away": "Lyon",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/blk9771656932845.png",
-        "kickoff": "2026-08-22T18:45:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "d459c955-89c7-4438-8d4b-d4789c032058",
-        "home": "Troyes",
-        "homeLogo": "https://crests.football-data.org/531.png",
-        "away": "Paris FC",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/yuvtsy1447594254.png",
-        "kickoff": "2026-08-22T18:45:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "bcaaeb28-662a-4a78-9c72-63f79b3aa0c7",
-        "home": "Angers",
-        "homeLogo": null,
-        "away": "Lille",
-        "awayLogo": "https://crests.football-data.org/521.png",
-        "kickoff": "2026-08-23T13:00:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "6cbc327e-661c-4f6c-a0d3-f8b583d47aa0",
-        "home": "Le Havre AC",
-        "homeLogo": "https://crests.football-data.org/533.png",
-        "away": "AS Monaco",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/exjf5l1678808044.png",
-        "kickoff": "2026-08-23T15:15:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "ce318476-4c97-4ae4-b4f8-4eaca4d0139c",
-        "home": "Paris Saint-Germain",
-        "homeLogo": null,
-        "away": "Stade Rennais",
-        "awayLogo": "https://crests.football-data.org/529.png",
-        "kickoff": "2026-08-23T18:45:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "777e9439-11c8-4d94-b409-3016b77be544",
-        "home": "Lille",
-        "homeLogo": "https://crests.football-data.org/521.png",
-        "away": "Paris Saint-Germain",
-        "awayLogo": null,
-        "kickoff": "2026-08-28T18:45:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "84909aa7-24e1-44db-b55d-1a1828879c38",
-        "home": "Strasbourg",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/b8k77w1766625501.png",
-        "away": "Lens",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/3pxoum1598797195.png",
-        "kickoff": "2026-08-29T15:15:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "831d4aa1-ca4b-45e1-8d39-558953e3c556",
-        "home": "AJ Auxerre",
-        "homeLogo": "https://crests.football-data.org/519.png",
-        "away": "Angers",
-        "awayLogo": null,
-        "kickoff": "2026-08-29T18:45:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "a2f6d75a-6391-4bb0-a034-f1a6b1ad929b",
-        "home": "Lyon",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/blk9771656932845.png",
-        "away": "Le Havre AC",
-        "awayLogo": "https://crests.football-data.org/533.png",
-        "kickoff": "2026-08-29T18:45:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "ac95a3c7-f5f5-45ac-9359-0ede7ddb06c5",
-        "home": "Lorient",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/sxsttw1473504748.png",
-        "away": "Troyes",
-        "awayLogo": "https://crests.football-data.org/531.png",
-        "kickoff": "2026-08-29T18:45:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "c73099b1-46fe-4a1e-a4ab-cecfe117b9bd",
-        "home": "Brest",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/z69be41598797026.png",
-        "away": "Toulouse",
-        "awayLogo": "https://crests.football-data.org/511.png",
-        "kickoff": "2026-08-29T18:45:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "3e593bf5-fc9f-4de1-9250-a7029daa40c3",
-        "home": "Paris FC",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/yuvtsy1447594254.png",
-        "away": "Nice",
-        "awayLogo": "https://crests.football-data.org/522.png",
-        "kickoff": "2026-08-30T13:00:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "20650773-6dfc-4dff-96b9-3276235988e5",
-        "home": "Stade Rennais",
-        "homeLogo": "https://crests.football-data.org/529.png",
-        "away": "Le Mans",
-        "awayLogo": "https://upload.wikimedia.org/wikipedia/en/5/57/Le_Mans_FC_logo.svg",
-        "kickoff": "2026-08-30T15:15:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "b82d5a91-08cf-4e40-a323-2486d4eb168a",
-        "home": "AS Monaco",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/exjf5l1678808044.png",
-        "away": "Marseille",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/uutsyt1473504764.png",
-        "kickoff": "2026-08-30T18:45:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "0990541e-4f94-4982-b369-3463897e1d06",
-        "home": "Nice",
-        "homeLogo": "https://crests.football-data.org/522.png",
-        "away": "Le Mans",
-        "awayLogo": "https://upload.wikimedia.org/wikipedia/en/5/57/Le_Mans_FC_logo.svg",
-        "kickoff": "2026-09-05T15:00:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "36017fad-3a7a-4293-be71-5bb6c53b576b",
-        "home": "Le Havre AC",
-        "homeLogo": "https://crests.football-data.org/533.png",
-        "away": "Brest",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/z69be41598797026.png",
-        "kickoff": "2026-09-05T15:00:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "755f216a-a6b4-4dbc-9930-2093ef7854aa",
-        "home": "Marseille",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/uutsyt1473504764.png",
-        "away": "Paris FC",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/yuvtsy1447594254.png",
-        "kickoff": "2026-09-05T15:00:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "768a1585-2c01-4678-a226-a62482453350",
-        "home": "Lens",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/3pxoum1598797195.png",
-        "away": "Lorient",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/sxsttw1473504748.png",
-        "kickoff": "2026-09-05T15:00:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "8a4b15b8-1db8-498c-b75c-62bb38e190c6",
-        "home": "Troyes",
-        "homeLogo": "https://crests.football-data.org/531.png",
-        "away": "Strasbourg",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/b8k77w1766625501.png",
-        "kickoff": "2026-09-05T15:00:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "b1eab213-a00b-4e49-9638-4924e67a2bc8",
-        "home": "Lyon",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/blk9771656932845.png",
-        "away": "AJ Auxerre",
-        "awayLogo": "https://crests.football-data.org/519.png",
-        "kickoff": "2026-09-05T15:00:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "db9b73aa-0cbb-4438-95e4-867ee91fb03d",
-        "home": "Angers",
-        "homeLogo": null,
-        "away": "Stade Rennais",
-        "awayLogo": "https://crests.football-data.org/529.png",
-        "kickoff": "2026-09-05T15:00:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "dc7f950d-02bf-4dcd-8cbd-7e4ae9fb90d8",
-        "home": "Toulouse",
-        "homeLogo": "https://crests.football-data.org/511.png",
-        "away": "Lille",
-        "awayLogo": "https://crests.football-data.org/521.png",
-        "kickoff": "2026-09-05T15:00:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "fffff6d7-e6db-4773-9a10-9ad7d5abaf56",
-        "home": "Paris Saint-Germain",
-        "homeLogo": null,
-        "away": "AS Monaco",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/exjf5l1678808044.png",
-        "kickoff": "2026-09-05T15:00:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "3510d93d-1c4b-42a9-9ef7-abb506180f70",
-        "home": "Stade Rennais",
-        "homeLogo": "https://crests.football-data.org/529.png",
-        "away": "Marseille",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/uutsyt1473504764.png",
-        "kickoff": "2026-09-11T18:45:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "f23bb6ff-7300-458e-b643-2ba1849a91b1",
-        "home": "Strasbourg",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/b8k77w1766625501.png",
-        "away": "AS Monaco",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/exjf5l1678808044.png",
-        "kickoff": "2026-09-12T15:15:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "45b05fe2-2790-4dea-8857-9870c4f42577",
-        "home": "AJ Auxerre",
-        "homeLogo": "https://crests.football-data.org/519.png",
-        "away": "Nice",
-        "awayLogo": "https://crests.football-data.org/522.png",
-        "kickoff": "2026-09-12T18:45:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "9ca81bb3-689f-4e54-b5d0-3363e0eb117d",
-        "home": "Lorient",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/sxsttw1473504748.png",
-        "away": "Toulouse",
-        "awayLogo": "https://crests.football-data.org/511.png",
-        "kickoff": "2026-09-12T18:45:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "a37dd741-ba96-4c5c-859f-46686eb1ffbf",
-        "home": "Paris FC",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/yuvtsy1447594254.png",
-        "away": "Lyon",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/blk9771656932845.png",
-        "kickoff": "2026-09-12T18:45:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "d61ae842-5f51-447c-884a-358b0443eb5c",
-        "home": "Le Havre AC",
-        "homeLogo": "https://crests.football-data.org/533.png",
-        "away": "Angers",
-        "awayLogo": null,
-        "kickoff": "2026-09-12T18:45:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "069ef306-857f-4123-8cec-f1a114256d6d",
-        "home": "Lille",
-        "homeLogo": "https://crests.football-data.org/521.png",
-        "away": "Troyes",
-        "awayLogo": "https://crests.football-data.org/531.png",
-        "kickoff": "2026-09-13T13:00:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "57d30d89-5751-4a83-b57c-0dd398819852",
-        "home": "Le Mans",
-        "homeLogo": "https://upload.wikimedia.org/wikipedia/en/5/57/Le_Mans_FC_logo.svg",
-        "away": "Lens",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/3pxoum1598797195.png",
-        "kickoff": "2026-09-13T15:15:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "22d22806-477a-475a-bbd9-c36ef4201d65",
-        "home": "Brest",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/z69be41598797026.png",
-        "away": "Paris Saint-Germain",
-        "awayLogo": null,
-        "kickoff": "2026-09-13T18:45:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "1a354977-331a-460a-b2bc-06f6d68ba813",
-        "home": "AS Monaco",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/exjf5l1678808044.png",
-        "away": "Lens",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/3pxoum1598797195.png",
-        "kickoff": "2026-09-19T15:00:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "2a161606-9e83-4162-b2d8-2ab9abd62765",
-        "home": "Nice",
-        "homeLogo": "https://crests.football-data.org/522.png",
-        "away": "Lille",
-        "awayLogo": "https://crests.football-data.org/521.png",
-        "kickoff": "2026-09-19T15:00:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "48038dd6-525b-4e01-850b-b97e0bad1901",
-        "home": "Lyon",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/blk9771656932845.png",
-        "away": "Stade Rennais",
-        "awayLogo": "https://crests.football-data.org/529.png",
-        "kickoff": "2026-09-19T15:00:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "5df626e4-ca3f-47a7-a294-db1d533f33bf",
-        "home": "AJ Auxerre",
-        "homeLogo": "https://crests.football-data.org/519.png",
-        "away": "Brest",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/z69be41598797026.png",
-        "kickoff": "2026-09-19T15:00:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "8636a8bd-b066-40fe-b7f7-b0dd8b88ec2b",
-        "home": "Angers",
-        "homeLogo": null,
-        "away": "Troyes",
-        "awayLogo": "https://crests.football-data.org/531.png",
-        "kickoff": "2026-09-19T15:00:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "9df62bb7-0e3f-4f68-8fda-9d98c7264b76",
-        "home": "Toulouse",
-        "homeLogo": "https://crests.football-data.org/511.png",
-        "away": "Le Havre AC",
-        "awayLogo": "https://crests.football-data.org/533.png",
-        "kickoff": "2026-09-19T15:00:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "d9a57fe0-5508-4159-bca4-997d403cb475",
-        "home": "Le Mans",
-        "homeLogo": "https://upload.wikimedia.org/wikipedia/en/5/57/Le_Mans_FC_logo.svg",
-        "away": "Lorient",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/sxsttw1473504748.png",
-        "kickoff": "2026-09-19T15:00:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "f56a8238-e4c8-42f1-b577-3a37d51e8dde",
-        "home": "Paris FC",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/yuvtsy1447594254.png",
-        "away": "Strasbourg",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/b8k77w1766625501.png",
-        "kickoff": "2026-09-19T15:00:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "91544a05-f041-426c-8782-f493b05eab0a",
-        "home": "Marseille",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/uutsyt1473504764.png",
-        "away": "Paris Saint-Germain",
-        "awayLogo": null,
-        "kickoff": "2026-09-20T18:45:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "01aa55e9-ce73-415b-87de-d67133afac73",
-        "home": "Paris Saint-Germain",
-        "homeLogo": null,
-        "away": "Le Mans",
-        "awayLogo": "https://upload.wikimedia.org/wikipedia/en/5/57/Le_Mans_FC_logo.svg",
-        "kickoff": "2026-10-10T15:00:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "26a31fb8-d9cc-4fae-aa1b-0e92a1f4e7f3",
-        "home": "Brest",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/z69be41598797026.png",
-        "away": "Angers",
-        "awayLogo": null,
-        "kickoff": "2026-10-10T15:00:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "3beea065-91c1-4050-bb89-2293bca57c9e",
-        "home": "AS Monaco",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/exjf5l1678808044.png",
-        "away": "Toulouse",
-        "awayLogo": "https://crests.football-data.org/511.png",
-        "kickoff": "2026-10-10T15:00:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "43cc02ed-611b-4fd3-8170-bd7c078cb92e",
-        "home": "Stade Rennais",
-        "homeLogo": "https://crests.football-data.org/529.png",
-        "away": "AJ Auxerre",
-        "awayLogo": "https://crests.football-data.org/519.png",
-        "kickoff": "2026-10-10T15:00:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "61b9b137-d7be-4104-b187-01b772c72135",
-        "home": "Troyes",
-        "homeLogo": "https://crests.football-data.org/531.png",
-        "away": "Marseille",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/uutsyt1473504764.png",
-        "kickoff": "2026-10-10T15:00:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      }
-    ],
     "ucl": [
       {
         "id": "7044042a-0ae2-40f4-aa23-2ac82589ec62",
@@ -3648,928 +2543,8 @@
         "odds": null
       }
     ],
-    "mls": [
-      {
-        "id": "004237a6-dabd-4c42-acd6-f29ae0e84b88",
-        "home": "Columbus Crew",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/dzs8cp1629059854.png",
-        "away": "CF Montréal Montréal",
-        "awayLogo": null,
-        "kickoff": "2026-08-19T23:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "21707ac5-dab5-437c-99de-9552ad3926fb",
-        "home": "Philadelphia Union",
-        "homeLogo": null,
-        "away": "Inter Miami CF Inter Miami CF",
-        "awayLogo": null,
-        "kickoff": "2026-08-19T23:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "28c00586-4334-455a-9051-160d60110c30",
-        "home": "Orlando City SC",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/qyppxw1423832326.png",
-        "away": "Chicago Fire",
-        "awayLogo": null,
-        "kickoff": "2026-08-19T23:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": {
-          "moneyline": {
-            "Bet365": {
-              "home": "2.900",
-              "draw": "4.000",
-              "away": "2.200"
-            },
-            "Bet365 (no latency)": {
-              "home": "2.90",
-              "draw": "4.00",
-              "away": "2.20"
-            }
-          },
-          "total": {
-            "Bet365": {
-              "line": 2.5,
-              "over": "1.400",
-              "under": "2.850"
-            }
-          }
-        }
-      },
-      {
-        "id": "5c13cc0c-4dc5-4808-b8de-6dcb444b8ddc",
-        "home": "Toronto FC",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/rsxyrr1473536512.png",
-        "away": "Charlotte FC",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/b6p4uz1595434047.png",
-        "kickoff": "2026-08-19T23:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": {
-          "moneyline": {
-            "Bet365": {
-              "home": "2.200",
-              "draw": "3.600",
-              "away": "3.100"
-            },
-            "Bet365 (no latency)": {
-              "home": "2.20",
-              "draw": "3.60",
-              "away": "3.10"
-            }
-          },
-          "total": {
-            "Bet365": {
-              "line": 2.75,
-              "over": "1.825",
-              "under": "1.975"
-            }
-          }
-        }
-      },
-      {
-        "id": "5de64fec-a684-4019-8a7e-f27dce72010c",
-        "home": "New York Red Bulls",
-        "homeLogo": null,
-        "away": "Nashville SC",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/znrwt71602103062.png",
-        "kickoff": "2026-08-19T23:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": {
-          "moneyline": {
-            "Bet365": {
-              "home": "2.900",
-              "draw": "3.800",
-              "away": "2.250"
-            },
-            "Bet365 (no latency)": {
-              "home": "2.90",
-              "draw": "3.80",
-              "away": "2.25"
-            }
-          },
-          "total": {
-            "Bet365": {
-              "line": 2.5,
-              "over": "1.550",
-              "under": "2.375"
-            }
-          }
-        }
-      },
-      {
-        "id": "8f01c0e5-ce7a-480c-b2fa-37df41329930",
-        "home": "FC Cincinnati",
-        "homeLogo": null,
-        "away": "New York City FC",
-        "awayLogo": null,
-        "kickoff": "2026-08-19T23:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": {
-          "moneyline": {
-            "Bet365": {
-              "home": "1.909",
-              "draw": "4.000",
-              "away": "3.600"
-            },
-            "Bet365 (no latency)": {
-              "home": "1.90",
-              "draw": "4.00",
-              "away": "3.60"
-            }
-          },
-          "total": {
-            "Bet365": {
-              "line": 2.5,
-              "over": "1.450",
-              "under": "2.675"
-            }
-          }
-        }
-      },
-      {
-        "id": "910edbbb-233a-4728-83fc-3b109d3256e0",
-        "home": "DC United United",
-        "homeLogo": null,
-        "away": "New England Revolution",
-        "awayLogo": null,
-        "kickoff": "2026-08-19T23:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "435d165b-5d31-4659-9292-68400f0b1d51",
-        "home": "Sporting Kansas City",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/tqupxw1473536504.png",
-        "away": "St. Louis CITY SC",
-        "awayLogo": null,
-        "kickoff": "2026-08-20T00:00:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "69f71d65-9fe8-4056-9a44-ef95f3512977",
-        "home": "Minnesota United FC",
-        "homeLogo": null,
-        "away": "Atlanta United FC",
-        "awayLogo": null,
-        "kickoff": "2026-08-20T00:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": {
-          "moneyline": {
-            "Bet365": {
-              "home": "1.800",
-              "draw": "3.800",
-              "away": "4.333"
-            },
-            "Bet365 (no latency)": {
-              "home": "1.80",
-              "draw": "3.80",
-              "away": "4.33"
-            }
-          },
-          "total": {
-            "Bet365": {
-              "line": 2.5,
-              "over": "1.675",
-              "under": "2.150"
-            }
-          }
-        }
-      },
-      {
-        "id": "3c56eb4c-82fc-4baf-84ca-75f9651cb6f0",
-        "home": "Seattle Sounders",
-        "homeLogo": null,
-        "away": "Austin FC",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/a3dlg61595434277.png",
-        "kickoff": "2026-08-20T01:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": {
-          "moneyline": {
-            "Bet365": {
-              "home": "1.600",
-              "draw": "4.200",
-              "away": "5.250"
-            }
-          },
-          "total": {
-            "Bet365": {
-              "line": 2.5,
-              "over": "1.525",
-              "under": "2.425"
-            },
-            "Bet365 (no latency)": {
-              "line": 2.5,
-              "over": "1.53",
-              "under": "2.40"
-            }
-          }
-        }
-      },
-      {
-        "id": "3e1d3fa7-3a58-41cb-b488-5eb9641f00bf",
-        "home": "Colorado Rapids",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/uppupv1473536412.png",
-        "away": "Los Angeles FC",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/7nbj2a1602103638.png",
-        "kickoff": "2026-08-20T01:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": {
-          "moneyline": {
-            "Bet365": {
-              "home": "2.700",
-              "draw": "3.600",
-              "away": "2.500"
-            },
-            "Bet365 (no latency)": {
-              "home": "2.70",
-              "draw": "3.60",
-              "away": "2.50"
-            }
-          },
-          "total": {
-            "Bet365": {
-              "line": 2.5,
-              "over": "1.675",
-              "under": "2.150"
-            }
-          }
-        }
-      },
-      {
-        "id": "c8b91e0c-d6bb-417e-9cab-0d8169c7c6fa",
-        "home": "Real Salt Lake",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/kkjlfa1556488022.png",
-        "away": "FC Dallas",
-        "awayLogo": null,
-        "kickoff": "2026-08-20T01:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": {
-          "moneyline": {
-            "Bet365": {
-              "home": "1.900",
-              "draw": "3.900",
-              "away": "3.750"
-            },
-            "Bet365 (no latency)": {
-              "home": "1.90",
-              "draw": "3.90",
-              "away": "3.75"
-            }
-          },
-          "total": {
-            "Bet365": {
-              "line": 2.5,
-              "over": "1.525",
-              "under": "2.425"
-            }
-          }
-        }
-      },
-      {
-        "id": "848888ae-3855-4063-ae58-12936a011a9a",
-        "home": "Vancouver Whitecaps",
-        "homeLogo": null,
-        "away": "Houston Dynamo",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/yvz9dq1707631352.png",
-        "kickoff": "2026-08-20T02:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": {
-          "moneyline": {
-            "Bet365": {
-              "home": "1.533",
-              "draw": "4.333",
-              "away": "6.000"
-            },
-            "Bet365 (no latency)": {
-              "home": "1.53",
-              "draw": "4.33",
-              "away": "6.00"
-            }
-          },
-          "total": {
-            "Bet365": {
-              "line": 2.5,
-              "over": "1.550",
-              "under": "2.375"
-            }
-          }
-        }
-      },
-      {
-        "id": "91056403-2c0d-46df-8447-2351e58cb199",
-        "home": "LA Galaxy",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/ysyysr1420227188.png",
-        "away": "San Jose Earthquakes",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/xyrqqt1420781048.png",
-        "kickoff": "2026-08-20T02:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "fc7e3776-b65e-47ba-8f5f-03c6a26bfcfa",
-        "home": "Portland Timbers",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/skm30j1557953559.png",
-        "away": "San Diego FC",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/7ka2xd1734621068.png",
-        "kickoff": "2026-08-20T02:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": {
-          "moneyline": {
-            "Bet365": {
-              "home": "2.050",
-              "draw": "4.000",
-              "away": "3.200"
-            },
-            "Bet365 (no latency)": {
-              "home": "2.05",
-              "draw": "4.00",
-              "away": "3.20"
-            }
-          },
-          "total": {
-            "Bet365": {
-              "line": 2.5,
-              "over": "1.400",
-              "under": "2.850"
-            }
-          }
-        }
-      },
-      {
-        "id": "2e58e75c-24c9-4670-a1a8-5c4184b33092",
-        "home": "CF Montréal Montréal",
-        "homeLogo": null,
-        "away": "LA Galaxy",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/ysyysr1420227188.png",
-        "kickoff": "2026-08-22T23:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "360ac604-af9a-4028-8ef8-9bcaf19d1881",
-        "home": "New York Red Bulls",
-        "homeLogo": null,
-        "away": "Chicago Fire",
-        "awayLogo": null,
-        "kickoff": "2026-08-22T23:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": {
-          "moneyline": {
-            "Bet365": {
-              "home": "3.300",
-              "draw": "3.900",
-              "away": "1.950"
-            }
-          },
-          "total": {
-            "Bet365": {
-              "line": 2.5,
-              "over": "1.375",
-              "under": "3.000"
-            },
-            "Bet365 (no latency)": {
-              "line": 3.5,
-              "over": "1.97",
-              "under": "1.82"
-            }
-          }
-        }
-      },
-      {
-        "id": "665fa04e-6e23-4ae6-9f79-1993f740a151",
-        "home": "FC Cincinnati",
-        "homeLogo": null,
-        "away": "Seattle Sounders",
-        "awayLogo": null,
-        "kickoff": "2026-08-22T23:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": {
-          "moneyline": {
-            "Bet365": {
-              "home": "1.800",
-              "draw": "4.000",
-              "away": "3.700"
-            }
-          },
-          "total": {
-            "Bet365": {
-              "line": 2.5,
-              "over": "1.400",
-              "under": "2.850"
-            },
-            "Bet365 (no latency)": {
-              "line": 3.5,
-              "over": "2.00",
-              "under": "1.80"
-            }
-          }
-        }
-      },
-      {
-        "id": "6dd5ca21-58a7-4260-be8b-6fc183f9f077",
-        "home": "Charlotte FC",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/b6p4uz1595434047.png",
-        "away": "DC United United",
-        "awayLogo": null,
-        "kickoff": "2026-08-22T23:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "90b54ec1-ecf2-4d00-a4cb-9a8d98cc6bc7",
-        "home": "Inter Miami CF Inter Miami CF",
-        "homeLogo": null,
-        "away": "Toronto FC",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/rsxyrr1473536512.png",
-        "kickoff": "2026-08-22T23:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "a92f2fbb-cfcb-49cf-9165-75cc1bfbf4e6",
-        "home": "Orlando City SC",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/qyppxw1423832326.png",
-        "away": "Real Salt Lake",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/kkjlfa1556488022.png",
-        "kickoff": "2026-08-22T23:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": {
-          "moneyline": {
-            "Bet365": {
-              "home": "1.800",
-              "draw": "4.200",
-              "away": "3.600"
-            }
-          },
-          "total": {
-            "Bet365": {
-              "line": 2.5,
-              "over": "1.400",
-              "under": "2.850"
-            }
-          }
-        }
-      },
-      {
-        "id": "654a2d45-88b7-454f-8fd8-066034387766",
-        "home": "St. Louis CITY SC",
-        "homeLogo": null,
-        "away": "Houston Dynamo",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/yvz9dq1707631352.png",
-        "kickoff": "2026-08-23T00:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "9ce4d200-6f97-4bf2-8422-5f4194fb908e",
-        "home": "Austin FC",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/a3dlg61595434277.png",
-        "away": "Philadelphia Union",
-        "awayLogo": null,
-        "kickoff": "2026-08-23T00:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": {
-          "moneyline": {
-            "Bet365": {
-              "home": "3.100",
-              "draw": "3.500",
-              "away": "2.200"
-            }
-          },
-          "total": {
-            "Bet365": {
-              "line": 2.5,
-              "over": "1.700",
-              "under": "2.100"
-            }
-          }
-        }
-      },
-      {
-        "id": "a582f08a-b882-457f-9ad8-a28e9db0df86",
-        "home": "Nashville SC",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/znrwt71602103062.png",
-        "away": "Columbus Crew",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/dzs8cp1629059854.png",
-        "kickoff": "2026-08-23T00:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": {
-          "moneyline": {
-            "Bet365": {
-              "home": "1.727",
-              "draw": "3.800",
-              "away": "4.333"
-            }
-          },
-          "total": {
-            "Bet365": {
-              "line": 2.5,
-              "over": "1.625",
-              "under": "2.250"
-            },
-            "Bet365 (no latency)": {
-              "line": 3,
-              "over": "2.02",
-              "under": "1.77"
-            }
-          }
-        }
-      },
-      {
-        "id": "4d8e353a-eee4-4cca-ac70-5e2bf7959c4b",
-        "home": "Vancouver Whitecaps",
-        "homeLogo": null,
-        "away": "FC Dallas",
-        "awayLogo": null,
-        "kickoff": "2026-08-23T01:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": {
-          "moneyline": {
-            "Bet365": {
-              "home": "1.480",
-              "draw": "4.333",
-              "away": "6.000"
-            }
-          },
-          "total": {
-            "Bet365": {
-              "line": 2.5,
-              "over": "1.500",
-              "under": "2.500"
-            },
-            "Bet365 (no latency)": {
-              "line": 3.25,
-              "over": "2.00",
-              "under": "1.80"
-            }
-          }
-        }
-      },
-      {
-        "id": "060a9e77-fbb8-45f2-ba3b-118dbabedb5b",
-        "home": "Los Angeles FC",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/7nbj2a1602103638.png",
-        "away": "Portland Timbers",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/skm30j1557953559.png",
-        "kickoff": "2026-08-23T02:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": {
-          "moneyline": {
-            "Bet365": {
-              "home": "1.550",
-              "draw": "4.333",
-              "away": "5.000"
-            }
-          },
-          "total": {
-            "Bet365": {
-              "line": 2.5,
-              "over": "1.425",
-              "under": "2.750"
-            },
-            "Bet365 (no latency)": {
-              "line": 3.25,
-              "over": "1.82",
-              "under": "1.97"
-            }
-          }
-        }
-      },
-      {
-        "id": "d5158451-6035-4690-ac36-8f089de16535",
-        "home": "San Jose Earthquakes",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/xyrqqt1420781048.png",
-        "away": "Minnesota United FC",
-        "awayLogo": null,
-        "kickoff": "2026-08-23T02:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": {
-          "moneyline": {
-            "Bet365": {
-              "home": "2.050",
-              "draw": "3.700",
-              "away": "3.200"
-            }
-          },
-          "total": {
-            "Bet365": {
-              "line": 2.5,
-              "over": "1.525",
-              "under": "2.425"
-            },
-            "Bet365 (no latency)": {
-              "line": 3,
-              "over": "1.80",
-              "under": "2.00"
-            }
-          }
-        }
-      },
-      {
-        "id": "ef4d9793-8171-4e8b-bb13-b4fb4583887d",
-        "home": "San Diego FC",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/7ka2xd1734621068.png",
-        "away": "Colorado Rapids",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/uppupv1473536412.png",
-        "kickoff": "2026-08-23T02:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": {
-          "moneyline": {
-            "Bet365": {
-              "home": "1.950",
-              "draw": "3.700",
-              "away": "3.400"
-            }
-          },
-          "total": {
-            "Bet365": {
-              "line": 2.5,
-              "over": "1.575",
-              "under": "2.350"
-            },
-            "Bet365 (no latency)": {
-              "line": 3,
-              "over": "1.90",
-              "under": "1.90"
-            }
-          }
-        }
-      },
-      {
-        "id": "13b6fb9e-caaf-4a7e-b2ce-5efce2e1850d",
-        "home": "New England Revolution",
-        "homeLogo": null,
-        "away": "New York City FC",
-        "awayLogo": null,
-        "kickoff": "2026-08-23T20:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "dc67898f-5f17-409b-941e-d4da5585d223",
-        "home": "Atlanta United FC",
-        "homeLogo": null,
-        "away": "Sporting Kansas City",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/tqupxw1473536504.png",
-        "kickoff": "2026-08-23T23:00:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "d28525e6-c127-4ef1-b8c6-99cc70a39687",
-        "home": "Seattle Sounders",
-        "homeLogo": null,
-        "away": "Chicago Fire",
-        "awayLogo": null,
-        "kickoff": "2026-08-29T20:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "0145c47f-38ce-42a8-83c2-3b160ee3602c",
-        "home": "Toronto FC",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/rsxyrr1473536512.png",
-        "away": "New York City FC",
-        "awayLogo": null,
-        "kickoff": "2026-08-29T23:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "217ae51e-87c9-48e6-bb47-9665d2b39b60",
-        "home": "DC United United",
-        "homeLogo": null,
-        "away": "Los Angeles FC",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/7nbj2a1602103638.png",
-        "kickoff": "2026-08-29T23:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "25471ec7-2a5b-435f-992f-43c834b288e1",
-        "home": "Atlanta United FC",
-        "homeLogo": null,
-        "away": "Charlotte FC",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/b6p4uz1595434047.png",
-        "kickoff": "2026-08-29T23:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "3d1dff63-647c-4ec5-a00d-47f6d477a9fa",
-        "home": "Columbus Crew",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/dzs8cp1629059854.png",
-        "away": "New England Revolution",
-        "awayLogo": null,
-        "kickoff": "2026-08-29T23:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "81bda6bd-773a-4948-acf4-5d23262b2457",
-        "home": "New York Red Bulls",
-        "homeLogo": null,
-        "away": "Philadelphia Union",
-        "awayLogo": null,
-        "kickoff": "2026-08-29T23:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "dc68d77a-bbdf-480c-9ef4-c8a9733a0acd",
-        "home": "Inter Miami CF Inter Miami CF",
-        "homeLogo": null,
-        "away": "CF Montréal Montréal",
-        "awayLogo": null,
-        "kickoff": "2026-08-29T23:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "33189e43-e87e-477c-88aa-465340859dc1",
-        "home": "Nashville SC",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/znrwt71602103062.png",
-        "away": "FC Cincinnati",
-        "awayLogo": null,
-        "kickoff": "2026-08-30T00:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "899ec681-586b-4098-826e-67b1a8fbb86c",
-        "home": "Sporting Kansas City",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/tqupxw1473536504.png",
-        "away": "Vancouver Whitecaps",
-        "awayLogo": null,
-        "kickoff": "2026-08-30T00:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "9f33d9b6-566e-4261-89b4-8839bc51b613",
-        "home": "Houston Dynamo",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/yvz9dq1707631352.png",
-        "away": "San Jose Earthquakes",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/xyrqqt1420781048.png",
-        "kickoff": "2026-08-30T00:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "ebda39a5-805b-483f-a3b9-647c5ef990f1",
-        "home": "Minnesota United FC",
-        "homeLogo": null,
-        "away": "Orlando City SC",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/qyppxw1423832326.png",
-        "kickoff": "2026-08-30T00:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "350d0d25-4c1d-4f28-bdb8-fc1bd32321f8",
-        "home": "Colorado Rapids",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/uppupv1473536412.png",
-        "away": "Real Salt Lake",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/kkjlfa1556488022.png",
-        "kickoff": "2026-08-30T01:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "9b15001e-ecba-4329-8ede-8f6043bdeade",
-        "home": "San Diego FC",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/7ka2xd1734621068.png",
-        "away": "LA Galaxy",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/ysyysr1420227188.png",
-        "kickoff": "2026-08-30T02:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "bb13e0eb-0fa2-4c1a-a847-4188b8a651a9",
-        "home": "Portland Timbers",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/skm30j1557953559.png",
-        "away": "Austin FC",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/a3dlg61595434277.png",
-        "kickoff": "2026-08-30T02:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "34a11319-87a8-49be-b84c-b6f1b21de2eb",
-        "home": "St. Louis CITY SC",
-        "homeLogo": null,
-        "away": "FC Dallas",
-        "awayLogo": null,
-        "kickoff": "2026-08-30T23:00:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "d0b88422-6995-4b26-9808-d1e2ec656560",
-        "home": "New York City FC",
-        "homeLogo": null,
-        "away": "Nashville SC",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/znrwt71602103062.png",
-        "kickoff": "2026-09-04T23:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "211e2a60-1140-4b42-be59-d036b4f1b3e9",
-        "home": "Inter Miami CF Inter Miami CF",
-        "homeLogo": null,
-        "away": "Atlanta United FC",
-        "awayLogo": null,
-        "kickoff": "2026-09-05T23:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "2ee95273-78d6-4bb3-bc3c-75b89fa28456",
-        "home": "Columbus Crew",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/dzs8cp1629059854.png",
-        "away": "Colorado Rapids",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/uppupv1473536412.png",
-        "kickoff": "2026-09-05T23:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "363b9f4c-ba84-49df-80db-9e8666172cc1",
-        "home": "Charlotte FC",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/b6p4uz1595434047.png",
-        "away": "Houston Dynamo",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/yvz9dq1707631352.png",
-        "kickoff": "2026-09-05T23:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      },
-      {
-        "id": "776740ab-dd2a-4394-8759-1a61d870607d",
-        "home": "FC Cincinnati",
-        "homeLogo": null,
-        "away": "DC United United",
-        "awayLogo": null,
-        "kickoff": "2026-09-05T23:30:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null
-      }
-    ]
+    "uel": [],
+    "uecl": []
   },
   "standings": {
     "epl": {
@@ -4593,7 +2568,7 @@
               "points_for": 71,
               "points_against": 27,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:12.855Z"
+              "updated_at": "2026-08-18T06:02:43.162Z"
             },
             {
               "team_id": "c12cf38c-1e19-4095-b367-c4ef2a184bb4",
@@ -4608,7 +2583,7 @@
               "points_for": 77,
               "points_against": 35,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:12.865Z"
+              "updated_at": "2026-08-18T06:02:43.175Z"
             },
             {
               "team_id": "7aa8f8ce-df72-41bd-ac07-d8699514f9e0",
@@ -4623,7 +2598,7 @@
               "points_for": 69,
               "points_against": 50,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:12.874Z"
+              "updated_at": "2026-08-18T06:02:43.189Z"
             },
             {
               "team_id": "5e780499-f34a-4303-b887-7cbb42be6ad0",
@@ -4638,7 +2613,7 @@
               "points_for": 56,
               "points_against": 49,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:12.884Z"
+              "updated_at": "2026-08-18T06:02:43.211Z"
             },
             {
               "team_id": "74a9c474-32e5-4b48-b9c0-b67122a1617a",
@@ -4653,7 +2628,7 @@
               "points_for": 63,
               "points_against": 53,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:12.895Z"
+              "updated_at": "2026-08-18T06:02:43.224Z"
             },
             {
               "team_id": "659f7d1c-8d18-47d8-b083-dc2340708592",
@@ -4668,7 +2643,7 @@
               "points_for": 58,
               "points_against": 54,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:12.903Z"
+              "updated_at": "2026-08-18T06:02:43.233Z"
             },
             {
               "team_id": "ad9f372c-fbba-416d-8a2b-cca844247495",
@@ -4683,7 +2658,7 @@
               "points_for": 42,
               "points_against": 48,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:12.916Z"
+              "updated_at": "2026-08-18T06:02:43.247Z"
             },
             {
               "team_id": "b663685e-6611-4d9b-b817-71d68eea74f5",
@@ -4713,7 +2688,7 @@
               "points_for": 52,
               "points_against": 46,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:12.925Z"
+              "updated_at": "2026-08-18T06:02:43.261Z"
             },
             {
               "team_id": "f1dad0f2-fa00-4787-ab2a-4f17699d8aa8",
@@ -4728,7 +2703,7 @@
               "points_for": 55,
               "points_against": 52,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:12.934Z"
+              "updated_at": "2026-08-18T06:02:43.274Z"
             },
             {
               "team_id": "544de6be-906a-40c9-8d32-17ed7239348f",
@@ -4743,7 +2718,7 @@
               "points_for": 58,
               "points_against": 52,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:12.945Z"
+              "updated_at": "2026-08-18T06:02:43.285Z"
             },
             {
               "team_id": "1db0b3ae-b02c-489d-9cb9-660a0c8ee005",
@@ -4758,7 +2733,7 @@
               "points_for": 47,
               "points_against": 51,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:12.954Z"
+              "updated_at": "2026-08-18T06:02:43.297Z"
             },
             {
               "team_id": "fd1a7234-c96d-4628-a0e6-71c44b29d838",
@@ -4788,7 +2763,7 @@
               "points_for": 53,
               "points_against": 55,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:12.963Z"
+              "updated_at": "2026-08-18T06:02:43.307Z"
             },
             {
               "team_id": "37fc8acf-b467-4811-937d-6ebebb3fa61f",
@@ -4818,7 +2793,7 @@
               "points_for": 47,
               "points_against": 50,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:12.973Z"
+              "updated_at": "2026-08-18T06:02:43.318Z"
             },
             {
               "team_id": "ea86337a-d297-450e-af66-d197c1dae17a",
@@ -4833,7 +2808,7 @@
               "points_for": 49,
               "points_against": 56,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:12.983Z"
+              "updated_at": "2026-08-18T06:02:43.331Z"
             },
             {
               "team_id": "75b48108-aa4a-4b0f-95ee-70fbf8f2fc29",
@@ -4848,7 +2823,7 @@
               "points_for": 41,
               "points_against": 51,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:12.991Z"
+              "updated_at": "2026-08-18T06:02:43.343Z"
             },
             {
               "team_id": "417992e3-3af2-4dd4-a25a-ffb70ddd991b",
@@ -4863,7 +2838,7 @@
               "points_for": 48,
               "points_against": 51,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:12.999Z"
+              "updated_at": "2026-08-18T06:02:43.354Z"
             },
             {
               "team_id": "e03f803f-cd23-4db0-a79a-318f58734c7c",
@@ -4878,7 +2853,7 @@
               "points_for": 48,
               "points_against": 57,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.006Z"
+              "updated_at": "2026-08-18T06:02:43.364Z"
             },
             {
               "team_id": "b9d28b6f-1a20-4b1f-bd2b-97c84078c614",
@@ -4893,7 +2868,7 @@
               "points_for": 46,
               "points_against": 65,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.013Z"
+              "updated_at": "2026-08-18T06:02:43.374Z"
             },
             {
               "team_id": "410f522a-5fa5-44a5-afc2-128b4f482a96",
@@ -4908,7 +2883,7 @@
               "points_for": 38,
               "points_against": 75,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.019Z"
+              "updated_at": "2026-08-18T06:02:43.384Z"
             },
             {
               "team_id": "3161f38d-55d2-4dc3-80dc-82b665528c94",
@@ -4923,7 +2898,7 @@
               "points_for": 27,
               "points_against": 68,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.030Z"
+              "updated_at": "2026-08-18T06:02:43.397Z"
             }
           ]
         }
@@ -4950,7 +2925,7 @@
               "points_for": 95,
               "points_against": 36,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.226Z"
+              "updated_at": "2026-08-18T06:02:43.463Z"
             },
             {
               "team_id": "e0dcfb37-2786-4270-894a-af7c411627f9",
@@ -4965,7 +2940,7 @@
               "points_for": 77,
               "points_against": 35,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.237Z"
+              "updated_at": "2026-08-18T06:02:43.474Z"
             },
             {
               "team_id": "720c1633-8fc4-4e88-970a-058832c2a109",
@@ -4980,7 +2955,7 @@
               "points_for": 72,
               "points_against": 46,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.249Z"
+              "updated_at": "2026-08-18T06:02:43.487Z"
             },
             {
               "team_id": "9fe82092-5ef1-4101-b8e3-2ab08f41b82e",
@@ -4995,7 +2970,7 @@
               "points_for": 62,
               "points_against": 44,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.259Z"
+              "updated_at": "2026-08-18T06:02:43.500Z"
             },
             {
               "team_id": "dcaba401-a83a-4195-8c89-145d9bd5ad28",
@@ -5010,7 +2985,7 @@
               "points_for": 59,
               "points_against": 48,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.269Z"
+              "updated_at": "2026-08-18T06:02:43.511Z"
             },
             {
               "team_id": "d8fc1e4d-5c8b-44a1-9472-a946a0ec183f",
@@ -5025,7 +3000,7 @@
               "points_for": 53,
               "points_against": 48,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.277Z"
+              "updated_at": "2026-08-18T06:02:43.523Z"
             },
             {
               "team_id": "ae11ccec-9712-476d-9d0c-82eea145d77d",
@@ -5055,7 +3030,7 @@
               "points_for": 32,
               "points_against": 38,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.284Z"
+              "updated_at": "2026-08-18T06:02:43.534Z"
             },
             {
               "team_id": "8fdb3038-d3ab-416d-ba76-115c7d041f68",
@@ -5070,7 +3045,7 @@
               "points_for": 41,
               "points_against": 44,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.295Z"
+              "updated_at": "2026-08-18T06:02:43.547Z"
             },
             {
               "team_id": "c97ca45b-263f-45d6-8ab1-043cce8318cf",
@@ -5085,7 +3060,7 @@
               "points_for": 46,
               "points_against": 55,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.303Z"
+              "updated_at": "2026-08-18T06:02:43.557Z"
             },
             {
               "team_id": "e628c26c-4618-497b-83bf-c0242592f670",
@@ -5100,7 +3075,7 @@
               "points_for": 59,
               "points_against": 61,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.312Z"
+              "updated_at": "2026-08-18T06:02:43.568Z"
             },
             {
               "team_id": "ebe48095-9d17-44db-bfcf-14e7b317853c",
@@ -5115,7 +3090,7 @@
               "points_for": 43,
               "points_against": 55,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.320Z"
+              "updated_at": "2026-08-18T06:02:43.579Z"
             },
             {
               "team_id": "fd31cf6b-7a9c-4e9f-898d-b60e98e16dfa",
@@ -5145,7 +3120,7 @@
               "points_for": 43,
               "points_against": 58,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.329Z"
+              "updated_at": "2026-08-18T06:02:43.589Z"
             },
             {
               "team_id": "9b2c2c34-0fcd-47cf-a3f9-01559240a826",
@@ -5160,7 +3135,7 @@
               "points_for": 46,
               "points_against": 60,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.338Z"
+              "updated_at": "2026-08-18T06:02:43.598Z"
             },
             {
               "team_id": "695cc9cb-a1cf-428c-9e6a-92422e29491d",
@@ -5190,7 +3165,7 @@
               "points_for": 44,
               "points_against": 56,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.345Z"
+              "updated_at": "2026-08-18T06:02:43.608Z"
             },
             {
               "team_id": "475f53f6-206b-41a1-b0a6-59b2056b77bf",
@@ -5205,7 +3180,7 @@
               "points_for": 49,
               "points_against": 57,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.352Z"
+              "updated_at": "2026-08-18T06:02:43.618Z"
             },
             {
               "team_id": "06b2e2c1-ddd0-4872-8ca5-624d5d1a4f29",
@@ -5220,7 +3195,7 @@
               "points_for": 47,
               "points_against": 61,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.360Z"
+              "updated_at": "2026-08-18T06:02:43.628Z"
             },
             {
               "team_id": "11c16c6c-e761-4a28-8a82-f2b3ab21ad43",
@@ -5235,7 +3210,7 @@
               "points_for": 44,
               "points_against": 50,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.370Z"
+              "updated_at": "2026-08-18T06:02:43.638Z"
             },
             {
               "team_id": "d1937c39-70a9-4680-9e9a-113336fb028b",
@@ -5250,7 +3225,7 @@
               "points_for": 47,
               "points_against": 57,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.375Z"
+              "updated_at": "2026-08-18T06:02:43.648Z"
             },
             {
               "team_id": "1836a9c3-4efa-4219-b1e3-90d209bb6567",
@@ -5265,7 +3240,7 @@
               "points_for": 39,
               "points_against": 55,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.385Z"
+              "updated_at": "2026-08-18T06:02:43.660Z"
             },
             {
               "team_id": "edcd5f67-aedb-4244-b786-6190d3686e80",
@@ -5280,7 +3255,7 @@
               "points_for": 26,
               "points_against": 60,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.394Z"
+              "updated_at": "2026-08-18T06:02:43.670Z"
             }
           ]
         }
@@ -5307,7 +3282,7 @@
               "points_for": 89,
               "points_against": 35,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.728Z"
+              "updated_at": "2026-08-18T06:02:44.250Z"
             },
             {
               "team_id": "e0ecc5a1-616e-4186-afb2-5ee815b57f04",
@@ -5322,7 +3297,7 @@
               "points_for": 58,
               "points_against": 36,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.735Z"
+              "updated_at": "2026-08-18T06:02:44.259Z"
             },
             {
               "team_id": "22033fe3-0a71-435a-9762-749984ea439c",
@@ -5337,7 +3312,7 @@
               "points_for": 59,
               "points_against": 31,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.744Z"
+              "updated_at": "2026-08-18T06:02:44.270Z"
             },
             {
               "team_id": "40463b4d-7cb3-4ce4-a4ca-d2e4a71e0abf",
@@ -5352,7 +3327,7 @@
               "points_for": 65,
               "points_against": 29,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.753Z"
+              "updated_at": "2026-08-18T06:02:44.280Z"
             },
             {
               "team_id": "f6d37fa6-81ad-4c70-bea5-ddde2e839331",
@@ -5367,7 +3342,7 @@
               "points_for": 53,
               "points_against": 35,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.762Z"
+              "updated_at": "2026-08-18T06:02:44.290Z"
             },
             {
               "team_id": "1afc40a5-a6a6-41fc-85ff-95ac9c140733",
@@ -5382,7 +3357,7 @@
               "points_for": 61,
               "points_against": 34,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.771Z"
+              "updated_at": "2026-08-18T06:02:44.300Z"
             },
             {
               "team_id": "5390f42a-5d9a-438e-a19b-05d353c0aa26",
@@ -5397,7 +3372,7 @@
               "points_for": 51,
               "points_against": 36,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.780Z"
+              "updated_at": "2026-08-18T06:02:44.312Z"
             },
             {
               "team_id": "a84e310f-4fb7-41a3-ba6f-f3ea61ec16fe",
@@ -5427,7 +3402,7 @@
               "points_for": 49,
               "points_against": 46,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.787Z"
+              "updated_at": "2026-08-18T06:02:44.321Z"
             },
             {
               "team_id": "98b55896-77bd-4eab-b63d-43bc36c861d2",
@@ -5442,7 +3417,7 @@
               "points_for": 41,
               "points_against": 40,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.796Z"
+              "updated_at": "2026-08-18T06:02:44.332Z"
             },
             {
               "team_id": "54f2689e-67a8-4cb9-af85-2d518cd3f342",
@@ -5457,7 +3432,7 @@
               "points_for": 45,
               "points_against": 48,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.803Z"
+              "updated_at": "2026-08-18T06:02:44.340Z"
             },
             {
               "team_id": "d056c5bb-7239-417c-a9d1-71c324f8a593",
@@ -5472,7 +3447,7 @@
               "points_for": 46,
               "points_against": 50,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.813Z"
+              "updated_at": "2026-08-18T06:02:44.351Z"
             },
             {
               "team_id": "13988291-03bc-44b9-851c-e02140c56ba2",
@@ -5487,7 +3462,7 @@
               "points_for": 44,
               "points_against": 63,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.822Z"
+              "updated_at": "2026-08-18T06:02:44.360Z"
             },
             {
               "team_id": "96751637-62ae-4b89-99c6-730d6554cfbf",
@@ -5502,7 +3477,7 @@
               "points_for": 28,
               "points_against": 46,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.832Z"
+              "updated_at": "2026-08-18T06:02:44.370Z"
             },
             {
               "team_id": "251a4431-857e-4eb5-9a07-293b4cda3c56",
@@ -5532,7 +3507,7 @@
               "points_for": 40,
               "points_against": 53,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.844Z"
+              "updated_at": "2026-08-18T06:02:44.381Z"
             },
             {
               "team_id": "70226120-96e4-4516-b8a2-20a58f49bf12",
@@ -5547,7 +3522,7 @@
               "points_for": 41,
               "points_against": 50,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.854Z"
+              "updated_at": "2026-08-18T06:02:44.392Z"
             },
             {
               "team_id": "d8bca7a9-dd55-42c8-9b00-5388d8af40df",
@@ -5562,7 +3537,7 @@
               "points_for": 41,
               "points_against": 51,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.864Z"
+              "updated_at": "2026-08-18T06:02:44.401Z"
             },
             {
               "team_id": "a6e9b919-98dc-4447-a06c-216762bb5b1c",
@@ -5577,7 +3552,7 @@
               "points_for": 28,
               "points_against": 50,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.873Z"
+              "updated_at": "2026-08-18T06:02:44.411Z"
             },
             {
               "team_id": "e1b8a281-37c6-4178-bc86-8d0526c34d60",
@@ -5592,7 +3567,7 @@
               "points_for": 32,
               "points_against": 57,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.882Z"
+              "updated_at": "2026-08-18T06:02:44.421Z"
             },
             {
               "team_id": "f16550f9-4b3a-402b-add4-c38dad048a36",
@@ -5607,7 +3582,7 @@
               "points_for": 25,
               "points_against": 61,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.891Z"
+              "updated_at": "2026-08-18T06:02:44.431Z"
             },
             {
               "team_id": "c362d9b2-4727-42d1-aeeb-ce8d763ffe83",
@@ -5622,7 +3597,7 @@
               "points_for": 26,
               "points_against": 71,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:13.900Z"
+              "updated_at": "2026-08-18T06:02:44.441Z"
             },
             {
               "team_id": "f4f0ca06-9941-4289-9ba0-76db26979dec",
@@ -5638,645 +3613,6 @@
               "points_against": null,
               "streak": null,
               "updated_at": "2026-08-05T16:02:07.893Z"
-            }
-          ]
-        }
-      ]
-    },
-    "bundesliga": {
-      "standings": [
-        {
-          "league_id": "e0d8adb7-c665-4989-8ee3-c11607305d6b",
-          "league_name": "Bundesliga",
-          "sport": "football",
-          "season": "2025-26",
-          "rows": [
-            {
-              "team_id": "26bff15e-9d29-490a-99bb-d925266acff0",
-              "team_name": "Bayern Munich",
-              "logo_url": "https://r2.thesportsdb.com/images/media/team/badge/01ogkh1716960412.png",
-              "rank": 1,
-              "wins": 28,
-              "losses": 1,
-              "ties": 5,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 122,
-              "points_against": 36,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:13.505Z"
-            },
-            {
-              "team_id": "aff07d0d-86d0-47e4-858a-94dd2dc96535",
-              "team_name": "Borussia Dortmund",
-              "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Borussia_Dortmund_logo.svg/960px-Borussia_Dortmund_logo.svg.png",
-              "rank": 2,
-              "wins": 22,
-              "losses": 5,
-              "ties": 7,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 70,
-              "points_against": 34,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:13.516Z"
-            },
-            {
-              "team_id": "27802957-94d8-466d-ae48-58ca215842e4",
-              "team_name": "RB Leipzig",
-              "logo_url": "https://r2.thesportsdb.com/images/media/team/badge/zjgapo1594244951.png",
-              "rank": 3,
-              "wins": 20,
-              "losses": 9,
-              "ties": 5,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 66,
-              "points_against": 47,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:13.528Z"
-            },
-            {
-              "team_id": "acaf575e-79e5-46da-b96b-e775efcc2496",
-              "team_name": "VfB Stuttgart",
-              "logo_url": "https://i.imgur.com/v0tkpNx.png",
-              "rank": 4,
-              "wins": 18,
-              "losses": 8,
-              "ties": 8,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 71,
-              "points_against": 49,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:13.537Z"
-            },
-            {
-              "team_id": "032dd6c0-ee1b-4462-abbb-9da791056c46",
-              "team_name": "TSG Hoffenheim",
-              "logo_url": "https://i.imgur.com/gF0PfEl.png",
-              "rank": 5,
-              "wins": 18,
-              "losses": 9,
-              "ties": 7,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 65,
-              "points_against": 52,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:13.548Z"
-            },
-            {
-              "team_id": "7232bcb5-4c9f-43dc-adaf-10eb01d92d78",
-              "team_name": "Bayer Leverkusen",
-              "logo_url": null,
-              "rank": 6,
-              "wins": 17,
-              "losses": 9,
-              "ties": 8,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 68,
-              "points_against": 47,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:13.555Z"
-            },
-            {
-              "team_id": "eeb26db9-b7e5-428a-b9cf-151a64ba9ca5",
-              "team_name": "SC Freiburg",
-              "logo_url": "https://i.imgur.com/r3mvi0h.png",
-              "rank": 7,
-              "wins": 13,
-              "losses": 13,
-              "ties": 8,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 51,
-              "points_against": 57,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:13.565Z"
-            },
-            {
-              "team_id": "64e9a127-b76e-4504-b00b-8986d329541a",
-              "team_name": "SV Elversberg",
-              "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/SV_Elversberg_Logo.svg/500px-SV_Elversberg_Logo.svg.png",
-              "rank": 7,
-              "wins": 0,
-              "losses": 0,
-              "ties": 0,
-              "win_pct": null,
-              "games_played": 0,
-              "points_for": null,
-              "points_against": null,
-              "streak": null,
-              "updated_at": "2026-08-05T16:02:07.523Z"
-            },
-            {
-              "team_id": "da7c102a-1bb7-4f5c-ba33-7eb8ac944184",
-              "team_name": "Eintracht Frankfurt",
-              "logo_url": "https://i.imgur.com/X8NFkOb.png",
-              "rank": 8,
-              "wins": 11,
-              "losses": 12,
-              "ties": 11,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 61,
-              "points_against": 65,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:13.574Z"
-            },
-            {
-              "team_id": "bc1feb2a-724a-4b77-827e-980df04233b9",
-              "team_name": "FC Augsburg",
-              "logo_url": "https://r2.thesportsdb.com/images/media/team/badge/xqyyvq1473453233.png",
-              "rank": 9,
-              "wins": 12,
-              "losses": 15,
-              "ties": 7,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 45,
-              "points_against": 61,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:13.583Z"
-            },
-            {
-              "team_id": "aaeaabab-6b86-4fdc-8c70-0a47be7eef0b",
-              "team_name": "Mainz",
-              "logo_url": "https://crests.football-data.org/15.png",
-              "rank": 10,
-              "wins": 10,
-              "losses": 14,
-              "ties": 10,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 44,
-              "points_against": 53,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:13.594Z"
-            },
-            {
-              "team_id": "26e7bf26-51b5-42ed-a394-f9c14992f0a8",
-              "team_name": "1. FC Union Berlin",
-              "logo_url": "https://r2.thesportsdb.com/images/media/team/badge/q0o5001599679795.png",
-              "rank": 11,
-              "wins": 10,
-              "losses": 15,
-              "ties": 9,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 44,
-              "points_against": 58,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:13.601Z"
-            },
-            {
-              "team_id": "95b99661-7235-49e4-8792-549fd630a5bc",
-              "team_name": "Borussia Mönchengladbach",
-              "logo_url": "https://i.imgur.com/KSIk0Eu.png",
-              "rank": 12,
-              "wins": 9,
-              "losses": 14,
-              "ties": 11,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 42,
-              "points_against": 53,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:13.612Z"
-            },
-            {
-              "team_id": "a7f80b96-49d1-4acf-a2a6-fb6cb677044d",
-              "team_name": "Hamburger SV",
-              "logo_url": "https://crests.football-data.org/7.png",
-              "rank": 13,
-              "wins": 9,
-              "losses": 14,
-              "ties": 11,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 40,
-              "points_against": 54,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:13.621Z"
-            },
-            {
-              "team_id": "ceca1716-5bb6-4cf5-84f8-ce55993a4ebd",
-              "team_name": "SC Paderborn 07",
-              "logo_url": "https://upload.wikimedia.org/wikipedia/commons/e/e3/SC_Paderborn_07_Logo.svg",
-              "rank": 13,
-              "wins": 0,
-              "losses": 0,
-              "ties": 0,
-              "win_pct": null,
-              "games_played": 0,
-              "points_for": null,
-              "points_against": null,
-              "streak": null,
-              "updated_at": "2026-08-05T16:02:07.631Z"
-            },
-            {
-              "team_id": "e49718d1-2244-437e-b5d5-e7b9cd6fb32d",
-              "team_name": "FC Cologne",
-              "logo_url": null,
-              "rank": 14,
-              "wins": 7,
-              "losses": 16,
-              "ties": 11,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 49,
-              "points_against": 63,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:13.629Z"
-            },
-            {
-              "team_id": "34238191-d9a6-4bf5-8e4a-09239960c82d",
-              "team_name": "Werder Bremen",
-              "logo_url": "https://r2.thesportsdb.com/images/media/team/badge/tkvqan1716960454.png",
-              "rank": 15,
-              "wins": 8,
-              "losses": 18,
-              "ties": 8,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 37,
-              "points_against": 60,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:13.635Z"
-            },
-            {
-              "team_id": "1ebe8afb-0211-4b7f-ae3a-b63dbfd88c0d",
-              "team_name": "Schalke 04",
-              "logo_url": "https://upload.wikimedia.org/wikipedia/commons/9/97/FC_Schalke_04_Logo.png",
-              "rank": 15,
-              "wins": 0,
-              "losses": 0,
-              "ties": 0,
-              "win_pct": null,
-              "games_played": 0,
-              "points_for": null,
-              "points_against": null,
-              "streak": null,
-              "updated_at": "2026-08-05T16:02:07.655Z"
-            },
-            {
-              "team_id": "625bb053-5f18-4dfa-9d9f-82f74d24b540",
-              "team_name": "VfL Wolfsburg",
-              "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/VfL_Wolfsburg_Logo.svg/120px-VfL_Wolfsburg_Logo.svg.png",
-              "rank": 16,
-              "wins": 7,
-              "losses": 19,
-              "ties": 8,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 45,
-              "points_against": 69,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:13.642Z"
-            },
-            {
-              "team_id": "41f38b3e-b4c8-4620-bca3-3f253dceb44d",
-              "team_name": "1. FC Heidenheim 1846",
-              "logo_url": "https://upload.wikimedia.org/wikipedia/commons/9/9d/1._FC_Heidenheim_1846.svg",
-              "rank": 17,
-              "wins": 6,
-              "losses": 20,
-              "ties": 8,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 41,
-              "points_against": 72,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:13.649Z"
-            },
-            {
-              "team_id": "1a2d95db-d497-4fed-b0c8-8b35f41ed7cb",
-              "team_name": "St. Pauli",
-              "logo_url": "https://crests.football-data.org/20.png",
-              "rank": 18,
-              "wins": 6,
-              "losses": 20,
-              "ties": 8,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 29,
-              "points_against": 60,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:13.657Z"
-            }
-          ]
-        }
-      ]
-    },
-    "ligue1": {
-      "standings": [
-        {
-          "league_id": "1dfeabd3-91d2-42b9-932e-8c4936f1e322",
-          "league_name": "Ligue 1",
-          "sport": "football",
-          "season": "2025-26",
-          "rows": [
-            {
-              "team_id": "50bd2f6b-e64f-469b-a4e2-867bfdab0476",
-              "team_name": "Paris Saint-Germain",
-              "logo_url": null,
-              "rank": 1,
-              "wins": 24,
-              "losses": 6,
-              "ties": 4,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 74,
-              "points_against": 29,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.059Z"
-            },
-            {
-              "team_id": "466359e7-b471-4166-ae1b-9808edc8cf5d",
-              "team_name": "Lens",
-              "logo_url": "https://r2.thesportsdb.com/images/media/team/badge/3pxoum1598797195.png",
-              "rank": 2,
-              "wins": 22,
-              "losses": 8,
-              "ties": 4,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 66,
-              "points_against": 35,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.068Z"
-            },
-            {
-              "team_id": "a6339350-202b-4c00-bfb1-dbbc67b74872",
-              "team_name": "Lille",
-              "logo_url": "https://crests.football-data.org/521.png",
-              "rank": 3,
-              "wins": 18,
-              "losses": 9,
-              "ties": 7,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 52,
-              "points_against": 37,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.077Z"
-            },
-            {
-              "team_id": "51f3fb3e-c569-4077-af96-91392c98d137",
-              "team_name": "Lyon",
-              "logo_url": "https://r2.thesportsdb.com/images/media/team/badge/blk9771656932845.png",
-              "rank": 4,
-              "wins": 18,
-              "losses": 10,
-              "ties": 6,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 53,
-              "points_against": 40,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.086Z"
-            },
-            {
-              "team_id": "2a8fb58a-598f-403b-9f83-8f67cb15d0b1",
-              "team_name": "Marseille",
-              "logo_url": "https://r2.thesportsdb.com/images/media/team/badge/uutsyt1473504764.png",
-              "rank": 5,
-              "wins": 18,
-              "losses": 11,
-              "ties": 5,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 63,
-              "points_against": 45,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.093Z"
-            },
-            {
-              "team_id": "e428bdc4-3541-4e3e-98fd-6f5ae3f63428",
-              "team_name": "Le Mans",
-              "logo_url": "https://upload.wikimedia.org/wikipedia/en/5/57/Le_Mans_FC_logo.svg",
-              "rank": 5,
-              "wins": 0,
-              "losses": 0,
-              "ties": 0,
-              "win_pct": null,
-              "games_played": 0,
-              "points_for": null,
-              "points_against": null,
-              "streak": null,
-              "updated_at": "2026-08-05T16:02:08.024Z"
-            },
-            {
-              "team_id": "fffaa7f7-044e-4785-9495-212aaab98b23",
-              "team_name": "Stade Rennais",
-              "logo_url": "https://crests.football-data.org/529.png",
-              "rank": 6,
-              "wins": 17,
-              "losses": 9,
-              "ties": 8,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 59,
-              "points_against": 50,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.100Z"
-            },
-            {
-              "team_id": "030477d6-7994-4650-b511-6668632740a3",
-              "team_name": "AS Monaco",
-              "logo_url": "https://r2.thesportsdb.com/images/media/team/badge/exjf5l1678808044.png",
-              "rank": 7,
-              "wins": 16,
-              "losses": 12,
-              "ties": 6,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 60,
-              "points_against": 54,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.107Z"
-            },
-            {
-              "team_id": "474c3985-242b-4269-bb5c-1ef4b81f0b83",
-              "team_name": "Strasbourg",
-              "logo_url": "https://r2.thesportsdb.com/images/media/team/badge/b8k77w1766625501.png",
-              "rank": 8,
-              "wins": 15,
-              "losses": 11,
-              "ties": 8,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 58,
-              "points_against": 47,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.115Z"
-            },
-            {
-              "team_id": "0c9ae102-8601-4ec1-9c72-8bfa5577d39a",
-              "team_name": "Lorient",
-              "logo_url": "https://r2.thesportsdb.com/images/media/team/badge/sxsttw1473504748.png",
-              "rank": 9,
-              "wins": 11,
-              "losses": 11,
-              "ties": 12,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 48,
-              "points_against": 51,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.124Z"
-            },
-            {
-              "team_id": "d9e47c79-f145-4801-b77f-7fe4be2dd4e4",
-              "team_name": "Toulouse",
-              "logo_url": "https://crests.football-data.org/511.png",
-              "rank": 10,
-              "wins": 12,
-              "losses": 13,
-              "ties": 8,
-              "win_pct": null,
-              "games_played": 33,
-              "points_for": 47,
-              "points_against": 46,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.132Z"
-            },
-            {
-              "team_id": "6439e99b-f09b-4758-8d86-48b4c6e6be36",
-              "team_name": "Paris FC",
-              "logo_url": "https://r2.thesportsdb.com/images/media/team/badge/yuvtsy1447594254.png",
-              "rank": 11,
-              "wins": 11,
-              "losses": 12,
-              "ties": 11,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 47,
-              "points_against": 50,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.141Z"
-            },
-            {
-              "team_id": "d34bea44-d8ac-4cc7-a8dd-243914986158",
-              "team_name": "Brest",
-              "logo_url": "https://r2.thesportsdb.com/images/media/team/badge/z69be41598797026.png",
-              "rank": 12,
-              "wins": 10,
-              "losses": 15,
-              "ties": 9,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 43,
-              "points_against": 55,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.151Z"
-            },
-            {
-              "team_id": "f50d9c52-30c7-4371-87c7-5a6bc52344c7",
-              "team_name": "Angers",
-              "logo_url": null,
-              "rank": 13,
-              "wins": 9,
-              "losses": 16,
-              "ties": 9,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 29,
-              "points_against": 48,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.160Z"
-            },
-            {
-              "team_id": "44251f3c-ffa1-48e8-ac10-c65cdc598ba5",
-              "team_name": "Le Havre AC",
-              "logo_url": "https://crests.football-data.org/533.png",
-              "rank": 14,
-              "wins": 7,
-              "losses": 13,
-              "ties": 14,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 32,
-              "points_against": 44,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.168Z"
-            },
-            {
-              "team_id": "fbfec136-40b4-4436-a092-ed23cf68a215",
-              "team_name": "AJ Auxerre",
-              "logo_url": "https://crests.football-data.org/519.png",
-              "rank": 15,
-              "wins": 8,
-              "losses": 16,
-              "ties": 10,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 34,
-              "points_against": 44,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.175Z"
-            },
-            {
-              "team_id": "7c42f8a8-2d2d-4115-aad6-25292ac0d3a3",
-              "team_name": "Nice",
-              "logo_url": "https://crests.football-data.org/522.png",
-              "rank": 16,
-              "wins": 7,
-              "losses": 16,
-              "ties": 11,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 37,
-              "points_against": 60,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.183Z"
-            },
-            {
-              "team_id": "e0a72085-103e-4faa-a5b5-1b9edbc8f088",
-              "team_name": "Nantes",
-              "logo_url": "https://crests.football-data.org/543.png",
-              "rank": 17,
-              "wins": 5,
-              "losses": 20,
-              "ties": 8,
-              "win_pct": null,
-              "games_played": 33,
-              "points_for": 29,
-              "points_against": 52,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.189Z"
-            },
-            {
-              "team_id": "34c0a0bb-75af-4cf2-ad8f-ff3dbd50db49",
-              "team_name": "Metz",
-              "logo_url": "https://r2.thesportsdb.com/images/media/team/badge/1iuew61688452857.png",
-              "rank": 18,
-              "wins": 3,
-              "losses": 23,
-              "ties": 8,
-              "win_pct": null,
-              "games_played": 34,
-              "points_for": 32,
-              "points_against": 76,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.198Z"
-            },
-            {
-              "team_id": "a47d5b90-9fec-4410-be8c-28e399727eee",
-              "team_name": "Troyes",
-              "logo_url": "https://crests.football-data.org/531.png",
-              "rank": 18,
-              "wins": 0,
-              "losses": 0,
-              "ties": 0,
-              "win_pct": null,
-              "games_played": 0,
-              "points_for": null,
-              "points_against": null,
-              "streak": null,
-              "updated_at": "2026-08-05T16:02:08.188Z"
             }
           ]
         }
@@ -6303,7 +3639,7 @@
               "points_for": 23,
               "points_against": 4,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.662Z"
+              "updated_at": "2026-08-18T06:02:45.224Z"
             },
             {
               "team_id": "26bff15e-9d29-490a-99bb-d925266acff0",
@@ -6318,7 +3654,7 @@
               "points_for": 22,
               "points_against": 8,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.668Z"
+              "updated_at": "2026-08-18T06:02:45.239Z"
             },
             {
               "team_id": "74a9c474-32e5-4b48-b9c0-b67122a1617a",
@@ -6333,7 +3669,7 @@
               "points_for": 20,
               "points_against": 8,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.677Z"
+              "updated_at": "2026-08-18T06:02:45.260Z"
             },
             {
               "team_id": "e03f803f-cd23-4db0-a79a-318f58734c7c",
@@ -6348,7 +3684,7 @@
               "points_for": 17,
               "points_against": 7,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.683Z"
+              "updated_at": "2026-08-18T06:02:45.278Z"
             },
             {
               "team_id": "b7fe0fa7-e9ec-4c48-8b15-941b258aeb5d",
@@ -6363,7 +3699,7 @@
               "points_for": 22,
               "points_against": 14,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.690Z"
+              "updated_at": "2026-08-18T06:02:45.319Z"
             },
             {
               "team_id": "544de6be-906a-40c9-8d32-17ed7239348f",
@@ -6378,7 +3714,7 @@
               "points_for": 17,
               "points_against": 10,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.696Z"
+              "updated_at": "2026-08-18T06:02:45.332Z"
             },
             {
               "team_id": "21ae151f-8396-4536-b948-e6c2d48d9100",
@@ -6393,7 +3729,7 @@
               "points_for": 17,
               "points_against": 11,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.706Z"
+              "updated_at": "2026-08-18T06:02:45.346Z"
             },
             {
               "team_id": "c12cf38c-1e19-4095-b367-c4ef2a184bb4",
@@ -6408,7 +3744,7 @@
               "points_for": 15,
               "points_against": 9,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.713Z"
+              "updated_at": "2026-08-18T06:02:45.358Z"
             },
             {
               "team_id": "e0dcfb37-2786-4270-894a-af7c411627f9",
@@ -6423,7 +3759,7 @@
               "points_for": 21,
               "points_against": 12,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.719Z"
+              "updated_at": "2026-08-18T06:02:45.371Z"
             },
             {
               "team_id": "325dc8ae-18ee-437a-868e-a106b44d5383",
@@ -6438,7 +3774,7 @@
               "points_for": 15,
               "points_against": 7,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.725Z"
+              "updated_at": "2026-08-18T06:02:45.382Z"
             },
             {
               "team_id": "50bd2f6b-e64f-469b-a4e2-867bfdab0476",
@@ -6453,7 +3789,7 @@
               "points_for": 21,
               "points_against": 11,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.730Z"
+              "updated_at": "2026-08-18T06:02:45.392Z"
             },
             {
               "team_id": "72cf90ca-8eff-417f-bbc5-a8c8f689f850",
@@ -6468,7 +3804,7 @@
               "points_for": 17,
               "points_against": 7,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.736Z"
+              "updated_at": "2026-08-18T06:02:45.407Z"
             },
             {
               "team_id": "1afc40a5-a6a6-41fc-85ff-95ac9c140733",
@@ -6483,7 +3819,7 @@
               "points_for": 14,
               "points_against": 10,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.742Z"
+              "updated_at": "2026-08-18T06:02:45.417Z"
             },
             {
               "team_id": "9fe82092-5ef1-4101-b8e3-2ab08f41b82e",
@@ -6498,7 +3834,7 @@
               "points_for": 17,
               "points_against": 15,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.748Z"
+              "updated_at": "2026-08-18T06:02:45.427Z"
             },
             {
               "team_id": "5390f42a-5d9a-438e-a19b-05d353c0aa26",
@@ -6513,7 +3849,7 @@
               "points_for": 10,
               "points_against": 10,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.754Z"
+              "updated_at": "2026-08-18T06:02:45.439Z"
             },
             {
               "team_id": "7232bcb5-4c9f-43dc-adaf-10eb01d92d78",
@@ -6528,7 +3864,7 @@
               "points_for": 13,
               "points_against": 14,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.760Z"
+              "updated_at": "2026-08-18T06:02:45.450Z"
             },
             {
               "team_id": "aff07d0d-86d0-47e4-858a-94dd2dc96535",
@@ -6543,7 +3879,7 @@
               "points_for": 19,
               "points_against": 17,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.766Z"
+              "updated_at": "2026-08-18T06:02:45.459Z"
             },
             {
               "team_id": "a471ecf8-9036-4c3a-9175-6700273db051",
@@ -6558,7 +3894,7 @@
               "points_for": 10,
               "points_against": 14,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.772Z"
+              "updated_at": "2026-08-18T06:02:45.468Z"
             },
             {
               "team_id": "3d97dd40-2308-437b-917d-f31acc8591e9",
@@ -6573,7 +3909,7 @@
               "points_for": 15,
               "points_against": 17,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.780Z"
+              "updated_at": "2026-08-18T06:02:45.477Z"
             },
             {
               "team_id": "53af98d6-7101-4c71-b024-f11dc9f6a3eb",
@@ -6588,7 +3924,7 @@
               "points_for": 9,
               "points_against": 11,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.786Z"
+              "updated_at": "2026-08-18T06:02:45.485Z"
             },
             {
               "team_id": "030477d6-7994-4650-b511-6668632740a3",
@@ -6603,7 +3939,7 @@
               "points_for": 8,
               "points_against": 14,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.792Z"
+              "updated_at": "2026-08-18T06:02:45.492Z"
             },
             {
               "team_id": "2b82698d-0836-4c52-bc9b-bcf02fc80d67",
@@ -6618,7 +3954,7 @@
               "points_for": 13,
               "points_against": 21,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.800Z"
+              "updated_at": "2026-08-18T06:02:45.501Z"
             },
             {
               "team_id": "1c7b01aa-9b9a-4588-87c1-1c54d5a092ed",
@@ -6633,7 +3969,7 @@
               "points_for": 14,
               "points_against": 15,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.808Z"
+              "updated_at": "2026-08-18T06:02:45.511Z"
             },
             {
               "team_id": "cb5349b2-f0ae-424f-8196-15e1d948760c",
@@ -6648,7 +3984,7 @@
               "points_for": 10,
               "points_against": 12,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.816Z"
+              "updated_at": "2026-08-18T06:02:45.520Z"
             },
             {
               "team_id": "2a8fb58a-598f-403b-9f83-8f67cb15d0b1",
@@ -6663,7 +3999,7 @@
               "points_for": 11,
               "points_against": 14,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.822Z"
+              "updated_at": "2026-08-18T06:02:45.528Z"
             },
             {
               "team_id": "310b23c9-11c0-4e85-bb6d-cb4f85af8721",
@@ -6678,7 +4014,7 @@
               "points_for": 8,
               "points_against": 11,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.831Z"
+              "updated_at": "2026-08-18T06:02:45.537Z"
             },
             {
               "team_id": "a1e6b44e-5232-4f5b-b830-d9e32f7ef660",
@@ -6693,7 +4029,7 @@
               "points_for": 8,
               "points_against": 17,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.839Z"
+              "updated_at": "2026-08-18T06:02:45.547Z"
             },
             {
               "team_id": "ae114c35-dd39-410d-b736-8e16811bba34",
@@ -6708,7 +4044,7 @@
               "points_for": 16,
               "points_against": 16,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.847Z"
+              "updated_at": "2026-08-18T06:02:45.555Z"
             },
             {
               "team_id": "94b83c87-31b2-4dac-b73b-713d74f7e64a",
@@ -6723,7 +4059,7 @@
               "points_for": 9,
               "points_against": 14,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.852Z"
+              "updated_at": "2026-08-18T06:02:45.563Z"
             },
             {
               "team_id": "e0ecc5a1-616e-4186-afb2-5ee815b57f04",
@@ -6738,7 +4074,7 @@
               "points_for": 9,
               "points_against": 15,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.858Z"
+              "updated_at": "2026-08-18T06:02:45.570Z"
             },
             {
               "team_id": "5886ce24-45c0-4045-999e-4c36e6a3b988",
@@ -6753,7 +4089,7 @@
               "points_for": 12,
               "points_against": 21,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.867Z"
+              "updated_at": "2026-08-18T06:02:45.579Z"
             },
             {
               "team_id": "dca30706-b3ca-48ac-89f7-8e7684d31625",
@@ -6768,7 +4104,7 @@
               "points_for": 8,
               "points_against": 21,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.873Z"
+              "updated_at": "2026-08-18T06:02:45.589Z"
             },
             {
               "team_id": "da7c102a-1bb7-4f5c-ba33-7eb8ac944184",
@@ -6783,7 +4119,7 @@
               "points_for": 10,
               "points_against": 21,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.878Z"
+              "updated_at": "2026-08-18T06:02:45.597Z"
             },
             {
               "team_id": "f3470340-5aab-4a31-8de7-320e242b99e1",
@@ -6798,7 +4134,7 @@
               "points_for": 5,
               "points_against": 19,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.887Z"
+              "updated_at": "2026-08-18T06:02:45.607Z"
             },
             {
               "team_id": "720c1633-8fc4-4e88-970a-058832c2a109",
@@ -6813,7 +4149,7 @@
               "points_for": 5,
               "points_against": 18,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.893Z"
+              "updated_at": "2026-08-18T06:02:45.614Z"
             },
             {
               "team_id": "9a2165ab-4c6d-492e-9600-34c0463c3a7e",
@@ -6828,473 +4164,13 @@
               "points_for": 7,
               "points_against": 22,
               "streak": null,
-              "updated_at": "2026-08-18T03:04:14.901Z"
+              "updated_at": "2026-08-18T06:02:45.623Z"
             }
           ]
         }
       ]
     },
-    "mls": {
-      "standings": [
-        {
-          "league_id": "64184273-6963-428d-834a-66a11f169708",
-          "league_name": "MLS",
-          "sport": "football",
-          "season": "2026",
-          "rows": [
-            {
-              "team_id": "6ed997ed-f8de-447c-a67c-a9b97a60975c",
-              "team_name": "Chicago Fire",
-              "logo_url": null,
-              "rank": 1,
-              "wins": 10,
-              "losses": 6,
-              "ties": 2,
-              "win_pct": null,
-              "games_played": 18,
-              "points_for": 34,
-              "points_against": 24,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.363Z"
-            },
-            {
-              "team_id": "9de2c632-9d21-4c5a-88f6-89e34cd725c5",
-              "team_name": "Columbus Crew",
-              "logo_url": "https://r2.thesportsdb.com/images/media/team/badge/dzs8cp1629059854.png",
-              "rank": 2,
-              "wins": 5,
-              "losses": 9,
-              "ties": 5,
-              "win_pct": null,
-              "games_played": 19,
-              "points_for": 27,
-              "points_against": 31,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.371Z"
-            },
-            {
-              "team_id": "ef17cb2b-b2fb-4953-95c5-b4ef6e5025ec",
-              "team_name": "New England Revolution",
-              "logo_url": null,
-              "rank": 3,
-              "wins": 9,
-              "losses": 7,
-              "ties": 3,
-              "win_pct": null,
-              "games_played": 19,
-              "points_for": 29,
-              "points_against": 25,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.377Z"
-            },
-            {
-              "team_id": "ed28c5bc-8818-45df-8aef-8b5f3f28314e",
-              "team_name": "Red Bull New York",
-              "logo_url": null,
-              "rank": 4,
-              "wins": 7,
-              "losses": 8,
-              "ties": 4,
-              "win_pct": null,
-              "games_played": 19,
-              "points_for": 30,
-              "points_against": 41,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.385Z"
-            },
-            {
-              "team_id": "55832f93-1b9b-4ead-a129-45495fd9f9ce",
-              "team_name": "D.C. United",
-              "logo_url": null,
-              "rank": 5,
-              "wins": 5,
-              "losses": 5,
-              "ties": 9,
-              "win_pct": null,
-              "games_played": 19,
-              "points_for": 27,
-              "points_against": 30,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.394Z"
-            },
-            {
-              "team_id": "40ecde44-df28-4780-95ab-9780293b9d20",
-              "team_name": "Toronto FC",
-              "logo_url": "https://r2.thesportsdb.com/images/media/team/badge/rsxyrr1473536512.png",
-              "rank": 6,
-              "wins": 4,
-              "losses": 7,
-              "ties": 8,
-              "win_pct": null,
-              "games_played": 19,
-              "points_for": 26,
-              "points_against": 33,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.400Z"
-            },
-            {
-              "team_id": "a9f0fb23-c738-4f52-b24a-29ec60c44f31",
-              "team_name": "CF Montréal",
-              "logo_url": null,
-              "rank": 7,
-              "wins": 4,
-              "losses": 10,
-              "ties": 5,
-              "win_pct": null,
-              "games_played": 19,
-              "points_for": 25,
-              "points_against": 36,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.407Z"
-            },
-            {
-              "team_id": "f46902db-9266-424b-beea-1e602b584bda",
-              "team_name": "Philadelphia Union",
-              "logo_url": null,
-              "rank": 8,
-              "wins": 5,
-              "losses": 10,
-              "ties": 4,
-              "win_pct": null,
-              "games_played": 19,
-              "points_for": 28,
-              "points_against": 35,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.414Z"
-            },
-            {
-              "team_id": "0c829292-444c-4941-a7a8-ca1af8207700",
-              "team_name": "Orlando City SC",
-              "logo_url": "https://r2.thesportsdb.com/images/media/team/badge/qyppxw1423832326.png",
-              "rank": 9,
-              "wins": 6,
-              "losses": 10,
-              "ties": 3,
-              "win_pct": null,
-              "games_played": 19,
-              "points_for": 31,
-              "points_against": 48,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.419Z"
-            },
-            {
-              "team_id": "eefc9c44-9fd7-41f9-93f7-a64c8afc2787",
-              "team_name": "New York City FC",
-              "logo_url": null,
-              "rank": 10,
-              "wins": 7,
-              "losses": 7,
-              "ties": 5,
-              "win_pct": null,
-              "games_played": 19,
-              "points_for": 33,
-              "points_against": 27,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.425Z"
-            },
-            {
-              "team_id": "73877a07-0903-4f6b-82b1-e461a0a26d1a",
-              "team_name": "FC Cincinnati",
-              "logo_url": null,
-              "rank": 11,
-              "wins": 7,
-              "losses": 6,
-              "ties": 6,
-              "win_pct": null,
-              "games_played": 19,
-              "points_for": 46,
-              "points_against": 45,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.435Z"
-            },
-            {
-              "team_id": "1b6add86-b32f-4d47-bfd4-725bf3a69c8c",
-              "team_name": "Atlanta United FC",
-              "logo_url": null,
-              "rank": 12,
-              "wins": 4,
-              "losses": 12,
-              "ties": 3,
-              "win_pct": null,
-              "games_played": 19,
-              "points_for": 21,
-              "points_against": 34,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.444Z"
-            },
-            {
-              "team_id": "c9bb78dc-ec85-42ed-a6a7-61cc415f972d",
-              "team_name": "Nashville SC",
-              "logo_url": "https://r2.thesportsdb.com/images/media/team/badge/znrwt71602103062.png",
-              "rank": 13,
-              "wins": 13,
-              "losses": 2,
-              "ties": 4,
-              "win_pct": null,
-              "games_played": 19,
-              "points_for": 39,
-              "points_against": 15,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.451Z"
-            },
-            {
-              "team_id": "d25defed-5417-4ed7-b3fa-6944b03ed4eb",
-              "team_name": "Inter Miami CF Inter Miami CF",
-              "logo_url": null,
-              "rank": 14,
-              "wins": 11,
-              "losses": 3,
-              "ties": 5,
-              "win_pct": null,
-              "games_played": 19,
-              "points_for": 46,
-              "points_against": 36,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.458Z"
-            },
-            {
-              "team_id": "37dee017-5a0c-4df2-a0ac-e682184a6737",
-              "team_name": "Charlotte FC",
-              "logo_url": "https://r2.thesportsdb.com/images/media/team/badge/b6p4uz1595434047.png",
-              "rank": 15,
-              "wins": 8,
-              "losses": 7,
-              "ties": 4,
-              "win_pct": null,
-              "games_played": 19,
-              "points_for": 32,
-              "points_against": 28,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.466Z"
-            },
-            {
-              "team_id": "60db95e4-5c92-4d79-87b5-67e016aba6c1",
-              "team_name": "Colorado Rapids",
-              "logo_url": "https://r2.thesportsdb.com/images/media/team/badge/uppupv1473536412.png",
-              "rank": 16,
-              "wins": 8,
-              "losses": 10,
-              "ties": 1,
-              "win_pct": null,
-              "games_played": 19,
-              "points_for": 29,
-              "points_against": 25,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.475Z"
-            },
-            {
-              "team_id": "73f16f05-753d-4f95-98cc-427f430fb667",
-              "team_name": "FC Dallas",
-              "logo_url": null,
-              "rank": 17,
-              "wins": 8,
-              "losses": 5,
-              "ties": 6,
-              "win_pct": null,
-              "games_played": 19,
-              "points_for": 34,
-              "points_against": 26,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.483Z"
-            },
-            {
-              "team_id": "420381fc-d0fb-46b7-83f7-986e9e2876b0",
-              "team_name": "Sporting Kansas City",
-              "logo_url": "https://r2.thesportsdb.com/images/media/team/badge/tqupxw1473536504.png",
-              "rank": 18,
-              "wins": 4,
-              "losses": 13,
-              "ties": 2,
-              "win_pct": null,
-              "games_played": 19,
-              "points_for": 18,
-              "points_against": 48,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.491Z"
-            },
-            {
-              "team_id": "6c0ed89e-9818-4ba6-89b6-cbdf1ff27fea",
-              "team_name": "LA Galaxy",
-              "logo_url": "https://r2.thesportsdb.com/images/media/team/badge/ysyysr1420227188.png",
-              "rank": 19,
-              "wins": 5,
-              "losses": 8,
-              "ties": 7,
-              "win_pct": null,
-              "games_played": 20,
-              "points_for": 24,
-              "points_against": 30,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.499Z"
-            },
-            {
-              "team_id": "3333e201-1fa0-45df-9750-7911b7385e51",
-              "team_name": "San Jose Earthquakes",
-              "logo_url": "https://r2.thesportsdb.com/images/media/team/badge/xyrqqt1420781048.png",
-              "rank": 20,
-              "wins": 10,
-              "losses": 6,
-              "ties": 3,
-              "win_pct": null,
-              "games_played": 19,
-              "points_for": 38,
-              "points_against": 27,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.507Z"
-            },
-            {
-              "team_id": "144d6588-4d3a-45f4-8383-0a09a05a6e3a",
-              "team_name": "Real Salt Lake",
-              "logo_url": "https://r2.thesportsdb.com/images/media/team/badge/kkjlfa1556488022.png",
-              "rank": 21,
-              "wins": 8,
-              "losses": 6,
-              "ties": 4,
-              "win_pct": null,
-              "games_played": 18,
-              "points_for": 30,
-              "points_against": 26,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.513Z"
-            },
-            {
-              "team_id": "ff285b65-e8bf-4b7c-9fe5-c58f6e74fb30",
-              "team_name": "Houston Dynamo",
-              "logo_url": "https://r2.thesportsdb.com/images/media/team/badge/yvz9dq1707631352.png",
-              "rank": 22,
-              "wins": 11,
-              "losses": 6,
-              "ties": 2,
-              "win_pct": null,
-              "games_played": 19,
-              "points_for": 28,
-              "points_against": 24,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.518Z"
-            },
-            {
-              "team_id": "229328c5-cd3b-4d51-83cb-60145ea478ca",
-              "team_name": "Portland Timbers",
-              "logo_url": "https://r2.thesportsdb.com/images/media/team/badge/skm30j1557953559.png",
-              "rank": 23,
-              "wins": 7,
-              "losses": 9,
-              "ties": 3,
-              "win_pct": null,
-              "games_played": 19,
-              "points_for": 34,
-              "points_against": 35,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.523Z"
-            },
-            {
-              "team_id": "a3af4fe0-ec10-428e-9f72-a6e7403cbe18",
-              "team_name": "Seattle Sounders",
-              "logo_url": null,
-              "rank": 24,
-              "wins": 7,
-              "losses": 8,
-              "ties": 3,
-              "win_pct": null,
-              "games_played": 18,
-              "points_for": 20,
-              "points_against": 24,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.531Z"
-            },
-            {
-              "team_id": "a48795d9-2591-45a1-ac86-065657874af3",
-              "team_name": "Vancouver Whitecaps",
-              "logo_url": null,
-              "rank": 25,
-              "wins": 11,
-              "losses": 3,
-              "ties": 4,
-              "win_pct": null,
-              "games_played": 18,
-              "points_for": 40,
-              "points_against": 17,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.540Z"
-            },
-            {
-              "team_id": "8da62505-b11d-4fdc-9147-6de4785b3134",
-              "team_name": "Minnesota United FC",
-              "logo_url": null,
-              "rank": 26,
-              "wins": 6,
-              "losses": 6,
-              "ties": 7,
-              "win_pct": null,
-              "games_played": 19,
-              "points_for": 21,
-              "points_against": 26,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.549Z"
-            },
-            {
-              "team_id": "eaa0f140-1624-4a9b-9088-1005eb579247",
-              "team_name": "LAFC",
-              "logo_url": null,
-              "rank": 27,
-              "wins": 10,
-              "losses": 6,
-              "ties": 4,
-              "win_pct": null,
-              "games_played": 20,
-              "points_for": 35,
-              "points_against": 20,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.555Z"
-            },
-            {
-              "team_id": "468c67e6-ec63-44a0-b6e8-5c63c583de04",
-              "team_name": "Austin FC",
-              "logo_url": "https://r2.thesportsdb.com/images/media/team/badge/a3dlg61595434277.png",
-              "rank": 28,
-              "wins": 4,
-              "losses": 10,
-              "ties": 5,
-              "win_pct": null,
-              "games_played": 19,
-              "points_for": 23,
-              "points_against": 38,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.562Z"
-            },
-            {
-              "team_id": "857c4e32-107f-4425-8f07-f0a321e1bc8c",
-              "team_name": "St. Louis CITY SC",
-              "logo_url": null,
-              "rank": 29,
-              "wins": 8,
-              "losses": 6,
-              "ties": 5,
-              "win_pct": null,
-              "games_played": 19,
-              "points_for": 27,
-              "points_against": 25,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.573Z"
-            },
-            {
-              "team_id": "3fe638d8-9f02-4beb-858c-ea63aaaec2a0",
-              "team_name": "San Diego FC",
-              "logo_url": "https://r2.thesportsdb.com/images/media/team/badge/7ka2xd1734621068.png",
-              "rank": 30,
-              "wins": 6,
-              "losses": 7,
-              "ties": 6,
-              "win_pct": null,
-              "games_played": 19,
-              "points_for": 33,
-              "points_against": 29,
-              "streak": null,
-              "updated_at": "2026-08-18T03:04:14.583Z"
-            }
-          ]
-        }
-      ]
-    }
+    "uel": null,
+    "uecl": null
   }
 }
