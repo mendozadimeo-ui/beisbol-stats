@@ -1138,6 +1138,7 @@ function topPropRow(prop) {
         ${prop.why ? `<div class="matchup-line">📊 ${prop.why}</div>` : ""}
       </div>
       <span class="prop-odds">
+        ${prop.isValue ? '<span class="value-tag">Value</span>' : ""}
         <b>${formatOdds(prop.odds)}</b>
         <span class="book-tag ${prop.bookmaker === "Bovada" ? "bovada" : ""}">${prop.bookmaker}</span>
       </span>
@@ -1166,7 +1167,7 @@ function computeBestPickOfDay(oddsMap) {
     const [awayName, homeName] = key.split("@");
     const candidates = [...(game.props ?? []), ...(game.moneylinePicks ?? [])];
     for (const p of candidates) {
-      if (!p.isValue) continue;
+      if (p.ourProb < minRealisticProb(p.market) || parseFloat(p.odds) < 1.20) continue;
       if (!best || p.ourProb > best.ourProb || (p.ourProb === best.ourProb && p.edge > best.edge)) {
         best = { ...p, game: `${awayName} @ ${homeName}` };
       }
@@ -1222,18 +1223,28 @@ function renderInjuriesSection(injuries) {
     </div>`;
 }
 
-// Cuotas por debajo de 1.20 no dejan ganancia real -- se excluyen siempre,
-// no solo de los picks marcados "Value" (mismo criterio en todo el sitio).
-// Ademas exigimos isValue: el backend ya filtra por probabilidad realista segun
-// el mercado (55% para Hits/Bases Totales/Pitcheo, 15% para HR por ser un evento
-// de baja probabilidad por naturaleza). Sin este filtro, un dia con pocas buenas
-// opciones terminaba mostrando longshots solo para completar el top 10.
-function computeTopProps(oddsMap, matchFn, limit = 10) {
+// "isValue" (edge real vs. cuota de mercado) es un filtro demasiado estricto para
+// las listas de "mejores opciones": exige que el mercado este mal precificado, no
+// solo que el pick sea probable. Muchos dias no hay ningun desajuste de mercado en
+// una categoria entera, y la lista quedaba vacia aunque hubiera picks razonables
+// (los mismos que ya se ven en la tarjeta de cada partido, sin ese filtro). Estas
+// listas usan en cambio un piso de probabilidad realista segun el mercado -- lo que
+// el modelo cree mas probable que pase, no necesariamente una "ganga" de cuotas.
+// El HR pide menos (15%) por ser un evento raro incluso para los mejores bateadores;
+// el moneyline pide 50% (el favorito de cada partido, casi siempre hay uno); el
+// resto pide 55%. Cuotas por debajo de 1.20 no dejan ganancia real y se excluyen
+// siempre (mismo criterio en todo el sitio).
+function minRealisticProb(market) {
+  if (market === "Home Runs O/U") return 0.15;
+  if (market === "Moneyline") return 0.50;
+  return 0.55;
+}
+function computeTopProps(oddsMap, matchFn, limit = 15) {
   const all = [];
   for (const [key, game] of Object.entries(oddsMap)) {
     const [awayName, homeName] = key.split("@");
     for (const p of game.props ?? []) {
-      if (matchFn(p) && p.isValue && parseFloat(p.odds) >= 1.20) {
+      if (matchFn(p) && p.ourProb >= minRealisticProb(p.market) && parseFloat(p.odds) >= 1.20) {
         all.push({ ...p, game: `${awayName} @ ${homeName}` });
       }
     }
@@ -1241,12 +1252,12 @@ function computeTopProps(oddsMap, matchFn, limit = 10) {
   all.sort((a, b) => b.ourProb - a.ourProb);
   return all.slice(0, limit);
 }
-function computeTopMoneyline(oddsMap, limit = 10) {
+function computeTopMoneyline(oddsMap, limit = 15) {
   const all = [];
   for (const [key, game] of Object.entries(oddsMap)) {
     const [awayName, homeName] = key.split("@");
     for (const p of game.moneylinePicks ?? []) {
-      if (p.isValue && parseFloat(p.odds) >= 1.20) all.push({ ...p, game: `${awayName} @ ${homeName}` });
+      if (p.ourProb >= minRealisticProb("Moneyline") && parseFloat(p.odds) >= 1.20) all.push({ ...p, game: `${awayName} @ ${homeName}` });
     }
   }
   all.sort((a, b) => b.ourProb - a.ourProb);
@@ -1270,12 +1281,12 @@ function propsSectionHTML(away, home, gameDateISO, oddsMap, awayPitcher, homePit
   const relevant = props.filter(p =>
     parseFloat(p.odds) >= 1.20 && (p.market === "Pitcher Strikeouts O/U" ? pitcherNames.includes(p.player) : true)
   );
-  // Para no saturar la tarjeta: abridores completos + hasta 4 props de bateadores con mas edge.
+  // Para no saturar la tarjeta: abridores completos + hasta 8 props de bateadores con mas edge.
   const pitcherProps = relevant.filter(p => p.market === "Pitcher Strikeouts O/U");
   const batterProps = relevant
     .filter(p => p.market !== "Pitcher Strikeouts O/U")
     .sort((a, b) => b.edge - a.edge)
-    .slice(0, 4);
+    .slice(0, 8);
   const rows = [...pitcherProps, ...batterProps];
   if (!rows.length) return "";
   return `
