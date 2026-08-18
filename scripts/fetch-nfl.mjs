@@ -358,10 +358,37 @@ function weatherAdjustment(statKey, weather) {
   return { mult: clamp(mult, 0.6, 1.3), note };
 }
 
+// ---------- Lesionados (ESPN, liga completa en 1 sola llamada) ----------
+// "Out"/"Injured Reserve"/"Suspension" -> directamente no juega, se descarta
+// el prop. "Questionable" no se descarta (en la practica muchas veces juegan
+// igual) pero se avisa en el "why" para que quede claro el riesgo.
+const OUT_STATUSES = new Set(["Out", "Injured Reserve", "Suspension", "Doubtful"]);
+let nflInjuriesCache = null;
+async function fetchNflInjuries() {
+  if (nflInjuriesCache) return nflInjuriesCache;
+  const map = {};
+  try {
+    const data = await getJSON(`${ESPN_SITE}/injuries`);
+    for (const team of data.injuries ?? []) {
+      for (const inj of team.injuries ?? []) {
+        const link = inj.athlete?.links?.find(l => l.href?.includes("/id/"));
+        const id = link ? /\/id\/(\d+)\//.exec(link.href)?.[1] : null;
+        if (id) map[id] = { status: inj.status, comment: inj.shortComment ?? null };
+      }
+    }
+  } catch { /* seguimos sin filtro de lesionados si falla */ }
+  nflInjuriesCache = map;
+  return map;
+}
+
 async function evaluateProp(prop, awayTeam, homeTeam, weather) {
   const proj = await getPlayerProjection(prop.player);
   if (!proj) return null;
   if (proj.team && proj.team !== awayTeam && proj.team !== homeTeam) return null;
+
+  const injuries = await fetchNflInjuries();
+  const injury = injuries[proj.id];
+  if (injury && OUT_STATUSES.has(injury.status)) return null;
 
   const distro = proj[prop.statKey];
   if (!distro) return null;
@@ -372,6 +399,9 @@ async function evaluateProp(prop, awayTeam, homeTeam, weather) {
   const pick = pickSide(prop.over, prop.under, normalProbOver(prop.line, adjustedMean, distro.std));
   if (pick.odds == null || pick.impliedProb == null) return null;
 
+  const injuryNote = injury?.status === "Questionable" ? `⚠️ Questionable (riesgo de no jugar)` : null;
+  const why = [wx.note, injuryNote].filter(Boolean).join(" · ") || null;
+
   return {
     ...prop,
     playerId: proj.id,
@@ -381,7 +411,7 @@ async function evaluateProp(prop, awayTeam, homeTeam, weather) {
     impliedProb: Math.round(pick.impliedProb * 1000) / 1000,
     edge: Math.round(pick.edge * 1000) / 1000,
     isValue: isRealValue(pick.edge, pick.ourProb, pick.odds, 0.08),
-    why: wx.note
+    why
   };
 }
 
