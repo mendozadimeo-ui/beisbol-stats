@@ -517,9 +517,13 @@ function buildAdjustment(statKey, seasonPerAB, ctx) {
 // realista sigue siendo un pick valido, y no queremos descartar los mejores
 // pagos a proposito.
 const MIN_REALISTIC_PROB = 0.55;
+// El HR es un evento de baja probabilidad por naturaleza -- ni el mejor bateador en el
+// mejor matchup suele pasar de 35-40% de pegar uno en un partido puntual. Pedirle el
+// mismo 55% que a Hits/Bases Totales/Moneyline dejaria esta categoria vacia siempre.
+const MIN_REALISTIC_PROB_HR = 0.15;
 const MIN_PAYOUT_ODDS = 1.20;
-function isRealValue(edge, ourProb, odds, edgeThreshold) {
-  return edge >= edgeThreshold && ourProb >= MIN_REALISTIC_PROB && odds >= MIN_PAYOUT_ODDS;
+function isRealValue(edge, ourProb, odds, edgeThreshold, minProb = MIN_REALISTIC_PROB) {
+  return edge >= edgeThreshold && ourProb >= minProb && odds >= MIN_PAYOUT_ODDS;
 }
 
 function pickSide(overOdds, underOdds, ourProbOver) {
@@ -610,7 +614,7 @@ async function evaluateProp(prop, awayTeam, homeTeam, gameCtx) {
     ourProb: Math.round(pick.ourProb * 1000) / 1000,
     impliedProb: Math.round(pick.impliedProb * 1000) / 1000,
     edge: Math.round(pick.edge * 1000) / 1000,
-    isValue: isRealValue(pick.edge, pick.ourProb, pick.odds, 0.08),
+    isValue: isRealValue(pick.edge, pick.ourProb, pick.odds, 0.08, prop.market === "Home Runs O/U" ? MIN_REALISTIC_PROB_HR : MIN_REALISTIC_PROB),
     pitcherHand: opposingPitcher?.hand ?? null,
     pitcherName: opposingPitcher?.name ?? null,
     why
@@ -672,6 +676,7 @@ function buildParlays(allEvaluatedProps) {
   const valuePicks = allEvaluatedProps
     .filter(p => p.isValue)
     .sort((a, b) => b.edge - a.edge);
+  const hitsPicks = valuePicks.filter(p => p.market === "Hits O/U");
   const hrPicks = valuePicks.filter(p => p.market === "Home Runs O/U");
   const tbPicks = valuePicks.filter(p => p.market === "Total Bases O/U");
   const pitchingPicks = valuePicks.filter(p => p.market === "Pitcher Strikeouts O/U");
@@ -732,6 +737,8 @@ function buildParlays(allEvaluatedProps) {
 
   add(moneylinePicks, 2, "Moneyline (2 picks)", "moneyline");
   add(moneylinePicks, 3, "Moneyline (3 picks)", "moneyline");
+  add(hitsPicks, 2, "Solo Hits (2 picks)", "hits");
+  add(hitsPicks, 3, "Solo Hits (3 picks)", "hits");
   add(hrPicks, 2, "Solo HR (2 picks)", "hr");
   add(hrPicks, 3, "Solo HR (3 picks)", "hr");
   add(tbPicks, 2, "Solo Bases Totales (2 picks)", "tb");
