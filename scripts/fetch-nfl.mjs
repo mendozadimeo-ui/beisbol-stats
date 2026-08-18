@@ -65,15 +65,17 @@ function extractGameOdds(oddsResponse) {
 // ---------- Probabilidad de victoria propia (Log5) contra el moneyline real ----------
 // La NFL no tiene stat de "ultimos 10" (temporada de 17 partidos), asi que el ajuste
 // usa solo racha actual + localia.
-async function fetchStandingsMap() {
-  const data = await getJSON(ESPN_STANDINGS);
+function extractStandingsMap(data) {
   const map = {};
+  let maxGames = 0;
   function walk(node) {
     for (const e of node.standings?.entries ?? []) {
       const stats = {};
       for (const s of e.stats ?? []) stats[s.name] = s;
       const streakDisplay = stats.streak?.displayValue ?? "";
       const streakVal = Math.abs(stats.streak?.value ?? 0);
+      const games = (stats.wins?.value ?? 0) + (stats.losses?.value ?? 0);
+      maxGames = Math.max(maxGames, games);
       map[e.team.displayName] = {
         pct: stats.winPercent?.value ?? 0.5,
         streakSigned: streakDisplay.startsWith("L") ? -streakVal : streakVal,
@@ -83,6 +85,26 @@ async function fetchStandingsMap() {
     for (const child of node.children ?? []) walk(child);
   }
   walk(data);
+  return { map, maxGames };
+}
+
+async function fetchStandingsMap() {
+  const data = await getJSON(ESPN_STANDINGS);
+  const { map, maxGames } = extractStandingsMap(data);
+  // Recien arranca la pretemporada: los equipos tienen 0-1 partidos jugados en la
+  // temporada "actual", lo que da pct de 0 o 1 exacto y probabilidades absurdas
+  // (95% de favoritismo a un equipo con un solo partido de pretemporada jugado).
+  // Si la muestra es muy chica, usamos la temporada regular completa anterior
+  // en su lugar -- mucho mas representativa que 1 partido de pretemporada.
+  if (maxGames < 3) {
+    const lastYear = (data.season?.year ?? new Date().getFullYear()) - 1;
+    try {
+      const fallback = await getJSON(`${ESPN_STANDINGS}?season=${lastYear}`);
+      return extractStandingsMap(fallback).map;
+    } catch {
+      return map;
+    }
+  }
   return map;
 }
 

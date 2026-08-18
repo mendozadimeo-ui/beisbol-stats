@@ -514,6 +514,7 @@
   <div class="sport-switch">
     <a href="index.html" class="sport-pill active" data-sport="baseball" title="Béisbol">⚾</a>
     <a href="futbol.html" class="sport-pill" data-sport="football" title="Fútbol">⚽</a>
+    <a href="nfl.html" class="sport-pill" data-sport="nfl" title="NFL">🏈</a>
   </div>
 </header>
 
@@ -522,7 +523,8 @@
     <h2>¿Qué deporte querés ver?</h2>
     <div class="sport-landing-options">
       <button id="landingBaseball" class="sport-option">⚾<span>Béisbol</span></button>
-      <a href="futbol.html" class="sport-option">⚽<span>Fútbol</span></a>
+      <a href="futbol.html" class="sport-option" onclick="localStorage.setItem('preferredSport','football')">⚽<span>Fútbol</span></a>
+      <a href="nfl.html" class="sport-option" onclick="localStorage.setItem('preferredSport','nfl')">🏈<span>NFL</span></a>
     </div>
   </div>
 </div>
@@ -593,8 +595,9 @@
 // ---------- Selector de deporte ----------
 (function () {
   const pref = localStorage.getItem("preferredSport");
-  if (pref === "football") {
-    window.location.href = "futbol.html";
+  const otherPages = { football: "futbol.html", nfl: "nfl.html" };
+  if (pref && otherPages[pref]) {
+    window.location.href = otherPages[pref];
     return;
   }
   localStorage.setItem("preferredSport", "baseball");

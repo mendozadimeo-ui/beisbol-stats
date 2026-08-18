@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NFL Stats</title>
+<style>
+  :root {
+    --bg: #0b0d14;
+    --bg-2: #12141d;
+    --panel: #161a26;
+    --panel-2: #1f2433;
+    --border: #2a3142;
+    --text: #f1f4f9;
+    --muted: #8b93a7;
+    --accent: #ff9d3d;
+    --accent-2: #ffcf5c;
+    --win: #34d399;
+    --loss: #f76464;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+  }
+  header {
+    position: relative;
+    overflow: hidden;
+    padding: 18px 20px;
+    background: radial-gradient(600px 220px at 12% -60%, rgba(255,157,61,0.22), transparent 60%), var(--bg-2);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  header::before {
+    content: attr(data-emoji);
+    position: absolute;
+    right: -14px; top: -34px;
+    font-size: 130px;
+    opacity: 0.07;
+    transform: rotate(-12deg);
+    pointer-events: none;
+    line-height: 1;
+  }
+  header::after {
+    content: "";
+    position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  }
+  header h1 { position: relative; z-index: 1; font-size: 20px; margin: 0; flex-shrink: 0; }
+  header h1 span { color: var(--accent); }
+  nav { position: relative; z-index: 1; display: flex; gap: 6px; overflow-x: auto; max-width: 100%; scrollbar-width: none; }
+  nav::-webkit-scrollbar { display: none; }
+  nav button {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  nav button.active { color: var(--text); border-color: var(--accent); background: var(--panel-2); }
+  .sport-switch { position: relative; z-index: 1; display: flex; gap: 6px; flex-shrink: 0; }
+  .sport-pill {
+    width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 19px; text-decoration: none;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    transition: transform .15s ease, border-color .15s ease, background .15s ease;
+  }
+  .sport-pill:hover { transform: translateY(-2px); border-color: var(--accent); }
+  .sport-pill.active { background: linear-gradient(135deg, var(--accent), var(--accent-2)); border-color: transparent; }
+  main { max-width: 1000px; margin: 0 auto; padding: 20px; overflow-x: hidden; }
+  .tab { display: none; }
+  .tab.active { display: block; }
+  .disclaimer {
+    background: rgba(255,157,61,0.08);
+    border: 1px solid rgba(255,157,61,0.25);
+    color: var(--muted);
+    font-size: 12px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+  }
+  .match-teams { display: flex; flex-direction: column; gap: 4px; font-size: 15px; }
+  .team-line { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .kickoff-time { color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .ml-inline { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; font-size: 12px; }
+  .ml-odd {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .ml-odd.fav { color: var(--win); }
+  .book-tag { color: var(--muted); font-size: 11px; align-self: center; }
+  .pick-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+  }
+  .pick-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+  .pick-player { font-weight: 700; font-size: 15px; }
+  .pick-market { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  .pick-odds { font-weight: 700; color: var(--accent); font-size: 15px; white-space: nowrap; }
+  .pick-meta { display: flex; gap: 10px; margin-top: 6px; font-size: 12px; color: var(--muted); }
+  .pick-meta b { color: var(--win); }
+  .parlay-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .parlay-title { display: flex; justify-content: space-between; align-items: baseline; }
+  .parlay-title b { font-size: 15px; }
+  .parlay-odds { color: var(--accent); font-weight: 700; }
+  .parlay-legs { margin-top: 8px; font-size: 13px; color: var(--muted); line-height: 1.7; }
+  .loading, .error, .muted { color: var(--muted); padding: 12px 0; }
+  .error { color: var(--loss); }
+</style>
+</head>
+<body>
+
+<header data-emoji="🏈">
+  <h1>🏈 NFL <span>Stats</span></h1>
+  <nav>
+    <button class="tab-btn active" data-tab="scores">Marcadores</button>
+    <button class="tab-btn" data-tab="picks">Picks</button>
+  </nav>
+  <div class="sport-switch">
+    <a href="index.html" class="sport-pill" data-sport="baseball" title="Béisbol">⚾</a>
+    <a href="futbol.html" class="sport-pill" data-sport="football" title="Fútbol">⚽</a>
+    <a href="nfl.html" class="sport-pill active" data-sport="nfl" title="NFL">🏈</a>
+  </div>
+</header>
+
+<main>
+
+  <section id="tab-scores" class="tab active">
+    <div class="disclaimer">
+      Calendario y cuotas reales de la temporada NFL. Mostramos hasta 6 días hacia adelante (los partidos son semanales, no diarios como béisbol).
+    </div>
+    <div id="scoresList"><div class="loading">Cargando partidos…</div></div>
+  </section>
+
+  <section id="tab-picks" class="tab">
+    <div class="disclaimer">
+      Proyección estadística propia (distribución normal sobre el promedio de los últimos partidos) comparada contra la cuota real. No es una predicción garantizada — es contexto para que decidas vos. Apostá con responsabilidad.
+    </div>
+    <div id="parlaysSection"></div>
+    <div id="picksList"><div class="loading">Calculando señales…</div></div>
+  </section>
+
+</main>
+
+<script>
+document.querySelectorAll(".sport-pill[data-sport]").forEach(el => {
+  el.addEventListener("click", () => localStorage.setItem("preferredSport", el.dataset.sport));
+});
+localStorage.setItem("preferredSport", "nfl");
+
+document.querySelectorAll(".tab-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById("tab-" + btn.dataset.tab).classList.add("active");
+  });
+});
+
+async function getJSON(url) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error("HTTP " + res.status);
+  return res.json();
+}
+
+function toAmerican(decimalOddsStr) {
+  if (decimalOddsStr == null) return "-";
+  const d = parseFloat(decimalOddsStr);
+  if (!d || isNaN(d)) return "-";
+  const american = d >= 2 ? Math.round((d - 1) * 100) : Math.round(-100 / (d - 1));
+  return american > 0 ? `+${american}` : `${american}`;
+}
+function formatOdds(decimalOddsStr) {
+  if (decimalOddsStr == null) return "-";
+  const d = parseFloat(decimalOddsStr);
+  if (!d || isNaN(d)) return "-";
+  return `${toAmerican(decimalOddsStr)} (${d.toFixed(2)})`;
+}
+
+let nflData = null;
+async function loadNflData() {
+  if (nflData) return nflData;
+  nflData = await getJSON(`data/nfl.json?v=${Date.now()}`);
+  return nflData;
+}
+
+function gameOddsHTML(g) {
+  const books = Object.keys(g.moneyline ?? {});
+  if (!books.length) return '<div class="muted" style="margin-top:8px;">Sin cuotas todavía.</div>';
+  const ml = g.moneyline[books[0]];
+  const homeFav = ml.home != null && ml.away != null && parseFloat(ml.home) < parseFloat(ml.away);
+  const awayFav = ml.away != null && ml.home != null && parseFloat(ml.away) < parseFloat(ml.home);
+  const totalBooks = Object.keys(g.total ?? {});
+  return `
+    <div class="ml-inline">
+      <span class="ml-odd ${awayFav ? "fav" : ""}">V ${formatOdds(ml.away)}</span>
+      <span class="ml-odd ${homeFav ? "fav" : ""}">L ${formatOdds(ml.home)}</span>
+      ${totalBooks.length ? `<span class="ml-odd">O/U ${g.total[totalBooks[0]].line}</span>` : ""}
+      <span class="book-tag">${books[0]}</span>
+    </div>`;
+}
+
+function formatGame(g) {
+  const date = new Date(g.date);
+  const dateStr = date.toLocaleString("es-AR", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+  return `
+    <div class="card">
+      <div class="match-teams">
+        <div class="team-line"><span>${g.away}</span></div>
+        <div class="team-line"><span>${g.home}</span></div>
+        <div class="kickoff-time">${dateStr}</div>
+        ${gameOddsHTML(g)}
+      </div>
+    </div>`;
+}
+
+async function loadScores() {
+  const el = document.getElementById("scoresList");
+  el.innerHTML = '<div class="loading">Cargando partidos…</div>';
+  try {
+    const data = await loadNflData();
+    const games = Object.values(data.games ?? {}).sort((a, b) => new Date(a.date) - new Date(b.date));
+    if (!games.length) {
+      el.innerHTML = '<div class="muted">No hay partidos programados en los próximos días.</div>';
+      return;
+    }
+    el.innerHTML = games.map(formatGame).join("");
+  } catch (e) {
+    el.innerHTML = `<div class="error">No se pudieron cargar los partidos (${e.message}).</div>`;
+  }
+}
+
+function pickCardHTML(p) {
+  return `
+    <div class="pick-card">
+      <div class="pick-top">
+        <div>
+          <div class="pick-player">${p.player}</div>
+          <div class="pick-market">${p.market}${p.line != null ? ` — línea ${p.line}` : ""} · ${p.side === "over" ? "Over" : p.side === "under" ? "Under" : "Gana"}</div>
+        </div>
+        <div class="pick-odds">${formatOdds(p.odds)}</div>
+      </div>
+      <div class="pick-meta">
+        <span>Nuestra prob.: <b>${Math.round(p.ourProb * 100)}%</b></span>
+        <span>Edge: <b>${Math.round(p.edge * 100)}%</b></span>
+        <span>${p.bookmaker}</span>
+        <span class="muted">${p.game}</span>
+      </div>
+    </div>`;
+}
+
+function parlayCardHTML(pl) {
+  return `
+    <div class="parlay-card">
+      <div class="parlay-title">
+        <b>${pl.label}</b>
+        <span class="parlay-odds">${pl.combinedOdds.toFixed(2)}x</span>
+      </div>
+      <div class="parlay-legs">
+        ${pl.legs.map(l => `${l.player} — ${l.market}${l.line != null ? ` ${l.line}` : ""} (${l.side === "over" ? "Over" : l.side === "under" ? "Under" : "Gana"}), ${formatOdds(l.odds)}`).join("<br>")}
+      </div>
+      <div class="muted" style="margin-top:8px; font-size:12px;">Jugable en ${pl.bookmaker} · Prob. combinada estimada: ${Math.round(pl.combinedProb * 100)}%</div>
+    </div>`;
+}
+
+async function loadPicks() {
+  const picksEl = document.getElementById("picksList");
+  const parlaysEl = document.getElementById("parlaysSection");
+  picksEl.innerHTML = '<div class="loading">Calculando señales…</div>';
+  try {
+    const data = await loadNflData();
+    const games = Object.values(data.games ?? {});
+    const allPicks = [];
+    for (const g of games) {
+      for (const p of [...(g.props ?? []), ...(g.moneylinePicks ?? [])]) {
+        if (p.isValue) allPicks.push({ ...p, game: `${g.away} @ ${g.home}` });
+      }
+    }
+    allPicks.sort((a, b) => b.edge - a.edge);
+
+    const parlays = data.parlays ?? [];
+    parlaysEl.innerHTML = parlays.length
+      ? `<h3 style="font-size:15px; margin:0 0 10px;">Parlays recomendados</h3>${parlays.map(parlayCardHTML).join("")}`
+      : "";
+
+    if (!allPicks.length) {
+      picksEl.innerHTML = '<div class="muted">No hay picks de valor para los próximos partidos todavía.</div>';
+      return;
+    }
+    picksEl.innerHTML = `<h3 style="font-size:15px; margin:16px 0 10px;">Picks individuales</h3>` + allPicks.map(pickCardHTML).join("");
+  } catch (e) {
+    picksEl.innerHTML = `<div class="error">No se pudieron cargar los picks (${e.message}).</div>`;
+  }
+}
+
+loadScores();
+loadPicks();
+</script>
+
+</body>
+</html>
