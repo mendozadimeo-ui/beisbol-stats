@@ -269,7 +269,96 @@ function pickSide(overOdds, underOdds, ourProbOver) {
   return { side: "under", odds: underOdds, ourProb: 1 - ourProbOver, impliedProb: impliedUnder, edge: edgeUnder };
 }
 
-async function evaluateProp(prop, awayTeam, homeTeam) {
+// ---------- Clima real (Open-Meteo), para ajustar props sensibles al viento ----------
+// A diferencia de MLB, en NFL el viento pesa mucho mas que la temperatura --
+// afecta directamente la precision del pase y del pateo. Estadios con techo
+// (domo o retractil, casi siempre cerrado) quedan fuera del ajuste.
+const NFL_VENUES = {
+  "Arizona Cardinals": { lat: 33.5276, lon: -112.2626, roofed: true },
+  "Atlanta Falcons": { lat: 33.7554, lon: -84.4008, roofed: true },
+  "Baltimore Ravens": { lat: 39.2780, lon: -76.6227, roofed: false },
+  "Buffalo Bills": { lat: 42.7738, lon: -78.7870, roofed: false },
+  "Carolina Panthers": { lat: 35.2258, lon: -80.8528, roofed: false },
+  "Chicago Bears": { lat: 41.8623, lon: -87.6167, roofed: false },
+  "Cincinnati Bengals": { lat: 39.0954, lon: -84.5160, roofed: false },
+  "Cleveland Browns": { lat: 41.5061, lon: -81.6995, roofed: false },
+  "Dallas Cowboys": { lat: 32.7473, lon: -97.0945, roofed: true },
+  "Denver Broncos": { lat: 39.7439, lon: -105.0201, roofed: false },
+  "Detroit Lions": { lat: 42.3400, lon: -83.0456, roofed: true },
+  "Green Bay Packers": { lat: 44.5013, lon: -88.0622, roofed: false },
+  "Houston Texans": { lat: 29.6847, lon: -95.4107, roofed: true },
+  "Indianapolis Colts": { lat: 39.7601, lon: -86.1639, roofed: true },
+  "Jacksonville Jaguars": { lat: 30.3239, lon: -81.6373, roofed: false },
+  "Kansas City Chiefs": { lat: 39.0489, lon: -94.4839, roofed: false },
+  "Las Vegas Raiders": { lat: 36.0909, lon: -115.1833, roofed: true },
+  "Los Angeles Chargers": { lat: 33.9535, lon: -118.3392, roofed: true },
+  "Los Angeles Rams": { lat: 33.9535, lon: -118.3392, roofed: true },
+  "Miami Dolphins": { lat: 25.9580, lon: -80.2389, roofed: false },
+  "Minnesota Vikings": { lat: 44.9735, lon: -93.2575, roofed: true },
+  "New England Patriots": { lat: 42.0909, lon: -71.2643, roofed: false },
+  "New Orleans Saints": { lat: 29.9511, lon: -90.0812, roofed: true },
+  "New York Giants": { lat: 40.8135, lon: -74.0745, roofed: false },
+  "New York Jets": { lat: 40.8135, lon: -74.0745, roofed: false },
+  "Philadelphia Eagles": { lat: 39.9008, lon: -75.1675, roofed: false },
+  "Pittsburgh Steelers": { lat: 40.4468, lon: -80.0158, roofed: false },
+  "San Francisco 49ers": { lat: 37.4033, lon: -121.9694, roofed: false },
+  "Seattle Seahawks": { lat: 47.5952, lon: -122.3316, roofed: false },
+  "Tampa Bay Buccaneers": { lat: 27.9759, lon: -82.5033, roofed: false },
+  "Tennessee Titans": { lat: 36.1665, lon: -86.7713, roofed: false },
+  "Washington Commanders": { lat: 38.9076, lon: -76.8645, roofed: false }
+};
+
+const weatherCache = new Map();
+async function fetchWeather(venue, gameDateISO) {
+  if (!venue || venue.roofed) return null;
+  const dateStr = gameDateISO.slice(0, 10);
+  const hourStr = gameDateISO.slice(0, 13);
+  const key = `${venue.lat},${venue.lon},${hourStr}`;
+  if (weatherCache.has(key)) return weatherCache.get(key);
+  try {
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${venue.lat}&longitude=${venue.lon}&hourly=temperature_2m,wind_speed_10m&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=UTC&start_date=${dateStr}&end_date=${dateStr}`;
+    const data = await getJSON(url);
+    const idx = data.hourly?.time?.findIndex(t => t.startsWith(hourStr));
+    const result = idx != null && idx >= 0
+      ? { temp: data.hourly.temperature_2m[idx], windSpeed: data.hourly.wind_speed_10m[idx] }
+      : null;
+    weatherCache.set(key, result);
+    return result;
+  } catch {
+    weatherCache.set(key, null);
+    return null;
+  }
+}
+
+function clamp(x, lo, hi) { return Math.max(lo, Math.min(hi, x)); }
+
+// El viento es lo que mas pesa (pase y pateo pierden precision), el frio
+// extremo suma un poco menos. Acotado para no disparar a un extremo.
+function weatherAdjustment(statKey, weather) {
+  if (!weather) return { mult: 1, note: null };
+  let mult = 1;
+  let note = null;
+  const wind = weather.windSpeed ?? 0;
+  const temp = weather.temp;
+
+  if (["passYards", "recYards", "passTDs"].includes(statKey)) {
+    if (wind >= 20) { mult *= 0.82; note = `viento fuerte (${Math.round(wind)}mph), afecta la precisión del pase`; }
+    else if (wind >= 12) { mult *= 0.92; note = `viento de ${Math.round(wind)}mph, algo de impacto en el pase`; }
+  } else if (statKey === "kickingPoints") {
+    if (wind >= 20) { mult *= 0.75; note = `viento fuerte (${Math.round(wind)}mph), complica el pateo`; }
+    else if (wind >= 12) { mult *= 0.88; note = `viento de ${Math.round(wind)}mph, afecta el pateo`; }
+  } else if (statKey === "rushYards" && wind >= 15) {
+    mult *= 1.08;
+    note = `clima duro (viento ${Math.round(wind)}mph), suele subir el juego terrestre`;
+  }
+  if (temp != null && temp <= 32 && ["passYards", "recYards", "kickingPoints"].includes(statKey)) {
+    mult *= 0.95;
+    note = note ? `${note} · frío (${Math.round(temp)}°F)` : `frío (${Math.round(temp)}°F), pelota más difícil de agarrar`;
+  }
+  return { mult: clamp(mult, 0.6, 1.3), note };
+}
+
+async function evaluateProp(prop, awayTeam, homeTeam, weather) {
   const proj = await getPlayerProjection(prop.player);
   if (!proj) return null;
   if (proj.team && proj.team !== awayTeam && proj.team !== homeTeam) return null;
@@ -277,7 +366,10 @@ async function evaluateProp(prop, awayTeam, homeTeam) {
   const distro = proj[prop.statKey];
   if (!distro) return null;
 
-  const pick = pickSide(prop.over, prop.under, normalProbOver(prop.line, distro.mean, distro.std));
+  const wx = weatherAdjustment(prop.statKey, weather);
+  const adjustedMean = distro.mean * wx.mult;
+
+  const pick = pickSide(prop.over, prop.under, normalProbOver(prop.line, adjustedMean, distro.std));
   if (pick.odds == null || pick.impliedProb == null) return null;
 
   return {
@@ -288,7 +380,8 @@ async function evaluateProp(prop, awayTeam, homeTeam) {
     ourProb: Math.round(pick.ourProb * 1000) / 1000,
     impliedProb: Math.round(pick.impliedProb * 1000) / 1000,
     edge: Math.round(pick.edge * 1000) / 1000,
-    isValue: isRealValue(pick.edge, pick.ourProb, pick.odds, 0.08)
+    isValue: isRealValue(pick.edge, pick.ourProb, pick.odds, 0.08),
+    why: wx.note
   };
 }
 
@@ -552,8 +645,6 @@ async function main() {
       console.error(`Error en batch de odds (${batch.map(ev => ev.id).join(",")}):`, e.message);
     }
   }
-  console.log(`TEMP oddsById keys=${Object.keys(oddsById).length}`);
-
   const games = {};
   const allEvaluatedProps = [];
   let withOdds = 0;
@@ -565,9 +656,12 @@ async function main() {
       const gameOdds = extractGameOdds(odds);
       const rawProps = extractProps(odds);
 
+      const venue = NFL_VENUES[ev.home] ?? null;
+      const weather = venue ? await fetchWeather(venue, ev.date) : null;
+
       const evaluatedProps = [];
       for (const prop of rawProps) {
-        const evaluated = await evaluateProp(prop, ev.away, ev.home);
+        const evaluated = await evaluateProp(prop, ev.away, ev.home, weather);
         if (evaluated) {
           evaluatedProps.push(evaluated);
           allEvaluatedProps.push({ ...evaluated, game: `${ev.away} @ ${ev.home}` });
