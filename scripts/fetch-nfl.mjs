@@ -88,6 +88,14 @@ function extractStandingsMap(data) {
   return { map, maxGames };
 }
 
+async function applyInjuryCounts(map) {
+  try {
+    const { countByTeamName } = await fetchNflInjuries();
+    for (const [team, entry] of Object.entries(map)) entry.injuryCount = countByTeamName[team] || 0;
+  } catch { /* seguimos sin ajuste de lesionados si falla */ }
+  return map;
+}
+
 async function fetchStandingsMap() {
   const data = await getJSON(ESPN_STANDINGS);
   const { map, maxGames } = extractStandingsMap(data);
@@ -100,14 +108,19 @@ async function fetchStandingsMap() {
     const lastYear = (data.season?.year ?? new Date().getFullYear()) - 1;
     try {
       const fallback = await getJSON(`${ESPN_STANDINGS}?season=${lastYear}`);
-      return extractStandingsMap(fallback).map;
+      return applyInjuryCounts(extractStandingsMap(fallback).map);
     } catch {
-      return map;
+      return applyInjuryCounts(map);
     }
   }
-  return map;
+  return applyInjuryCounts(map);
 }
 
+// El ajuste por lesionados es deliberadamente chico y crudo: contamos jugadores
+// en status Out/IR/Doubtful/Suspension por equipo, sin distinguir si es un
+// titular clave (ej. el quarterback) o un suplente -- no tenemos esa distincion
+// con precision, asi que reflejamos solo "este equipo tiene mas bajas", no
+// fingimos saber cuanto vale cada ausencia especifica.
 function estimateWinProb(teamName, oppName, standingsMap, isHome) {
   const t = standingsMap[teamName];
   const o = standingsMap[oppName];
@@ -116,7 +129,9 @@ function estimateWinProb(teamName, oppName, standingsMap, isHome) {
   const pb = Math.min(0.9, Math.max(0.1, o.pct));
   let p = (pa - pa * pb) / (pa + pb - 2 * pa * pb);
   const streakAdj = (t.streakSigned - o.streakSigned) * 0.015;
-  p += streakAdj + (isHome ? 0.02 : -0.02);
+  const injuryDiff = (t.injuryCount ?? 0) - (o.injuryCount ?? 0);
+  const injuryAdj = Math.max(-0.03, Math.min(0.03, -injuryDiff * 0.008));
+  p += streakAdj + injuryAdj + (isHome ? 0.02 : -0.02);
   return Math.max(0.05, Math.min(0.95, p));
 }
 
@@ -366,19 +381,23 @@ const OUT_STATUSES = new Set(["Out", "Injured Reserve", "Suspension", "Doubtful"
 let nflInjuriesCache = null;
 async function fetchNflInjuries() {
   if (nflInjuriesCache) return nflInjuriesCache;
-  const map = {};
+  const byPlayerId = {};
+  const countByTeamName = {};
   try {
     const data = await getJSON(`${ESPN_SITE}/injuries`);
     for (const team of data.injuries ?? []) {
       for (const inj of team.injuries ?? []) {
         const link = inj.athlete?.links?.find(l => l.href?.includes("/id/"));
         const id = link ? /\/id\/(\d+)\//.exec(link.href)?.[1] : null;
-        if (id) map[id] = { status: inj.status, comment: inj.shortComment ?? null };
+        if (id) byPlayerId[id] = { status: inj.status, comment: inj.shortComment ?? null };
+        if (OUT_STATUSES.has(inj.status) && team.displayName) {
+          countByTeamName[team.displayName] = (countByTeamName[team.displayName] || 0) + 1;
+        }
       }
     }
   } catch { /* seguimos sin filtro de lesionados si falla */ }
-  nflInjuriesCache = map;
-  return map;
+  nflInjuriesCache = { byPlayerId, countByTeamName };
+  return nflInjuriesCache;
 }
 
 async function evaluateProp(prop, awayTeam, homeTeam, weather) {
@@ -387,7 +406,7 @@ async function evaluateProp(prop, awayTeam, homeTeam, weather) {
   if (proj.team && proj.team !== awayTeam && proj.team !== homeTeam) return null;
 
   const injuries = await fetchNflInjuries();
-  const injury = injuries[proj.id];
+  const injury = injuries.byPlayerId[proj.id];
   if (injury && OUT_STATUSES.has(injury.status)) return null;
 
   const distro = proj[prop.statKey];
