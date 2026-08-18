@@ -272,6 +272,33 @@ async function getTeamIdMap() {
   return teamIdByNameCache;
 }
 
+// ---------- Lesionados/inactivos (roster de 40 de cada equipo) ----------
+// A diferencia de NFL, MLB no tiene un endpoint de lesionados de toda la liga
+// en una sola llamada -- pero el roster de 40 hombres de cada equipo ya trae
+// el estado real por jugador (activo, lista de lesionados 7/10/15/60 dias,
+// reasignado a ligas menores, etc). Cualquier estado que no sea "A" (Active)
+// significa que ese jugador no esta disponible para jugar hoy.
+let mlbInjuriesCache = null;
+async function fetchMlbInjuries() {
+  if (mlbInjuriesCache) return mlbInjuriesCache;
+  const map = {};
+  try {
+    const teamIds = Object.values(await getTeamIdMap());
+    for (const id of teamIds) {
+      try {
+        const roster = await getJSON(`${MLB_BASE}/teams/${id}/roster?rosterType=40Man`);
+        for (const p of roster.roster ?? []) {
+          if (p.status?.code && p.status.code !== "A") {
+            map[p.person.id] = { code: p.status.code, description: p.status.description, note: p.note ?? null };
+          }
+        }
+      } catch { /* seguimos con los demas equipos si uno falla */ }
+    }
+  } catch { /* seguimos sin filtro de lesionados si falla del todo */ }
+  mlbInjuriesCache = map;
+  return map;
+}
+
 const weatherCache = new Map();
 async function fetchWeather(venue, gameDateISO) {
   if (!venue || venue.roofed) return null;
@@ -471,6 +498,12 @@ async function evaluateProp(prop, awayTeam, homeTeam, gameCtx) {
     const lineup = proj.team === homeTeam ? gameCtx.homeLineup : gameCtx.awayLineup;
     if (lineup && !lineup.has(proj.id)) return null;
   }
+
+  // Lesionado o fuera del roster activo (lista de 7/10/15/60 dias, reasignado
+  // a ligas menores, etc) -- no importa si el prop es de bateo o de pitcheo,
+  // si no esta activo no va a jugar.
+  const injuries = await fetchMlbInjuries();
+  if (injuries[proj.id]) return null;
 
   let ourProbOver = null;
   let why = null;
