@@ -180,6 +180,44 @@
   .team-cell { display: flex; align-items: center; gap: 8px; }
   .loading, .error, .muted { color: var(--muted); padding: 12px 0; }
   .error { color: var(--loss); }
+
+  .results-summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; margin-bottom: 18px; }
+  .results-stat-box { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 14px; text-align: center; }
+  .results-stat-box .v { font-size: 22px; font-weight: 800; }
+  .results-stat-box .v.win { color: var(--win); }
+  .results-stat-box .v.loss { color: var(--loss); }
+  .results-stat-box .l { font-size: 11px; color: var(--muted); text-transform: uppercase; margin-top: 4px; }
+  .result-row { display: flex; align-items: center; gap: 12px; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; margin-bottom: 8px; }
+  .result-icon { font-size: 18px; flex-shrink: 0; width: 22px; text-align: center; }
+  .result-body { flex: 1; min-width: 0; font-size: 13px; }
+  .result-body .rd-title { font-weight: 600; }
+  .result-body .rd-meta { color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .result-row.win { border-color: rgba(var(--accent-rgb),0.35); }
+  .result-row.loss { border-color: rgba(247,100,100,0.35); }
+
+  .prob-meter { height: 5px; border-radius: 999px; background: var(--panel-2); overflow: hidden; margin-top: 5px; }
+  .prob-meter-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
+  .hero-pick {
+    background: linear-gradient(135deg, rgba(var(--accent-rgb),0.14), var(--panel));
+    border: 1px solid var(--accent);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin-bottom: 18px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-pick-label { font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+  .hero-pick-main { font-size: 19px; font-weight: 800; margin-bottom: 2px; }
+  .hero-pick-sub { color: var(--muted); font-size: 13px; margin-bottom: 14px; }
+  .hero-pick-stats { display: flex; gap: 24px; align-items: baseline; flex-wrap: wrap; margin-bottom: 4px; }
+  .hero-pick-prob-wrap { min-width: 140px; }
+  .hero-pick-prob { font-size: 30px; font-weight: 800; color: var(--accent); line-height: 1; }
+  .hero-pick-prob-label { font-size: 11px; color: var(--muted); text-transform: uppercase; margin-top: 2px; }
+  .hero-pick-odds { font-size: 18px; font-weight: 700; }
+  .hero-pick-odds-label { font-size: 11px; color: var(--muted); text-transform: uppercase; }
+  .confidence-badge { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 11px; font-weight: 700; }
+  .confidence-badge.alta { background: rgba(var(--accent-rgb),0.18); color: var(--accent); }
+  .confidence-badge.media { background: rgba(234,179,8,0.18); color: #eab308; }
 </style>
 </head>
 <body>
@@ -190,6 +228,7 @@
     <button class="tab-btn active" data-tab="scores">Marcadores</button>
     <button class="tab-btn" data-tab="picks">Picks</button>
     <button class="tab-btn" data-tab="standings">Posiciones</button>
+    <button class="tab-btn" data-tab="results">Resultados</button>
   </nav>
   <div class="sport-switch">
     <a href="index.html" class="sport-pill" data-sport="baseball" title="Béisbol">⚾</a>
@@ -213,6 +252,7 @@
     <div class="disclaimer">
       Proyección propia (modelo de Poisson de goles, según fuerza de ataque/defensa de la tabla de posiciones) comparada contra la cuota real. Solo disponible en Premier League, La Liga y Serie A — Champions League, Europa League y Conference League no tienen tabla de posiciones de donde sacar la fuerza de los equipos, así que no muestran picks. No es una predicción garantizada — es contexto para que decidas vos. Apostá con responsabilidad.
     </div>
+    <div id="heroPickSection"></div>
     <div class="league-chips" id="picksLeagueChips"></div>
     <div id="picksParlays"></div>
     <div id="picksList"><div class="loading">Calculando señales…</div></div>
@@ -221,6 +261,14 @@
   <section id="tab-standings" class="tab">
     <div class="league-chips" id="standingsLeagueChips"></div>
     <div id="standingsList"><div class="loading">Cargando tabla…</div></div>
+  </section>
+
+  <section id="tab-results" class="tab">
+    <div class="disclaimer">
+      📋 Historial real de los picks recomendados. Cada pick se registra ni bien se recomienda y se califica solo cuando el partido termina, comparando contra el resultado real. Nada se edita a mano.
+    </div>
+    <div id="resultsSummary"></div>
+    <div id="resultsList"><div class="loading">Cargando historial…</div></div>
   </section>
 
 </main>
@@ -354,16 +402,65 @@ function pickLabel(p) {
 }
 
 function pickCardHTML(p) {
+  const pct = Math.round(p.ourProb * 100);
   return `
     <div class="card">
       <div class="match-row">
         <div class="match-teams">
           <div class="team-line"><span>${pickLabel(p)}</span></div>
           <div class="kickoff-time">${p.game}</div>
+          <div class="prob-meter" style="max-width:180px;"><div class="prob-meter-fill" style="width:${pct}%"></div></div>
         </div>
         <div style="text-align:right;">
           <div class="ml-odd fav" style="display:inline-block;">${formatOdds(p.odds)}</div>
-          <div class="muted" style="font-size:11px; margin-top:4px;">Prob: ${Math.round(p.ourProb * 100)}% · Edge: ${Math.round(p.edge * 100)}% · ${p.bookmaker}</div>
+          <div class="muted" style="font-size:11px; margin-top:4px;">Prob: ${pct}% · Edge: ${Math.round(p.edge * 100)}% · ${p.bookmaker}</div>
+        </div>
+      </div>
+    </div>`;
+}
+
+// "Mejor pick del dia": el de mayor probabilidad real entre los que ya pasaron
+// el filtro de valor, cruzando las 3 ligas con tabla (EPL/LaLiga/SerieA) -- lo
+// mas creible que puede pasar, no lo mas jugado al azar.
+function confidenceBadge(prob) {
+  if (prob >= 0.7) return '<span class="confidence-badge alta">Alta confianza</span>';
+  if (prob >= 0.6) return '<span class="confidence-badge media">Confianza media</span>';
+  return "";
+}
+function computeBestPickOfDay(data) {
+  let best = null;
+  for (const [league, matches] of Object.entries(data.matches ?? {})) {
+    if (!data.standings[league]) continue;
+    for (const m of matches) {
+      for (const p of m.picks ?? []) {
+        if (!p.isValue) continue;
+        if (!best || p.ourProb > best.ourProb || (p.ourProb === best.ourProb && p.edge > best.edge)) {
+          best = { ...p, game: `${m.away} @ ${m.home}`, league: data.leagues[league] };
+        }
+      }
+    }
+  }
+  return best;
+}
+function renderHeroPick(data) {
+  const el = document.getElementById("heroPickSection");
+  const best = computeBestPickOfDay(data);
+  if (!best) { el.innerHTML = ""; return; }
+  const pct = Math.round(best.ourProb * 100);
+  el.innerHTML = `
+    <div class="hero-pick">
+      <div class="hero-pick-label">⭐ Mejor pick del día ${confidenceBadge(best.ourProb)}</div>
+      <div class="hero-pick-main">${pickLabel(best)}</div>
+      <div class="hero-pick-sub">${best.game} · ${best.league}</div>
+      <div class="hero-pick-stats">
+        <div class="hero-pick-prob-wrap">
+          <div class="hero-pick-prob">${pct}%</div>
+          <div class="hero-pick-prob-label">nuestra proyección</div>
+          <div class="prob-meter"><div class="prob-meter-fill" style="width:${pct}%"></div></div>
+        </div>
+        <div>
+          <div class="hero-pick-odds">${formatOdds(best.odds)}</div>
+          <div class="hero-pick-odds-label">${best.bookmaker}</div>
         </div>
       </div>
     </div>`;
@@ -389,6 +486,7 @@ async function loadPicksTab() {
   el.innerHTML = '<div class="loading">Calculando señales…</div>';
   try {
     const data = await loadFootballData();
+    renderHeroPick(data);
     renderLeagueChips("picksLeagueChips", picksLeague, league => {
       picksLeague = league;
       loadPicksTab();
@@ -401,7 +499,8 @@ async function loadPicksTab() {
         if (p.isValue) allPicks.push({ ...p, game: `${m.away} @ ${m.home}` });
       }
     }
-    allPicks.sort((a, b) => b.edge - a.edge);
+    // Por probabilidad real primero (lo mas creible), edge como desempate.
+    allPicks.sort((a, b) => b.ourProb - a.ourProb || b.edge - a.edge);
 
     const parlays = data.parlays?.[picksLeague] ?? [];
     parlaysEl.innerHTML = parlays.length
@@ -485,9 +584,64 @@ async function loadStandingsTab() {
   }
 }
 
+// ---------- Resultados (historial de aciertos/fallos) ----------
+function resultLabel(p) {
+  if (p.market === "Moneyline") return p.side === "draw" ? "Empate" : `Gana ${p.team}`;
+  return p.side === "over" ? "Over 2.5 goles" : "Under 2.5 goles";
+}
+function resultRowHTML(p) {
+  const icon = p.result === "win" ? "✅" : "❌";
+  return `
+    <div class="result-row ${p.result}">
+      <span class="result-icon">${icon}</span>
+      <div class="result-body">
+        <div class="rd-title">${resultLabel(p)} <span class="muted">(${formatOdds(p.odds)}, ${p.bookmaker})</span></div>
+        <div class="rd-meta">${p.game} · ${p.leagueName} · ${p.actual} · proyectamos ${Math.round(p.ourProb * 100)}%</div>
+      </div>
+    </div>`;
+}
+async function loadResults() {
+  const summaryEl = document.getElementById("resultsSummary");
+  const listEl = document.getElementById("resultsList");
+  listEl.innerHTML = '<div class="loading">Cargando historial…</div>';
+  try {
+    const res = await fetch(`data/football-history.json?v=${Date.now()}`);
+    if (res.status === 404) {
+      // Historial nuevo: el archivo recien se crea en la primera corrida real
+      // del pipeline con esta funcion, no es un error.
+      summaryEl.innerHTML = "";
+      listEl.innerHTML = '<div class="muted">Todavía no hay historial — se arma solo apenas corra el pipeline con picks pendientes.</div>';
+      return;
+    }
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const history = await res.json();
+    const graded = history.graded ?? [];
+    const pending = history.pending ?? [];
+    const wins = graded.filter(p => p.result === "win").length;
+    const losses = graded.filter(p => p.result === "loss").length;
+    const winPct = wins + losses ? Math.round((wins / (wins + losses)) * 100) : 0;
+
+    summaryEl.innerHTML = `
+      <div class="results-summary-grid">
+        <div class="results-stat-box"><div class="v">${wins}-${losses}</div><div class="l">Récord general</div></div>
+        <div class="results-stat-box"><div class="v ${winPct >= 50 ? "win" : "loss"}">${winPct}%</div><div class="l">% de acierto</div></div>
+        <div class="results-stat-box"><div class="v">${pending.length}</div><div class="l">Pendientes</div></div>
+      </div>`;
+
+    if (!graded.length) {
+      listEl.innerHTML = `<div class="muted">Todavía no hay picks calificados — hay ${pending.length} pick${pending.length === 1 ? "" : "s"} pendiente${pending.length === 1 ? "" : "s"} esperando a que termine su partido. Solo Premier League, La Liga y Serie A generan picks (son las únicas con tabla de posiciones real).</div>`;
+      return;
+    }
+    listEl.innerHTML = graded.slice(0, 60).map(resultRowHTML).join("");
+  } catch (e) {
+    listEl.innerHTML = `<div class="error">No se pudo cargar el historial (${e.message}).</div>`;
+  }
+}
+
 loadScores();
 loadPicksTab();
 loadStandingsTab();
+loadResults();
 </script>
 
 </body>

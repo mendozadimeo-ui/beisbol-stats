@@ -339,6 +339,86 @@ async function fetchOddsApiFixtures(oddsLeagueSlugs) {
   return matches;
 }
 
+// ---------- Historial y calificacion (solo en ligas con modelo: EPL/LaLiga/SerieA) ----------
+// UCL/UEL/UECL no tienen tabla de posiciones -> no tienen picks -> no hay nada
+// que registrar ahi. Mismo patron que fetch-odds.mjs/fetch-nfl.mjs.
+const HISTORY_PATH = "data/football-history.json";
+async function loadHistory() {
+  try {
+    const fs = await import("node:fs/promises");
+    const raw = await fs.readFile(HISTORY_PATH, "utf8");
+    const data = JSON.parse(raw);
+    return { pending: data.pending ?? [], graded: data.graded ?? [] };
+  } catch {
+    return { pending: [], graded: [] };
+  }
+}
+async function saveHistory(history) {
+  const fs = await import("node:fs/promises");
+  await fs.mkdir("data", { recursive: true });
+  await fs.writeFile(HISTORY_PATH, JSON.stringify(history, null, 2));
+}
+
+function pickHistoryId(pick) {
+  return `${pick.matchId}|${pick.market}|${pick.side}`;
+}
+
+function recordPicks(leagueKey, leagueName, matches, history) {
+  const known = new Set([...history.pending, ...history.graded].map(p => p.id));
+  for (const m of matches) {
+    for (const p of m.picks ?? []) {
+      if (!p.isValue) continue;
+      const record = {
+        matchId: m.id, league: leagueKey, leagueName,
+        game: `${m.away} @ ${m.home}`, home: m.home, away: m.away, kickoff: m.kickoff,
+        market: p.market, side: p.side, team: p.team ?? null,
+        odds: p.odds, bookmaker: p.bookmaker, ourProb: p.ourProb, edge: p.edge
+      };
+      const id = pickHistoryId(record);
+      if (known.has(id)) continue;
+      known.add(id);
+      history.pending.push({ id, ...record, recordedAt: new Date().toISOString() });
+    }
+  }
+}
+
+function gradePick(pick, match) {
+  if (match.status !== "finished" || !match.score) return null;
+  const hs = match.score.home, as = match.score.away;
+  if (hs == null || as == null) return null;
+  if (pick.market === "Moneyline") {
+    const outcome = hs > as ? "home" : hs < as ? "away" : "draw";
+    const won = pick.side === outcome;
+    return { result: won ? "win" : "loss", actual: `${match.away} ${as} - ${match.home} ${hs}` };
+  }
+  if (pick.market === "Total 2.5 goles") {
+    const totalGoals = hs + as;
+    const over = totalGoals > 2.5;
+    const won = pick.side === "over" ? over : !over;
+    return { result: won ? "win" : "loss", actual: `${totalGoals} goles` };
+  }
+  return null;
+}
+
+function gradePendingPicks(matchesByLeague, history) {
+  const matchById = {};
+  for (const matches of Object.values(matchesByLeague)) {
+    for (const m of matches) matchById[m.id] = m;
+  }
+  const stillPending = [];
+  for (const pick of history.pending) {
+    const daysOld = (Date.now() - new Date(pick.recordedAt).getTime()) / (1000 * 60 * 60 * 24);
+    if (daysOld > 10) continue; // partido cancelado/suspendido/postergado, no lo arrastramos para siempre
+    const match = matchById[pick.matchId];
+    if (!match) { stillPending.push(pick); continue; }
+    const graded = gradePick(pick, match);
+    if (!graded) { stillPending.push(pick); continue; }
+    history.graded.unshift({ ...pick, ...graded, gradedAt: new Date().toISOString() });
+  }
+  history.pending = stillPending;
+  history.graded = history.graded.slice(0, 400);
+}
+
 async function main() {
   // Si odds-api.io esta con la cuota agotada, un fetch fallido de una liga que
   // depende 100% de esa API (UCL/UEL/UECL) devuelve [] -- sin esto, esa corrida
@@ -351,6 +431,7 @@ async function main() {
   } catch { /* primera corrida, o archivo corrupto: segui sin fallback */ }
 
   const output = { updatedAt: new Date().toISOString(), leagues: {}, matches: {}, standings: {}, parlays: {} };
+  const history = await loadHistory();
 
   for (const [key, cfg] of Object.entries(LEAGUES)) {
     output.leagues[key] = cfg.name;
@@ -390,7 +471,11 @@ async function main() {
     });
     output.matches[key] = leagueMatches;
     output.parlays[key] = buildFootballParlays(leagueMatches);
+    recordPicks(key, cfg.name, leagueMatches, history);
   }
+
+  gradePendingPicks(output.matches, history);
+  await saveHistory(history);
 
   const fs = await import("node:fs/promises");
   await fs.mkdir("data", { recursive: true });
@@ -399,7 +484,9 @@ async function main() {
   const totalMatches = Object.values(output.matches).reduce((a, arr) => a + arr.length, 0);
   const withOdds = Object.values(output.matches).reduce((a, arr) => a + arr.filter(m => m.odds).length, 0);
   const valuePicks = Object.values(output.matches).reduce((a, arr) => a + arr.reduce((b, m) => b + (m.picks ?? []).filter(p => p.isValue).length, 0), 0);
-  console.log(`Listo: ${Object.keys(LEAGUES).length} ligas, ${totalMatches} partidos, ${withOdds} con cuotas, ${valuePicks} value picks.`);
+  const wins = history.graded.filter(p => p.result === "win").length;
+  const losses = history.graded.filter(p => p.result === "loss").length;
+  console.log(`Listo: ${Object.keys(LEAGUES).length} ligas, ${totalMatches} partidos, ${withOdds} con cuotas, ${valuePicks} value picks. Historial: ${wins}-${losses} (${history.pending.length} pendientes).`);
 }
 
 main().catch(e => {
