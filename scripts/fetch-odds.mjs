@@ -672,7 +672,8 @@ function buildParlays(allEvaluatedProps) {
   const valuePicks = allEvaluatedProps
     .filter(p => p.isValue)
     .sort((a, b) => b.edge - a.edge);
-  const battingPicks = valuePicks.filter(p => BATTING_MARKETS.has(p.market));
+  const hrPicks = valuePicks.filter(p => p.market === "Home Runs O/U");
+  const tbPicks = valuePicks.filter(p => p.market === "Total Bases O/U");
   const pitchingPicks = valuePicks.filter(p => p.market === "Pitcher Strikeouts O/U");
   const moneylinePicks = valuePicks.filter(p => p.market === "Moneyline");
 
@@ -731,8 +732,10 @@ function buildParlays(allEvaluatedProps) {
 
   add(moneylinePicks, 2, "Moneyline (2 picks)", "moneyline");
   add(moneylinePicks, 3, "Moneyline (3 picks)", "moneyline");
-  add(battingPicks, 2, "Solo bateo (2 picks)", "bateo");
-  add(battingPicks, 3, "Solo bateo (3 picks)", "bateo");
+  add(hrPicks, 2, "Solo HR (2 picks)", "hr");
+  add(hrPicks, 3, "Solo HR (3 picks)", "hr");
+  add(tbPicks, 2, "Solo Bases Totales (2 picks)", "tb");
+  add(tbPicks, 3, "Solo Bases Totales (3 picks)", "tb");
   add(pitchingPicks, 2, "Solo pitcheo (2 picks)", "pitcheo");
   add(valuePicks.filter(p => p.market !== "Moneyline"), 3, "Mixto (3 picks)", "mixto");
   add(valuePicks.filter(p => p.market !== "Moneyline"), 4, "Mixto (4 picks)", "mixto");

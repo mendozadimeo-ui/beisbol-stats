@@ -1469,13 +1469,15 @@ function formatOdds(decimalOddsStr) {
 
 const PARLAY_CATEGORY_META = {
   moneyline: { icon: "💰", label: "Moneyline" },
-  bateo: { icon: "🥎", label: "Bateo" },
+  hr: { icon: "🚀", label: "HR" },
+  tb: { icon: "📊", label: "Total Bases" },
   pitcheo: { icon: "⚾", label: "Pitcheo" },
   mixto: { icon: "🎯", label: "Mixto" }
 };
 let currentParlays = [];
 let currentTopMoneyline = [];
-let currentTopBateo = [];
+let currentTopHr = [];
+let currentTopTb = [];
 let currentTopPitcheo = [];
 let picksCategoryFilter = "todos";
 
@@ -1521,9 +1523,13 @@ function renderPicksFilterContent() {
     if (currentTopMoneyline.length) blocks.push(topPropsBlockHTML("💰 Mejores Moneyline de Hoy", "", currentTopMoneyline));
     blocks.push(parlaysGridHTML("moneyline"));
   }
-  if (f === "todos" || f === "bateo") {
-    if (currentTopBateo.length) blocks.push(topPropsBlockHTML("🥎 Mejores Props de Bateo de Hoy (HR / Bases Totales)", "", currentTopBateo));
-    blocks.push(parlaysGridHTML("bateo"));
+  if (f === "todos" || f === "hr") {
+    if (currentTopHr.length) blocks.push(topPropsBlockHTML("🚀 Posibles Home Runs de Hoy", "", currentTopHr));
+    blocks.push(parlaysGridHTML("hr"));
+  }
+  if (f === "todos" || f === "tb") {
+    if (currentTopTb.length) blocks.push(topPropsBlockHTML("📊 1.5+ Bases Totales de Hoy", "", currentTopTb));
+    blocks.push(parlaysGridHTML("tb"));
   }
   if (f === "todos" || f === "pitcheo") {
     if (currentTopPitcheo.length) blocks.push(topPropsBlockHTML("⚾ Mejores Props de Pitcheo de Hoy (Ponches)", "", currentTopPitcheo));
@@ -1536,18 +1542,20 @@ function renderPicksFilterContent() {
   el.innerHTML = html || '<div class="muted" style="margin-bottom:16px;">No hay picks en esta categoría para los partidos elegidos.</div>';
 }
 
-function renderPicksFilterSection(parlays, topMoneyline, topBateo, topPitcheo) {
+function renderPicksFilterSection(parlays, topMoneyline, topHr, topTb, topPitcheo) {
   currentParlays = parlays ?? [];
   currentTopMoneyline = topMoneyline ?? [];
-  currentTopBateo = topBateo ?? [];
+  currentTopHr = topHr ?? [];
+  currentTopTb = topTb ?? [];
   currentTopPitcheo = topPitcheo ?? [];
   const el = document.getElementById("picksFilterSection");
   if (!el) return;
-  const hasAnything = currentParlays.length || currentTopMoneyline.length || currentTopBateo.length || currentTopPitcheo.length;
+  const hasAnything = currentParlays.length || currentTopMoneyline.length || currentTopHr.length || currentTopTb.length || currentTopPitcheo.length;
   if (!hasAnything) { el.innerHTML = ""; return; }
   const categories = ["todos"];
   if (currentTopMoneyline.length || currentParlays.some(p => p.category === "moneyline")) categories.push("moneyline");
-  if (currentTopBateo.length || currentParlays.some(p => p.category === "bateo")) categories.push("bateo");
+  if (currentTopHr.length || currentParlays.some(p => p.category === "hr")) categories.push("hr");
+  if (currentTopTb.length || currentParlays.some(p => p.category === "tb")) categories.push("tb");
   if (currentTopPitcheo.length || currentParlays.some(p => p.category === "pitcheo")) categories.push("pitcheo");
   if (currentParlays.some(p => p.category === "mixto")) categories.push("mixto");
   if (!categories.includes(picksCategoryFilter)) picksCategoryFilter = "todos";
@@ -1556,7 +1564,7 @@ function renderPicksFilterSection(parlays, topMoneyline, topBateo, topPitcheo) {
       ${categories.map(c => `<button data-cat="${c}" class="${c === picksCategoryFilter ? "active" : ""}">${c === "todos" ? "Todos" : `${PARLAY_CATEGORY_META[c]?.icon ?? ""} ${PARLAY_CATEGORY_META[c]?.label ?? c}`}</button>`).join("")}
     </div>` : "";
   el.innerHTML = `
-    <div class="disclaimer">🎲 Mejores props y parlays sugeridos combinando los picks con mayor diferencia entre nuestra proyección estadística y la cuota del mercado. Más cuota = más difícil que pegue. Siempre hay factor suerte — esto no es una garantía.<br><br>💰 <b>Moneyline</b> se calcula contra la cuota real de <b>Bovada</b> — 100% jugable ahí. 🥎⚾🎯 <b>Bateo/Pitcheo/Mixto</b> usan props de <b>Bet365</b>, porque Bovada no ofrece props de jugadores por esta API — esas cuotas pueden no coincidir con lo que veas en tu cuenta de Bovada.</div>
+    <div class="disclaimer">🎲 Mejores props y parlays sugeridos combinando los picks con mayor diferencia entre nuestra proyección estadística y la cuota del mercado. Más cuota = más difícil que pegue. Siempre hay factor suerte — esto no es una garantía.<br><br>💰 <b>Moneyline</b> se calcula contra la cuota real de <b>Bovada</b> — 100% jugable ahí. 🚀📊⚾🎯 <b>HR/Total Bases/Pitcheo/Mixto</b> usan props de <b>Bet365</b>, porque Bovada no ofrece props de jugadores por esta API — esas cuotas pueden no coincidir con lo que veas en tu cuenta de Bovada.</div>
     ${filterHTML}
     <div id="picksFilterGrid"></div>`;
   renderPicksFilterContent();
@@ -1595,8 +1603,6 @@ function renderGameSelector() {
     <div class="stat-chips">${chips}${selectedGameKeys.size ? '<button id="clearGameSelection" style="color:var(--loss);border-color:var(--loss);">✕ Limpiar</button>' : ""}</div>`;
 }
 
-const BATTING_MARKETS_FE = new Set(["Hits O/U", "Home Runs O/U", "Total Bases O/U"]);
-
 function buildClientParlays(gameKeys, oddsMap) {
   const pool = [];
   gameKeys.forEach(key => {
@@ -1607,7 +1613,8 @@ function buildClientParlays(gameKeys, oddsMap) {
     (entry.moneylinePicks ?? []).forEach(p => pool.push({ ...p, game }));
   });
   const valuePicks = pool.filter(p => p.isValue).sort((a, b) => b.edge - a.edge);
-  const battingPicks = valuePicks.filter(p => BATTING_MARKETS_FE.has(p.market));
+  const hrPicks = valuePicks.filter(p => p.market === "Home Runs O/U");
+  const tbPicks = valuePicks.filter(p => p.market === "Total Bases O/U");
   const pitchingPicks = valuePicks.filter(p => p.market === "Pitcher Strikeouts O/U");
   const moneylinePicks = valuePicks.filter(p => p.market === "Moneyline");
 
@@ -1634,7 +1641,8 @@ function buildClientParlays(gameKeys, oddsMap) {
   const parlays = [];
   const add = (p, count, label, cat) => { const pl = toParlay(takeTop(p, count), label, cat); if (pl) parlays.push(pl); };
   add(moneylinePicks, 2, "Moneyline (2 picks)", "moneyline");
-  add(battingPicks, 2, "Solo bateo (2 picks)", "bateo");
+  add(hrPicks, 2, "Solo HR (2 picks)", "hr");
+  add(tbPicks, 2, "Solo Bases Totales (2 picks)", "tb");
   add(pitchingPicks, 2, "Solo pitcheo (2 picks)", "pitcheo");
   add(valuePicks.filter(p => p.market !== "Moneyline"), 3, "Mixto (3 picks)", "mixto");
   if (!parlays.length && valuePicks.length >= 2) {
@@ -1643,12 +1651,14 @@ function buildClientParlays(gameKeys, oddsMap) {
   return parlays;
 }
 
-function isBateoTopProp(p) {
+function isHrTopProp(p) {
   // Solo la linea estandar de HR (0.5 = "pega al menos 1 HR"). Hay mercados raros
   // de 1.5+ (2 o mas HR en el partido) con cuotas altisimas (+5000) que no tienen
   // nada que ver con "va a pegar un home run" y solo confunden aca.
-  return (p.market === "Home Runs O/U" && p.side === "over" && p.line === 0.5) ||
-    (p.market === "Total Bases O/U" && p.line === 1.5 && p.side === "over");
+  return p.market === "Home Runs O/U" && p.side === "over" && p.line === 0.5;
+}
+function isTbTopProp(p) {
+  return p.market === "Total Bases O/U" && p.line === 1.5 && p.side === "over";
 }
 function isPitcheoTopProp(p) {
   return p.market === "Pitcher Strikeouts O/U" && p.side === "over";
@@ -1672,7 +1682,8 @@ async function renderPicksForSelection() {
   renderPicksFilterSection(
     parlaysToShow,
     computeTopMoneyline(oddsMapForProps),
-    computeTopProps(oddsMapForProps, isBateoTopProp),
+    computeTopProps(oddsMapForProps, isHrTopProp),
+    computeTopProps(oddsMapForProps, isTbTopProp),
     computeTopProps(oddsMapForProps, isPitcheoTopProp)
   );
   renderGameSelector();
@@ -1732,7 +1743,8 @@ async function loadPicks(date) {
     renderPicksFilterSection(
       picksServerParlaysCache,
       computeTopMoneyline(todaysOddsMap),
-      computeTopProps(todaysOddsMap, isBateoTopProp),
+      computeTopProps(todaysOddsMap, isHrTopProp),
+      computeTopProps(todaysOddsMap, isTbTopProp),
       computeTopProps(todaysOddsMap, isPitcheoTopProp)
     );
 
