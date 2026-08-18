@@ -13,10 +13,11 @@ async function get(path, log = true) {
 }
 
 async function main() {
-  await get(`/leagues?sport=americanfootball&apiKey=${API_KEY}`);
+  await get(`/sports?apiKey=${API_KEY}`);
+  await get(`/leagues?sport=football&apiKey=${API_KEY}`);
 
-  for (const league of ["usa-nfl", "nfl"]) {
-    const events = await get(`/events?apiKey=${API_KEY}&sport=americanfootball&league=${league}&status=pending&limit=15`, false);
+  for (const [sport, league] of [["football", "usa-nfl"], ["football", "nfl"], ["american-football", "usa-nfl"]]) {
+    const events = await get(`/events?apiKey=${API_KEY}&sport=${sport}&league=${league}&status=pending&limit=15`, false);
     if (!events || !events.length) { console.log(`\n${league}: sin eventos`); continue; }
     const soon = [...events].sort((a, b) => new Date(a.date) - new Date(b.date))[0];
     console.log(`\n${league}: ${events.length} eventos, mas cercano ${soon.date} (id ${soon.id}, ${soon.away} @ ${soon.home})`);
