@@ -578,7 +578,6 @@
     <button class="tab-btn" data-tab="picks">Picks del Día</button>
     <button class="tab-btn" data-tab="leaders">Líderes</button>
     <button class="tab-btn" data-tab="standings">Posiciones</button>
-    <button class="tab-btn" data-tab="players">Jugadores</button>
     <button class="tab-btn" data-tab="results">Resultados</button>
   </nav>
   <div class="sport-switch">
@@ -621,7 +620,6 @@
     </div>
     <div id="heroPickSection"></div>
     <div id="gameSelectorSection" class="game-selector"></div>
-    <div id="injuriesSection"></div>
     <div id="picksFilterSection"></div>
     <div id="picksList"><div class="loading">Calculando señales…</div></div>
   </section>
@@ -630,6 +628,7 @@
     <div class="group-toggle" id="leaderViewToggle">
       <button data-view="stats" class="active">Estadísticas</button>
       <button data-view="injuries">Lesionados</button>
+      <button data-view="players">Jugadores</button>
     </div>
     <div id="leaderStatsView">
       <div class="group-toggle" id="leaderGroupToggle">
@@ -646,6 +645,13 @@
       <div id="injuriesTeamPicker"><div class="loading">Cargando equipos…</div></div>
       <div id="injuriesTeamResult"></div>
     </div>
+    <div id="leaderPlayersView" style="display:none;">
+      <div class="toolbar">
+        <input type="text" id="playerSearch" placeholder="Buscar jugador (ej: Judge, Ohtani)">
+      </div>
+      <div id="playerResults" class="player-results"></div>
+      <div id="playerDetail"></div>
+    </div>
   </section>
 
   <section id="tab-standings" class="tab">
@@ -657,14 +663,6 @@
       </select>
     </div>
     <div id="standingsList"><div class="loading">Cargando posiciones…</div></div>
-  </section>
-
-  <section id="tab-players" class="tab">
-    <div class="toolbar">
-      <input type="text" id="playerSearch" placeholder="Buscar jugador (ej: Judge, Ohtani)">
-    </div>
-    <div id="playerResults" class="player-results"></div>
-    <div id="playerDetail"></div>
   </section>
 
   <section id="tab-results" class="tab">
@@ -932,8 +930,9 @@ async function loadScores(date) {
 }
 
 function openPlayerInTab(playerId) {
-  document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === "players"));
-  document.querySelectorAll(".tab").forEach(t => t.classList.toggle("active", t.id === "tab-players"));
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === "leaders"));
+  document.querySelectorAll(".tab").forEach(t => t.classList.toggle("active", t.id === "tab-leaders"));
+  selectLeaderView("players");
   loadPlayerDetail(playerId);
 }
 
@@ -1230,16 +1229,6 @@ function injuryRowHTML(inj) {
       </div>
     </div>`;
 }
-function renderInjuriesSection(injuries) {
-  const el = document.getElementById("injuriesSection");
-  if (!injuries?.length) { el.innerHTML = ""; return; }
-  el.innerHTML = `
-    <div class="props-section">
-      <div class="props-title">🩹 Lesionados de hoy (excluidos de los picks)</div>
-      ${injuries.slice(0, 15).map(injuryRowHTML).join("")}
-    </div>`;
-}
-
 // "isValue" (edge real vs. cuota de mercado) es un filtro demasiado estricto para
 // las listas de "mejores opciones": exige que el mercado este mal precificado, no
 // solo que el pick sea probable. Muchos dias no hay ningun desajuste de mercado en
@@ -1765,13 +1754,11 @@ async function loadPicks(date) {
     picksStandingsCache = standingsMap;
     picksOddsMapCache = oddsMap;
     picksServerParlaysCache = oddsSnapshot.parlays ?? [];
-    renderInjuriesSection(oddsSnapshot.injuries);
     selectedGameKeys = new Set();
     if (!games.length) {
       el.innerHTML = '<div class="muted">No hay partidos por jugarse ese día (ya finalizaron o no hay calendario).</div>';
       document.getElementById("heroPickSection").innerHTML = "";
       document.getElementById("gameSelectorSection").innerHTML = "";
-      document.getElementById("injuriesSection").innerHTML = "";
       document.getElementById("picksFilterSection").innerHTML = "";
       return;
     }
@@ -1910,15 +1897,16 @@ document.getElementById("leaderSearch").addEventListener("input", e => {
 
 renderLeaderChips();
 
-// ---------- Líderes: sub-tab Lesionados por equipo ----------
+// ---------- Líderes: sub-tabs Estadisticas / Lesionados por equipo / Jugadores ----------
+function selectLeaderView(view) {
+  document.querySelectorAll("#leaderViewToggle button").forEach(b => b.classList.toggle("active", b.dataset.view === view));
+  document.getElementById("leaderStatsView").style.display = view === "stats" ? "" : "none";
+  document.getElementById("leaderInjuriesView").style.display = view === "injuries" ? "" : "none";
+  document.getElementById("leaderPlayersView").style.display = view === "players" ? "" : "none";
+  if (view === "injuries") loadInjuriesTeamPicker();
+}
 document.querySelectorAll("#leaderViewToggle button").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll("#leaderViewToggle button").forEach(b => b.classList.toggle("active", b === btn));
-    const injuriesView = btn.dataset.view === "injuries";
-    document.getElementById("leaderStatsView").style.display = injuriesView ? "none" : "";
-    document.getElementById("leaderInjuriesView").style.display = injuriesView ? "" : "none";
-    if (injuriesView) loadInjuriesTeamPicker();
-  });
+  btn.addEventListener("click", () => selectLeaderView(btn.dataset.view));
 });
 
 const IL_MIN_DAYS = { D7: 7, D10: 10, D15: 15, D60: 60 };
