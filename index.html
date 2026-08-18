@@ -1108,6 +1108,21 @@ function matchupLine(prop) {
   return `<div class="matchup-line">${base} — historial: ${m.hits}-${m.ab}, ${m.hr} HR, ${m.so} K, OPS ${m.ops}${sampleNote}</div>`;
 }
 
+// Datos crudos (no la proyeccion ajustada) para que se pueda juzgar el pick a ojo:
+// cuantos HR lleva en la temporada y en sus ultimos 5 partidos, o cuantas bases
+// totales lleva y en cuantos partidos (para tener el promedio por partido a mano).
+// Se recalcula cada vez que corre el pipeline, asi que se actualiza dia a dia solo.
+function statLineHTML(prop) {
+  if (prop.market === "Home Runs O/U" && prop.seasonHr != null) {
+    const last5 = prop.last5Hr != null ? `${prop.last5Hr} HR en sus últimos ${prop.last5Games} partidos` : "sin datos recientes";
+    return `<div class="matchup-line">📈 ${last5} · ${prop.seasonHr} HR en ${prop.gamesPlayed} partidos esta temporada</div>`;
+  }
+  if (prop.market === "Total Bases O/U" && prop.seasonTb != null) {
+    return `<div class="matchup-line">📈 ${prop.seasonTb} bases totales en ${prop.gamesPlayed} partidos esta temporada (${prop.tbPerGame} por partido)</div>`;
+  }
+  return "";
+}
+
 function propRow(prop) {
   const label = MARKET_LABELS[prop.market] ?? prop.market;
   const sideLabel = prop.side === "over" ? "Over" : "Under";
@@ -1117,6 +1132,7 @@ function propRow(prop) {
       <div>
         <span class="prop-desc"><b>${prop.player}</b> — ${label} ${sideLabel} ${prop.line} <span class="muted">(${pct}% seg. nuestra proyección)</span></span>
         ${matchupLine(prop)}
+        ${statLineHTML(prop)}
         ${prop.why ? `<div class="matchup-line">📊 ${prop.why}</div>` : ""}
       </div>
       <span class="prop-odds">
@@ -1135,6 +1151,7 @@ function topPropRow(prop) {
         <span class="prop-desc"><b>${pickLabel(prop)}</b> <span class="muted">(${prop.game})</span> — ${pct}%</span>
         <div class="prob-meter"><div class="prob-meter-fill" style="width:${pct}%"></div></div>
         ${matchupLine(prop)}
+        ${statLineHTML(prop)}
         ${prop.why ? `<div class="matchup-line">📊 ${prop.why}</div>` : ""}
       </div>
       <span class="prop-odds">

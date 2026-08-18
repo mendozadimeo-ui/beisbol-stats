@@ -218,7 +218,10 @@ async function fetchPlayerProjection(name) {
       avg: parseFloat(stat.avg) || 0,
       abPerGame: (stat.atBats || 0) / gamesPlayed,
       hrPerGame: (stat.homeRuns || 0) / gamesPlayed,
-      tbPerGame: (stat.totalBases || 0) / gamesPlayed
+      tbPerGame: (stat.totalBases || 0) / gamesPlayed,
+      seasonHr: stat.homeRuns || 0,
+      seasonTb: stat.totalBases || 0,
+      gamesPlayed
     };
   } catch {
     return null;
@@ -462,12 +465,16 @@ async function getBatterRecentRate(batterId) {
   if (recentRateCache.has(batterId)) return recentRateCache.get(batterId);
   try {
     const data = await getJSON(`${MLB_BASE}/people/${batterId}/stats?stats=gameLog&group=hitting&season=${SEASON}`);
-    const log = (data.stats?.[0]?.splits ?? []).slice(-15);
+    const fullLog = data.stats?.[0]?.splits ?? [];
+    const log = fullLog.slice(-15);
+    const last5 = fullLog.slice(-5);
     const totalAB = log.reduce((a, g) => a + (g.stat.atBats || 0), 0);
     const result = totalAB > 0 ? {
       hrPerAB: log.reduce((a, g) => a + (g.stat.homeRuns || 0), 0) / totalAB,
       tbPerAB: log.reduce((a, g) => a + (g.stat.totalBases || 0), 0) / totalAB,
-      games: log.length
+      games: log.length,
+      last5Hr: last5.reduce((a, g) => a + (g.stat.homeRuns || 0), 0),
+      last5Games: last5.length
     } : null;
     recentRateCache.set(batterId, result);
     return result;
@@ -579,6 +586,7 @@ async function evaluateProp(prop, awayTeam, homeTeam, gameCtx) {
 
   let ourProbOver = null;
   let why = null;
+  let statLine = {};
   const opposingPitcher = gameCtx && (proj.team === homeTeam ? gameCtx.awayPitcher : gameCtx.homePitcher);
   const abPerGame = proj.abPerGame || 4;
 
@@ -603,6 +611,12 @@ async function evaluateProp(prop, awayTeam, homeTeam, gameCtx) {
     });
     ourProbOver = poissonProbOver(prop.line, proj.hrPerGame * adj.mult);
     why = adj.why;
+    statLine = {
+      seasonHr: proj.seasonHr,
+      gamesPlayed: proj.gamesPlayed,
+      last5Hr: recentRate?.last5Hr ?? null,
+      last5Games: recentRate?.last5Games ?? null
+    };
   } else if (prop.market === "Total Bases O/U" && !proj.isPitcher && proj.tbPerGame != null) {
     const seasonTbPerAB = abPerGame > 0 ? proj.tbPerGame / abPerGame : 0;
     const [handSplit, recentRate] = await Promise.all([
@@ -615,6 +629,11 @@ async function evaluateProp(prop, awayTeam, homeTeam, gameCtx) {
     });
     ourProbOver = poissonProbOver(prop.line, proj.tbPerGame * adj.mult);
     why = adj.why;
+    statLine = {
+      seasonTb: proj.seasonTb,
+      gamesPlayed: proj.gamesPlayed,
+      tbPerGame: Math.round(proj.tbPerGame * 100) / 100
+    };
   }
   if (ourProbOver == null || isNaN(ourProbOver)) return null;
 
@@ -632,7 +651,8 @@ async function evaluateProp(prop, awayTeam, homeTeam, gameCtx) {
     isValue: isRealValue(pick.edge, pick.ourProb, pick.odds, 0.08, prop.market === "Home Runs O/U" ? MIN_REALISTIC_PROB_HR : MIN_REALISTIC_PROB),
     pitcherHand: opposingPitcher?.hand ?? null,
     pitcherName: opposingPitcher?.name ?? null,
-    why
+    why,
+    ...statLine
   };
 }
 
