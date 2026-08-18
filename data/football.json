@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-18T06:13:22.137Z",
+  "updatedAt": "2026-08-18T06:17:00.998Z",
   "leagues": {
     "epl": "Premier League",
     "laliga": "La Liga",
@@ -2543,8 +2543,1005 @@
         "odds": null
       }
     ],
-    "uel": [],
-    "uecl": []
+    "uel": [
+      {
+        "id": 73398358,
+        "home": "FC Kairat Almaty",
+        "homeLogo": null,
+        "away": "RSC Anderlecht",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T15:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "3.200",
+              "draw": "3.300",
+              "away": "2.100"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.975",
+              "under": "1.825"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "2.00",
+              "under": "1.80"
+            }
+          }
+        }
+      },
+      {
+        "id": 73398350,
+        "home": "Jagiellonia Bialystok",
+        "homeLogo": null,
+        "away": "FC Iberia 1999",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T16:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.363",
+              "draw": "4.333",
+              "away": "8.000"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.700",
+              "under": "2.100"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "1.70",
+              "under": "2.10"
+            }
+          }
+        }
+      },
+      {
+        "id": 73398354,
+        "home": "Mjallby AIF",
+        "homeLogo": null,
+        "away": "FC Salzburg",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T16:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "4.000",
+              "draw": "3.750",
+              "away": "1.700"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.575",
+              "under": "2.350"
+            }
+          }
+        }
+      },
+      {
+        "id": 73398342,
+        "home": "KF Egnatia Rrogozhine",
+        "homeLogo": null,
+        "away": "Lillestroem SK",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T17:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "3.400",
+              "draw": "3.600",
+              "away": "1.909"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.900",
+              "under": "1.900"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "1.90",
+              "under": "1.90"
+            }
+          }
+        }
+      },
+      {
+        "id": 73398364,
+        "home": "KKS Lech Poznan",
+        "homeLogo": null,
+        "away": "FC Thun",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T17:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {},
+          "total": {}
+        }
+      },
+      {
+        "id": 73398318,
+        "home": "Trabzonspor",
+        "homeLogo": null,
+        "away": "Ferencvarosi Budapest",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T17:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.615",
+              "draw": "4.100",
+              "away": "4.333"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.75,
+              "over": "1.925",
+              "under": "1.875"
+            }
+          }
+        }
+      },
+      {
+        "id": 73398324,
+        "home": "CS Universitatea Craiova",
+        "homeLogo": null,
+        "away": "FC Ararat-Armenia",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T17:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {},
+          "total": {}
+        }
+      },
+      {
+        "id": 73398368,
+        "home": "Besiktas Istanbul",
+        "homeLogo": null,
+        "away": "FK Kauno Zalgiris",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T17:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.125",
+              "draw": "7.500",
+              "away": "19.000"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.450",
+              "under": "2.675"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "1.44",
+              "under": "2.62"
+            }
+          }
+        }
+      },
+      {
+        "id": 73398376,
+        "home": "OFI Crete",
+        "homeLogo": null,
+        "away": "PFC CSKA Sofia",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T18:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "2.600",
+              "draw": "3.100",
+              "away": "2.600"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "2.050",
+              "under": "1.750"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "2.07",
+              "under": "1.72"
+            }
+          }
+        }
+      },
+      {
+        "id": 73398338,
+        "home": "FK Crvena Zvezda Belgrade",
+        "homeLogo": null,
+        "away": "FC Viktoria Plzen",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T18:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.615",
+              "draw": "3.900",
+              "away": "4.600"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.725",
+              "under": "2.075"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.75,
+              "over": "1.925",
+              "under": "1.875"
+            }
+          }
+        }
+      },
+      {
+        "id": 73398332,
+        "home": "St. Truidense VV",
+        "homeLogo": null,
+        "away": "AC Omonia Nicosia",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T18:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.850",
+              "draw": "3.400",
+              "away": "3.900"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.850",
+              "under": "1.950"
+            }
+          }
+        }
+      },
+      {
+        "id": 73398372,
+        "home": "SL Benfica",
+        "homeLogo": null,
+        "away": "AGF Aarhus",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T19:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.166",
+              "draw": "7.000",
+              "away": "13.000"
+            },
+            "Bet365 (no latency)": {
+              "home": "1.16",
+              "draw": "7.00",
+              "away": "13.00"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.350",
+              "under": "3.100"
+            }
+          }
+        }
+      }
+    ],
+    "uecl": [
+      {
+        "id": 73399094,
+        "home": "Lincoln Red Imps",
+        "homeLogo": null,
+        "away": "Larne FC",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T16:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "2.050",
+              "draw": "3.500",
+              "away": "3.200"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.975",
+              "under": "1.825"
+            }
+          }
+        }
+      },
+      {
+        "id": 73399178,
+        "home": "FC Inter Turku",
+        "homeLogo": null,
+        "away": "FC Copenhagen",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T16:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "5.750",
+              "draw": "4.100",
+              "away": "1.480"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.650",
+              "under": "2.200"
+            }
+          }
+        }
+      },
+      {
+        "id": 73399186,
+        "home": "Tromsoe IL",
+        "homeLogo": null,
+        "away": "Brighton & Hove Albion",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T17:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "4.750",
+              "draw": "3.600",
+              "away": "1.650"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.700",
+              "under": "2.100"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.75,
+              "over": "1.950",
+              "under": "1.850"
+            }
+          }
+        }
+      },
+      {
+        "id": 73399214,
+        "home": "FC Midtjylland",
+        "homeLogo": null,
+        "away": "HNK Rijeka",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T17:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.600",
+              "draw": "4.000",
+              "away": "4.750"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.725",
+              "under": "2.075"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "1.72",
+              "under": "2.07"
+            }
+          }
+        }
+      },
+      {
+        "id": 73399222,
+        "home": "FC Nordsjaelland",
+        "homeLogo": null,
+        "away": "FC St. Gallen 1879",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T17:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.700",
+              "draw": "4.000",
+              "away": "4.000"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.450",
+              "under": "2.675"
+            }
+          }
+        }
+      },
+      {
+        "id": 73399090,
+        "home": "KI Klaksvik",
+        "homeLogo": null,
+        "away": "Riga FC",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T17:30:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {},
+          "total": {}
+        }
+      },
+      {
+        "id": 73399206,
+        "home": "PAOK Thessaloniki",
+        "homeLogo": null,
+        "away": "SK Brann",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T17:45:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.666",
+              "draw": "3.700",
+              "away": "4.750"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.775",
+              "under": "2.025"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "1.80",
+              "under": "2.00"
+            }
+          }
+        }
+      },
+      {
+        "id": 73399174,
+        "home": "Gornik Zabrze",
+        "homeLogo": null,
+        "away": "AS Monaco",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T18:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "5.000",
+              "draw": "4.000",
+              "away": "1.533"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.725",
+              "under": "2.075"
+            }
+          }
+        }
+      },
+      {
+        "id": 73399086,
+        "home": "FC Drita",
+        "homeLogo": null,
+        "away": "Inter Club de Escaldes",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T18:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.571",
+              "draw": "3.800",
+              "away": "5.000"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.750",
+              "under": "2.050"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "1.75",
+              "under": "2.04"
+            }
+          }
+        }
+      },
+      {
+        "id": 73399066,
+        "home": "Vikingur Reykjavik",
+        "homeLogo": null,
+        "away": "FK Borac Banja Luka",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T18:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.615",
+              "draw": "4.000",
+              "away": "4.500"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.650",
+              "under": "2.200"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "1.65",
+              "under": "2.20"
+            }
+          }
+        }
+      },
+      {
+        "id": 73399238,
+        "home": "FC Twente Enschede",
+        "homeLogo": null,
+        "away": "Qarabag FK",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T18:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.615",
+              "draw": "3.600",
+              "away": "5.000"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.725",
+              "under": "2.075"
+            }
+          }
+        }
+      },
+      {
+        "id": 73399230,
+        "home": "FC Sion",
+        "homeLogo": null,
+        "away": "Ajax Amsterdam",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T18:15:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "3.900",
+              "draw": "4.000",
+              "away": "1.666"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.600",
+              "under": "2.300"
+            },
+            "Bet365 (no latency)": {
+              "line": 3,
+              "over": "1.975",
+              "under": "1.825"
+            }
+          }
+        }
+      },
+      {
+        "id": 73399198,
+        "home": "Panathinaikos Athens",
+        "homeLogo": null,
+        "away": "FC Hradec Kralove",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T18:30:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.444",
+              "draw": "4.200",
+              "away": "6.500"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.975",
+              "under": "1.825"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "1.975",
+              "under": "1.825"
+            }
+          }
+        }
+      },
+      {
+        "id": 73399202,
+        "home": "KAA Gent",
+        "homeLogo": null,
+        "away": "Hibernian FC",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T18:30:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.600",
+              "draw": "3.700",
+              "away": "5.000"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "2.100",
+              "under": "1.700"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.25,
+              "over": "1.800",
+              "under": "2.000"
+            }
+          }
+        }
+      },
+      {
+        "id": 73399166,
+        "home": "Motherwell FC",
+        "homeLogo": null,
+        "away": "SC Freiburg",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T18:30:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "5.250",
+              "draw": "4.100",
+              "away": "1.533"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.600",
+              "under": "2.300"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "1.61",
+              "under": "2.25"
+            }
+          }
+        }
+      },
+      {
+        "id": 73399250,
+        "home": "FC Lugano",
+        "homeLogo": null,
+        "away": "Maccabi Tel Aviv FC",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T18:30:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "2.000",
+              "draw": "3.400",
+              "away": "3.300"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.925",
+              "under": "1.875"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "1.95",
+              "under": "1.85"
+            }
+          }
+        }
+      },
+      {
+        "id": 73399210,
+        "home": "Atalanta BC",
+        "homeLogo": null,
+        "away": "Hapoel Tel Aviv FC",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T18:30:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.142",
+              "draw": "7.000",
+              "away": "15.000"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.425",
+              "under": "2.750"
+            }
+          }
+        }
+      },
+      {
+        "id": 73399182,
+        "home": "Heart of Midlothian FC",
+        "homeLogo": null,
+        "away": "SK Rapid",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T18:45:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "2.250",
+              "draw": "3.500",
+              "away": "2.750"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.725",
+              "under": "2.075"
+            }
+          }
+        }
+      },
+      {
+        "id": 73399218,
+        "home": "Glasgow Rangers",
+        "homeLogo": null,
+        "away": "FK Jablonec",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T18:45:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.400",
+              "draw": "4.500",
+              "away": "6.500"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.750",
+              "under": "2.050"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "1.75",
+              "under": "2.04"
+            }
+          }
+        }
+      },
+      {
+        "id": 73399242,
+        "home": "Getafe CF",
+        "homeLogo": null,
+        "away": "FK Partizan Belgrade",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T19:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.250",
+              "draw": "5.250",
+              "away": "10.000"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.975",
+              "under": "1.825"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "1.975",
+              "under": "1.825"
+            }
+          }
+        }
+      },
+      {
+        "id": 73399082,
+        "home": "Shamrock Rovers",
+        "homeLogo": null,
+        "away": "Kuopion Palloseura",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T19:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "2.000",
+              "draw": "3.300",
+              "away": "3.400"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.925",
+              "under": "1.875"
+            }
+          }
+        }
+      },
+      {
+        "id": 73399194,
+        "home": "HNK Hajduk Split",
+        "homeLogo": null,
+        "away": "RKS Rakow Czestochowa",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T19:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "2.000",
+              "draw": "3.500",
+              "away": "3.200"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.850",
+              "under": "1.950"
+            }
+          }
+        }
+      },
+      {
+        "id": 73399226,
+        "home": "FC Dinamo City",
+        "homeLogo": null,
+        "away": "Pafos FC",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T19:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "3.600",
+              "draw": "3.400",
+              "away": "1.909"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "2.000",
+              "under": "1.800"
+            }
+          }
+        }
+      },
+      {
+        "id": 73399234,
+        "home": "SC Braga",
+        "homeLogo": null,
+        "away": "FK Austria Wien",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T19:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.380",
+              "draw": "4.750",
+              "away": "6.500"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.600",
+              "under": "2.300"
+            }
+          }
+        }
+      }
+    ]
   },
   "standings": {
     "epl": {
