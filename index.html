@@ -621,20 +621,31 @@
     </div>
     <div id="heroPickSection"></div>
     <div id="gameSelectorSection" class="game-selector"></div>
-    <div id="parlaysSection"></div>
     <div id="injuriesSection"></div>
-    <div id="hrSection"></div>
-    <div id="tbSection"></div>
+    <div id="picksFilterSection"></div>
     <div id="picksList"><div class="loading">Calculando señales…</div></div>
   </section>
 
   <section id="tab-leaders" class="tab">
-    <div class="group-toggle" id="leaderGroupToggle">
-      <button data-group="hitting" class="active">Bateo</button>
-      <button data-group="pitching">Pitcheo</button>
+    <div class="group-toggle" id="leaderViewToggle">
+      <button data-view="stats" class="active">Estadísticas</button>
+      <button data-view="injuries">Lesionados</button>
     </div>
-    <div class="stat-chips" id="leaderChips"></div>
-    <div id="leadersList"><div class="loading">Cargando líderes…</div></div>
+    <div id="leaderStatsView">
+      <div class="group-toggle" id="leaderGroupToggle">
+        <button data-group="hitting" class="active">Bateo</button>
+        <button data-group="pitching">Pitcheo</button>
+      </div>
+      <div class="toolbar">
+        <input type="text" id="leaderSearch" placeholder="Buscar jugador (ej: Judge, Ohtani)">
+      </div>
+      <div class="stat-chips" id="leaderChips"></div>
+      <div id="leadersList"><div class="loading">Cargando líderes…</div></div>
+    </div>
+    <div id="leaderInjuriesView" style="display:none;">
+      <div id="injuriesTeamPicker"><div class="loading">Cargando equipos…</div></div>
+      <div id="injuriesTeamResult"></div>
+    </div>
   </section>
 
   <section id="tab-standings" class="tab">
@@ -1118,11 +1129,10 @@ function propRow(prop) {
 
 function topPropRow(prop) {
   const pct = Math.round(prop.ourProb * 100);
-  const label = MARKET_LABELS[prop.market] ?? prop.market;
   return `
     <div class="prop-row" style="align-items:flex-start;">
       <div style="flex:1; min-width:0;">
-        <span class="prop-desc"><b>${prop.player}</b> — Over ${prop.line} ${label} <span class="muted">(${prop.game})</span> — ${pct}%</span>
+        <span class="prop-desc"><b>${pickLabel(prop)}</b> <span class="muted">(${prop.game})</span> — ${pct}%</span>
         <div class="prob-meter"><div class="prob-meter-fill" style="width:${pct}%"></div></div>
         ${matchupLine(prop)}
         ${prop.why ? `<div class="matchup-line">📊 ${prop.why}</div>` : ""}
@@ -1214,7 +1224,7 @@ function renderInjuriesSection(injuries) {
 
 // Cuotas por debajo de 1.20 no dejan ganancia real -- se excluyen siempre,
 // no solo de los picks marcados "Value" (mismo criterio en todo el sitio).
-function buildTopPropsSection(oddsMap, title, matchFn, emptyMsg, limit = 10) {
+function computeTopProps(oddsMap, matchFn, limit = 10) {
   const all = [];
   for (const [key, game] of Object.entries(oddsMap)) {
     const [awayName, homeName] = key.split("@");
@@ -1225,7 +1235,20 @@ function buildTopPropsSection(oddsMap, title, matchFn, emptyMsg, limit = 10) {
     }
   }
   all.sort((a, b) => b.ourProb - a.ourProb);
-  const top = all.slice(0, limit);
+  return all.slice(0, limit);
+}
+function computeTopMoneyline(oddsMap, limit = 10) {
+  const all = [];
+  for (const [key, game] of Object.entries(oddsMap)) {
+    const [awayName, homeName] = key.split("@");
+    for (const p of game.moneylinePicks ?? []) {
+      if (parseFloat(p.odds) >= 1.20) all.push({ ...p, game: `${awayName} @ ${homeName}` });
+    }
+  }
+  all.sort((a, b) => b.ourProb - a.ourProb);
+  return all.slice(0, limit);
+}
+function topPropsBlockHTML(title, emptyMsg, top) {
   return `
     <div class="props-section">
       <div class="props-title">${title}</div>
@@ -1451,20 +1474,20 @@ const PARLAY_CATEGORY_META = {
   mixto: { icon: "🎯", label: "Mixto" }
 };
 let currentParlays = [];
-let parlayFilter = "todos";
+let currentTopMoneyline = [];
+let currentTopBateo = [];
+let currentTopPitcheo = [];
+let picksCategoryFilter = "todos";
 
 function legLabel(l) {
   if (l.market === "Moneyline") return `${l.player} — Moneyline (gana el partido)`;
   return `${l.player} — ${l.market} ${l.side === "over" ? "Over" : "Under"} ${l.line}`;
 }
 
-function renderParlayCards(parlays) {
-  const filtered = parlayFilter === "todos" ? parlays : parlays.filter(p => p.category === parlayFilter);
-  if (!filtered.length) return '<div class="muted" style="margin-bottom:16px;">No hay parlays en esta categoría hoy.</div>';
-  return filtered.map(p => {
-    const meta = PARLAY_CATEGORY_META[p.category] ?? { icon: "🎲", label: "" };
-    const bovada = p.bookmaker === "Bovada";
-    return `
+function parlayCardHTML2(p) {
+  const meta = PARLAY_CATEGORY_META[p.category] ?? { icon: "🎲", label: "" };
+  const bovada = p.bookmaker === "Bovada";
+  return `
     <div class="parlay-card">
       <div class="parlay-header">
         <span class="parlay-label">${meta.icon} ${p.label}</span>
@@ -1478,29 +1501,73 @@ function renderParlayCards(parlays) {
       </ul>
       <div class="parlay-prob">Probabilidad combinada estimada: ${Math.round(p.combinedProb * 100)}% — asume que los picks son independientes entre sí, lo cual es una simplificación.</div>
     </div>`;
-  }).join("");
 }
 
-function renderParlaysSection(parlays) {
+function parlaysGridHTML(category) {
+  const filtered = currentParlays.filter(p => p.category === category);
+  if (!filtered.length) return "";
+  return `<div class="parlays-grid">${filtered.map(parlayCardHTML2).join("")}</div>`;
+}
+
+// Contenido de cada categoria: los mejores props sueltos de esa categoria (si aplica)
+// + los parlays armados con esa categoria. "Mixto" combina varios mercados a la vez,
+// por eso solo tiene sentido como parlay, no como prop suelto.
+function renderPicksFilterContent() {
+  const el = document.getElementById("picksFilterGrid");
+  if (!el) return;
+  const f = picksCategoryFilter;
+  const blocks = [];
+  if (f === "todos" || f === "moneyline") {
+    if (currentTopMoneyline.length) blocks.push(topPropsBlockHTML("💰 Mejores Moneyline de Hoy", "", currentTopMoneyline));
+    blocks.push(parlaysGridHTML("moneyline"));
+  }
+  if (f === "todos" || f === "bateo") {
+    if (currentTopBateo.length) blocks.push(topPropsBlockHTML("🥎 Mejores Props de Bateo de Hoy (HR / Bases Totales)", "", currentTopBateo));
+    blocks.push(parlaysGridHTML("bateo"));
+  }
+  if (f === "todos" || f === "pitcheo") {
+    if (currentTopPitcheo.length) blocks.push(topPropsBlockHTML("⚾ Mejores Props de Pitcheo de Hoy (Ponches)", "", currentTopPitcheo));
+    blocks.push(parlaysGridHTML("pitcheo"));
+  }
+  if (f === "todos" || f === "mixto") {
+    blocks.push(parlaysGridHTML("mixto"));
+  }
+  const html = blocks.filter(Boolean).join("");
+  el.innerHTML = html || '<div class="muted" style="margin-bottom:16px;">No hay picks en esta categoría para los partidos elegidos.</div>';
+}
+
+function renderPicksFilterSection(parlays, topMoneyline, topBateo, topPitcheo) {
   currentParlays = parlays ?? [];
-  if (!currentParlays.length) return "";
-  const categories = ["todos", ...new Set(currentParlays.map(p => p.category))];
+  currentTopMoneyline = topMoneyline ?? [];
+  currentTopBateo = topBateo ?? [];
+  currentTopPitcheo = topPitcheo ?? [];
+  const el = document.getElementById("picksFilterSection");
+  if (!el) return;
+  const hasAnything = currentParlays.length || currentTopMoneyline.length || currentTopBateo.length || currentTopPitcheo.length;
+  if (!hasAnything) { el.innerHTML = ""; return; }
+  const categories = ["todos"];
+  if (currentTopMoneyline.length || currentParlays.some(p => p.category === "moneyline")) categories.push("moneyline");
+  if (currentTopBateo.length || currentParlays.some(p => p.category === "bateo")) categories.push("bateo");
+  if (currentTopPitcheo.length || currentParlays.some(p => p.category === "pitcheo")) categories.push("pitcheo");
+  if (currentParlays.some(p => p.category === "mixto")) categories.push("mixto");
+  if (!categories.includes(picksCategoryFilter)) picksCategoryFilter = "todos";
   const filterHTML = categories.length > 2 ? `
-    <div class="group-toggle" id="parlayFilterToggle">
-      ${categories.map(c => `<button data-cat="${c}" class="${c === parlayFilter ? "active" : ""}">${c === "todos" ? "Todos" : `${PARLAY_CATEGORY_META[c]?.icon ?? ""} ${PARLAY_CATEGORY_META[c]?.label ?? c}`}</button>`).join("")}
+    <div class="group-toggle" id="picksFilterToggle">
+      ${categories.map(c => `<button data-cat="${c}" class="${c === picksCategoryFilter ? "active" : ""}">${c === "todos" ? "Todos" : `${PARLAY_CATEGORY_META[c]?.icon ?? ""} ${PARLAY_CATEGORY_META[c]?.label ?? c}`}</button>`).join("")}
     </div>` : "";
-  return `
-    <div class="disclaimer">🎲 Parlays sugeridos combinando los picks con mayor diferencia entre nuestra proyección estadística y la cuota del mercado. Más cuota = más difícil que pegue. Siempre hay factor suerte — esto no es una garantía.<br><br>💰 <b>Moneyline</b> se calcula contra la cuota real de <b>Bovada</b> — 100% jugable ahí. 🥎⚾🎯 <b>Bateo/Pitcheo/Mixto</b> usan props de <b>Bet365</b>, porque Bovada no ofrece props de jugadores por esta API — esas cuotas pueden no coincidir con lo que veas en tu cuenta de Bovada.</div>
+  el.innerHTML = `
+    <div class="disclaimer">🎲 Mejores props y parlays sugeridos combinando los picks con mayor diferencia entre nuestra proyección estadística y la cuota del mercado. Más cuota = más difícil que pegue. Siempre hay factor suerte — esto no es una garantía.<br><br>💰 <b>Moneyline</b> se calcula contra la cuota real de <b>Bovada</b> — 100% jugable ahí. 🥎⚾🎯 <b>Bateo/Pitcheo/Mixto</b> usan props de <b>Bet365</b>, porque Bovada no ofrece props de jugadores por esta API — esas cuotas pueden no coincidir con lo que veas en tu cuenta de Bovada.</div>
     ${filterHTML}
-    <div class="parlays-grid" id="parlaysGrid">${renderParlayCards(currentParlays)}</div>`;
+    <div id="picksFilterGrid"></div>`;
+  renderPicksFilterContent();
 }
 
 document.addEventListener("click", e => {
-  const btn = e.target.closest("#parlayFilterToggle button");
+  const btn = e.target.closest("#picksFilterToggle button");
   if (!btn) return;
-  parlayFilter = btn.dataset.cat;
-  document.querySelectorAll("#parlayFilterToggle button").forEach(b => b.classList.toggle("active", b === btn));
-  document.getElementById("parlaysGrid").innerHTML = renderParlayCards(currentParlays);
+  picksCategoryFilter = btn.dataset.cat;
+  document.querySelectorAll("#picksFilterToggle button").forEach(b => b.classList.toggle("active", b === btn));
+  renderPicksFilterContent();
 });
 
 // ---------- Selector de partidos para picks/parlays personalizados ----------
@@ -1508,6 +1575,7 @@ let picksGamesCache = [];
 let picksStandingsCache = {};
 let picksOddsMapCache = {};
 let picksServerParlaysCache = [];
+let picksTodaysOddsMapCache = {};
 let selectedGameKeys = new Set();
 
 function gameKeyFor(g) {
@@ -1575,6 +1643,17 @@ function buildClientParlays(gameKeys, oddsMap) {
   return parlays;
 }
 
+function isBateoTopProp(p) {
+  // Solo la linea estandar de HR (0.5 = "pega al menos 1 HR"). Hay mercados raros
+  // de 1.5+ (2 o mas HR en el partido) con cuotas altisimas (+5000) que no tienen
+  // nada que ver con "va a pegar un home run" y solo confunden aca.
+  return (p.market === "Home Runs O/U" && p.side === "over" && p.line === 0.5) ||
+    (p.market === "Total Bases O/U" && p.line === 1.5 && p.side === "over");
+}
+function isPitcheoTopProp(p) {
+  return p.market === "Pitcher Strikeouts O/U" && p.side === "over";
+}
+
 async function renderPicksForSelection() {
   const el = document.getElementById("picksList");
   const filteredGames = selectedGameKeys.size
@@ -1587,10 +1666,15 @@ async function renderPicksForSelection() {
   const parlaysToShow = selectedGameKeys.size
     ? buildClientParlays([...selectedGameKeys], picksOddsMapCache)
     : picksServerParlaysCache;
-  document.getElementById("parlaysSection").innerHTML =
-    selectedGameKeys.size && !parlaysToShow.length
-      ? '<div class="muted" style="margin-bottom:16px;">No encontramos value picks suficientes en los partidos que elegiste para armar un parlay. Probá agregando otro partido.</div>'
-      : renderParlaysSection(parlaysToShow);
+  const oddsMapForProps = selectedGameKeys.size
+    ? Object.fromEntries(Object.entries(picksTodaysOddsMapCache).filter(([key]) => selectedGameKeys.has(key)))
+    : picksTodaysOddsMapCache;
+  renderPicksFilterSection(
+    parlaysToShow,
+    computeTopMoneyline(oddsMapForProps),
+    computeTopProps(oddsMapForProps, isBateoTopProp),
+    computeTopProps(oddsMapForProps, isPitcheoTopProp)
+  );
   renderGameSelector();
 }
 
@@ -1630,14 +1714,11 @@ async function loadPicks(date) {
       el.innerHTML = '<div class="muted">No hay partidos por jugarse ese día (ya finalizaron o no hay calendario).</div>';
       document.getElementById("heroPickSection").innerHTML = "";
       document.getElementById("gameSelectorSection").innerHTML = "";
-      document.getElementById("parlaysSection").innerHTML = "";
       document.getElementById("injuriesSection").innerHTML = "";
-      document.getElementById("hrSection").innerHTML = "";
-      document.getElementById("tbSection").innerHTML = "";
+      document.getElementById("picksFilterSection").innerHTML = "";
       return;
     }
     const cardsHTML = await Promise.all(games.map(g => renderPickCard(g, standingsMap, oddsMap)));
-    document.getElementById("parlaysSection").innerHTML = renderParlaysSection(picksServerParlaysCache);
 
     // Solo props de los partidos del dia seleccionado (el snapshot puede traer
     // hasta 2 dias hacia adelante).
@@ -1646,19 +1727,13 @@ async function loadPicks(date) {
       const key = `${g.teams.away.team.name}@${g.teams.home.team.name}@${date}`;
       if (oddsMap[key]) todaysOddsMap[key] = oddsMap[key];
     }
+    picksTodaysOddsMapCache = todaysOddsMap;
     renderHeroPick(todaysOddsMap);
-    document.getElementById("hrSection").innerHTML = buildTopPropsSection(
-      todaysOddsMap, "🚀 Posibles Home Runs de Hoy",
-      // Solo la linea estandar (0.5 = "pega al menos 1 HR"). Hay mercados raros
-      // de 1.5+ (2 o mas HR en el partido) con cuotas altisimas (+5000) que no
-      // tienen nada que ver con "va a pegar un home run" y solo confunden aca.
-      p => p.market === "Home Runs O/U" && p.side === "over" && p.line === 0.5,
-      "No hay proyecciones de home runs con cuota jugable para hoy."
-    );
-    document.getElementById("tbSection").innerHTML = buildTopPropsSection(
-      todaysOddsMap, "📊 1.5+ Bases Totales de Hoy",
-      p => p.market === "Total Bases O/U" && p.line === 1.5 && p.side === "over",
-      "No hay proyecciones de 1.5+ bases totales con cuota jugable para hoy."
+    renderPicksFilterSection(
+      picksServerParlaysCache,
+      computeTopMoneyline(todaysOddsMap),
+      computeTopProps(todaysOddsMap, isBateoTopProp),
+      computeTopProps(todaysOddsMap, isPitcheoTopProp)
     );
 
     renderGameSelector();
@@ -1732,32 +1807,151 @@ function logoURL(teamId) {
   return `https://www.mlbstatic.com/team-logos/${teamId}.svg`;
 }
 
-async function loadLeaders() {
+let currentLeadersCache = [];
+
+function renderLeadersList(leaders) {
   const el = document.getElementById("leadersList");
-  el.innerHTML = '<div class="loading">Cargando líderes…</div>';
-  try {
-    const data = await getJSON(`${API}/stats/leaders?leaderCategories=${leaderCategory}&season=${currentSeason}&sportId=1&limit=25&statGroup=${leaderGroup}`);
-    const leaders = data.leagueLeaders?.[0]?.leaders ?? [];
-    if (!leaders.length) {
-      el.innerHTML = '<div class="muted">Sin datos para esta categoría.</div>';
-      return;
-    }
-    el.innerHTML = leaders.map(l => `
+  if (!leaders.length) {
+    el.innerHTML = '<div class="muted">Sin resultados.</div>';
+    return;
+  }
+  el.innerHTML = leaders.map(l => `
       <div class="leader-row" data-player-id="${l.person.id}">
         <span class="leader-rank">${l.rank}</span>
         <span class="leader-photo" style="background-image:url('${headshotURL(l.person.id)}')"></span>
         <span class="leader-name">${l.person.fullName}<span class="leader-team">${l.team?.name ?? ""}</span></span>
         <span class="leader-value">${l.value}</span>
       </div>`).join("");
-    el.querySelectorAll(".leader-row").forEach(row => {
-      row.addEventListener("click", () => openPlayerInTab(row.dataset.playerId));
-    });
+  el.querySelectorAll(".leader-row").forEach(row => {
+    row.addEventListener("click", () => openPlayerInTab(row.dataset.playerId));
+  });
+}
+
+async function loadLeaders() {
+  const el = document.getElementById("leadersList");
+  el.innerHTML = '<div class="loading">Cargando líderes…</div>';
+  document.getElementById("leaderSearch").value = "";
+  try {
+    const data = await getJSON(`${API}/stats/leaders?leaderCategories=${leaderCategory}&season=${currentSeason}&sportId=1&limit=25&statGroup=${leaderGroup}`);
+    currentLeadersCache = data.leagueLeaders?.[0]?.leaders ?? [];
+    if (!currentLeadersCache.length) {
+      el.innerHTML = '<div class="muted">Sin datos para esta categoría.</div>';
+      return;
+    }
+    renderLeadersList(currentLeadersCache);
   } catch (e) {
     el.innerHTML = `<div class="error">No se pudieron cargar los líderes (${e.message}).</div>`;
   }
 }
 
+document.getElementById("leaderSearch").addEventListener("input", e => {
+  const q = e.target.value.trim().toLowerCase();
+  renderLeadersList(!q ? currentLeadersCache : currentLeadersCache.filter(l => l.person.fullName.toLowerCase().includes(q)));
+});
+
 renderLeaderChips();
+
+// ---------- Líderes: sub-tab Lesionados por equipo ----------
+document.querySelectorAll("#leaderViewToggle button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll("#leaderViewToggle button").forEach(b => b.classList.toggle("active", b === btn));
+    const injuriesView = btn.dataset.view === "injuries";
+    document.getElementById("leaderStatsView").style.display = injuriesView ? "none" : "";
+    document.getElementById("leaderInjuriesView").style.display = injuriesView ? "" : "none";
+    if (injuriesView) loadInjuriesTeamPicker();
+  });
+});
+
+const IL_MIN_DAYS = { D7: 7, D10: 10, D15: 15, D60: 60 };
+let teamsListCache = null;
+let injuriesSelectedTeamId = null;
+
+async function loadInjuriesTeamPicker() {
+  const el = document.getElementById("injuriesTeamPicker");
+  if (teamsListCache) { renderInjuriesTeamPicker(); return; }
+  el.innerHTML = '<div class="loading">Cargando equipos…</div>';
+  try {
+    const data = await getJSON(`${API}/teams?sportId=1&season=${currentSeason}`);
+    teamsListCache = (data.teams ?? []).filter(t => t.league?.id === 103 || t.league?.id === 104);
+    renderInjuriesTeamPicker();
+  } catch (e) {
+    el.innerHTML = `<div class="error">No se pudieron cargar los equipos (${e.message}).</div>`;
+  }
+}
+
+function renderInjuriesTeamPicker() {
+  const el = document.getElementById("injuriesTeamPicker");
+  // Separadas por liga (Americana/Nacional) para no mostrar los 30 equipos
+  // amontonados en una sola lista.
+  const al = teamsListCache.filter(t => t.league?.id === 103).sort((a, b) => a.name.localeCompare(b.name));
+  const nl = teamsListCache.filter(t => t.league?.id === 104).sort((a, b) => a.name.localeCompare(b.name));
+  const teamBtn = t => `<button data-team-id="${t.id}" class="${String(t.id) === String(injuriesSelectedTeamId) ? "active" : ""}">${shortTeamName(t.name)}</button>`;
+  el.innerHTML = `
+    <div class="props-title">Liga Americana</div>
+    <div class="stat-chips">${al.map(teamBtn).join("")}</div>
+    <div class="props-title" style="margin-top:10px;">Liga Nacional</div>
+    <div class="stat-chips">${nl.map(teamBtn).join("")}</div>`;
+  el.querySelectorAll("button[data-team-id]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      injuriesSelectedTeamId = btn.dataset.teamId;
+      el.querySelectorAll("button[data-team-id]").forEach(b => b.classList.toggle("active", b === btn));
+      loadTeamInjuries(injuriesSelectedTeamId, teamsListCache.find(t => String(t.id) === String(injuriesSelectedTeamId))?.name ?? "");
+    });
+  });
+}
+
+async function fetchTeamInjuries(teamId) {
+  const todayStr = new Date().toISOString().slice(0, 10);
+  const lookbackStr = new Date(Date.now() - 120 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+  const [roster, txnsData] = await Promise.all([
+    getJSON(`${API}/teams/${teamId}/roster?rosterType=40Man`),
+    getJSON(`${API}/transactions?teamId=${teamId}&startDate=${lookbackStr}&endDate=${todayStr}`).catch(() => ({ transactions: [] }))
+  ]);
+  const latestIlTxn = {};
+  for (const t of txnsData.transactions ?? []) {
+    if (!/injured list/i.test(t.description ?? "")) continue;
+    const pid = t.person?.id;
+    if (!pid || !t.effectiveDate) continue;
+    const prev = latestIlTxn[pid];
+    if (!prev || new Date(t.effectiveDate) > new Date(prev.effectiveDate)) latestIlTxn[pid] = t;
+  }
+  const injuries = [];
+  for (const p of roster.roster ?? []) {
+    if (p.status?.code && p.status.code !== "A") {
+      const entry = { name: p.person.fullName, code: p.status.code, description: p.status.description, note: p.note ?? null };
+      const minDays = IL_MIN_DAYS[p.status.code];
+      const txn = latestIlTxn[p.person.id];
+      if (minDays && txn?.effectiveDate) {
+        entry.since = txn.effectiveDate;
+        const eligible = new Date(txn.effectiveDate);
+        eligible.setUTCDate(eligible.getUTCDate() + minDays);
+        entry.eligibleReturn = eligible.toISOString().slice(0, 10);
+      }
+      injuries.push(entry);
+    }
+  }
+  injuries.sort((a, b) => (a.eligibleReturn ?? "9999").localeCompare(b.eligibleReturn ?? "9999"));
+  return injuries;
+}
+
+async function loadTeamInjuries(teamId, teamName) {
+  const el = document.getElementById("injuriesTeamResult");
+  el.innerHTML = '<div class="loading">Cargando lesionados…</div>';
+  try {
+    const injuries = await fetchTeamInjuries(teamId);
+    if (!injuries.length) {
+      el.innerHTML = `<div class="props-section"><div class="props-title">🩹 ${teamName}</div><div class="muted">Sin jugadores lesionados o inactivos en el roster de 40.</div></div>`;
+      return;
+    }
+    el.innerHTML = `
+      <div class="props-section">
+        <div class="props-title">🩹 ${teamName}</div>
+        ${injuries.map(inj => injuryRowHTML({ ...inj, team: teamName })).join("")}
+      </div>`;
+  } catch (e) {
+    el.innerHTML = `<div class="error">No se pudieron cargar los lesionados (${e.message}).</div>`;
+  }
+}
 
 // ---------- Posiciones ----------
 document.getElementById("leagueSelect").addEventListener("change", loadStandings);
