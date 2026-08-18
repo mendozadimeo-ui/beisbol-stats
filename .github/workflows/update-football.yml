@@ -1,0 +1,33 @@
+name: Update football snapshot
+
+on:
+  schedule:
+    - cron: "45 */2 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update-football:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Fetch football snapshot
+        env:
+          BBS_API_KEY: ${{ secrets.BBS_API_KEY }}
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+        run: node scripts/fetch-football.mjs
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/football.json
+          git diff --cached --quiet || git commit -m "Actualizar datos de futbol [automatico]"
+          git push

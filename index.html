@@ -65,6 +65,49 @@
     padding: 20px;
     overflow-x: hidden;
   }
+  .switch-sport-btn {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+  .switch-sport-btn:hover { border-color: var(--accent); }
+  .sport-landing {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .sport-landing-card { text-align: center; max-width: 420px; }
+  .sport-landing-card h2 { font-size: 22px; margin-bottom: 24px; }
+  .sport-landing-options { display: flex; gap: 16px; justify-content: center; }
+  .sport-option {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    font-size: 40px;
+    color: var(--text);
+    text-decoration: none;
+    cursor: pointer;
+    min-width: 140px;
+  }
+  .sport-option span { font-size: 15px; font-weight: 700; }
+  .sport-option:hover { border-color: var(--accent); background: var(--panel-2); }
   .tab { display: none; }
   .tab.active { display: block; }
   .toolbar {
@@ -448,7 +491,18 @@
     <button class="tab-btn" data-tab="players">Jugadores</button>
     <button class="tab-btn" data-tab="results">Resultados</button>
   </nav>
+  <a href="futbol.html" class="switch-sport-btn">⚽ Cambiar a Fútbol</a>
 </header>
+
+<div id="sportLanding" class="sport-landing" style="display:none;">
+  <div class="sport-landing-card">
+    <h2>¿Qué deporte querés ver?</h2>
+    <div class="sport-landing-options">
+      <button id="landingBaseball" class="sport-option">⚾<span>Béisbol</span></button>
+      <a href="futbol.html" class="sport-option">⚽<span>Fútbol</span></a>
+    </div>
+  </div>
+</div>
 
 <main>
 
@@ -513,6 +567,22 @@
 </main>
 
 <script>
+// ---------- Selector de deporte ----------
+(function () {
+  const pref = localStorage.getItem("preferredSport");
+  if (pref === "football") {
+    window.location.href = "futbol.html";
+    return;
+  }
+  localStorage.setItem("preferredSport", "baseball");
+  if (!pref) {
+    document.getElementById("sportLanding").style.display = "flex";
+  }
+  document.getElementById("landingBaseball").addEventListener("click", () => {
+    document.getElementById("sportLanding").style.display = "none";
+  });
+})();
+
 const API = "https://statsapi.mlb.com/api/v1";
 const currentSeason = new Date().getFullYear();
 

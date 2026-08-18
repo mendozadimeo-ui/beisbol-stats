@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fútbol Stats</title>
+<style>
+  :root {
+    --bg: #0f1720;
+    --panel: #17212c;
+    --panel-2: #1f2b38;
+    --border: #2a3644;
+    --text: #e7edf3;
+    --muted: #8a99a8;
+    --accent: #4fb0ff;
+    --win: #3ecf8e;
+    --loss: #ef5b5b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+  }
+  header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  header h1 { font-size: 20px; margin: 0; flex-shrink: 0; }
+  header h1 span { color: var(--accent); }
+  nav { display: flex; gap: 6px; overflow-x: auto; max-width: 100%; scrollbar-width: none; }
+  nav::-webkit-scrollbar { display: none; }
+  nav button {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  nav button.active { color: var(--text); border-color: var(--accent); background: var(--panel-2); }
+  .switch-sport-btn {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+  .switch-sport-btn:hover { border-color: var(--accent); }
+  main { max-width: 1000px; margin: 0 auto; padding: 20px; overflow-x: hidden; }
+  .tab { display: none; }
+  .tab.active { display: block; }
+  .disclaimer {
+    background: rgba(79,176,255,0.08);
+    border: 1px solid rgba(79,176,255,0.25);
+    color: var(--muted);
+    font-size: 12px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+  .league-chips { display: flex; gap: 6px; overflow-x: auto; padding: 4px 0 16px; scrollbar-width: none; }
+  .league-chips::-webkit-scrollbar { display: none; }
+  .league-chips button {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 7px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .league-chips button.active { background: var(--accent); color: #06131f; border-color: var(--accent); }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+  }
+  .match-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .match-teams { display: flex; flex-direction: column; gap: 4px; font-size: 15px; flex: 1; min-width: 0; }
+  .team-line { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .team-line.winner { font-weight: 700; }
+  .team-name-cell { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .team-logo { width: 20px; height: 20px; object-fit: contain; flex-shrink: 0; }
+  .status { color: var(--muted); font-size: 12px; text-align: right; min-width: 80px; flex-shrink: 0; }
+  .status.live { color: var(--win); font-weight: 600; }
+  .kickoff-time { color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .ml-inline { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; font-size: 12px; }
+  .ml-odd {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .ml-odd.fav { color: var(--win); }
+  .ml-odd.draw { color: var(--muted); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { padding: 6px 8px; text-align: right; border-bottom: 1px solid var(--border); }
+  th:first-child, td:first-child { text-align: left; }
+  th { color: var(--muted); font-weight: 500; font-size: 11px; text-transform: uppercase; }
+  .team-cell { display: flex; align-items: center; gap: 8px; }
+  .loading, .error, .muted { color: var(--muted); padding: 12px 0; }
+  .error { color: var(--loss); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>⚽ Fútbol <span>Stats</span></h1>
+  <nav>
+    <button class="tab-btn active" data-tab="scores">Marcadores</button>
+    <button class="tab-btn" data-tab="standings">Posiciones</button>
+  </nav>
+  <a href="index.html" class="switch-sport-btn" id="switchToBaseball">⚾ Cambiar a Béisbol</a>
+</header>
+
+<main>
+
+  <section id="tab-scores" class="tab active">
+    <div class="disclaimer">
+      Calendario y cuotas reales. Todavía no tenemos alineaciones ni estadísticas por jugador (tiros, pases, tarjetas) — el proveedor de datos no las cargó aún para la temporada actual. Se van a activar solas apenas estén disponibles.
+    </div>
+    <div class="league-chips" id="scoresLeagueChips"></div>
+    <div id="scoresList"><div class="loading">Cargando partidos…</div></div>
+  </section>
+
+  <section id="tab-standings" class="tab">
+    <div class="league-chips" id="standingsLeagueChips"></div>
+    <div id="standingsList"><div class="loading">Cargando tabla…</div></div>
+  </section>
+
+</main>
+
+<script>
+localStorage.setItem("preferredSport", "football");
+document.getElementById("switchToBaseball").addEventListener("click", () => {
+  localStorage.setItem("preferredSport", "baseball");
+});
+
+document.querySelectorAll(".tab-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById("tab-" + btn.dataset.tab).classList.add("active");
+  });
+});
+
+async function getJSON(url) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error("HTTP " + res.status);
+  return res.json();
+}
+
+function toAmerican(decimalOddsStr) {
+  if (decimalOddsStr == null) return "-";
+  const d = parseFloat(decimalOddsStr);
+  if (!d || isNaN(d)) return "-";
+  const american = d >= 2 ? Math.round((d - 1) * 100) : Math.round(-100 / (d - 1));
+  return american > 0 ? `+${american}` : `${american}`;
+}
+function formatOdds(decimalOddsStr) {
+  if (decimalOddsStr == null) return "-";
+  const d = parseFloat(decimalOddsStr);
+  if (!d || isNaN(d)) return "-";
+  return `${toAmerican(decimalOddsStr)} (${d.toFixed(2)})`;
+}
+
+let footballData = null;
+let scoresLeague = "epl";
+let standingsLeague = "epl";
+
+async function loadFootballData() {
+  if (footballData) return footballData;
+  footballData = await getJSON(`data/football.json?v=${Date.now()}`);
+  return footballData;
+}
+
+function renderLeagueChips(elId, activeLeague, onSelect) {
+  const el = document.getElementById(elId);
+  if (!footballData) return;
+  el.innerHTML = Object.entries(footballData.leagues).map(([key, name]) =>
+    `<button data-league="${key}" class="${key === activeLeague ? "active" : ""}">${name}</button>`
+  ).join("");
+  el.querySelectorAll("button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      el.querySelectorAll("button").forEach(b => b.classList.toggle("active", b === btn));
+      onSelect(btn.dataset.league);
+    });
+  });
+}
+
+function matchOddsHTML(odds) {
+  if (!odds || !Object.keys(odds.moneyline ?? {}).length) return "";
+  const books = Object.keys(odds.moneyline);
+  const ml = odds.moneyline[books[0]];
+  const totalBooks = Object.keys(odds.total ?? {});
+  const homeFav = ml.home != null && ml.away != null && parseFloat(ml.home) < parseFloat(ml.away);
+  const awayFav = ml.away != null && ml.home != null && parseFloat(ml.away) < parseFloat(ml.home);
+  return `
+    <div class="ml-inline">
+      <span class="ml-odd ${awayFav ? "fav" : ""}">V ${formatOdds(ml.away)}</span>
+      <span class="ml-odd draw">E ${formatOdds(ml.draw)}</span>
+      <span class="ml-odd ${homeFav ? "fav" : ""}">L ${formatOdds(ml.home)}</span>
+      ${totalBooks.length ? `<span class="ml-odd">O/U ${odds.total[totalBooks[0]].line}</span>` : ""}
+      <span class="muted">${books[0]}</span>
+    </div>`;
+}
+
+function statusLabel(status) {
+  const map = { scheduled: "Programado", live: "En vivo", finished: "Final", postponed: "Postergado" };
+  return map[status] ?? status;
+}
+
+function formatMatch(m) {
+  const finished = m.status === "finished";
+  const homeWin = finished && m.score && m.score.home > m.score.away;
+  const awayWin = finished && m.score && m.score.away > m.score.home;
+  const kickoff = new Date(m.kickoff);
+  const kickoffStr = kickoff.toLocaleString("es-AR", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+  return `
+    <div class="card">
+      <div class="match-row">
+        <div class="match-teams">
+          <div class="team-line ${awayWin ? "winner" : ""}">
+            <span class="team-name-cell">${m.awayLogo ? `<img class="team-logo" src="${m.awayLogo}" alt="">` : ""}${m.away}</span>
+            <span>${m.score ? m.score.away : "-"}</span>
+          </div>
+          <div class="team-line ${homeWin ? "winner" : ""}">
+            <span class="team-name-cell">${m.homeLogo ? `<img class="team-logo" src="${m.homeLogo}" alt="">` : ""}${m.home}</span>
+            <span>${m.score ? m.score.home : "-"}</span>
+          </div>
+          <div class="kickoff-time">${kickoffStr}</div>
+          ${matchOddsHTML(m.odds)}
+        </div>
+        <div class="status ${m.status === "live" ? "live" : ""}">${statusLabel(m.status)}</div>
+      </div>
+    </div>`;
+}
+
+async function loadScores() {
+  const el = document.getElementById("scoresList");
+  el.innerHTML = '<div class="loading">Cargando partidos…</div>';
+  try {
+    const data = await loadFootballData();
+    renderLeagueChips("scoresLeagueChips", scoresLeague, league => {
+      scoresLeague = league;
+      loadScores();
+    });
+    const matches = (data.matches[scoresLeague] ?? [])
+      .slice()
+      .sort((a, b) => new Date(a.kickoff) - new Date(b.kickoff));
+    if (!matches.length) {
+      el.innerHTML = '<div class="muted">No hay partidos programados para esta liga por ahora.</div>';
+      return;
+    }
+    el.innerHTML = matches.map(formatMatch).join("");
+  } catch (e) {
+    el.innerHTML = `<div class="error">No se pudieron cargar los partidos (${e.message}).</div>`;
+  }
+}
+
+async function loadStandingsTab() {
+  const el = document.getElementById("standingsList");
+  el.innerHTML = '<div class="loading">Cargando tabla…</div>';
+  try {
+    const data = await loadFootballData();
+    renderLeagueChips("standingsLeagueChips", standingsLeague, league => {
+      standingsLeague = league;
+      loadStandingsTab();
+    });
+    const standings = data.standings[standingsLeague];
+    const rows = standings?.standings?.[0]?.rows;
+    if (!rows || !rows.length) {
+      el.innerHTML = '<div class="muted">Sin tabla de posiciones disponible para esta liga todavía.</div>';
+      return;
+    }
+    const season = standings.standings[0].season;
+    el.innerHTML = `
+      ${season ? `<div class="muted" style="margin-bottom:10px;">Temporada ${season}${season < "2026" ? " (última completa — todavía no arrancó la carga de la nueva)" : ""}</div>` : ""}
+      <table>
+        <thead><tr>
+          <th>Equipo</th><th>PJ</th><th>G</th><th>E</th><th>P</th><th>Pts</th>
+        </tr></thead>
+        <tbody>
+          ${rows.map(r => `
+            <tr>
+              <td class="team-cell">${r.logo_url ? `<img class="team-logo" src="${r.logo_url}" alt="">` : ""}${r.rank}. ${r.team_name}</td>
+              <td>${r.games_played}</td>
+              <td>${r.wins}</td>
+              <td>${r.ties ?? 0}</td>
+              <td>${r.losses}</td>
+              <td><b>${r.points_for}</b></td>
+            </tr>`).join("")}
+        </tbody>
+      </table>`;
+  } catch (e) {
+    el.innerHTML = `<div class="error">No se pudo cargar la tabla (${e.message}).</div>`;
+  }
+}
+
+loadScores();
+loadStandingsTab();
+</script>
+
+</body>
+</html>
