@@ -62,10 +62,13 @@ function bbsGet(path) {
   return getJSON(`${BBS_BASE}${path}`, { Authorization: `Bearer ${BBS_API_KEY}` });
 }
 
-// Los dos proveedores no escriben los nombres de club igual ("Arsenal" vs "Arsenal FC").
-// Normalizamos sacando sufijos comunes para poder cruzarlos.
+// Los dos proveedores no escriben los nombres de club igual ("Arsenal" vs "Arsenal FC",
+// "Atlético Madrid" vs "Atletico Madrid"). Sacamos acentos (NFD + quitar diacriticos)
+// antes de sacar sufijos comunes, si no "Atlético" y "Atletico" no cruzan nunca --
+// bug real que rompia el matching de cualquier equipo con tilde (La Liga, Serie A).
 function normalizeTeam(name) {
   return (name || "")
+    .normalize("NFD").replace(/[̀-ͯ]/g, "")
     .toLowerCase()
     .replace(/\b(fc|cf|afc|sc|cd|ac)\b/g, "")
     .replace(/[^a-z0-9]/g, "")
