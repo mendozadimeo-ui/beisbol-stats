@@ -549,7 +549,7 @@ async function main() {
     try {
       const eventIds = batch.map(ev => ev.id).join(",");
       const list = await getJSON(`${ODDS_BASE}/odds/multi?apiKey=${API_KEY}&eventIds=${eventIds}&bookmakers=${BOOKMAKERS}`);
-      for (const item of list) oddsById[item.eventId] = item;
+      for (const item of list) oddsById[item.id] = item;
     } catch (e) {
       console.error(`Error en batch de odds (${batch.map(ev => ev.id).join(",")}):`, e.message);
     }

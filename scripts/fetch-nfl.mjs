@@ -513,9 +513,8 @@ async function main() {
 
   // Partidos de NFL son semanales: ventana mas amplia que MLB/NBA (2 dias) para que
   // no quede vacio toda la semana. 6 dias cubre de martes a la semana siguiente.
-  const cutoff = Date.now() + 30 * 24 * 60 * 60 * 1000; // TEMP debug, revertir a 6 dias
+  const cutoff = Date.now() + 6 * 24 * 60 * 60 * 1000;
   const events = allEvents.filter(ev => new Date(ev.date).getTime() <= cutoff);
-  console.log(`TEMP cutoff=${new Date(cutoff).toISOString()} events.length=${events.length}`);
 
   const standingsMap = await fetchStandingsMap().catch(() => ({}));
 
@@ -526,8 +525,7 @@ async function main() {
     try {
       const eventIds = batch.map(ev => ev.id).join(",");
       const list = await getJSON(`${ODDS_BASE}/odds/multi?apiKey=${API_KEY}&eventIds=${eventIds}&bookmakers=${BOOKMAKERS}`);
-      console.log(`TEMP batch list.length=${list.length} keys=`, Object.keys(list[0] ?? {}), "id=", list[0]?.id, "eventId=", list[0]?.eventId);
-      for (const item of list) oddsById[item.eventId] = item;
+      for (const item of list) oddsById[item.id] = item;
     } catch (e) {
       console.error(`Error en batch de odds (${batch.map(ev => ev.id).join(",")}):`, e.message);
     }
