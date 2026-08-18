@@ -622,6 +622,7 @@
     <div id="heroPickSection"></div>
     <div id="gameSelectorSection" class="game-selector"></div>
     <div id="parlaysSection"></div>
+    <div id="injuriesSection"></div>
     <div id="hrSection"></div>
     <div id="tbSection"></div>
     <div id="picksList"><div class="loading">Calculando señales…</div></div>
@@ -1189,6 +1190,28 @@ function renderHeroPick(oddsMap) {
     </div>`;
 }
 
+const IL_LABELS = { D7: "Lista 7 días", D10: "Lista 10 días", D15: "Lista 15 días", D60: "Lista 60 días" };
+function injuryRowHTML(inj) {
+  const label = IL_LABELS[inj.code] ?? inj.description;
+  const returnInfo = inj.eligibleReturn ? ` · elegible a partir del ${inj.eligibleReturn}` : "";
+  return `
+    <div class="prop-row">
+      <div>
+        <span class="prop-desc"><b>${inj.name}</b> <span class="muted">(${inj.team})</span> — ${label}${returnInfo}</span>
+        ${inj.note ? `<div class="matchup-line">${inj.note}</div>` : ""}
+      </div>
+    </div>`;
+}
+function renderInjuriesSection(injuries) {
+  const el = document.getElementById("injuriesSection");
+  if (!injuries?.length) { el.innerHTML = ""; return; }
+  el.innerHTML = `
+    <div class="props-section">
+      <div class="props-title">🩹 Lesionados de hoy (excluidos de los picks)</div>
+      ${injuries.slice(0, 15).map(injuryRowHTML).join("")}
+    </div>`;
+}
+
 // Cuotas por debajo de 1.20 no dejan ganancia real -- se excluyen siempre,
 // no solo de los picks marcados "Value" (mismo criterio en todo el sitio).
 function buildTopPropsSection(oddsMap, title, matchFn, emptyMsg, limit = 10) {
@@ -1375,7 +1398,7 @@ async function renderPickCard(game, standingsMap, oddsMap) {
       <div class="pick-badges">
         <span class="tag ${favBadge.cls}" title="${favBadge.title}">${favBadge.label}</span>
         <span class="tag ${totalBadge.cls}" title="${totalBadge.title}">${totalBadge.label}</span>
-        ${mlValuePick ? `<span class="tag hot" title="Nuestra probabilidad (${Math.round(mlValuePick.ourProb * 100)}%) supera a la implícita en la cuota de Bovada (${Math.round(mlValuePick.impliedProb * 100)}%) por ${Math.round(mlValuePick.edge * 100)} puntos. Jugable directo en Bovada.">💰 Value ML (Bovada): ${shortTeamName(mlValuePick.player)} ${formatOdds(mlValuePick.odds)}</span>` : ""}
+        ${mlValuePick ? `<span class="tag hot" title="Nuestra probabilidad (${Math.round(mlValuePick.ourProb * 100)}%) supera a la implícita en la cuota de Bovada (${Math.round(mlValuePick.impliedProb * 100)}%) por ${Math.round(mlValuePick.edge * 100)} puntos. Jugable directo en Bovada.${mlValuePick.why ? ` ${mlValuePick.why}.` : ""}">💰 Value ML (Bovada): ${shortTeamName(mlValuePick.player)} ${formatOdds(mlValuePick.odds)}</span>` : ""}
       </div>
       <div class="compare-grid">
         ${compareCol(away.team, awayForm, awaySnap, awayPitcher)}
@@ -1601,12 +1624,14 @@ async function loadPicks(date) {
     picksStandingsCache = standingsMap;
     picksOddsMapCache = oddsMap;
     picksServerParlaysCache = oddsSnapshot.parlays ?? [];
+    renderInjuriesSection(oddsSnapshot.injuries);
     selectedGameKeys = new Set();
     if (!games.length) {
       el.innerHTML = '<div class="muted">No hay partidos por jugarse ese día (ya finalizaron o no hay calendario).</div>';
       document.getElementById("heroPickSection").innerHTML = "";
       document.getElementById("gameSelectorSection").innerHTML = "";
       document.getElementById("parlaysSection").innerHTML = "";
+      document.getElementById("injuriesSection").innerHTML = "";
       document.getElementById("hrSection").innerHTML = "";
       document.getElementById("tbSection").innerHTML = "";
       return;

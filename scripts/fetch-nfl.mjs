@@ -389,7 +389,12 @@ async function fetchNflInjuries() {
       for (const inj of team.injuries ?? []) {
         const link = inj.athlete?.links?.find(l => l.href?.includes("/id/"));
         const id = link ? /\/id\/(\d+)\//.exec(link.href)?.[1] : null;
-        if (id) byPlayerId[id] = { status: inj.status, comment: inj.shortComment ?? null };
+        if (id) {
+          byPlayerId[id] = {
+            name: inj.athlete?.displayName ?? null, team: team.displayName ?? null,
+            status: inj.status, comment: inj.shortComment ?? null, date: inj.date ?? null
+          };
+        }
         if (OUT_STATUSES.has(inj.status) && team.displayName) {
           countByTeamName[team.displayName] = (countByTeamName[team.displayName] || 0) + 1;
         }
@@ -435,6 +440,17 @@ async function evaluateProp(prop, awayTeam, homeTeam, weather) {
 }
 
 // ---------- Moneyline de valor, evaluado SOLO contra la cuota de Bovada ----------
+// Nota de lesionados para el pick de moneyline, cuando la diferencia es
+// suficiente como para explicar parte del ajuste.
+function injuryNoteForMoneyline(teamName, oppName, standingsMap) {
+  const t = standingsMap[teamName]?.injuryCount ?? 0;
+  const o = standingsMap[oppName]?.injuryCount ?? 0;
+  if (t === o) return null;
+  return t < o
+    ? `${teamName} tiene menos bajas confirmadas (${t} vs ${o} de ${oppName})`
+    : `${teamName} tiene mas bajas confirmadas (${t} vs ${o} de ${oppName}) — jugado a favor del rival`;
+}
+
 function evaluateMoneylineLegs(ev, gameOdds, standingsMap) {
   const ml = gameOdds.moneyline?.Bovada;
   if (!ml) return [];
@@ -451,7 +467,8 @@ function evaluateMoneylineLegs(ev, gameOdds, standingsMap) {
       market: "Moneyline", kind: "moneyline", player: ev.away, line: null, side: "gana",
       odds: ml.away, bookmaker: "Bovada",
       ourProb: Math.round(awayProb * 1000) / 1000, impliedProb: Math.round(awayImplied * 1000) / 1000,
-      edge, isValue: isRealValue(edge, awayProb, ml.away, 0.06)
+      edge, isValue: isRealValue(edge, awayProb, ml.away, 0.06),
+      why: injuryNoteForMoneyline(ev.away, ev.home, standingsMap)
     });
   }
   if (homeImplied != null) {
@@ -460,7 +477,8 @@ function evaluateMoneylineLegs(ev, gameOdds, standingsMap) {
       market: "Moneyline", kind: "moneyline", player: ev.home, line: null, side: "gana",
       odds: ml.home, bookmaker: "Bovada",
       ourProb: Math.round(homeProb * 1000) / 1000, impliedProb: Math.round(homeImplied * 1000) / 1000,
-      edge, isValue: isRealValue(edge, homeProb, ml.home, 0.06)
+      edge, isValue: isRealValue(edge, homeProb, ml.home, 0.06),
+      why: injuryNoteForMoneyline(ev.home, ev.away, standingsMap)
     });
   }
   return legs;
@@ -733,7 +751,19 @@ async function main() {
   }
 
   const parlays = buildParlays(allEvaluatedProps);
-  const output = { updatedAt: new Date().toISOString(), games, parlays };
+
+  // Lista de lesionados visible, filtrada a los equipos que juegan en la
+  // ventana que estamos mostrando (mostrar las ~800 bajas de toda la liga
+  // no serviria de nada).
+  const teamsInWindow = new Set();
+  for (const g of Object.values(games)) { teamsInWindow.add(g.home); teamsInWindow.add(g.away); }
+  const nflInjuriesData = await fetchNflInjuries().catch(() => ({ byPlayerId: {} }));
+  const STATUS_ORDER = { "Out": 0, "Injured Reserve": 0, "Suspension": 0, "Doubtful": 1, "Questionable": 2, "Active": 3 };
+  const injuries = Object.values(nflInjuriesData.byPlayerId ?? {})
+    .filter(inj => inj.team && teamsInWindow.has(inj.team) && inj.status !== "Active")
+    .sort((a, b) => (STATUS_ORDER[a.status] ?? 9) - (STATUS_ORDER[b.status] ?? 9));
+
+  const output = { updatedAt: new Date().toISOString(), games, parlays, injuries };
 
   const fs = await import("node:fs/promises");
   await fs.mkdir("data", { recursive: true });

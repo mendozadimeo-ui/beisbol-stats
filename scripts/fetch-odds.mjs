@@ -288,18 +288,54 @@ async function getTeamIdMap() {
 // reasignado a ligas menores, etc). Cualquier estado que no sea "A" (Active)
 // significa que ese jugador no esta disponible para jugar hoy.
 let mlbInjuriesCache = null;
+// Dias minimos reales por regla de MLB para cada lista de lesionados -- no es
+// una estimacion nuestra, es la regla oficial (elegible a partir de ese dia,
+// no necesariamente vuelve ese dia).
+const IL_MIN_DAYS = { D7: 7, D10: 10, D15: 15, D60: 60 };
+
 async function fetchMlbInjuries() {
   if (mlbInjuriesCache) return mlbInjuriesCache;
   const byPlayerId = {};
   const countByTeamId = {};
   try {
-    const teamIds = Object.values(await getTeamIdMap());
+    const teamIdMap = await getTeamIdMap();
+    const teamIds = Object.values(teamIdMap);
+    const teamNameById = {};
+    for (const [name, tid] of Object.entries(teamIdMap)) teamNameById[tid] = name;
+    const todayStr = new Date().toISOString().slice(0, 10);
+    const lookbackStr = new Date(Date.now() - 120 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
     for (const id of teamIds) {
       try {
-        const roster = await getJSON(`${MLB_BASE}/teams/${id}/roster?rosterType=40Man`);
+        const [roster, txnsData] = await Promise.all([
+          getJSON(`${MLB_BASE}/teams/${id}/roster?rosterType=40Man`),
+          getJSON(`${MLB_BASE}/transactions?teamId=${id}&startDate=${lookbackStr}&endDate=${todayStr}`).catch(() => ({ transactions: [] }))
+        ]);
+        // Para cada jugador, nos quedamos con la transaccion de "injured list"
+        // mas reciente (effectiveDate mas nueva) -- un jugador puede pasar de
+        // 10-day a 60-day, nos interesa la que explica su status actual.
+        const latestIlTxn = {};
+        for (const t of txnsData.transactions ?? []) {
+          if (!/injured list/i.test(t.description ?? "")) continue;
+          const pid = t.person?.id;
+          if (!pid || !t.effectiveDate) continue;
+          const prev = latestIlTxn[pid];
+          if (!prev || new Date(t.effectiveDate) > new Date(prev.effectiveDate)) latestIlTxn[pid] = t;
+        }
         for (const p of roster.roster ?? []) {
           if (p.status?.code && p.status.code !== "A") {
-            byPlayerId[p.person.id] = { code: p.status.code, description: p.status.description, note: p.note ?? null };
+            const entry = {
+              name: p.person.fullName, team: teamNameById[id] ?? null,
+              code: p.status.code, description: p.status.description, note: p.note ?? null
+            };
+            const minDays = IL_MIN_DAYS[p.status.code];
+            const txn = latestIlTxn[p.person.id];
+            if (minDays && txn?.effectiveDate) {
+              entry.since = txn.effectiveDate;
+              const eligible = new Date(txn.effectiveDate);
+              eligible.setUTCDate(eligible.getUTCDate() + minDays);
+              entry.eligibleReturn = eligible.toISOString().slice(0, 10);
+            }
+            byPlayerId[p.person.id] = entry;
             // Para el ajuste de fuerza de equipo solo contamos lesiones reales
             // (codigos "D..." = lista de lesionados). "RM" (reasignado a ligas
             // menores) es rotacion normal de roster, no dice nada de si el
@@ -583,6 +619,18 @@ async function evaluateProp(prop, awayTeam, homeTeam, gameCtx) {
 
 // ---------- Moneyline de valor, evaluado SOLO contra la cuota de Bovada ----------
 // (para que un pick recomendado siempre sea jugable en la casa que el usuario realmente usa)
+// Nota de lesionados para el pick de moneyline, cuando la diferencia es
+// suficiente como para explicar parte del ajuste (no la mostramos si esta
+// pareja, para no ensuciar picks donde no influyo en nada).
+function injuryNoteForMoneyline(teamName, oppName, standingsMap) {
+  const t = standingsMap[teamName]?.injuryCount ?? 0;
+  const o = standingsMap[oppName]?.injuryCount ?? 0;
+  if (t === o) return null;
+  return t < o
+    ? `${teamName} tiene menos lesionados en la lista (${t} vs ${o} de ${oppName})`
+    : `${teamName} tiene mas lesionados en la lista (${t} vs ${o} de ${oppName}) — jugado a favor del rival`;
+}
+
 function evaluateMoneylineLegs(ev, gameOdds, standingsMap) {
   const ml = gameOdds.moneyline?.Bovada;
   if (!ml) return [];
@@ -599,7 +647,8 @@ function evaluateMoneylineLegs(ev, gameOdds, standingsMap) {
       market: "Moneyline", kind: "moneyline", player: ev.away, line: null, side: "gana",
       odds: ml.away, bookmaker: "Bovada",
       ourProb: Math.round(awayProb * 1000) / 1000, impliedProb: Math.round(awayImplied * 1000) / 1000,
-      edge, isValue: isRealValue(edge, awayProb, ml.away, 0.06)
+      edge, isValue: isRealValue(edge, awayProb, ml.away, 0.06),
+      why: injuryNoteForMoneyline(ev.away, ev.home, standingsMap)
     });
   }
   if (homeImplied != null) {
@@ -608,7 +657,8 @@ function evaluateMoneylineLegs(ev, gameOdds, standingsMap) {
       market: "Moneyline", kind: "moneyline", player: ev.home, line: null, side: "gana",
       odds: ml.home, bookmaker: "Bovada",
       ourProb: Math.round(homeProb * 1000) / 1000, impliedProb: Math.round(homeImplied * 1000) / 1000,
-      edge, isValue: isRealValue(edge, homeProb, ml.home, 0.06)
+      edge, isValue: isRealValue(edge, homeProb, ml.home, 0.06),
+      why: injuryNoteForMoneyline(ev.home, ev.away, standingsMap)
     });
   }
   return legs;
@@ -923,10 +973,22 @@ async function main() {
 
   const parlays = buildParlays(allEvaluatedProps);
 
+  // Lista de lesionados visible en el sitio, filtrada a los equipos que juegan
+  // en la ventana de partidos que estamos mostrando (si mostraramos las ~570
+  // bajas de toda la liga no serviria de nada). Se ordena por fecha de regreso
+  // elegible cuando la tenemos.
+  const teamsInWindow = new Set();
+  for (const g of Object.values(games)) { teamsInWindow.add(g.home); teamsInWindow.add(g.away); }
+  const mlbInjuries = await fetchMlbInjuries().catch(() => ({ byPlayerId: {} }));
+  const injuries = Object.values(mlbInjuries.byPlayerId ?? {})
+    .filter(inj => inj.code.startsWith("D") && teamsInWindow.has(inj.team))
+    .sort((a, b) => (a.eligibleReturn ?? "9999").localeCompare(b.eligibleReturn ?? "9999"));
+
   const output = {
     updatedAt: new Date().toISOString(),
     games,
-    parlays
+    parlays,
+    injuries
   };
 
   const fs = await import("node:fs/promises");

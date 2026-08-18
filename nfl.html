@@ -313,6 +313,13 @@
   .confidence-badge { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 11px; font-weight: 700; }
   .confidence-badge.alta { background: rgba(var(--accent-rgb),0.18); color: var(--accent); }
   .confidence-badge.media { background: rgba(234,179,8,0.18); color: #eab308; }
+  .props-section { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; margin-bottom: 18px; }
+  .props-title { font-size: 11px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; letter-spacing: 0.03em; }
+  .prop-row { padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .prop-row:last-child { border-bottom: none; }
+  .prop-row .prop-desc { color: var(--text); }
+  .prop-row .prop-desc .muted { color: var(--muted); }
+  .matchup-line { color: var(--muted); font-size: 11px; margin-top: 2px; }
 </style>
 </head>
 <body>
@@ -349,6 +356,7 @@
     </div>
     <div id="heroPickSection"></div>
     <div id="parlaysSection"></div>
+    <div id="injuriesSection"></div>
     <div id="picksList"><div class="loading">Calculando señales…</div></div>
   </section>
 
@@ -500,6 +508,7 @@ function pickCardHTML(p) {
         <span>${p.bookmaker}</span>
         <span class="muted">${p.game}</span>
       </div>
+      ${p.why ? `<div class="muted" style="font-size:12px; margin-top:6px;">📊 ${p.why}</div>` : ""}
     </div>`;
 }
 
@@ -566,6 +575,28 @@ function parlayCardHTML(pl) {
     </div>`;
 }
 
+const NFL_STATUS_LABELS = { "Out": "Fuera", "Injured Reserve": "Lista de lesionados", "Suspension": "Suspendido", "Doubtful": "Dudoso", "Questionable": "Cuestionable" };
+function nflInjuryRowHTML(inj) {
+  const label = NFL_STATUS_LABELS[inj.status] ?? inj.status;
+  const dateInfo = inj.date ? ` · ${inj.date}` : "";
+  return `
+    <div class="prop-row">
+      <div>
+        <span class="prop-desc"><b>${inj.name}</b> <span class="muted">(${inj.team})</span> — ${label}${dateInfo}</span>
+        ${inj.comment ? `<div class="matchup-line">${inj.comment}</div>` : ""}
+      </div>
+    </div>`;
+}
+function renderInjuriesSection(injuries) {
+  const el = document.getElementById("injuriesSection");
+  if (!injuries?.length) { el.innerHTML = ""; return; }
+  el.innerHTML = `
+    <div class="props-section">
+      <div class="props-title">🩹 Lesionados de la semana (excluidos de los picks)</div>
+      ${injuries.slice(0, 15).map(nflInjuryRowHTML).join("")}
+    </div>`;
+}
+
 async function loadPicks() {
   const picksEl = document.getElementById("picksList");
   const parlaysEl = document.getElementById("parlaysSection");
@@ -574,6 +605,7 @@ async function loadPicks() {
     const data = await loadNflData();
     const games = Object.values(data.games ?? {});
     renderHeroPick(games);
+    renderInjuriesSection(data.injuries);
     const allPicks = [];
     for (const g of games) {
       for (const p of [...(g.props ?? []), ...(g.moneylinePicks ?? [])]) {
