@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-18T06:51:18.424Z",
+  "updatedAt": "2026-08-18T07:24:50.548Z",
   "leagues": {
     "epl": "Premier League",
     "laliga": "La Liga",
@@ -19,7 +19,32 @@
         "kickoff": "2026-08-21T19:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null,
+        "odds": {
+          "moneyline": {
+            "Bovada": {
+              "home": "1.20",
+              "draw": "7.00",
+              "away": "14.00"
+            },
+            "Bet365": {
+              "home": "1.181",
+              "draw": "7.000",
+              "away": "15.000"
+            }
+          },
+          "total": {
+            "Bovada": {
+              "line": 3,
+              "over": "1.93",
+              "under": "1.89"
+            },
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.575",
+              "under": "2.350"
+            }
+          }
+        },
         "picks": []
       },
       {
@@ -31,7 +56,32 @@
         "kickoff": "2026-08-22T11:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null,
+        "odds": {
+          "moneyline": {
+            "Bovada": {
+              "home": "7.75",
+              "draw": "4.90",
+              "away": "1.41"
+            },
+            "Bet365": {
+              "home": "7.500",
+              "draw": "5.000",
+              "away": "1.380"
+            }
+          },
+          "total": {
+            "Bovada": {
+              "line": 2.5,
+              "over": "1.75",
+              "under": "2.12"
+            },
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.700",
+              "under": "2.100"
+            }
+          }
+        },
         "picks": []
       },
       {
@@ -43,8 +93,94 @@
         "kickoff": "2026-08-22T14:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null,
-        "picks": []
+        "odds": {
+          "moneyline": {
+            "Bovada": {
+              "home": "2.15",
+              "draw": "3.45",
+              "away": "3.35"
+            },
+            "Bet365": {
+              "home": "2.100",
+              "draw": "3.400",
+              "away": "3.200"
+            }
+          },
+          "total": {
+            "Bovada": {
+              "line": 2.5,
+              "over": "1.91",
+              "under": "1.91"
+            },
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.925",
+              "under": "1.925"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "1.925",
+              "under": "1.925"
+            }
+          }
+        },
+        "picks": [
+          {
+            "market": "Moneyline",
+            "side": "home",
+            "team": "Everton",
+            "odds": "2.15",
+            "bookmaker": "Bovada",
+            "ourProb": 0.441,
+            "impliedProb": 0.465,
+            "edge": -0.024,
+            "isValue": false
+          },
+          {
+            "market": "Moneyline",
+            "side": "draw",
+            "team": null,
+            "odds": "3.45",
+            "bookmaker": "Bovada",
+            "ourProb": 0.273,
+            "impliedProb": 0.29,
+            "edge": -0.017,
+            "isValue": false
+          },
+          {
+            "market": "Moneyline",
+            "side": "away",
+            "team": "Crystal Palace",
+            "odds": "3.35",
+            "bookmaker": "Bovada",
+            "ourProb": 0.286,
+            "impliedProb": 0.299,
+            "edge": -0.013,
+            "isValue": false
+          },
+          {
+            "market": "Total 2.5 goles",
+            "side": "over",
+            "team": null,
+            "odds": "1.91",
+            "bookmaker": "Bovada",
+            "ourProb": 0.426,
+            "impliedProb": 0.524,
+            "edge": -0.097,
+            "isValue": false
+          },
+          {
+            "market": "Total 2.5 goles",
+            "side": "under",
+            "team": null,
+            "odds": "1.91",
+            "bookmaker": "Bovada",
+            "ourProb": 0.574,
+            "impliedProb": 0.524,
+            "edge": 0.05,
+            "isValue": false
+          }
+        ]
       },
       {
         "id": "9dea17d9-dbb8-4722-a564-85249e5c4b7c",
@@ -55,7 +191,37 @@
         "kickoff": "2026-08-22T14:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null,
+        "odds": {
+          "moneyline": {
+            "Bovada": {
+              "home": "2.75",
+              "draw": "3.35",
+              "away": "2.60"
+            },
+            "Bet365": {
+              "home": "2.625",
+              "draw": "3.200",
+              "away": "2.550"
+            }
+          },
+          "total": {
+            "Bovada": {
+              "line": 2.5,
+              "over": "1.91",
+              "under": "1.91"
+            },
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.950",
+              "under": "1.900"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "1.950",
+              "under": "1.900"
+            }
+          }
+        },
         "picks": []
       },
       {
@@ -67,8 +233,94 @@
         "kickoff": "2026-08-22T14:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null,
-        "picks": []
+        "odds": {
+          "moneyline": {
+            "Bovada": {
+              "home": "2.30",
+              "draw": "3.40",
+              "away": "3.10"
+            },
+            "Bet365": {
+              "home": "2.250",
+              "draw": "3.300",
+              "away": "3.100"
+            },
+            "Bet365 (no latency)": {
+              "home": "2.25",
+              "draw": "3.30",
+              "away": "3.10"
+            }
+          },
+          "total": {
+            "Bovada": {
+              "line": 2.5,
+              "over": "1.93",
+              "under": "1.89"
+            },
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.925",
+              "under": "1.925"
+            }
+          }
+        },
+        "picks": [
+          {
+            "market": "Moneyline",
+            "side": "home",
+            "team": "Nottingham Forest",
+            "odds": "2.30",
+            "bookmaker": "Bovada",
+            "ourProb": 0.433,
+            "impliedProb": 0.435,
+            "edge": -0.002,
+            "isValue": false
+          },
+          {
+            "market": "Moneyline",
+            "side": "draw",
+            "team": null,
+            "odds": "3.40",
+            "bookmaker": "Bovada",
+            "ourProb": 0.252,
+            "impliedProb": 0.294,
+            "edge": -0.042,
+            "isValue": false
+          },
+          {
+            "market": "Moneyline",
+            "side": "away",
+            "team": "Leeds United",
+            "odds": "3.10",
+            "bookmaker": "Bovada",
+            "ourProb": 0.316,
+            "impliedProb": 0.323,
+            "edge": -0.007,
+            "isValue": false
+          },
+          {
+            "market": "Total 2.5 goles",
+            "side": "over",
+            "team": null,
+            "odds": "1.93",
+            "bookmaker": "Bovada",
+            "ourProb": 0.525,
+            "impliedProb": 0.518,
+            "edge": 0.006,
+            "isValue": false
+          },
+          {
+            "market": "Total 2.5 goles",
+            "side": "under",
+            "team": null,
+            "odds": "1.89",
+            "bookmaker": "Bovada",
+            "ourProb": 0.475,
+            "impliedProb": 0.529,
+            "edge": -0.054,
+            "isValue": false
+          }
+        ]
       },
       {
         "id": "972c6768-077d-4ed3-8120-4b0604435a92",
@@ -79,8 +331,72 @@
         "kickoff": "2026-08-22T16:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null,
-        "picks": []
+        "odds": {
+          "moneyline": {
+            "Bovada": {
+              "home": "2.45",
+              "draw": "3.60",
+              "away": "2.75"
+            },
+            "Bet365": {
+              "home": "2.350",
+              "draw": "3.600",
+              "away": "2.700"
+            },
+            "Bet365 (no latency)": {
+              "home": "2.35",
+              "draw": "3.60",
+              "away": "2.70"
+            }
+          },
+          "total": {
+            "Bovada": {
+              "line": 3,
+              "over": "2.11",
+              "under": "1.76"
+            },
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.650",
+              "under": "2.200"
+            }
+          }
+        },
+        "picks": [
+          {
+            "market": "Moneyline",
+            "side": "home",
+            "team": "Brentford",
+            "odds": "2.45",
+            "bookmaker": "Bovada",
+            "ourProb": 0.494,
+            "impliedProb": 0.408,
+            "edge": 0.086,
+            "isValue": false
+          },
+          {
+            "market": "Moneyline",
+            "side": "draw",
+            "team": null,
+            "odds": "3.60",
+            "bookmaker": "Bovada",
+            "ourProb": 0.233,
+            "impliedProb": 0.278,
+            "edge": -0.044,
+            "isValue": false
+          },
+          {
+            "market": "Moneyline",
+            "side": "away",
+            "team": "Tottenham Hotspur",
+            "odds": "2.75",
+            "bookmaker": "Bovada",
+            "ourProb": 0.272,
+            "impliedProb": 0.364,
+            "edge": -0.091,
+            "isValue": false
+          }
+        ]
       },
       {
         "id": "3da8d7bf-c0b0-4250-a851-cb2309a9de5a",
@@ -651,7 +967,37 @@
         "kickoff": "2026-08-19T19:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null,
+        "odds": {
+          "moneyline": {
+            "Bovada": {
+              "home": "1.29",
+              "draw": "5.50",
+              "away": "10.00"
+            },
+            "Bet365": {
+              "home": "1.300",
+              "draw": "5.250",
+              "away": "10.000"
+            }
+          },
+          "total": {
+            "Bovada": {
+              "line": 2.5,
+              "over": "1.93",
+              "under": "1.89"
+            },
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.725",
+              "under": "2.075"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.75,
+              "over": "1.975",
+              "under": "1.875"
+            }
+          }
+        },
         "picks": []
       },
       {
@@ -663,7 +1009,37 @@
         "kickoff": "2026-08-19T19:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null,
+        "odds": {
+          "moneyline": {
+            "Bovada": {
+              "home": "1.29",
+              "draw": "5.50",
+              "away": "10.00"
+            },
+            "Bet365": {
+              "home": "1.300",
+              "draw": "5.250",
+              "away": "10.000"
+            }
+          },
+          "total": {
+            "Bovada": {
+              "line": 2.5,
+              "over": "1.93",
+              "under": "1.89"
+            },
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.725",
+              "under": "2.075"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.75,
+              "over": "1.975",
+              "under": "1.875"
+            }
+          }
+        },
         "picks": []
       },
       {
@@ -1823,708 +2199,972 @@
     ],
     "ucl": [
       {
-        "id": "7044042a-0ae2-40f4-aa23-2ac82589ec62",
-        "home": "Paris Saint-Germain",
+        "id": 73394740,
+        "home": "Fenerbahce Istanbul",
         "homeLogo": null,
-        "away": "Arsenal",
+        "away": "Olympique Lyon",
         "awayLogo": null,
-        "kickoff": "2026-05-30T16:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 5,
-          "away": 4
-        },
-        "odds": null
+        "kickoff": "2026-08-18T19:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.950",
+              "draw": "3.600",
+              "away": "3.400"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.750",
+              "under": "2.050"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.75,
+              "over": "1.825",
+              "under": "1.975"
+            }
+          }
+        }
       },
       {
-        "id": "1fd713b3-4c8b-4416-b612-8dd91c3cf699",
-        "home": "Bayern Munich",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/01ogkh1716960412.png",
-        "away": "Paris Saint-Germain",
-        "awayLogo": null,
-        "kickoff": "2026-05-06T19:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 1,
-          "away": 1
-        },
-        "odds": null
-      },
-      {
-        "id": "2448b5a9-8384-4b08-b295-25d0a45e9419",
-        "home": "Arsenal",
+        "id": 73394626,
+        "home": "PFC Levski Sofia",
         "homeLogo": null,
-        "away": "Atlético Madrid",
+        "away": "AEK Athens",
         "awayLogo": null,
-        "kickoff": "2026-05-05T19:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 1,
-          "away": 0
-        },
-        "odds": null
+        "kickoff": "2026-08-18T19:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "3.100",
+              "draw": "3.100",
+              "away": "2.200"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "2.250",
+              "under": "1.625"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.25,
+              "over": "2.025",
+              "under": "1.775"
+            }
+          }
+        }
       },
       {
-        "id": "28c279dc-0235-4114-ba4e-38c36a870b08",
-        "home": "Atlético Madrid",
+        "id": 73394728,
+        "home": "GNK Dinamo Zagreb",
         "homeLogo": null,
-        "away": "Arsenal",
+        "away": "Viking FK",
         "awayLogo": null,
-        "kickoff": "2026-04-29T19:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 1,
-          "away": 1
-        },
-        "odds": null
+        "kickoff": "2026-08-18T19:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.700",
+              "draw": "4.000",
+              "away": "4.100"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.600",
+              "under": "2.300"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "1.60",
+              "under": "2.29"
+            }
+          }
+        }
       },
       {
-        "id": "8681dbaa-39e3-4ddb-81ea-e77b5e8969e2",
-        "home": "Paris Saint-Germain",
+        "id": 73394630,
+        "home": "Celtic Glasgow",
         "homeLogo": null,
-        "away": "Bayern Munich",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/01ogkh1716960412.png",
-        "kickoff": "2026-04-28T19:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 5,
-          "away": 4
-        },
-        "odds": null
-      },
-      {
-        "id": "19a87ac4-6923-4f09-ad36-d0012c05ef4e",
-        "home": "Arsenal",
-        "homeLogo": null,
-        "away": "Sporting Clube de Portugal",
-        "awayLogo": "https://crests.football-data.org/498.png",
-        "kickoff": "2026-04-15T19:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 0,
-          "away": 0
-        },
-        "odds": null
-      },
-      {
-        "id": "21b81f29-9fc2-47b5-8d19-bbd5e9859fa4",
-        "home": "Bayern Munich",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/01ogkh1716960412.png",
-        "away": "Real Madrid",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/vwvwrw1473502969.png",
-        "kickoff": "2026-04-15T19:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 4,
-          "away": 3
-        },
-        "odds": null
-      },
-      {
-        "id": "605e49eb-0a96-4c31-bfdf-b9fa3e5d3ba1",
-        "home": "Liverpool",
-        "homeLogo": "https://crests.football-data.org/64.png",
-        "away": "Paris Saint-Germain",
+        "away": "LASK Linz",
         "awayLogo": null,
-        "kickoff": "2026-04-14T19:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 0,
-          "away": 2
-        },
-        "odds": null
+        "kickoff": "2026-08-19T19:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.650",
+              "draw": "3.750",
+              "away": "4.500"
+            },
+            "Bet365 (no latency)": {
+              "home": "1.65",
+              "draw": "3.75",
+              "away": "4.50"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.750",
+              "under": "2.050"
+            }
+          }
+        }
       },
       {
-        "id": "963d058e-f0b5-4056-85e3-6e73314f12ed",
-        "home": "Atlético Madrid",
+        "id": 73394732,
+        "home": "SK Slovan Bratislava",
         "homeLogo": null,
-        "away": "Barcelona",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/wq9sir1639406443.png",
-        "kickoff": "2026-04-14T19:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 1,
-          "away": 2
-        },
-        "odds": null
+        "away": "NK Celje",
+        "awayLogo": null,
+        "kickoff": "2026-08-19T19:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.650",
+              "draw": "3.600",
+              "away": "4.750"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.800",
+              "under": "2.000"
+            }
+          }
+        }
       },
       {
-        "id": "30c5c7c9-dc10-4ff5-a5c7-55015fb8293c",
-        "home": "Paris Saint-Germain",
+        "id": 73394736,
+        "home": "Hapoel Be`er Sheva FC",
         "homeLogo": null,
-        "away": "Liverpool",
-        "awayLogo": "https://crests.football-data.org/64.png",
-        "kickoff": "2026-04-08T19:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 2,
-          "away": 0
-        },
-        "odds": null
-      },
-      {
-        "id": "870cc3d5-1f0c-4a46-971b-60b7ba7d81e9",
-        "home": "Barcelona",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/wq9sir1639406443.png",
-        "away": "Atlético Madrid",
+        "away": "Sabah Masazir",
         "awayLogo": null,
-        "kickoff": "2026-04-08T19:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 0,
-          "away": 2
-        },
-        "odds": null
+        "kickoff": "2026-08-19T19:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "2.250",
+              "draw": "3.100",
+              "away": "3.000"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.900",
+              "under": "1.900"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "1.95",
+              "under": "1.85"
+            }
+          }
+        }
       },
       {
-        "id": "203531e0-8069-4454-8821-b0ea4f261386",
-        "home": "Sporting Clube de Portugal",
-        "homeLogo": "https://crests.football-data.org/498.png",
-        "away": "Arsenal",
-        "awayLogo": null,
-        "kickoff": "2026-04-07T19:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 0,
-          "away": 1
-        },
-        "odds": null
-      },
-      {
-        "id": "90a7b57b-53e6-4d50-b0e6-a563596e90ae",
-        "home": "Real Madrid",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/vwvwrw1473502969.png",
-        "away": "Bayern Munich",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/01ogkh1716960412.png",
-        "kickoff": "2026-04-07T19:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 1,
-          "away": 2
-        },
-        "odds": null
-      },
-      {
-        "id": "82cdb12c-bb81-4e84-a2ea-bc08b50f488b",
-        "home": "Bayern Munich",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/01ogkh1716960412.png",
-        "away": "Atalanta",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/lrvxg71534873930.png",
-        "kickoff": "2026-03-18T20:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 4,
-          "away": 1
-        },
-        "odds": null
-      },
-      {
-        "id": "9c4b8895-17f0-46c8-917d-2792ae53932d",
-        "home": "Liverpool",
-        "homeLogo": "https://crests.football-data.org/64.png",
-        "away": "Galatasaray SK",
-        "awayLogo": "https://crests.football-data.org/610.png",
-        "kickoff": "2026-03-18T20:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 4,
-          "away": 0
-        },
-        "odds": null
-      },
-      {
-        "id": "ea7a251a-ebdd-4c25-a682-2ed71057da3f",
-        "home": "Tottenham Hotspur",
+        "id": 73394744,
+        "home": "NEC Nijmegen",
         "homeLogo": null,
-        "away": "Atlético Madrid",
+        "away": "Bodoe/Glimt",
         "awayLogo": null,
-        "kickoff": "2026-03-18T20:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 3,
-          "away": 2
-        },
-        "odds": null
-      },
-      {
-        "id": "fa187153-c773-4519-9b08-c7582188807c",
-        "home": "Barcelona",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/wq9sir1639406443.png",
-        "away": "Newcastle United",
-        "awayLogo": null,
-        "kickoff": "2026-03-18T17:45:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 7,
-          "away": 2
-        },
-        "odds": null
-      },
-      {
-        "id": "02c8f1fc-6351-450d-97dc-2be229db3367",
-        "home": "Arsenal",
-        "homeLogo": null,
-        "away": "Bayer Leverkusen",
-        "awayLogo": null,
-        "kickoff": "2026-03-17T20:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 2,
-          "away": 0
-        },
-        "odds": null
-      },
-      {
-        "id": "0b0f3378-1732-4a3e-b375-5a3f712ccecb",
-        "home": "Manchester City",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/vwpvry1467462651.png",
-        "away": "Real Madrid",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/vwvwrw1473502969.png",
-        "kickoff": "2026-03-17T20:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 1,
-          "away": 2
-        },
-        "odds": null
-      },
-      {
-        "id": "711dffa6-4a38-4b86-bf03-0d0590edfead",
-        "home": "Chelsea",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/yvwvtu1448813215.png",
-        "away": "Paris Saint-Germain",
-        "awayLogo": null,
-        "kickoff": "2026-03-17T20:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 0,
-          "away": 3
-        },
-        "odds": null
-      },
-      {
-        "id": "8b10314d-f9a8-49c6-aa9e-684bcfff4d51",
-        "home": "Sporting Clube de Portugal",
-        "homeLogo": "https://crests.football-data.org/498.png",
-        "away": "FK Bodø/Glimt",
-        "awayLogo": "https://crests.football-data.org/5721.png",
-        "kickoff": "2026-03-17T17:45:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 5,
-          "away": 0
-        },
-        "odds": null
-      },
-      {
-        "id": "5415b9b2-23a2-4d66-ace9-892033386a40",
-        "home": "Paris Saint-Germain",
-        "homeLogo": null,
-        "away": "Chelsea",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/yvwvtu1448813215.png",
-        "kickoff": "2026-03-11T20:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 5,
-          "away": 2
-        },
-        "odds": null
-      },
-      {
-        "id": "5d9c87b3-da41-4b77-8c64-2fa7ae693be5",
-        "home": "Real Madrid",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/vwvwrw1473502969.png",
-        "away": "Manchester City",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/vwpvry1467462651.png",
-        "kickoff": "2026-03-11T20:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 3,
-          "away": 0
-        },
-        "odds": null
-      },
-      {
-        "id": "72ba3339-3cf2-4f89-9cfc-08343843b4dc",
-        "home": "FK Bodø/Glimt",
-        "homeLogo": "https://crests.football-data.org/5721.png",
-        "away": "Sporting Clube de Portugal",
-        "awayLogo": "https://crests.football-data.org/498.png",
-        "kickoff": "2026-03-11T20:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 3,
-          "away": 0
-        },
-        "odds": null
-      },
-      {
-        "id": "a9076094-147f-4e6e-a617-39245e5d25f2",
-        "home": "Bayer Leverkusen",
-        "homeLogo": null,
-        "away": "Arsenal",
-        "awayLogo": null,
-        "kickoff": "2026-03-11T17:45:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 1,
-          "away": 1
-        },
-        "odds": null
-      },
-      {
-        "id": "4517e461-6dc1-4f65-9e77-ef3fc2f79e26",
-        "home": "Atlético Madrid",
-        "homeLogo": null,
-        "away": "Tottenham Hotspur",
-        "awayLogo": null,
-        "kickoff": "2026-03-10T20:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 5,
-          "away": 2
-        },
-        "odds": null
-      },
-      {
-        "id": "fa0bcaec-9276-46d1-a2e1-cc6b874cd535",
-        "home": "Atalanta",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/lrvxg71534873930.png",
-        "away": "Bayern Munich",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/01ogkh1716960412.png",
-        "kickoff": "2026-03-10T20:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 1,
-          "away": 6
-        },
-        "odds": null
-      },
-      {
-        "id": "fc2fe329-533d-49ed-8763-e2d759635d3d",
-        "home": "Newcastle United",
-        "homeLogo": null,
-        "away": "Barcelona",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/wq9sir1639406443.png",
-        "kickoff": "2026-03-10T20:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 1,
-          "away": 1
-        },
-        "odds": null
-      },
-      {
-        "id": "f2a7e49a-c5ec-4aa8-85b7-ac0fc4b0aeb5",
-        "home": "Galatasaray SK",
-        "homeLogo": "https://crests.football-data.org/610.png",
-        "away": "Liverpool",
-        "awayLogo": "https://crests.football-data.org/64.png",
-        "kickoff": "2026-03-10T17:45:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 1,
-          "away": 0
-        },
-        "odds": null
-      },
-      {
-        "id": "4eaed567-c30e-4fe8-b1fc-5e7efdc19ebb",
-        "home": "Real Madrid",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/vwvwrw1473502969.png",
-        "away": "Sport Lisboa e Benfica",
-        "awayLogo": "https://crests.football-data.org/1903.png",
-        "kickoff": "2026-02-25T20:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 2,
-          "away": 1
-        },
-        "odds": null
-      },
-      {
-        "id": "9726ddfa-8b33-4b31-a70c-5a22f8637fb6",
-        "home": "Paris Saint-Germain",
-        "homeLogo": null,
-        "away": "AS Monaco",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/exjf5l1678808044.png",
-        "kickoff": "2026-02-25T20:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 2,
-          "away": 2
-        },
-        "odds": null
-      },
-      {
-        "id": "d40ce4b6-a70c-4612-b2c6-2bcf2bf5cfa0",
-        "home": "Juventus",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/uxf0gr1742983727.png",
-        "away": "Galatasaray SK",
-        "awayLogo": "https://crests.football-data.org/610.png",
-        "kickoff": "2026-02-25T20:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 3,
-          "away": 2
-        },
-        "odds": null
-      },
-      {
-        "id": "c905d619-0b24-4f06-8e54-cda360651775",
-        "home": "Atalanta",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/lrvxg71534873930.png",
-        "away": "Borussia Dortmund",
-        "awayLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Borussia_Dortmund_logo.svg/960px-Borussia_Dortmund_logo.svg.png",
-        "kickoff": "2026-02-25T17:45:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 4,
-          "away": 1
-        },
-        "odds": null
-      },
-      {
-        "id": "1afd6be3-b731-4ff2-87a8-5bec0206ca28",
-        "home": "Newcastle United",
-        "homeLogo": null,
-        "away": "Qarabağ Ağdam FK",
-        "awayLogo": "https://crests.football-data.org/611.png",
-        "kickoff": "2026-02-24T20:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 3,
-          "away": 2
-        },
-        "odds": null
-      },
-      {
-        "id": "35ac1440-7497-43df-b445-3efcc1fb4733",
-        "home": "Bayer Leverkusen",
-        "homeLogo": null,
-        "away": "PAE Olympiakos SFP",
-        "awayLogo": "https://crests.football-data.org/654.png",
-        "kickoff": "2026-02-24T20:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 0,
-          "away": 0
-        },
-        "odds": null
-      },
-      {
-        "id": "a933e103-af21-4ca8-b65f-55fa651bb549",
-        "home": "Inter Milan",
-        "homeLogo": null,
-        "away": "FK Bodø/Glimt",
-        "awayLogo": "https://crests.football-data.org/5721.png",
-        "kickoff": "2026-02-24T20:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 1,
-          "away": 2
-        },
-        "odds": null
-      },
-      {
-        "id": "399ebfbf-5aea-4c70-af8f-84cb33dd29a6",
-        "home": "Atlético Madrid",
-        "homeLogo": null,
-        "away": "Club Brugge KV",
-        "awayLogo": "https://crests.football-data.org/851.png",
-        "kickoff": "2026-02-24T17:45:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 4,
-          "away": 1
-        },
-        "odds": null
-      },
-      {
-        "id": "01108f64-a434-4026-84da-5b7589f9fbf1",
-        "home": "FK Bodø/Glimt",
-        "homeLogo": "https://crests.football-data.org/5721.png",
-        "away": "Inter Milan",
-        "awayLogo": null,
-        "kickoff": "2026-02-18T20:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 3,
-          "away": 1
-        },
-        "odds": null
-      },
-      {
-        "id": "457fa374-93d2-435c-aba3-2a3104bb57a7",
-        "home": "PAE Olympiakos SFP",
-        "homeLogo": "https://crests.football-data.org/654.png",
-        "away": "Bayer Leverkusen",
-        "awayLogo": null,
-        "kickoff": "2026-02-18T20:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 0,
-          "away": 2
-        },
-        "odds": null
-      },
-      {
-        "id": "a6275155-97ae-49be-8989-e56c078ac256",
-        "home": "Club Brugge KV",
-        "homeLogo": "https://crests.football-data.org/851.png",
-        "away": "Atlético Madrid",
-        "awayLogo": null,
-        "kickoff": "2026-02-18T20:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 3,
-          "away": 3
-        },
-        "odds": null
-      },
-      {
-        "id": "7eaf05d5-9f15-480c-94cb-2db324fa92bc",
-        "home": "Qarabağ Ağdam FK",
-        "homeLogo": "https://crests.football-data.org/611.png",
-        "away": "Newcastle United",
-        "awayLogo": null,
-        "kickoff": "2026-02-18T17:45:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 1,
-          "away": 6
-        },
-        "odds": null
-      },
-      {
-        "id": "63535a97-cf0c-4f36-919c-253764822e42",
-        "home": "Borussia Dortmund",
-        "homeLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Borussia_Dortmund_logo.svg/960px-Borussia_Dortmund_logo.svg.png",
-        "away": "Atalanta",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/lrvxg71534873930.png",
-        "kickoff": "2026-02-17T20:15:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 2,
-          "away": 0
-        },
-        "odds": null
-      },
-      {
-        "id": "90b37e00-42d9-4875-971d-40ed10abcc67",
-        "home": "AS Monaco",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/exjf5l1678808044.png",
-        "away": "Paris Saint-Germain",
-        "awayLogo": null,
-        "kickoff": "2026-02-17T20:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 2,
-          "away": 3
-        },
-        "odds": null
-      },
-      {
-        "id": "a6378bbc-bd3b-484b-b3a6-c7f04e348dfd",
-        "home": "Sport Lisboa e Benfica",
-        "homeLogo": "https://crests.football-data.org/1903.png",
-        "away": "Real Madrid",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/vwvwrw1473502969.png",
-        "kickoff": "2026-02-17T20:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 0,
-          "away": 1
-        },
-        "odds": null
-      },
-      {
-        "id": "40b0c077-ea5f-43d0-9291-813e9930192a",
-        "home": "Galatasaray SK",
-        "homeLogo": "https://crests.football-data.org/610.png",
-        "away": "Juventus",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/uxf0gr1742983727.png",
-        "kickoff": "2026-02-17T17:45:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 5,
-          "away": 2
-        },
-        "odds": null
-      },
-      {
-        "id": "119ccdb3-092b-4d10-b74c-a08c079d2b48",
-        "home": "Manchester City",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/vwpvry1467462651.png",
-        "away": "Galatasaray SK",
-        "awayLogo": "https://crests.football-data.org/610.png",
-        "kickoff": "2026-01-28T20:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 2,
-          "away": 0
-        },
-        "odds": null
-      },
-      {
-        "id": "1241c656-f189-4cc3-a792-e005d4d2c092",
-        "home": "PSV",
-        "homeLogo": "https://crests.football-data.org/674.png",
-        "away": "Bayern Munich",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/01ogkh1716960412.png",
-        "kickoff": "2026-01-28T20:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 1,
-          "away": 2
-        },
-        "odds": null
-      },
-      {
-        "id": "147ce3b9-a40d-4256-9e3a-268ac0a8252e",
-        "home": "Paris Saint-Germain",
-        "homeLogo": null,
-        "away": "Newcastle United",
-        "awayLogo": null,
-        "kickoff": "2026-01-28T20:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 1,
-          "away": 1
-        },
-        "odds": null
-      },
-      {
-        "id": "1fe51b5b-2706-4fc8-ab74-9425437d324d",
-        "home": "Napoli",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/l8qyxv1742982541.png",
-        "away": "Chelsea",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/yvwvtu1448813215.png",
-        "kickoff": "2026-01-28T20:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 2,
-          "away": 3
-        },
-        "odds": null
-      },
-      {
-        "id": "22a00946-ebd6-4f6f-b936-039fbdf5d592",
-        "home": "AS Monaco",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/exjf5l1678808044.png",
-        "away": "Juventus",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/uxf0gr1742983727.png",
-        "kickoff": "2026-01-28T20:00:00.000Z",
-        "status": "finished",
-        "score": {
-          "home": 0,
-          "away": 0
-        },
-        "odds": null
+        "kickoff": "2026-08-19T19:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "2.450",
+              "draw": "3.600",
+              "away": "2.450"
+            },
+            "Bet365 (no latency)": {
+              "home": "2.45",
+              "draw": "3.60",
+              "away": "2.45"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.450",
+              "under": "2.675"
+            }
+          }
+        }
       }
     ],
-    "uel": [],
-    "uecl": []
+    "uel": [
+      {
+        "id": 73398358,
+        "home": "FC Kairat Almaty",
+        "homeLogo": null,
+        "away": "RSC Anderlecht",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T15:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "3.200",
+              "draw": "3.300",
+              "away": "2.100"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.975",
+              "under": "1.825"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "2.00",
+              "under": "1.80"
+            }
+          }
+        }
+      },
+      {
+        "id": 73398350,
+        "home": "Jagiellonia Bialystok",
+        "homeLogo": null,
+        "away": "FC Iberia 1999",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T16:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.363",
+              "draw": "4.333",
+              "away": "8.000"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.700",
+              "under": "2.100"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "1.70",
+              "under": "2.10"
+            }
+          }
+        }
+      },
+      {
+        "id": 73398354,
+        "home": "Mjallby AIF",
+        "homeLogo": null,
+        "away": "FC Salzburg",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T16:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "4.000",
+              "draw": "3.750",
+              "away": "1.700"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.575",
+              "under": "2.350"
+            }
+          }
+        }
+      },
+      {
+        "id": 73398342,
+        "home": "KF Egnatia Rrogozhine",
+        "homeLogo": null,
+        "away": "Lillestroem SK",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T17:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "3.400",
+              "draw": "3.600",
+              "away": "1.909"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.900",
+              "under": "1.900"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "1.90",
+              "under": "1.90"
+            }
+          }
+        }
+      },
+      {
+        "id": 73398364,
+        "home": "KKS Lech Poznan",
+        "homeLogo": null,
+        "away": "FC Thun",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T17:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {},
+          "total": {}
+        }
+      },
+      {
+        "id": 73398318,
+        "home": "Trabzonspor",
+        "homeLogo": null,
+        "away": "Ferencvarosi Budapest",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T17:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.615",
+              "draw": "4.100",
+              "away": "4.333"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.75,
+              "over": "1.925",
+              "under": "1.875"
+            }
+          }
+        }
+      },
+      {
+        "id": 73398324,
+        "home": "CS Universitatea Craiova",
+        "homeLogo": null,
+        "away": "FC Ararat-Armenia",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T17:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {},
+          "total": {}
+        }
+      },
+      {
+        "id": 73398368,
+        "home": "Besiktas Istanbul",
+        "homeLogo": null,
+        "away": "FK Kauno Zalgiris",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T17:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.125",
+              "draw": "7.500",
+              "away": "19.000"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.450",
+              "under": "2.675"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "1.36",
+              "under": "3.00"
+            }
+          }
+        }
+      },
+      {
+        "id": 73398376,
+        "home": "OFI Crete",
+        "homeLogo": null,
+        "away": "PFC CSKA Sofia",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T18:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "2.600",
+              "draw": "3.100",
+              "away": "2.600"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "2.075",
+              "under": "1.725"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "2.07",
+              "under": "1.72"
+            }
+          }
+        }
+      },
+      {
+        "id": 73398338,
+        "home": "FK Crvena Zvezda Belgrade",
+        "homeLogo": null,
+        "away": "FC Viktoria Plzen",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T18:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.615",
+              "draw": "3.900",
+              "away": "4.600"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.725",
+              "under": "2.075"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.75,
+              "over": "1.925",
+              "under": "1.875"
+            }
+          }
+        }
+      },
+      {
+        "id": 73398332,
+        "home": "St. Truidense VV",
+        "homeLogo": null,
+        "away": "AC Omonia Nicosia",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T18:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.850",
+              "draw": "3.400",
+              "away": "3.900"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.850",
+              "under": "1.950"
+            }
+          }
+        }
+      },
+      {
+        "id": 73398372,
+        "home": "SL Benfica",
+        "homeLogo": null,
+        "away": "AGF Aarhus",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T19:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.166",
+              "draw": "7.000",
+              "away": "13.000"
+            },
+            "Bet365 (no latency)": {
+              "home": "1.16",
+              "draw": "7.00",
+              "away": "13.00"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.350",
+              "under": "3.100"
+            }
+          }
+        }
+      }
+    ],
+    "uecl": [
+      {
+        "id": 73399094,
+        "home": "Lincoln Red Imps",
+        "homeLogo": null,
+        "away": "Larne FC",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T16:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "2.050",
+              "draw": "3.500",
+              "away": "3.200"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.975",
+              "under": "1.825"
+            }
+          }
+        }
+      },
+      {
+        "id": 73399178,
+        "home": "FC Inter Turku",
+        "homeLogo": null,
+        "away": "FC Copenhagen",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T16:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "5.750",
+              "draw": "4.100",
+              "away": "1.480"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.650",
+              "under": "2.200"
+            }
+          }
+        }
+      },
+      {
+        "id": 73399186,
+        "home": "Tromsoe IL",
+        "homeLogo": null,
+        "away": "Brighton & Hove Albion",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T17:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "4.750",
+              "draw": "3.600",
+              "away": "1.650"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.700",
+              "under": "2.100"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.75,
+              "over": "1.950",
+              "under": "1.850"
+            }
+          }
+        }
+      },
+      {
+        "id": 73399214,
+        "home": "FC Midtjylland",
+        "homeLogo": null,
+        "away": "HNK Rijeka",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T17:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.600",
+              "draw": "4.000",
+              "away": "4.750"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.725",
+              "under": "2.075"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "1.72",
+              "under": "2.07"
+            }
+          }
+        }
+      },
+      {
+        "id": 73399222,
+        "home": "FC Nordsjaelland",
+        "homeLogo": null,
+        "away": "FC St. Gallen 1879",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T17:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.700",
+              "draw": "4.000",
+              "away": "4.000"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.450",
+              "under": "2.675"
+            }
+          }
+        }
+      },
+      {
+        "id": 73399090,
+        "home": "KI Klaksvik",
+        "homeLogo": null,
+        "away": "Riga FC",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T17:30:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {},
+          "total": {}
+        }
+      },
+      {
+        "id": 73399206,
+        "home": "PAOK Thessaloniki",
+        "homeLogo": null,
+        "away": "SK Brann",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T17:45:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.666",
+              "draw": "3.700",
+              "away": "4.750"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.775",
+              "under": "2.025"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "1.80",
+              "under": "2.00"
+            }
+          }
+        }
+      },
+      {
+        "id": 73399174,
+        "home": "Gornik Zabrze",
+        "homeLogo": null,
+        "away": "AS Monaco",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T18:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "5.000",
+              "draw": "4.000",
+              "away": "1.533"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.725",
+              "under": "2.075"
+            }
+          }
+        }
+      },
+      {
+        "id": 73399086,
+        "home": "FC Drita",
+        "homeLogo": null,
+        "away": "Inter Club de Escaldes",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T18:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.571",
+              "draw": "3.800",
+              "away": "5.000"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.750",
+              "under": "2.050"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "1.75",
+              "under": "2.04"
+            }
+          }
+        }
+      },
+      {
+        "id": 73399066,
+        "home": "Vikingur Reykjavik",
+        "homeLogo": null,
+        "away": "FK Borac Banja Luka",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T18:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.615",
+              "draw": "4.000",
+              "away": "4.500"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.650",
+              "under": "2.200"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "1.65",
+              "under": "2.20"
+            }
+          }
+        }
+      },
+      {
+        "id": 73399238,
+        "home": "FC Twente Enschede",
+        "homeLogo": null,
+        "away": "Qarabag FK",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T18:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": null
+      },
+      {
+        "id": 73399230,
+        "home": "FC Sion",
+        "homeLogo": null,
+        "away": "Ajax Amsterdam",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T18:15:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": null
+      },
+      {
+        "id": 73399198,
+        "home": "Panathinaikos Athens",
+        "homeLogo": null,
+        "away": "FC Hradec Kralove",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T18:30:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": null
+      },
+      {
+        "id": 73399202,
+        "home": "KAA Gent",
+        "homeLogo": null,
+        "away": "Hibernian FC",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T18:30:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": null
+      },
+      {
+        "id": 73399166,
+        "home": "Motherwell FC",
+        "homeLogo": null,
+        "away": "SC Freiburg",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T18:30:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": null
+      },
+      {
+        "id": 73399250,
+        "home": "FC Lugano",
+        "homeLogo": null,
+        "away": "Maccabi Tel Aviv FC",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T18:30:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": null
+      },
+      {
+        "id": 73399210,
+        "home": "Atalanta BC",
+        "homeLogo": null,
+        "away": "Hapoel Tel Aviv FC",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T18:30:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": null
+      },
+      {
+        "id": 73399182,
+        "home": "Heart of Midlothian FC",
+        "homeLogo": null,
+        "away": "SK Rapid",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T18:45:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": null
+      },
+      {
+        "id": 73399218,
+        "home": "Glasgow Rangers",
+        "homeLogo": null,
+        "away": "FK Jablonec",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T18:45:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": null
+      },
+      {
+        "id": 73399242,
+        "home": "Getafe CF",
+        "homeLogo": null,
+        "away": "FK Partizan Belgrade",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T19:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": null
+      },
+      {
+        "id": 73399082,
+        "home": "Shamrock Rovers",
+        "homeLogo": null,
+        "away": "Kuopion Palloseura",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T19:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": null
+      },
+      {
+        "id": 73399194,
+        "home": "HNK Hajduk Split",
+        "homeLogo": null,
+        "away": "RKS Rakow Czestochowa",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T19:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": null
+      },
+      {
+        "id": 73399226,
+        "home": "FC Dinamo City",
+        "homeLogo": null,
+        "away": "Pafos FC",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T19:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": null
+      },
+      {
+        "id": 73399234,
+        "home": "SC Braga",
+        "homeLogo": null,
+        "away": "FK Austria Wien",
+        "awayLogo": null,
+        "kickoff": "2026-08-20T19:00:00Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": null
+      }
+    ]
   },
   "standings": {
     "epl": {
@@ -2548,7 +3188,7 @@
               "points_for": 71,
               "points_against": 27,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.162Z"
+              "updated_at": "2026-08-18T07:04:12.530Z"
             },
             {
               "team_id": "c12cf38c-1e19-4095-b367-c4ef2a184bb4",
@@ -2563,7 +3203,7 @@
               "points_for": 77,
               "points_against": 35,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.175Z"
+              "updated_at": "2026-08-18T07:04:12.539Z"
             },
             {
               "team_id": "7aa8f8ce-df72-41bd-ac07-d8699514f9e0",
@@ -2578,7 +3218,7 @@
               "points_for": 69,
               "points_against": 50,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.189Z"
+              "updated_at": "2026-08-18T07:04:12.547Z"
             },
             {
               "team_id": "5e780499-f34a-4303-b887-7cbb42be6ad0",
@@ -2593,7 +3233,7 @@
               "points_for": 56,
               "points_against": 49,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.211Z"
+              "updated_at": "2026-08-18T07:04:12.555Z"
             },
             {
               "team_id": "74a9c474-32e5-4b48-b9c0-b67122a1617a",
@@ -2608,7 +3248,7 @@
               "points_for": 63,
               "points_against": 53,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.224Z"
+              "updated_at": "2026-08-18T07:04:12.563Z"
             },
             {
               "team_id": "659f7d1c-8d18-47d8-b083-dc2340708592",
@@ -2623,7 +3263,7 @@
               "points_for": 58,
               "points_against": 54,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.233Z"
+              "updated_at": "2026-08-18T07:04:12.571Z"
             },
             {
               "team_id": "ad9f372c-fbba-416d-8a2b-cca844247495",
@@ -2638,7 +3278,7 @@
               "points_for": 42,
               "points_against": 48,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.247Z"
+              "updated_at": "2026-08-18T07:04:12.580Z"
             },
             {
               "team_id": "b663685e-6611-4d9b-b817-71d68eea74f5",
@@ -2668,7 +3308,7 @@
               "points_for": 52,
               "points_against": 46,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.261Z"
+              "updated_at": "2026-08-18T07:04:12.588Z"
             },
             {
               "team_id": "f1dad0f2-fa00-4787-ab2a-4f17699d8aa8",
@@ -2683,7 +3323,7 @@
               "points_for": 55,
               "points_against": 52,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.274Z"
+              "updated_at": "2026-08-18T07:04:12.596Z"
             },
             {
               "team_id": "544de6be-906a-40c9-8d32-17ed7239348f",
@@ -2698,7 +3338,7 @@
               "points_for": 58,
               "points_against": 52,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.285Z"
+              "updated_at": "2026-08-18T07:04:12.604Z"
             },
             {
               "team_id": "1db0b3ae-b02c-489d-9cb9-660a0c8ee005",
@@ -2713,7 +3353,7 @@
               "points_for": 47,
               "points_against": 51,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.297Z"
+              "updated_at": "2026-08-18T07:04:12.612Z"
             },
             {
               "team_id": "fd1a7234-c96d-4628-a0e6-71c44b29d838",
@@ -2743,7 +3383,7 @@
               "points_for": 53,
               "points_against": 55,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.307Z"
+              "updated_at": "2026-08-18T07:04:12.620Z"
             },
             {
               "team_id": "37fc8acf-b467-4811-937d-6ebebb3fa61f",
@@ -2773,7 +3413,7 @@
               "points_for": 47,
               "points_against": 50,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.318Z"
+              "updated_at": "2026-08-18T07:04:12.629Z"
             },
             {
               "team_id": "ea86337a-d297-450e-af66-d197c1dae17a",
@@ -2788,7 +3428,7 @@
               "points_for": 49,
               "points_against": 56,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.331Z"
+              "updated_at": "2026-08-18T07:04:12.637Z"
             },
             {
               "team_id": "75b48108-aa4a-4b0f-95ee-70fbf8f2fc29",
@@ -2803,7 +3443,7 @@
               "points_for": 41,
               "points_against": 51,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.343Z"
+              "updated_at": "2026-08-18T07:04:12.644Z"
             },
             {
               "team_id": "417992e3-3af2-4dd4-a25a-ffb70ddd991b",
@@ -2818,7 +3458,7 @@
               "points_for": 48,
               "points_against": 51,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.354Z"
+              "updated_at": "2026-08-18T07:04:12.651Z"
             },
             {
               "team_id": "e03f803f-cd23-4db0-a79a-318f58734c7c",
@@ -2833,7 +3473,7 @@
               "points_for": 48,
               "points_against": 57,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.364Z"
+              "updated_at": "2026-08-18T07:04:12.659Z"
             },
             {
               "team_id": "b9d28b6f-1a20-4b1f-bd2b-97c84078c614",
@@ -2848,7 +3488,7 @@
               "points_for": 46,
               "points_against": 65,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.374Z"
+              "updated_at": "2026-08-18T07:04:12.666Z"
             },
             {
               "team_id": "410f522a-5fa5-44a5-afc2-128b4f482a96",
@@ -2863,7 +3503,7 @@
               "points_for": 38,
               "points_against": 75,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.384Z"
+              "updated_at": "2026-08-18T07:04:12.672Z"
             },
             {
               "team_id": "3161f38d-55d2-4dc3-80dc-82b665528c94",
@@ -2878,7 +3518,7 @@
               "points_for": 27,
               "points_against": 68,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.397Z"
+              "updated_at": "2026-08-18T07:04:12.680Z"
             }
           ]
         }
@@ -2905,7 +3545,7 @@
               "points_for": 95,
               "points_against": 36,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.463Z"
+              "updated_at": "2026-08-18T07:04:12.733Z"
             },
             {
               "team_id": "e0dcfb37-2786-4270-894a-af7c411627f9",
@@ -2920,7 +3560,7 @@
               "points_for": 77,
               "points_against": 35,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.474Z"
+              "updated_at": "2026-08-18T07:04:12.741Z"
             },
             {
               "team_id": "720c1633-8fc4-4e88-970a-058832c2a109",
@@ -2935,7 +3575,7 @@
               "points_for": 72,
               "points_against": 46,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.487Z"
+              "updated_at": "2026-08-18T07:04:12.750Z"
             },
             {
               "team_id": "9fe82092-5ef1-4101-b8e3-2ab08f41b82e",
@@ -2950,7 +3590,7 @@
               "points_for": 62,
               "points_against": 44,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.500Z"
+              "updated_at": "2026-08-18T07:04:12.759Z"
             },
             {
               "team_id": "dcaba401-a83a-4195-8c89-145d9bd5ad28",
@@ -2965,7 +3605,7 @@
               "points_for": 59,
               "points_against": 48,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.511Z"
+              "updated_at": "2026-08-18T07:04:12.767Z"
             },
             {
               "team_id": "d8fc1e4d-5c8b-44a1-9472-a946a0ec183f",
@@ -2980,7 +3620,7 @@
               "points_for": 53,
               "points_against": 48,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.523Z"
+              "updated_at": "2026-08-18T07:04:12.775Z"
             },
             {
               "team_id": "ae11ccec-9712-476d-9d0c-82eea145d77d",
@@ -3010,7 +3650,7 @@
               "points_for": 32,
               "points_against": 38,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.534Z"
+              "updated_at": "2026-08-18T07:04:12.786Z"
             },
             {
               "team_id": "8fdb3038-d3ab-416d-ba76-115c7d041f68",
@@ -3025,7 +3665,7 @@
               "points_for": 41,
               "points_against": 44,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.547Z"
+              "updated_at": "2026-08-18T07:04:12.795Z"
             },
             {
               "team_id": "c97ca45b-263f-45d6-8ab1-043cce8318cf",
@@ -3040,7 +3680,7 @@
               "points_for": 46,
               "points_against": 55,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.557Z"
+              "updated_at": "2026-08-18T07:04:12.803Z"
             },
             {
               "team_id": "e628c26c-4618-497b-83bf-c0242592f670",
@@ -3055,7 +3695,7 @@
               "points_for": 59,
               "points_against": 61,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.568Z"
+              "updated_at": "2026-08-18T07:04:12.811Z"
             },
             {
               "team_id": "ebe48095-9d17-44db-bfcf-14e7b317853c",
@@ -3070,7 +3710,7 @@
               "points_for": 43,
               "points_against": 55,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.579Z"
+              "updated_at": "2026-08-18T07:04:12.818Z"
             },
             {
               "team_id": "fd31cf6b-7a9c-4e9f-898d-b60e98e16dfa",
@@ -3100,7 +3740,7 @@
               "points_for": 43,
               "points_against": 58,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.589Z"
+              "updated_at": "2026-08-18T07:04:12.826Z"
             },
             {
               "team_id": "9b2c2c34-0fcd-47cf-a3f9-01559240a826",
@@ -3115,7 +3755,7 @@
               "points_for": 46,
               "points_against": 60,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.598Z"
+              "updated_at": "2026-08-18T07:04:12.834Z"
             },
             {
               "team_id": "695cc9cb-a1cf-428c-9e6a-92422e29491d",
@@ -3145,7 +3785,7 @@
               "points_for": 44,
               "points_against": 56,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.608Z"
+              "updated_at": "2026-08-18T07:04:12.842Z"
             },
             {
               "team_id": "475f53f6-206b-41a1-b0a6-59b2056b77bf",
@@ -3160,7 +3800,7 @@
               "points_for": 49,
               "points_against": 57,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.618Z"
+              "updated_at": "2026-08-18T07:04:12.850Z"
             },
             {
               "team_id": "06b2e2c1-ddd0-4872-8ca5-624d5d1a4f29",
@@ -3175,7 +3815,7 @@
               "points_for": 47,
               "points_against": 61,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.628Z"
+              "updated_at": "2026-08-18T07:04:12.858Z"
             },
             {
               "team_id": "11c16c6c-e761-4a28-8a82-f2b3ab21ad43",
@@ -3190,7 +3830,7 @@
               "points_for": 44,
               "points_against": 50,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.638Z"
+              "updated_at": "2026-08-18T07:04:12.866Z"
             },
             {
               "team_id": "d1937c39-70a9-4680-9e9a-113336fb028b",
@@ -3205,7 +3845,7 @@
               "points_for": 47,
               "points_against": 57,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.648Z"
+              "updated_at": "2026-08-18T07:04:12.874Z"
             },
             {
               "team_id": "1836a9c3-4efa-4219-b1e3-90d209bb6567",
@@ -3220,7 +3860,7 @@
               "points_for": 39,
               "points_against": 55,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.660Z"
+              "updated_at": "2026-08-18T07:04:12.882Z"
             },
             {
               "team_id": "edcd5f67-aedb-4244-b786-6190d3686e80",
@@ -3235,7 +3875,7 @@
               "points_for": 26,
               "points_against": 60,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:43.670Z"
+              "updated_at": "2026-08-18T07:04:12.890Z"
             }
           ]
         }
@@ -3262,7 +3902,7 @@
               "points_for": 89,
               "points_against": 35,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:44.250Z"
+              "updated_at": "2026-08-18T07:04:13.189Z"
             },
             {
               "team_id": "e0ecc5a1-616e-4186-afb2-5ee815b57f04",
@@ -3277,7 +3917,7 @@
               "points_for": 58,
               "points_against": 36,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:44.259Z"
+              "updated_at": "2026-08-18T07:04:13.197Z"
             },
             {
               "team_id": "22033fe3-0a71-435a-9762-749984ea439c",
@@ -3292,7 +3932,7 @@
               "points_for": 59,
               "points_against": 31,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:44.270Z"
+              "updated_at": "2026-08-18T07:04:13.206Z"
             },
             {
               "team_id": "40463b4d-7cb3-4ce4-a4ca-d2e4a71e0abf",
@@ -3307,7 +3947,7 @@
               "points_for": 65,
               "points_against": 29,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:44.280Z"
+              "updated_at": "2026-08-18T07:04:13.214Z"
             },
             {
               "team_id": "f6d37fa6-81ad-4c70-bea5-ddde2e839331",
@@ -3322,7 +3962,7 @@
               "points_for": 53,
               "points_against": 35,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:44.290Z"
+              "updated_at": "2026-08-18T07:04:13.222Z"
             },
             {
               "team_id": "1afc40a5-a6a6-41fc-85ff-95ac9c140733",
@@ -3337,7 +3977,7 @@
               "points_for": 61,
               "points_against": 34,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:44.300Z"
+              "updated_at": "2026-08-18T07:04:13.231Z"
             },
             {
               "team_id": "5390f42a-5d9a-438e-a19b-05d353c0aa26",
@@ -3352,7 +3992,7 @@
               "points_for": 51,
               "points_against": 36,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:44.312Z"
+              "updated_at": "2026-08-18T07:04:13.240Z"
             },
             {
               "team_id": "a84e310f-4fb7-41a3-ba6f-f3ea61ec16fe",
@@ -3382,7 +4022,7 @@
               "points_for": 49,
               "points_against": 46,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:44.321Z"
+              "updated_at": "2026-08-18T07:04:13.249Z"
             },
             {
               "team_id": "98b55896-77bd-4eab-b63d-43bc36c861d2",
@@ -3397,7 +4037,7 @@
               "points_for": 41,
               "points_against": 40,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:44.332Z"
+              "updated_at": "2026-08-18T07:04:13.257Z"
             },
             {
               "team_id": "54f2689e-67a8-4cb9-af85-2d518cd3f342",
@@ -3412,7 +4052,7 @@
               "points_for": 45,
               "points_against": 48,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:44.340Z"
+              "updated_at": "2026-08-18T07:04:13.265Z"
             },
             {
               "team_id": "d056c5bb-7239-417c-a9d1-71c324f8a593",
@@ -3427,7 +4067,7 @@
               "points_for": 46,
               "points_against": 50,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:44.351Z"
+              "updated_at": "2026-08-18T07:04:13.273Z"
             },
             {
               "team_id": "13988291-03bc-44b9-851c-e02140c56ba2",
@@ -3442,7 +4082,7 @@
               "points_for": 44,
               "points_against": 63,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:44.360Z"
+              "updated_at": "2026-08-18T07:04:13.282Z"
             },
             {
               "team_id": "96751637-62ae-4b89-99c6-730d6554cfbf",
@@ -3457,7 +4097,7 @@
               "points_for": 28,
               "points_against": 46,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:44.370Z"
+              "updated_at": "2026-08-18T07:04:13.290Z"
             },
             {
               "team_id": "251a4431-857e-4eb5-9a07-293b4cda3c56",
@@ -3487,7 +4127,7 @@
               "points_for": 40,
               "points_against": 53,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:44.381Z"
+              "updated_at": "2026-08-18T07:04:13.299Z"
             },
             {
               "team_id": "70226120-96e4-4516-b8a2-20a58f49bf12",
@@ -3502,7 +4142,7 @@
               "points_for": 41,
               "points_against": 50,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:44.392Z"
+              "updated_at": "2026-08-18T07:04:13.307Z"
             },
             {
               "team_id": "d8bca7a9-dd55-42c8-9b00-5388d8af40df",
@@ -3517,7 +4157,7 @@
               "points_for": 41,
               "points_against": 51,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:44.401Z"
+              "updated_at": "2026-08-18T07:04:13.315Z"
             },
             {
               "team_id": "a6e9b919-98dc-4447-a06c-216762bb5b1c",
@@ -3532,7 +4172,7 @@
               "points_for": 28,
               "points_against": 50,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:44.411Z"
+              "updated_at": "2026-08-18T07:04:13.323Z"
             },
             {
               "team_id": "e1b8a281-37c6-4178-bc86-8d0526c34d60",
@@ -3547,7 +4187,7 @@
               "points_for": 32,
               "points_against": 57,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:44.421Z"
+              "updated_at": "2026-08-18T07:04:13.332Z"
             },
             {
               "team_id": "f16550f9-4b3a-402b-add4-c38dad048a36",
@@ -3562,7 +4202,7 @@
               "points_for": 25,
               "points_against": 61,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:44.431Z"
+              "updated_at": "2026-08-18T07:04:13.340Z"
             },
             {
               "team_id": "c362d9b2-4727-42d1-aeeb-ce8d763ffe83",
@@ -3577,7 +4217,7 @@
               "points_for": 26,
               "points_against": 71,
               "streak": null,
-              "updated_at": "2026-08-18T06:02:44.441Z"
+              "updated_at": "2026-08-18T07:04:13.348Z"
             },
             {
               "team_id": "f4f0ca06-9941-4289-9ba0-76db26979dec",
