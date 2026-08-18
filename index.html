@@ -1082,10 +1082,18 @@ const MARKET_LABELS = {
   "Pitcher Strikeouts O/U": "Ponches"
 };
 
-function matchupLine(m) {
-  if (!m) return "";
+// Mano del abridor rival + su historial puntual contra el bateador, siempre
+// visible cuando aplica (no solo cuando el "why" lo menciona). Solo tiene
+// sentido para props de bateo -- el prop de K de un abridor no "enfrenta" al
+// abridor rival de la misma forma.
+function matchupLine(prop) {
+  if (prop.kind !== "hitting" || !prop.pitcherName) return "";
+  const handLabel = prop.pitcherHand === "L" ? "Zurdo" : prop.pitcherHand === "R" ? "Diestro" : "";
+  const base = `🎯 Rival: ${prop.pitcherName}${handLabel ? ` (${handLabel})` : ""}`;
+  if (!prop.matchup) return `<div class="matchup-line">${base}</div>`;
+  const m = prop.matchup;
   const sampleNote = m.ab < 5 ? " · muestra chica" : "";
-  return `<div class="matchup-line">📊 Vs ${m.pitcher} (carrera): ${m.hits}-${m.ab}, ${m.hr} HR, ${m.so} K, OPS ${m.ops}${sampleNote}</div>`;
+  return `<div class="matchup-line">${base} — historial: ${m.hits}-${m.ab}, ${m.hr} HR, ${m.so} K, OPS ${m.ops}${sampleNote}</div>`;
 }
 
 function propRow(prop) {
@@ -1096,7 +1104,8 @@ function propRow(prop) {
     <div class="prop-row">
       <div>
         <span class="prop-desc"><b>${prop.player}</b> — ${label} ${sideLabel} ${prop.line} <span class="muted">(${pct}% seg. nuestra proyección)</span></span>
-        ${matchupLine(prop.matchup)}
+        ${matchupLine(prop)}
+        ${prop.why ? `<div class="matchup-line">📊 ${prop.why}</div>` : ""}
       </div>
       <span class="prop-odds">
         ${prop.isValue ? '<span class="value-tag">Value</span>' : ""}
@@ -1114,7 +1123,8 @@ function topPropRow(prop) {
       <div style="flex:1; min-width:0;">
         <span class="prop-desc"><b>${prop.player}</b> — Over ${prop.line} ${label} <span class="muted">(${prop.game})</span> — ${pct}%</span>
         <div class="prob-meter"><div class="prob-meter-fill" style="width:${pct}%"></div></div>
-        ${prop.why ? `<div class="matchup-line">${prop.why}</div>` : ""}
+        ${matchupLine(prop)}
+        ${prop.why ? `<div class="matchup-line">📊 ${prop.why}</div>` : ""}
       </div>
       <span class="prop-odds">
         <b>${formatOdds(prop.odds)}</b>
@@ -1175,7 +1185,7 @@ function renderHeroPick(oddsMap) {
           <div class="hero-pick-odds-label">${best.bookmaker}</div>
         </div>
       </div>
-      ${best.why ? `<div class="hero-pick-why">📊 ${best.why}</div>` : ""}
+      ${(matchupLine(best) || best.why) ? `<div class="hero-pick-why">${matchupLine(best)}${best.why ? `📊 ${best.why}` : ""}</div>` : ""}
     </div>`;
 }
 
