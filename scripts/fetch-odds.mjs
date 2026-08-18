@@ -22,6 +22,21 @@ async function getJSON(url) {
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
+// Un partido nocturno en la costa oeste/central de EE.UU. arranca pasada la
+// medianoche UTC (ej: Rockies 20:40 hora local = 00:40 UTC del dia siguiente).
+// El calendario oficial de MLB sigue asignando ese partido al dia calendario
+// en que arranco en horario de EE.UU., no al dia UTC. Ningun partido de MLB
+// arranca de madrugada UTC en su fecha "real" -- si el commence_time cae antes
+// de las 10:00 UTC, en realidad pertenece al dia anterior. Sin este ajuste,
+// estos partidos quedaban guardados bajo una fecha que el sitio (que arma sus
+// claves con la fecha que devuelve el calendario oficial de MLB) nunca busca,
+// y sus props quedaban invisibles aunque estuvieran bien calculados.
+function mlbDateKey(isoDateStr) {
+  const d = new Date(isoDateStr);
+  if (d.getUTCHours() < 10) d.setUTCDate(d.getUTCDate() - 1);
+  return d.toISOString().slice(0, 10);
+}
+
 // ---------- Cuotas de partido completo (nombres exactos confirmados contra la API real) ----------
 const BOOKMAKER_ORDER = ["Bovada", "Bet365"];
 
@@ -793,7 +808,7 @@ function pickHistoryId(pick) {
 async function recordPicks(games, history) {
   const known = new Set([...history.pending, ...history.graded].map(pickHistoryId));
   for (const [key, game] of Object.entries(games)) {
-    const dateISO = game.date.slice(0, 10);
+    const dateISO = mlbDateKey(game.date);
     const gamePk = await getGamePk(game.home, dateISO);
     if (!gamePk) continue;
     const candidates = [...(game.props ?? []), ...(game.moneylinePicks ?? [])].filter(p => p.isValue);
@@ -920,7 +935,7 @@ async function main() {
       // (calendario oficial, no depende de que odds-api.io haya posteado un prop
       // de K), su mano, el parque real del local y el clima real de la hora del
       // partido.
-      const dateISO = ev.date.slice(0, 10);
+      const dateISO = mlbDateKey(ev.date);
       const [probablePitchers, teamIds] = await Promise.all([
         fetchProbablePitchers(dateISO),
         getTeamIdMap()
@@ -968,7 +983,7 @@ async function main() {
       const hasData = Object.keys(gameOdds.moneyline).length || Object.keys(gameOdds.total).length;
       if (hasData) withOdds++;
 
-      games[`${ev.away}@${ev.home}@${ev.date.slice(0, 10)}`] = {
+      games[`${ev.away}@${ev.home}@${dateISO}`] = {
         home: ev.home,
         away: ev.away,
         date: ev.date,
