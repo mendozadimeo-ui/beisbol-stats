@@ -294,6 +294,17 @@
   .prop-row .prop-desc .muted { color: var(--muted); }
   .prop-odds { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
   .prop-odds b { font-weight: 700; }
+  .matchup-line { color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .book-tag {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 4px;
+  }
+  .book-tag.bovada { color: var(--accent); border-color: rgba(79,176,255,0.4); }
   .value-tag {
     background: rgba(62,207,142,0.15);
     color: var(--win);
@@ -316,6 +327,20 @@
   .parlay-legs { margin: 0 0 8px; padding-left: 18px; font-size: 12px; }
   .parlay-legs li { margin-bottom: 3px; }
   .parlay-prob { font-size: 11px; color: var(--muted); }
+  .game-selector { margin-bottom: 16px; }
+  .game-selector .stat-chips { flex-wrap: wrap; overflow: visible; }
+  .game-chip {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 6px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .game-chip.active { background: var(--accent); color: #06131f; border-color: var(--accent); }
   .trend-tag {
     display: inline-block;
     padding: 1px 7px;
@@ -409,6 +434,7 @@
     <div class="toolbar">
       <input type="date" id="picksDate">
     </div>
+    <div id="gameSelectorSection" class="game-selector"></div>
     <div id="parlaysSection"></div>
     <div id="picksList"><div class="loading">Calculando señales…</div></div>
   </section>
@@ -804,16 +830,26 @@ const MARKET_LABELS = {
   "Pitcher Strikeouts O/U": "Ponches"
 };
 
+function matchupLine(m) {
+  if (!m) return "";
+  const sampleNote = m.ab < 5 ? " · muestra chica" : "";
+  return `<div class="matchup-line">📊 Vs ${m.pitcher} (carrera): ${m.hits}-${m.ab}, ${m.hr} HR, ${m.so} K, OPS ${m.ops}${sampleNote}</div>`;
+}
+
 function propRow(prop) {
   const label = MARKET_LABELS[prop.market] ?? prop.market;
   const sideLabel = prop.side === "over" ? "Over" : "Under";
   const pct = Math.round(prop.ourProb * 100);
   return `
     <div class="prop-row">
-      <span class="prop-desc"><b>${prop.player}</b> — ${label} ${sideLabel} ${prop.line} <span class="muted">(${pct}% seg. nuestra proyección)</span></span>
+      <div>
+        <span class="prop-desc"><b>${prop.player}</b> — ${label} ${sideLabel} ${prop.line} <span class="muted">(${pct}% seg. nuestra proyección)</span></span>
+        ${matchupLine(prop.matchup)}
+      </div>
       <span class="prop-odds">
         ${prop.isValue ? '<span class="value-tag">Value</span>' : ""}
         <b>${formatOdds(prop.odds)}</b>
+        <span class="book-tag ${prop.bookmaker === "Bovada" ? "bovada" : ""}">${prop.bookmaker}</span>
       </span>
     </div>`;
 }
@@ -944,6 +980,22 @@ async function renderPickCard(game, standingsMap, oddsMap) {
 
   const odds = oddsChip(away, home, game.gameDate, oddsMap ?? {});
 
+  // --- Spread (linea de carreras), solo la trae Bovada por esta API ---
+  const spreadBooks = Object.keys(oddsEntry?.spread ?? {});
+  let spreadChip = "", spreadTitle = "";
+  if (spreadBooks.length) {
+    const bk = spreadBooks[0];
+    const s = oddsEntry.spread[bk];
+    const homeLine = parseFloat(s.homeLine);
+    const awayLine = -homeLine;
+    const fmt = n => (n > 0 ? `+${n}` : `${n}`);
+    spreadChip = `📏 ${shortTeamName(away.team.name)} ${fmt(awayLine)} / ${shortTeamName(home.team.name)} ${fmt(homeLine)}`;
+    spreadTitle = `Línea de carreras (${bk}) — ${away.team.name}: ${fmt(awayLine)} (${formatOdds(s.awayOdds)}) · ${home.team.name}: ${fmt(homeLine)} (${formatOdds(s.homeOdds)}).`;
+  }
+
+  // --- Value pick de moneyline (Log5 propio vs. cuota real de Bovada) ---
+  const mlValuePick = (oddsEntry?.moneylinePicks ?? []).find(p => p.isValue);
+
   function compareCol(team, form, snap, pitcher) {
     return `
       <div class="compare-col">
@@ -965,6 +1017,7 @@ async function renderPickCard(game, standingsMap, oddsMap) {
       <div class="pick-badges">
         <span class="tag ${favBadge.cls}" title="${favBadge.title}">${favBadge.label}</span>
         <span class="tag ${totalBadge.cls}" title="${totalBadge.title}">${totalBadge.label}</span>
+        ${mlValuePick ? `<span class="tag hot" title="Nuestra probabilidad (${Math.round(mlValuePick.ourProb * 100)}%) supera a la implícita en la cuota de Bovada (${Math.round(mlValuePick.impliedProb * 100)}%) por ${Math.round(mlValuePick.edge * 100)} puntos. Jugable directo en Bovada.">💰 Value ML (Bovada): ${shortTeamName(mlValuePick.player)} ${formatOdds(mlValuePick.odds)}</span>` : ""}
       </div>
       <div class="compare-grid">
         ${compareCol(away.team, awayForm, awaySnap, awayPitcher)}
@@ -974,6 +1027,7 @@ async function renderPickCard(game, standingsMap, oddsMap) {
         ${parkChip ? `<span class="chip" title="${parkTitle}">${parkChip}</span>` : ""}
         ${weatherChip ? `<span class="chip" title="${weatherTitle}">${weatherChip}</span>` : ""}
         ${bullpenChip ? `<span class="chip" title="${bullpenTitle}">${bullpenChip}</span>` : ""}
+        ${spreadChip ? `<span class="chip" title="${spreadTitle}">${spreadChip}</span>` : ""}
         ${odds.chip ? `<span class="chip chip-odds" title="${odds.title}">${odds.chip}</span>` : ""}
       </div>
       ${propsSectionHTML(away, home, game.gameDate, oddsMap, awayPitcher, homePitcher)}
@@ -1010,6 +1064,7 @@ function formatOdds(decimalOddsStr) {
 }
 
 const PARLAY_CATEGORY_META = {
+  moneyline: { icon: "💰", label: "Moneyline" },
   bateo: { icon: "🥎", label: "Bateo" },
   pitcheo: { icon: "⚾", label: "Pitcheo" },
   mixto: { icon: "🎯", label: "Mixto" }
@@ -1017,19 +1072,28 @@ const PARLAY_CATEGORY_META = {
 let currentParlays = [];
 let parlayFilter = "todos";
 
+function legLabel(l) {
+  if (l.market === "Moneyline") return `${l.player} — Moneyline (gana el partido)`;
+  return `${l.player} — ${l.market} ${l.side === "over" ? "Over" : "Under"} ${l.line}`;
+}
+
 function renderParlayCards(parlays) {
   const filtered = parlayFilter === "todos" ? parlays : parlays.filter(p => p.category === parlayFilter);
   if (!filtered.length) return '<div class="muted" style="margin-bottom:16px;">No hay parlays en esta categoría hoy.</div>';
   return filtered.map(p => {
     const meta = PARLAY_CATEGORY_META[p.category] ?? { icon: "🎲", label: "" };
+    const bovada = p.bookmaker === "Bovada";
     return `
     <div class="parlay-card">
       <div class="parlay-header">
         <span class="parlay-label">${meta.icon} ${p.label}</span>
         <span class="parlay-odds">${formatOdds(String(p.combinedOdds))}</span>
       </div>
+      <span class="book-tag ${bovada ? "bovada" : ""}" style="margin-bottom:8px; display:inline-block;">
+        ${bovada ? "✅ Jugable en Bovada" : "⚠️ Cuotas de Bet365 — no disponible en Bovada"}
+      </span>
       <ul class="parlay-legs">
-        ${p.legs.map(l => `<li><b>${l.player}</b> — ${l.market} ${l.side === "over" ? "Over" : "Under"} ${l.line} <span class="muted">(${l.game}, ${Math.round(l.ourProb * 100)}% según nuestra proyección)</span></li>`).join("")}
+        ${p.legs.map(l => `<li><b>${legLabel(l)}</b> <span class="muted">(${l.game}, ${Math.round(l.ourProb * 100)}% según nuestra proyección)</span></li>`).join("")}
       </ul>
       <div class="parlay-prob">Probabilidad combinada estimada: ${Math.round(p.combinedProb * 100)}% — asume que los picks son independientes entre sí, lo cual es una simplificación.</div>
     </div>`;
@@ -1045,7 +1109,7 @@ function renderParlaysSection(parlays) {
       ${categories.map(c => `<button data-cat="${c}" class="${c === parlayFilter ? "active" : ""}">${c === "todos" ? "Todos" : `${PARLAY_CATEGORY_META[c]?.icon ?? ""} ${PARLAY_CATEGORY_META[c]?.label ?? c}`}</button>`).join("")}
     </div>` : "";
   return `
-    <div class="disclaimer">🎲 Parlays sugeridos combinando los picks con mayor diferencia entre nuestra proyección estadística y la cuota del mercado. Más cuota = más difícil que pegue. Siempre hay factor suerte — esto no es una garantía.</div>
+    <div class="disclaimer">🎲 Parlays sugeridos combinando los picks con mayor diferencia entre nuestra proyección estadística y la cuota del mercado. Más cuota = más difícil que pegue. Siempre hay factor suerte — esto no es una garantía.<br><br>💰 <b>Moneyline</b> se calcula contra la cuota real de <b>Bovada</b> — 100% jugable ahí. 🥎⚾🎯 <b>Bateo/Pitcheo/Mixto</b> usan props de <b>Bet365</b>, porque Bovada no ofrece props de jugadores por esta API — esas cuotas pueden no coincidir con lo que veas en tu cuenta de Bovada.</div>
     ${filterHTML}
     <div class="parlays-grid" id="parlaysGrid">${renderParlayCards(currentParlays)}</div>`;
 }
@@ -1056,6 +1120,112 @@ document.addEventListener("click", e => {
   parlayFilter = btn.dataset.cat;
   document.querySelectorAll("#parlayFilterToggle button").forEach(b => b.classList.toggle("active", b === btn));
   document.getElementById("parlaysGrid").innerHTML = renderParlayCards(currentParlays);
+});
+
+// ---------- Selector de partidos para picks/parlays personalizados ----------
+let picksGamesCache = [];
+let picksStandingsCache = {};
+let picksOddsMapCache = {};
+let picksServerParlaysCache = [];
+let selectedGameKeys = new Set();
+
+function gameKeyFor(g) {
+  return `${g.teams.away.team.name}@${g.teams.home.team.name}@${g.gameDate.slice(0, 10)}`;
+}
+
+function renderGameSelector() {
+  const el = document.getElementById("gameSelectorSection");
+  if (!el || !picksGamesCache.length) return;
+  const chips = picksGamesCache.map(g => {
+    const key = gameKeyFor(g);
+    const active = selectedGameKeys.has(key);
+    return `<button class="game-chip ${active ? "active" : ""}" data-key="${key}">${shortTeamName(g.teams.away.team.name)} @ ${shortTeamName(g.teams.home.team.name)}</button>`;
+  }).join("");
+  el.innerHTML = `
+    <div class="props-title">Elegí tus partidos (opcional) — filtra las tarjetas y arma parlays solo con esos juegos</div>
+    <div class="stat-chips">${chips}${selectedGameKeys.size ? '<button id="clearGameSelection" style="color:var(--loss);border-color:var(--loss);">✕ Limpiar</button>' : ""}</div>`;
+}
+
+const BATTING_MARKETS_FE = new Set(["Hits O/U", "Home Runs O/U", "Total Bases O/U"]);
+
+function buildClientParlays(gameKeys, oddsMap) {
+  const pool = [];
+  gameKeys.forEach(key => {
+    const entry = oddsMap[key];
+    if (!entry) return;
+    const game = `${entry.away} @ ${entry.home}`;
+    (entry.props ?? []).forEach(p => pool.push({ ...p, game }));
+    (entry.moneylinePicks ?? []).forEach(p => pool.push({ ...p, game }));
+  });
+  const valuePicks = pool.filter(p => p.isValue).sort((a, b) => b.edge - a.edge);
+  const battingPicks = valuePicks.filter(p => BATTING_MARKETS_FE.has(p.market));
+  const pitchingPicks = valuePicks.filter(p => p.market === "Pitcher Strikeouts O/U");
+  const moneylinePicks = valuePicks.filter(p => p.market === "Moneyline");
+
+  function toParlay(legs, label, category) {
+    if (legs.length < 2) return null;
+    const combinedOdds = legs.reduce((acc, l) => acc * parseFloat(l.odds), 1);
+    const combinedProb = legs.reduce((acc, l) => acc * l.ourProb, 1);
+    return {
+      label, category, bookmaker: category === "moneyline" ? "Bovada" : "Bet365",
+      legs, combinedOdds: Math.round(combinedOdds * 100) / 100, combinedProb: Math.round(combinedProb * 1000) / 1000
+    };
+  }
+  function takeTop(p, count) {
+    const used = new Set(), legs = [];
+    for (const item of p) {
+      if (legs.length >= count) break;
+      if (used.has(item.player)) continue;
+      legs.push(item);
+      used.add(item.player);
+    }
+    return legs;
+  }
+
+  const parlays = [];
+  const add = (p, count, label, cat) => { const pl = toParlay(takeTop(p, count), label, cat); if (pl) parlays.push(pl); };
+  add(moneylinePicks, 2, "Moneyline (2 picks)", "moneyline");
+  add(battingPicks, 2, "Solo bateo (2 picks)", "bateo");
+  add(pitchingPicks, 2, "Solo pitcheo (2 picks)", "pitcheo");
+  add(valuePicks.filter(p => p.market !== "Moneyline"), 3, "Mixto (3 picks)", "mixto");
+  if (!parlays.length && valuePicks.length >= 2) {
+    add(valuePicks, Math.min(valuePicks.length, 4), "Con lo disponible en tu selección", "mixto");
+  }
+  return parlays;
+}
+
+async function renderPicksForSelection() {
+  const el = document.getElementById("picksList");
+  const filteredGames = selectedGameKeys.size
+    ? picksGamesCache.filter(g => selectedGameKeys.has(gameKeyFor(g)))
+    : picksGamesCache;
+  el.innerHTML = '<div class="loading">Calculando señales…</div>';
+  const cardsHTML = await Promise.all(filteredGames.map(g => renderPickCard(g, picksStandingsCache, picksOddsMapCache)));
+  el.innerHTML = cardsHTML.join("");
+
+  const parlaysToShow = selectedGameKeys.size
+    ? buildClientParlays([...selectedGameKeys], picksOddsMapCache)
+    : picksServerParlaysCache;
+  document.getElementById("parlaysSection").innerHTML =
+    selectedGameKeys.size && !parlaysToShow.length
+      ? '<div class="muted" style="margin-bottom:16px;">No encontramos value picks suficientes en los partidos que elegiste para armar un parlay. Probá agregando otro partido.</div>'
+      : renderParlaysSection(parlaysToShow);
+  renderGameSelector();
+}
+
+document.addEventListener("click", e => {
+  const chip = e.target.closest(".game-chip");
+  if (chip) {
+    const key = chip.dataset.key;
+    if (selectedGameKeys.has(key)) selectedGameKeys.delete(key);
+    else selectedGameKeys.add(key);
+    renderPicksForSelection();
+    return;
+  }
+  if (e.target.closest("#clearGameSelection")) {
+    selectedGameKeys.clear();
+    renderPicksForSelection();
+  }
 });
 
 async function loadPicks(date) {
@@ -1069,12 +1239,20 @@ async function loadPicks(date) {
     ]);
     const oddsMap = oddsSnapshot.games ?? {};
     const games = (scheduleData.dates?.[0]?.games ?? []).filter(g => g.status.abstractGameState === "Preview");
+    picksGamesCache = games;
+    picksStandingsCache = standingsMap;
+    picksOddsMapCache = oddsMap;
+    picksServerParlaysCache = oddsSnapshot.parlays ?? [];
+    selectedGameKeys = new Set();
     if (!games.length) {
       el.innerHTML = '<div class="muted">No hay partidos por jugarse ese día (ya finalizaron o no hay calendario).</div>';
+      document.getElementById("gameSelectorSection").innerHTML = "";
+      document.getElementById("parlaysSection").innerHTML = "";
       return;
     }
     const cardsHTML = await Promise.all(games.map(g => renderPickCard(g, standingsMap, oddsMap)));
-    document.getElementById("parlaysSection").innerHTML = renderParlaysSection(oddsSnapshot.parlays);
+    document.getElementById("parlaysSection").innerHTML = renderParlaysSection(picksServerParlaysCache);
+    renderGameSelector();
     el.innerHTML = cardsHTML.join("");
   } catch (e) {
     el.innerHTML = `<div class="error">No se pudieron calcular las señales (${e.message}).</div>`;

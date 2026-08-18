@@ -9,7 +9,7 @@ if (!API_KEY) {
   process.exit(1);
 }
 
-const BOOKMAKERS = "Bet365,DraftKings";
+const BOOKMAKERS = "Bovada,Bet365";
 const ODDS_BASE = "https://api.odds-api.io/v3";
 const MLB_BASE = "https://statsapi.mlb.com/api/v1";
 const SEASON = new Date().getFullYear();
@@ -23,9 +23,15 @@ async function getJSON(url) {
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 // ---------- Cuotas de partido completo (nombres exactos confirmados contra la API real) ----------
+const BOOKMAKER_ORDER = ["Bovada", "Bet365"];
+
 function extractGameOdds(oddsResponse) {
-  const result = { moneyline: {}, total: {} };
-  for (const [bookmaker, markets] of Object.entries(oddsResponse.bookmakers ?? {})) {
+  const result = { moneyline: {}, total: {}, spread: {} };
+  const bookmakers = oddsResponse.bookmakers ?? {};
+  const orderedNames = [...BOOKMAKER_ORDER, ...Object.keys(bookmakers).filter(b => !BOOKMAKER_ORDER.includes(b))];
+  for (const bookmaker of orderedNames) {
+    const markets = bookmakers[bookmaker];
+    if (!markets) continue;
     for (const market of markets) {
       const o = market.odds[0];
       if (!o) continue;
@@ -33,10 +39,55 @@ function extractGameOdds(oddsResponse) {
         result.moneyline[bookmaker] = { home: o.home, away: o.away };
       } else if (market.name === "Totals" && o.hdp != null) {
         result.total[bookmaker] = { line: o.hdp, over: o.over ?? null, under: o.under ?? null };
+      } else if (market.name === "Spread" && o.hdp != null && o.home != null && o.away != null) {
+        // hdp es la linea del local (ej -1.5); el visitante corre +1.5
+        result.spread[bookmaker] = { homeLine: o.hdp, homeOdds: o.home, awayOdds: o.away };
       }
     }
   }
   return result;
+}
+
+// ---------- Probabilidad de victoria propia (Log5) para comparar contra el moneyline real ----------
+async function fetchStandingsMap() {
+  // El endpoint de standings devuelve nombres cortos ("Dodgers"), pero el resto
+  // del pipeline (odds-api.io, schedule, etc.) usa nombres completos ("Los Angeles
+  // Dodgers"). Cruzamos por team.id, que es consistente en toda la API de MLB.
+  const [standingsData, teamsData] = await Promise.all([
+    getJSON(`${MLB_BASE}/standings?leagueId=103,104&season=${SEASON}&standingsTypes=regularSeason`),
+    getJSON(`${MLB_BASE}/teams?sportId=1`)
+  ]);
+  const byId = {};
+  for (const division of standingsData.records ?? []) {
+    for (const r of division.teamRecords ?? []) {
+      const last10 = r.records?.splitRecords?.find(s => s.type === "lastTen");
+      const streakNum = r.streak?.streakNumber ?? 0;
+      byId[r.team.id] = {
+        pct: parseFloat(r.leagueRecord.pct) || 0.5,
+        streakSigned: r.streak?.streakType === "wins" ? streakNum : -streakNum,
+        last10Diff: last10 ? last10.wins - last10.losses : 0
+      };
+    }
+  }
+  const map = {};
+  for (const t of teamsData.teams ?? []) {
+    if (byId[t.id]) map[t.name] = byId[t.id];
+  }
+  return map;
+}
+
+// Metodo Log5 (Bill James): probabilidad de que el equipo A le gane a B a partir
+// de sus porcentajes de victoria en la temporada, mas un ajuste chico por racha y localia.
+function estimateWinProb(teamName, oppName, standingsMap, isHome) {
+  const t = standingsMap[teamName];
+  const o = standingsMap[oppName];
+  if (!t || !o) return null;
+  const pa = Math.min(0.9, Math.max(0.1, t.pct));
+  const pb = Math.min(0.9, Math.max(0.1, o.pct));
+  let p = (pa - pa * pb) / (pa + pb - 2 * pa * pb);
+  const streakAdj = (t.streakSigned - o.streakSigned) * 0.01 + (t.last10Diff - o.last10Diff) * 0.008;
+  p += streakAdj + (isHome ? 0.02 : -0.02);
+  return Math.max(0.05, Math.min(0.95, p));
 }
 
 // ---------- Props de jugador ----------
@@ -50,7 +101,7 @@ const PROP_MARKETS = {
 function extractProps(oddsResponse) {
   // player -> market -> { line, over, under, bookmaker }
   const props = [];
-  const preferredOrder = ["Bet365", "DraftKings"];
+  const preferredOrder = ["Bovada", "Bet365"];
   const seen = new Set();
   for (const bookmaker of preferredOrder) {
     const markets = oddsResponse.bookmakers?.[bookmaker];
@@ -132,17 +183,43 @@ async function fetchPlayerProjection(name) {
     if (isPitcher) {
       const starts = stat.gamesStarted || stat.gamesPlayed || 0;
       if (!starts) return null;
-      return { isPitcher: true, team, kPerStart: stat.strikeOuts / starts, tbPerGame: null, hrPerGame: null, avg: null, abPerGame: null };
+      return { isPitcher: true, id: person.id, team, kPerStart: stat.strikeOuts / starts, tbPerGame: null, hrPerGame: null, avg: null, abPerGame: null };
     }
     const gamesPlayed = stat.gamesPlayed || 0;
     if (!gamesPlayed) return null;
     return {
       isPitcher: false,
+      id: person.id,
       team,
       avg: parseFloat(stat.avg) || 0,
       abPerGame: (stat.atBats || 0) / gamesPlayed,
       hrPerGame: (stat.homeRuns || 0) / gamesPlayed,
       tbPerGame: (stat.totalBases || 0) / gamesPlayed
+    };
+  } catch {
+    return null;
+  }
+}
+
+// ---------- Historial bateador vs abridor rival (carrera completa) ----------
+const matchupCache = new Map();
+async function getMatchup(batterId, pitcherId) {
+  const key = `${batterId}-${pitcherId}`;
+  if (matchupCache.has(key)) return matchupCache.get(key);
+  const result = await fetchMatchup(batterId, pitcherId);
+  matchupCache.set(key, result);
+  return result;
+}
+async function fetchMatchup(batterId, pitcherId) {
+  try {
+    const data = await getJSON(
+      `${MLB_BASE}/people/${batterId}/stats?stats=vsPlayerTotal&opposingPlayerId=${pitcherId}&group=hitting`
+    );
+    const stat = data.stats?.[0]?.splits?.[0]?.stat;
+    if (!stat || !stat.atBats) return null;
+    return {
+      ab: stat.atBats, hits: stat.hits, hr: stat.homeRuns, so: stat.strikeOuts,
+      bb: stat.baseOnBalls, avg: stat.avg, ops: stat.ops
     };
   } catch {
     return null;
@@ -199,6 +276,39 @@ async function evaluateProp(prop, awayTeam, homeTeam) {
   };
 }
 
+// ---------- Moneyline de valor, evaluado SOLO contra la cuota de Bovada ----------
+// (para que un pick recomendado siempre sea jugable en la casa que el usuario realmente usa)
+function evaluateMoneylineLegs(ev, gameOdds, standingsMap) {
+  const ml = gameOdds.moneyline?.Bovada;
+  if (!ml) return [];
+  const awayProb = estimateWinProb(ev.away, ev.home, standingsMap, false);
+  if (awayProb == null) return [];
+  const homeProb = 1 - awayProb;
+
+  const legs = [];
+  const awayImplied = decimalToImpliedProb(ml.away);
+  const homeImplied = decimalToImpliedProb(ml.home);
+  if (awayImplied != null) {
+    const edge = Math.round((awayProb - awayImplied) * 1000) / 1000;
+    legs.push({
+      market: "Moneyline", kind: "moneyline", player: ev.away, line: null, side: "gana",
+      odds: ml.away, bookmaker: "Bovada",
+      ourProb: Math.round(awayProb * 1000) / 1000, impliedProb: Math.round(awayImplied * 1000) / 1000,
+      edge, isValue: edge >= 0.06
+    });
+  }
+  if (homeImplied != null) {
+    const edge = Math.round((homeProb - homeImplied) * 1000) / 1000;
+    legs.push({
+      market: "Moneyline", kind: "moneyline", player: ev.home, line: null, side: "gana",
+      odds: ml.home, bookmaker: "Bovada",
+      ourProb: Math.round(homeProb * 1000) / 1000, impliedProb: Math.round(homeImplied * 1000) / 1000,
+      edge, isValue: edge >= 0.06
+    });
+  }
+  return legs;
+}
+
 // ---------- Parlays recomendados ----------
 const BATTING_MARKETS = new Set(["Hits O/U", "Home Runs O/U", "Total Bases O/U"]);
 const REUSE_EDGE_THRESHOLD = 0.20; // pick muy fuerte: se deja repetir en mas de un parlay igual
@@ -209,14 +319,19 @@ function buildParlays(allEvaluatedProps) {
     .sort((a, b) => b.edge - a.edge);
   const battingPicks = valuePicks.filter(p => BATTING_MARKETS.has(p.market));
   const pitchingPicks = valuePicks.filter(p => p.market === "Pitcher Strikeouts O/U");
+  const moneylinePicks = valuePicks.filter(p => p.market === "Moneyline");
 
   function toParlay(legs, label, category) {
     if (legs.length < 2) return null;
     const combinedOdds = legs.reduce((acc, l) => acc * parseFloat(l.odds), 1);
     const combinedProb = legs.reduce((acc, l) => acc * l.ourProb, 1);
+    // Los props (bateo/pitcheo) solo existen en Bet365; el moneyline lo evaluamos
+    // exclusivamente contra Bovada, asi que un parlay siempre es 100% de una sola casa.
+    const bookmaker = category === "moneyline" ? "Bovada" : "Bet365";
     return {
       label,
       category,
+      bookmaker,
       legs: legs.map(l => ({
         player: l.player, market: l.market, side: l.side, line: l.line,
         odds: l.odds, ourProb: l.ourProb, game: l.game
@@ -259,12 +374,13 @@ function buildParlays(allEvaluatedProps) {
     if (parlay) parlays.push(parlay);
   }
 
+  add(moneylinePicks, 2, "Moneyline (2 picks)", "moneyline");
+  add(moneylinePicks, 3, "Moneyline (3 picks)", "moneyline");
   add(battingPicks, 2, "Solo bateo (2 picks)", "bateo");
   add(battingPicks, 3, "Solo bateo (3 picks)", "bateo");
   add(pitchingPicks, 2, "Solo pitcheo (2 picks)", "pitcheo");
-  add(valuePicks, 3, "Mixto (3 picks)", "mixto");
-  add(valuePicks, 4, "Mixto (4 picks)", "mixto");
-  add(valuePicks, 5, "Alto pago (5 picks)", "mixto");
+  add(valuePicks.filter(p => p.market !== "Moneyline"), 3, "Mixto (3 picks)", "mixto");
+  add(valuePicks.filter(p => p.market !== "Moneyline"), 4, "Mixto (4 picks)", "mixto");
 
   return parlays;
 }
@@ -286,6 +402,8 @@ async function main() {
   const cutoff = Date.now() + 2 * 24 * 60 * 60 * 1000;
   const events = allEvents.filter(ev => new Date(ev.date).getTime() <= cutoff);
 
+  const standingsMap = await fetchStandingsMap().catch(() => ({}));
+
   const games = {};
   const allEvaluatedProps = [];
   let withOdds = 0;
@@ -306,6 +424,28 @@ async function main() {
         }
       }
 
+      // Historial bateador vs abridor rival, para los bateadores con props en este partido.
+      const pitchersByTeam = {};
+      for (const prop of evaluatedProps) {
+        if (prop.market !== "Pitcher Strikeouts O/U") continue;
+        const proj = await getPlayerProjection(prop.player);
+        if (proj?.id && proj.team) pitchersByTeam[proj.team] = { id: proj.id, name: prop.player };
+      }
+      for (const prop of evaluatedProps) {
+        if (!BATTING_MARKETS.has(prop.market)) continue;
+        const proj = await getPlayerProjection(prop.player);
+        if (!proj?.id || !proj.team) continue;
+        const opposingTeam = proj.team === ev.home ? ev.away : ev.home;
+        const pitcher = pitchersByTeam[opposingTeam];
+        if (!pitcher) continue;
+        const matchup = await getMatchup(proj.id, pitcher.id);
+        if (matchup) prop.matchup = { pitcher: pitcher.name, ...matchup };
+      }
+
+      // Moneyline de valor, evaluado solo contra Bovada (asi siempre es jugable ahi).
+      const moneylineLegs = evaluateMoneylineLegs(ev, gameOdds, standingsMap);
+      moneylineLegs.forEach(leg => allEvaluatedProps.push({ ...leg, game: `${ev.away} @ ${ev.home}` }));
+
       const hasData = Object.keys(gameOdds.moneyline).length || Object.keys(gameOdds.total).length;
       if (hasData) withOdds++;
 
@@ -314,7 +454,8 @@ async function main() {
         away: ev.away,
         date: ev.date,
         ...gameOdds,
-        props: evaluatedProps
+        props: evaluatedProps,
+        moneylinePicks: moneylineLegs
       };
     } catch (e) {
       console.error(`Error en evento ${ev.id}:`, e.message);
@@ -332,9 +473,11 @@ async function main() {
   const fs = await import("node:fs/promises");
   await fs.mkdir("data", { recursive: true });
   await fs.writeFile("data/odds.json", JSON.stringify(output, null, 2));
+  const matchupCount = Object.values(games).reduce((acc, g) => acc + g.props.filter(p => p.matchup).length, 0);
   console.log(
     `Listo: ${Object.keys(games).length} partidos, ${withOdds} con moneyline/total, ` +
-    `${allEvaluatedProps.length} props evaluadas, ${allEvaluatedProps.filter(p => p.isValue).length} value picks, ${parlays.length} parlays.`
+    `${allEvaluatedProps.length} picks evaluados (props + moneyline), ${allEvaluatedProps.filter(p => p.isValue).length} value picks, ` +
+    `${matchupCount} matchups bateador-vs-abridor, ${parlays.length} parlays.`
   );
 }
 
