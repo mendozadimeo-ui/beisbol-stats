@@ -267,6 +267,7 @@ async function evaluateProp(prop, awayTeam, homeTeam) {
 
   return {
     ...prop,
+    playerId: proj.id,
     side: pick.side,
     odds: pick.odds,
     ourProb: Math.round(pick.ourProb * 1000) / 1000,
@@ -385,6 +386,127 @@ function buildParlays(allEvaluatedProps) {
   return parlays;
 }
 
+// ---------- Registro y calificacion de picks (aciertos/fallos historicos) ----------
+const HISTORY_PATH = "data/history.json";
+
+async function loadHistory() {
+  try {
+    const fs = await import("node:fs/promises");
+    const raw = await fs.readFile(HISTORY_PATH, "utf8");
+    const data = JSON.parse(raw);
+    return { pending: data.pending ?? [], graded: data.graded ?? [] };
+  } catch {
+    return { pending: [], graded: [] };
+  }
+}
+
+async function saveHistory(history) {
+  const fs = await import("node:fs/promises");
+  await fs.mkdir("data", { recursive: true });
+  await fs.writeFile(HISTORY_PATH, JSON.stringify(history, null, 2));
+}
+
+const scheduleByDateCache = new Map();
+async function getGamePk(homeTeam, dateISO) {
+  if (!scheduleByDateCache.has(dateISO)) {
+    try {
+      const data = await getJSON(`${MLB_BASE}/schedule?sportId=1&date=${dateISO}`);
+      const map = {};
+      (data.dates?.[0]?.games ?? []).forEach(g => { map[g.teams.home.team.name] = g.gamePk; });
+      scheduleByDateCache.set(dateISO, map);
+    } catch {
+      scheduleByDateCache.set(dateISO, {});
+    }
+  }
+  return scheduleByDateCache.get(dateISO)[homeTeam] ?? null;
+}
+
+function pickHistoryId(pick) {
+  return `${pick.date}|${pick.gamePk}|${pick.market}|${pick.player}|${pick.line ?? ""}|${pick.side}`;
+}
+
+// Guarda cada value pick recomendado hoy (si todavia no estaba registrado) como "pendiente".
+async function recordPicks(games, history) {
+  const known = new Set([...history.pending, ...history.graded].map(pickHistoryId));
+  for (const [key, game] of Object.entries(games)) {
+    const dateISO = game.date.slice(0, 10);
+    const gamePk = await getGamePk(game.home, dateISO);
+    if (!gamePk) continue;
+    const candidates = [...(game.props ?? []), ...(game.moneylinePicks ?? [])].filter(p => p.isValue);
+    for (const p of candidates) {
+      const record = {
+        date: dateISO, gamePk, game: `${game.away} @ ${game.home}`,
+        market: p.market, player: p.player, playerId: p.playerId ?? null,
+        line: p.line ?? null, side: p.side, odds: p.odds, bookmaker: p.bookmaker,
+        ourProb: p.ourProb, edge: p.edge
+      };
+      const id = pickHistoryId(record);
+      if (known.has(id)) continue;
+      known.add(id);
+      history.pending.push({ id, ...record, recordedAt: new Date().toISOString() });
+    }
+  }
+}
+
+function gradeMoneyline(pick, game) {
+  const homeScore = game.teams.home.score, awayScore = game.teams.away.score;
+  if (homeScore == null || awayScore == null || homeScore === awayScore) return null;
+  const homeWon = homeScore > awayScore;
+  const pickedHome = pick.player === game.teams.home.team.name;
+  const won = pickedHome ? homeWon : !homeWon;
+  return {
+    result: won ? "win" : "loss",
+    actual: `${game.teams.away.team.name} ${awayScore} - ${game.teams.home.team.name} ${homeScore}`
+  };
+}
+
+async function gradeProp(pick, game) {
+  if (!pick.playerId) return null;
+  const box = await getJSON(`${MLB_BASE}/game/${pick.gamePk}/boxscore`);
+  const sides = [box.teams?.home, box.teams?.away];
+  let playerBox = null;
+  for (const side of sides) {
+    const found = side?.players?.[`ID${pick.playerId}`];
+    if (found) { playerBox = found; break; }
+  }
+  if (!playerBox) return null;
+  const statMap = {
+    "Hits O/U": playerBox.stats?.batting?.hits,
+    "Home Runs O/U": playerBox.stats?.batting?.homeRuns,
+    "Total Bases O/U": playerBox.stats?.batting?.totalBases,
+    "Pitcher Strikeouts O/U": playerBox.stats?.pitching?.strikeOuts
+  };
+  const statValue = statMap[pick.market];
+  if (statValue == null) return null; // no jugo / no lanzo (ej. lo sacaron del lineup)
+  const over = statValue > pick.line;
+  const won = pick.side === "over" ? over : !over;
+  return { result: won ? "win" : "loss", actual: statValue };
+}
+
+async function gradePendingPicks(history) {
+  const stillPending = [];
+  for (const pick of history.pending) {
+    try {
+      const daysOld = (Date.now() - new Date(pick.recordedAt).getTime()) / (1000 * 60 * 60 * 24);
+      if (daysOld > 6) continue; // partido cancelado/suspendido, no lo arrastramos para siempre
+
+      const scheduleData = await getJSON(`${MLB_BASE}/schedule?sportId=1&gamePk=${pick.gamePk}`);
+      const game = scheduleData.dates?.[0]?.games?.[0];
+      if (!game || game.status.abstractGameState !== "Final") {
+        stillPending.push(pick);
+        continue;
+      }
+      const graded = pick.market === "Moneyline" ? gradeMoneyline(pick, game) : await gradeProp(pick, game);
+      if (!graded) { stillPending.push(pick); continue; }
+      history.graded.unshift({ ...pick, ...graded, gradedAt: new Date().toISOString() });
+    } catch {
+      stillPending.push(pick);
+    }
+  }
+  history.pending = stillPending;
+  history.graded = history.graded.slice(0, 400);
+}
+
 async function main() {
   let allEvents;
   try {
@@ -473,11 +595,22 @@ async function main() {
   const fs = await import("node:fs/promises");
   await fs.mkdir("data", { recursive: true });
   await fs.writeFile("data/odds.json", JSON.stringify(output, null, 2));
+
+  // Registramos los picks de hoy como pendientes, y calificamos los de dias
+  // anteriores cuyo partido ya termino (compara contra el resultado real).
+  const history = await loadHistory();
+  await recordPicks(games, history);
+  await gradePendingPicks(history);
+  await saveHistory(history);
+  const wins = history.graded.filter(p => p.result === "win").length;
+  const losses = history.graded.filter(p => p.result === "loss").length;
+
   const matchupCount = Object.values(games).reduce((acc, g) => acc + g.props.filter(p => p.matchup).length, 0);
   console.log(
     `Listo: ${Object.keys(games).length} partidos, ${withOdds} con moneyline/total, ` +
     `${allEvaluatedProps.length} picks evaluados (props + moneyline), ${allEvaluatedProps.filter(p => p.isValue).length} value picks, ` +
-    `${matchupCount} matchups bateador-vs-abridor, ${parlays.length} parlays.`
+    `${matchupCount} matchups bateador-vs-abridor, ${parlays.length} parlays. ` +
+    `Historial: ${wins}-${losses} (${history.pending.length} pendientes).`
   );
 }
 

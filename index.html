@@ -341,6 +341,39 @@
     white-space: nowrap;
   }
   .game-chip.active { background: var(--accent); color: #06131f; border-color: var(--accent); }
+  .results-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .results-stat-box {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    text-align: center;
+  }
+  .results-stat-box .v { font-size: 22px; font-weight: 800; }
+  .results-stat-box .v.win { color: var(--win); }
+  .results-stat-box .v.loss { color: var(--loss); }
+  .results-stat-box .l { font-size: 11px; color: var(--muted); text-transform: uppercase; margin-top: 4px; }
+  .result-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+  }
+  .result-icon { font-size: 18px; flex-shrink: 0; width: 22px; text-align: center; }
+  .result-body { flex: 1; min-width: 0; font-size: 13px; }
+  .result-body .rd-title { font-weight: 600; }
+  .result-body .rd-meta { color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .result-row.win { border-color: rgba(62,207,142,0.35); }
+  .result-row.loss { border-color: rgba(239,91,91,0.35); }
   .trend-tag {
     display: inline-block;
     padding: 1px 7px;
@@ -413,6 +446,7 @@
     <button class="tab-btn" data-tab="leaders">Líderes</button>
     <button class="tab-btn" data-tab="standings">Posiciones</button>
     <button class="tab-btn" data-tab="players">Jugadores</button>
+    <button class="tab-btn" data-tab="results">Resultados</button>
   </nav>
 </header>
 
@@ -466,6 +500,14 @@
     </div>
     <div id="playerResults" class="player-results"></div>
     <div id="playerDetail"></div>
+  </section>
+
+  <section id="tab-results" class="tab">
+    <div class="disclaimer">
+      📋 Historial real de los picks recomendados (Value ML, props de bateo/pitcheo). Cada pick se registra ni bien se recomienda y se califica solo cuando el partido termina, comparando contra el resultado real. Nada se edita a mano.
+    </div>
+    <div id="resultsSummary"></div>
+    <div id="resultsList"><div class="loading">Cargando historial…</div></div>
   </section>
 
 </main>
@@ -1601,11 +1643,69 @@ function logTable(games, columns) {
     </table>`;
 }
 
+// ---------- Resultados (historial de aciertos/fallos) ----------
+function resultRowHTML(p) {
+  const icon = p.result === "win" ? "✅" : "❌";
+  const label = MARKET_LABELS[p.market] ?? p.market;
+  const desc = p.market === "Moneyline"
+    ? `${p.player} — Moneyline gana`
+    : `${p.player} — ${label} ${p.side === "over" ? "Over" : "Under"} ${p.line}`;
+  const actualDesc = p.market === "Moneyline" ? p.actual : `resultado real: ${p.actual}`;
+  return `
+    <div class="result-row ${p.result}">
+      <span class="result-icon">${icon}</span>
+      <div class="result-body">
+        <div class="rd-title">${desc} <span class="muted">(${formatOdds(p.odds)}, ${p.bookmaker})</span></div>
+        <div class="rd-meta">${p.game} · ${p.date} · ${actualDesc} · proyectamos ${Math.round(p.ourProb * 100)}%</div>
+      </div>
+    </div>`;
+}
+
+async function loadResults() {
+  const summaryEl = document.getElementById("resultsSummary");
+  const listEl = document.getElementById("resultsList");
+  listEl.innerHTML = '<div class="loading">Cargando historial…</div>';
+  try {
+    const history = await getJSON(`data/history.json?v=${Date.now()}`);
+    const graded = history.graded ?? [];
+    const pending = history.pending ?? [];
+    const wins = graded.filter(p => p.result === "win").length;
+    const losses = graded.filter(p => p.result === "loss").length;
+    const winPct = wins + losses ? Math.round((wins / (wins + losses)) * 100) : 0;
+
+    const byCategory = {};
+    graded.forEach(p => {
+      const cat = p.market === "Moneyline" ? "Moneyline" : "Props";
+      byCategory[cat] = byCategory[cat] ?? { w: 0, l: 0 };
+      if (p.result === "win") byCategory[cat].w++; else byCategory[cat].l++;
+    });
+
+    summaryEl.innerHTML = `
+      <div class="results-summary-grid">
+        <div class="results-stat-box"><div class="v">${wins}-${losses}</div><div class="l">Récord general</div></div>
+        <div class="results-stat-box"><div class="v ${winPct >= 50 ? "win" : "loss"}">${winPct}%</div><div class="l">% de acierto</div></div>
+        ${Object.entries(byCategory).map(([cat, r]) => `
+          <div class="results-stat-box"><div class="v">${r.w}-${r.l}</div><div class="l">${cat}</div></div>
+        `).join("")}
+        <div class="results-stat-box"><div class="v">${pending.length}</div><div class="l">Pendientes</div></div>
+      </div>`;
+
+    if (!graded.length) {
+      listEl.innerHTML = `<div class="muted">Todavía no hay picks calificados — hay ${pending.length} pick${pending.length === 1 ? "" : "s"} pendiente${pending.length === 1 ? "" : "s"} esperando a que termine su partido. El historial se arma solo, sin nada cargado a mano: apenas un partido llega a Final, calificamos automáticamente los picks que hicimos antes de que empezara.</div>`;
+      return;
+    }
+    listEl.innerHTML = graded.slice(0, 60).map(resultRowHTML).join("");
+  } catch (e) {
+    listEl.innerHTML = `<div class="error">No se pudo cargar el historial (${e.message}).</div>`;
+  }
+}
+
 // ---------- Init ----------
 loadScores(todayISO());
 loadStandings();
 loadPicks(todayISO());
 loadLeaders();
+loadResults();
 </script>
 
 </body>
