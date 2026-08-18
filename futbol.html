@@ -4,19 +4,44 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fútbol Stats</title>
+<script>
+// Se aplica antes del CSS para que no haya flash del tema incorrecto al cargar.
+(function () {
+  const stored = localStorage.getItem("theme");
+  const theme = stored || (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+  document.documentElement.setAttribute("data-theme", theme);
+})();
+</script>
 <style>
   :root {
-    --bg: #0b0d14;
-    --bg-2: #12141d;
-    --panel: #161a26;
-    --panel-2: #1f2433;
-    --border: #2a3142;
-    --text: #f1f4f9;
-    --muted: #8b93a7;
-    --accent: #ff9d3d;
-    --accent-2: #ffcf5c;
-    --win: #34d399;
+    --bg: #0a0f0b;
+    --bg-2: #0f150f;
+    --panel: #131a13;
+    --panel-2: #1b241a;
+    --border: #263129;
+    --text: #eef4ee;
+    --muted: #8b9a8b;
+    --accent: #22c55e;
+    --accent-2: #4ade80;
+    --accent-rgb: 34,197,94;
+    --win: #22c55e;
     --loss: #f76464;
+    --btn-text: #06210f;
+  }
+  :root[data-theme="light"] {
+    --bg: #ffffff;
+    --bg-2: #f2f9f4;
+    --panel: #f6faf7;
+    --panel-2: #e9f4eb;
+    --border: #cfe3d3;
+    --text: #10231a;
+    --muted: #55705d;
+    --accent: #16a34a;
+    --accent-2: #22c55e;
+    --accent-rgb: 22,163,74;
+    --win: #16a34a;
+    --loss: #dc2626;
+    --btn-text: #ffffff;
   }
   * { box-sizing: border-box; }
   body {
@@ -29,7 +54,7 @@
     position: relative;
     overflow: hidden;
     padding: 18px 20px;
-    background: radial-gradient(600px 220px at 12% -60%, rgba(255,157,61,0.22), transparent 60%), var(--bg-2);
+    background: radial-gradient(600px 220px at 12% -60%, rgba(var(--accent-rgb),0.22), transparent 60%), var(--bg-2);
     border-bottom: 1px solid var(--border);
     display: flex;
     align-items: center;
@@ -80,12 +105,25 @@
   }
   .sport-pill:hover { transform: translateY(-2px); border-color: var(--accent); }
   .sport-pill.active { background: linear-gradient(135deg, var(--accent), var(--accent-2)); border-color: transparent; }
+  .theme-toggle {
+    position: relative; z-index: 1;
+    width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform .15s ease, border-color .15s ease;
+    flex-shrink: 0;
+  }
+  .theme-toggle:hover { transform: translateY(-2px); border-color: var(--accent); }
   main { max-width: 1000px; margin: 0 auto; padding: 20px; overflow-x: hidden; }
   .tab { display: none; }
   .tab.active { display: block; }
   .disclaimer {
-    background: rgba(255,157,61,0.08);
-    border: 1px solid rgba(255,157,61,0.25);
+    background: rgba(var(--accent-rgb),0.08);
+    border: 1px solid rgba(var(--accent-rgb),0.25);
     color: var(--muted);
     font-size: 12px;
     padding: 10px 14px;
@@ -107,7 +145,7 @@
     white-space: nowrap;
     flex-shrink: 0;
   }
-  .league-chips button.active { background: var(--accent); color: #06131f; border-color: var(--accent); }
+  .league-chips button.active { background: var(--accent); color: var(--btn-text); border-color: var(--accent); }
   .card {
     background: var(--panel);
     border: 1px solid var(--border);
@@ -158,6 +196,7 @@
     <a href="futbol.html" class="sport-pill active" data-sport="football" title="Fútbol">⚽</a>
     <a href="nfl.html" class="sport-pill" data-sport="nfl" title="NFL">🏈</a>
   </div>
+  <button class="theme-toggle" id="themeToggle" title="Cambiar tema">🌙</button>
 </header>
 
 <main>
@@ -187,6 +226,21 @@
 </main>
 
 <script>
+// ---------- Tema claro/oscuro ----------
+(function () {
+  const btn = document.getElementById("themeToggle");
+  function updateIcon() {
+    btn.textContent = document.documentElement.getAttribute("data-theme") === "light" ? "🌙" : "☀️";
+  }
+  updateIcon();
+  btn.addEventListener("click", () => {
+    const next = document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", next);
+    localStorage.setItem("theme", next);
+    updateIcon();
+  });
+})();
+
 localStorage.setItem("preferredSport", "football");
 document.querySelectorAll(".sport-pill[data-sport]").forEach(el => {
   el.addEventListener("click", () => localStorage.setItem("preferredSport", el.dataset.sport));
