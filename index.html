@@ -431,6 +431,7 @@
     <div class="disclaimer">
       Análisis estadístico automático a partir de récord, racha y forma del abridor. No es una predicción garantizada — es contexto para que decidas vos. Apostá con responsabilidad.
     </div>
+    <div class="date-strip" id="picksDateStrip"></div>
     <div class="toolbar">
       <input type="date" id="picksDate">
     </div>
@@ -579,8 +580,9 @@ scoreDateInput.addEventListener("change", () => {
 
 const DOW_NAMES = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
 
-function renderDateStrip(selectedDate) {
-  const el = document.getElementById("dateStrip");
+function renderDateStripGeneric(elId, selectedDate, onSelect) {
+  const el = document.getElementById(elId);
+  if (!el) return;
   const todayStr = todayISO();
   const [ty, tm, td] = todayStr.split("-").map(Number);
   const base = new Date(Date.UTC(ty, tm - 1, td));
@@ -599,12 +601,15 @@ function renderDateStrip(selectedDate) {
   }
   el.innerHTML = pills.join("");
   el.querySelectorAll(".date-pill").forEach(pill => {
-    pill.addEventListener("click", () => {
-      const iso = pill.dataset.date;
-      scoreDateInput.value = iso;
-      renderDateStrip(iso);
-      loadScores(iso);
-    });
+    pill.addEventListener("click", () => onSelect(pill.dataset.date));
+  });
+}
+
+function renderDateStrip(selectedDate) {
+  renderDateStripGeneric("dateStrip", selectedDate, iso => {
+    scoreDateInput.value = iso;
+    renderDateStrip(iso);
+    loadScores(iso);
   });
 }
 renderDateStrip(todayISO());
@@ -693,7 +698,18 @@ function openPlayerInTab(playerId) {
 // ---------- Picks del Día ----------
 const picksDateInput = document.getElementById("picksDate");
 picksDateInput.value = todayISO();
-picksDateInput.addEventListener("change", () => loadPicks(picksDateInput.value));
+function renderPicksDateStrip(selectedDate) {
+  renderDateStripGeneric("picksDateStrip", selectedDate, iso => {
+    picksDateInput.value = iso;
+    renderPicksDateStrip(iso);
+    loadPicks(iso);
+  });
+}
+picksDateInput.addEventListener("change", () => {
+  renderPicksDateStrip(picksDateInput.value);
+  loadPicks(picksDateInput.value);
+});
+renderPicksDateStrip(todayISO());
 
 async function buildStandingsMap() {
   const data = await getJSON(`${API}/standings?leagueId=103,104&season=${currentSeason}&standingsTypes=regularSeason`);
