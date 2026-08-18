@@ -301,16 +301,23 @@ async function fetchProbablePitchers(dateISO) {
   if (probablePitchersCache.has(dateISO)) return probablePitchersCache.get(dateISO);
   const map = {};
   try {
-    const data = await getJSON(`${MLB_BASE}/schedule?sportId=1&date=${dateISO}&hydrate=probablePitcher`);
+    // lineups viene en la misma llamada: homePlayers/awayPlayers solo estan
+    // presentes cuando la alineacion ya se confirmo (tipicamente unas horas
+    // antes del partido). Si no esta, dejamos lineup en null -- eso significa
+    // "todavia no sabemos", no "no juega".
+    const data = await getJSON(`${MLB_BASE}/schedule?sportId=1&date=${dateISO}&hydrate=probablePitcher,lineups`);
     for (const g of data.dates?.[0]?.games ?? []) {
       const away = g.teams.away.probablePitcher;
       const home = g.teams.home.probablePitcher;
+      const lineups = g.lineups ?? {};
       map[`${g.teams.away.team.name}@${g.teams.home.team.name}`] = {
         away: away ? { id: away.id, name: away.fullName } : null,
-        home: home ? { id: home.id, name: home.fullName } : null
+        home: home ? { id: home.id, name: home.fullName } : null,
+        awayLineup: lineups.awayPlayers?.length ? new Set(lineups.awayPlayers.map(p => p.id)) : null,
+        homeLineup: lineups.homePlayers?.length ? new Set(lineups.homePlayers.map(p => p.id)) : null
       };
     }
-  } catch { /* seguimos sin ajuste de abridor si falla */ }
+  } catch { /* seguimos sin ajuste de abridor/lineup si falla */ }
   probablePitchersCache.set(dateISO, map);
   return map;
 }
@@ -455,6 +462,15 @@ async function evaluateProp(prop, awayTeam, homeTeam, gameCtx) {
   // en el mercado de un partido distinto). Si no coincide con ninguno de los
   // dos equipos, lo descartamos aunque tengamos datos del jugador.
   if (proj.team && proj.team !== awayTeam && proj.team !== homeTeam) return null;
+
+  // Si la alineacion de hoy ya esta confirmada y este bateador no esta en ella,
+  // no recomendamos el prop -- no tiene sentido proyectar un HR de alguien que
+  // no va a jugar. Si todavia no se confirmo (lineup === null), no filtramos:
+  // "no sabemos" no es lo mismo que "no juega".
+  if (!proj.isPitcher && gameCtx) {
+    const lineup = proj.team === homeTeam ? gameCtx.homeLineup : gameCtx.awayLineup;
+    if (lineup && !lineup.has(proj.id)) return null;
+  }
 
   let ourProbOver = null;
   let why = null;
@@ -809,7 +825,9 @@ async function main() {
       const gameCtx = {
         venue, weather,
         awayPitcher: await withHand(pitcherPair.away),
-        homePitcher: await withHand(pitcherPair.home)
+        homePitcher: await withHand(pitcherPair.home),
+        awayLineup: pitcherPair.awayLineup ?? null,
+        homeLineup: pitcherPair.homeLineup ?? null
       };
 
       const evaluatedProps = [];
