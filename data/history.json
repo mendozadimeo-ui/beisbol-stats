@@ -2975,6 +2975,22 @@
       "ourProb": 0.552,
       "edge": 0.16,
       "recordedAt": "2026-08-19T10:48:16.689Z"
+    },
+    {
+      "id": "2026-08-19|824722|Pitcher Strikeouts O/U|Brandon Pfaadt|4.5|over",
+      "date": "2026-08-19",
+      "gamePk": 824722,
+      "game": "Arizona Diamondbacks @ Boston Red Sox",
+      "market": "Pitcher Strikeouts O/U",
+      "player": "Brandon Pfaadt",
+      "playerId": 694297,
+      "line": 4.5,
+      "side": "over",
+      "odds": "2.90",
+      "bookmaker": "Bet365",
+      "ourProb": 0.574,
+      "edge": 0.229,
+      "recordedAt": "2026-08-19T13:12:04.080Z"
     }
   ],
   "graded": [
