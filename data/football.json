@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-19T07:25:05.056Z",
+  "updatedAt": "2026-08-19T09:16:45.123Z",
   "leagues": {
     "epl": "Premier League",
     "laliga": "La Liga",
@@ -65,7 +65,7 @@
           "moneyline": {
             "Bovada": {
               "home": "8.00",
-              "draw": "4.90",
+              "draw": "5.00",
               "away": "1.38"
             },
             "Bet365": {
@@ -340,7 +340,7 @@
           "moneyline": {
             "Bovada": {
               "home": "2.45",
-              "draw": "3.60",
+              "draw": "3.55",
               "away": "2.75"
             },
             "Bet365": {
@@ -383,11 +383,11 @@
             "market": "Moneyline",
             "side": "draw",
             "team": null,
-            "odds": "3.60",
+            "odds": "3.55",
             "bookmaker": "Bovada",
             "ourProb": 0.233,
-            "impliedProb": 0.278,
-            "edge": -0.044,
+            "impliedProb": 0.282,
+            "edge": -0.048,
             "isValue": false
           },
           {
@@ -1142,9 +1142,14 @@
               "away": "9.25"
             },
             "Bet365": {
-              "home": "1.333",
-              "draw": "5.000",
-              "away": "10.000"
+              "home": "1.363",
+              "draw": "4.750",
+              "away": "9.500"
+            },
+            "Bet365 (no latency)": {
+              "home": "1.36",
+              "draw": "4.75",
+              "away": "9.50"
             }
           },
           "total": {
@@ -1155,8 +1160,8 @@
             },
             "Bet365": {
               "line": 2.5,
-              "over": "1.725",
-              "under": "2.075"
+              "over": "1.650",
+              "under": "2.200"
             }
           }
         },
@@ -1179,9 +1184,14 @@
               "away": "9.25"
             },
             "Bet365": {
-              "home": "1.333",
-              "draw": "5.000",
-              "away": "10.000"
+              "home": "1.363",
+              "draw": "4.750",
+              "away": "9.500"
+            },
+            "Bet365 (no latency)": {
+              "home": "1.36",
+              "draw": "4.75",
+              "away": "9.50"
             }
           },
           "total": {
@@ -1192,8 +1202,8 @@
             },
             "Bet365": {
               "line": 2.5,
-              "over": "1.725",
-              "under": "2.075"
+              "over": "1.650",
+              "under": "2.200"
             }
           }
         },
@@ -2648,9 +2658,9 @@
         "odds": {
           "moneyline": {
             "Bet365": {
-              "home": "1.700",
-              "draw": "3.600",
-              "away": "4.333"
+              "home": "1.750",
+              "draw": "3.500",
+              "away": "4.200"
             }
           },
           "total": {
@@ -2661,8 +2671,8 @@
             },
             "Bet365 (no latency)": {
               "line": 2.5,
-              "over": "1.72",
-              "under": "2.07"
+              "over": "1.70",
+              "under": "2.10"
             }
           }
         }
@@ -2679,16 +2689,21 @@
         "odds": {
           "moneyline": {
             "Bet365": {
-              "home": "2.200",
-              "draw": "3.100",
-              "away": "3.100"
+              "home": "2.250",
+              "draw": "3.200",
+              "away": "2.900"
             }
           },
           "total": {
             "Bet365": {
+              "line": 2.75,
+              "over": "2.000",
+              "under": "1.800"
+            },
+            "Bet365 (no latency)": {
               "line": 2.5,
-              "over": "1.800",
-              "under": "2.000"
+              "over": "1.80",
+              "under": "2.00"
             }
           }
         }
@@ -2705,21 +2720,16 @@
         "odds": {
           "moneyline": {
             "Bet365": {
-              "home": "2.550",
+              "home": "2.600",
               "draw": "3.600",
-              "away": "2.375"
+              "away": "2.300"
             }
           },
           "total": {
             "Bet365": {
               "line": 2.5,
-              "over": "1.425",
-              "under": "2.750"
-            },
-            "Bet365 (no latency)": {
-              "line": 3.25,
-              "over": "1.900",
-              "under": "1.900"
+              "over": "1.450",
+              "under": "2.675"
             }
           }
         }
@@ -2776,9 +2786,9 @@
           },
           "total": {
             "Bet365": {
-              "line": 2.5,
-              "over": "1.700",
-              "under": "2.100"
+              "line": 2.75,
+              "over": "1.900",
+              "under": "1.900"
             },
             "Bet365 (no latency)": {
               "line": 2.5,
@@ -2831,9 +2841,9 @@
         "odds": {
           "moneyline": {
             "Bet365": {
-              "home": "3.400",
-              "draw": "3.600",
-              "away": "1.909"
+              "home": "3.250",
+              "draw": "3.500",
+              "away": "2.000"
             }
           },
           "total": {
@@ -2878,14 +2888,14 @@
           },
           "total": {
             "Bet365": {
-              "line": 2.75,
-              "over": "1.925",
-              "under": "1.875"
+              "line": 2.5,
+              "over": "1.725",
+              "under": "2.075"
             },
             "Bet365 (no latency)": {
               "line": 2.5,
-              "over": "1.70",
-              "under": "2.10"
+              "over": "1.72",
+              "under": "2.07"
             }
           }
         }
@@ -2923,9 +2933,9 @@
           },
           "total": {
             "Bet365": {
-              "line": 2.5,
-              "over": "1.450",
-              "under": "2.675"
+              "line": 3.25,
+              "over": "1.900",
+              "under": "1.900"
             }
           }
         }
@@ -3105,16 +3115,21 @@
         "odds": {
           "moneyline": {
             "Bet365": {
-              "home": "5.750",
+              "home": "5.500",
               "draw": "3.900",
-              "away": "1.500"
+              "away": "1.533"
+            },
+            "Bet365 (no latency)": {
+              "home": "5.50",
+              "draw": "3.90",
+              "away": "1.53"
             }
           },
           "total": {
             "Bet365": {
               "line": 2.5,
-              "over": "1.725",
-              "under": "2.075"
+              "over": "1.750",
+              "under": "2.050"
             }
           }
         }
@@ -3258,8 +3273,8 @@
             },
             "Bet365 (no latency)": {
               "line": 2.5,
-              "over": "1.70",
-              "under": "2.10"
+              "over": "1.72",
+              "under": "2.07"
             }
           }
         }
@@ -3314,9 +3329,9 @@
           },
           "total": {
             "Bet365": {
-              "line": 2.5,
-              "over": "1.650",
-              "under": "2.200"
+              "line": 2.75,
+              "over": "1.800",
+              "under": "2.000"
             }
           }
         }
@@ -3400,11 +3415,6 @@
               "line": 2.5,
               "over": "1.975",
               "under": "1.825"
-            },
-            "Bet365 (no latency)": {
-              "line": 2.5,
-              "over": "1.95",
-              "under": "1.85"
             }
           }
         }
@@ -3431,11 +3441,6 @@
               "line": 2.5,
               "over": "2.025",
               "under": "1.775"
-            },
-            "Bet365 (no latency)": {
-              "line": 2.5,
-              "over": "2.00",
-              "under": "1.80"
             }
           }
         }
@@ -3656,14 +3661,14 @@
           },
           "total": {
             "Bet365": {
-              "line": 2.75,
-              "over": "2.300",
-              "under": "1.600"
-            },
-            "Bet365 (no latency)": {
               "line": 2.5,
               "over": "2.025",
               "under": "1.775"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "2.04",
+              "under": "1.75"
             }
           }
         }
@@ -3706,9 +3711,14 @@
         "odds": {
           "moneyline": {
             "Bet365": {
-              "home": "1.300",
+              "home": "1.333",
               "draw": "4.750",
-              "away": "9.000"
+              "away": "8.500"
+            },
+            "Bet365 (no latency)": {
+              "home": "1.33",
+              "draw": "4.75",
+              "away": "8.50"
             }
           },
           "total": {
@@ -3716,11 +3726,6 @@
               "line": 2.5,
               "over": "1.625",
               "under": "2.250"
-            },
-            "Bet365 (no latency)": {
-              "line": 2.75,
-              "over": "1.775",
-              "under": "2.025"
             }
           }
         }
@@ -3749,7 +3754,7 @@
               "points_for": 71,
               "points_against": 27,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:03.813Z"
+              "updated_at": "2026-08-19T09:02:21.293Z"
             },
             {
               "team_id": "c12cf38c-1e19-4095-b367-c4ef2a184bb4",
@@ -3764,7 +3769,7 @@
               "points_for": 77,
               "points_against": 35,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:03.820Z"
+              "updated_at": "2026-08-19T09:02:21.302Z"
             },
             {
               "team_id": "7aa8f8ce-df72-41bd-ac07-d8699514f9e0",
@@ -3779,7 +3784,7 @@
               "points_for": 69,
               "points_against": 50,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:03.828Z"
+              "updated_at": "2026-08-19T09:02:21.309Z"
             },
             {
               "team_id": "5e780499-f34a-4303-b887-7cbb42be6ad0",
@@ -3794,7 +3799,7 @@
               "points_for": 56,
               "points_against": 49,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:03.836Z"
+              "updated_at": "2026-08-19T09:02:21.318Z"
             },
             {
               "team_id": "74a9c474-32e5-4b48-b9c0-b67122a1617a",
@@ -3809,7 +3814,7 @@
               "points_for": 63,
               "points_against": 53,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:03.844Z"
+              "updated_at": "2026-08-19T09:02:21.327Z"
             },
             {
               "team_id": "659f7d1c-8d18-47d8-b083-dc2340708592",
@@ -3824,7 +3829,7 @@
               "points_for": 58,
               "points_against": 54,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:03.852Z"
+              "updated_at": "2026-08-19T09:02:21.334Z"
             },
             {
               "team_id": "ad9f372c-fbba-416d-8a2b-cca844247495",
@@ -3839,7 +3844,7 @@
               "points_for": 42,
               "points_against": 48,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:03.861Z"
+              "updated_at": "2026-08-19T09:02:21.343Z"
             },
             {
               "team_id": "b663685e-6611-4d9b-b817-71d68eea74f5",
@@ -3869,7 +3874,7 @@
               "points_for": 52,
               "points_against": 46,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:03.868Z"
+              "updated_at": "2026-08-19T09:02:21.351Z"
             },
             {
               "team_id": "f1dad0f2-fa00-4787-ab2a-4f17699d8aa8",
@@ -3884,7 +3889,7 @@
               "points_for": 55,
               "points_against": 52,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:03.877Z"
+              "updated_at": "2026-08-19T09:02:21.359Z"
             },
             {
               "team_id": "544de6be-906a-40c9-8d32-17ed7239348f",
@@ -3899,7 +3904,7 @@
               "points_for": 58,
               "points_against": 52,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:03.884Z"
+              "updated_at": "2026-08-19T09:02:21.367Z"
             },
             {
               "team_id": "1db0b3ae-b02c-489d-9cb9-660a0c8ee005",
@@ -3914,7 +3919,7 @@
               "points_for": 47,
               "points_against": 51,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:03.892Z"
+              "updated_at": "2026-08-19T09:02:21.375Z"
             },
             {
               "team_id": "fd1a7234-c96d-4628-a0e6-71c44b29d838",
@@ -3944,7 +3949,7 @@
               "points_for": 53,
               "points_against": 55,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:03.900Z"
+              "updated_at": "2026-08-19T09:02:21.383Z"
             },
             {
               "team_id": "37fc8acf-b467-4811-937d-6ebebb3fa61f",
@@ -3974,7 +3979,7 @@
               "points_for": 47,
               "points_against": 50,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:03.908Z"
+              "updated_at": "2026-08-19T09:02:21.391Z"
             },
             {
               "team_id": "ea86337a-d297-450e-af66-d197c1dae17a",
@@ -3989,7 +3994,7 @@
               "points_for": 49,
               "points_against": 56,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:03.915Z"
+              "updated_at": "2026-08-19T09:02:21.398Z"
             },
             {
               "team_id": "75b48108-aa4a-4b0f-95ee-70fbf8f2fc29",
@@ -4004,7 +4009,7 @@
               "points_for": 41,
               "points_against": 51,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:03.924Z"
+              "updated_at": "2026-08-19T09:02:21.406Z"
             },
             {
               "team_id": "417992e3-3af2-4dd4-a25a-ffb70ddd991b",
@@ -4019,7 +4024,7 @@
               "points_for": 48,
               "points_against": 51,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:03.932Z"
+              "updated_at": "2026-08-19T09:02:21.413Z"
             },
             {
               "team_id": "e03f803f-cd23-4db0-a79a-318f58734c7c",
@@ -4034,7 +4039,7 @@
               "points_for": 48,
               "points_against": 57,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:03.939Z"
+              "updated_at": "2026-08-19T09:02:21.421Z"
             },
             {
               "team_id": "b9d28b6f-1a20-4b1f-bd2b-97c84078c614",
@@ -4049,7 +4054,7 @@
               "points_for": 46,
               "points_against": 65,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:03.947Z"
+              "updated_at": "2026-08-19T09:02:21.428Z"
             },
             {
               "team_id": "410f522a-5fa5-44a5-afc2-128b4f482a96",
@@ -4064,7 +4069,7 @@
               "points_for": 38,
               "points_against": 75,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:03.953Z"
+              "updated_at": "2026-08-19T09:02:21.435Z"
             },
             {
               "team_id": "3161f38d-55d2-4dc3-80dc-82b665528c94",
@@ -4079,7 +4084,7 @@
               "points_for": 27,
               "points_against": 68,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:03.961Z"
+              "updated_at": "2026-08-19T09:02:21.443Z"
             }
           ]
         }
@@ -4106,7 +4111,7 @@
               "points_for": 95,
               "points_against": 36,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.028Z"
+              "updated_at": "2026-08-19T09:02:21.495Z"
             },
             {
               "team_id": "e0dcfb37-2786-4270-894a-af7c411627f9",
@@ -4121,7 +4126,7 @@
               "points_for": 77,
               "points_against": 35,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.038Z"
+              "updated_at": "2026-08-19T09:02:21.504Z"
             },
             {
               "team_id": "720c1633-8fc4-4e88-970a-058832c2a109",
@@ -4136,7 +4141,7 @@
               "points_for": 72,
               "points_against": 46,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.048Z"
+              "updated_at": "2026-08-19T09:02:21.513Z"
             },
             {
               "team_id": "9fe82092-5ef1-4101-b8e3-2ab08f41b82e",
@@ -4151,7 +4156,7 @@
               "points_for": 62,
               "points_against": 44,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.059Z"
+              "updated_at": "2026-08-19T09:02:21.521Z"
             },
             {
               "team_id": "dcaba401-a83a-4195-8c89-145d9bd5ad28",
@@ -4166,7 +4171,7 @@
               "points_for": 59,
               "points_against": 48,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.070Z"
+              "updated_at": "2026-08-19T09:02:21.529Z"
             },
             {
               "team_id": "d8fc1e4d-5c8b-44a1-9472-a946a0ec183f",
@@ -4181,7 +4186,7 @@
               "points_for": 53,
               "points_against": 48,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.081Z"
+              "updated_at": "2026-08-19T09:02:21.538Z"
             },
             {
               "team_id": "ae11ccec-9712-476d-9d0c-82eea145d77d",
@@ -4211,7 +4216,7 @@
               "points_for": 32,
               "points_against": 38,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.089Z"
+              "updated_at": "2026-08-19T09:02:21.547Z"
             },
             {
               "team_id": "8fdb3038-d3ab-416d-ba76-115c7d041f68",
@@ -4226,7 +4231,7 @@
               "points_for": 41,
               "points_against": 44,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.099Z"
+              "updated_at": "2026-08-19T09:02:21.556Z"
             },
             {
               "team_id": "c97ca45b-263f-45d6-8ab1-043cce8318cf",
@@ -4241,7 +4246,7 @@
               "points_for": 46,
               "points_against": 55,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.108Z"
+              "updated_at": "2026-08-19T09:02:21.564Z"
             },
             {
               "team_id": "e628c26c-4618-497b-83bf-c0242592f670",
@@ -4256,7 +4261,7 @@
               "points_for": 59,
               "points_against": 61,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.117Z"
+              "updated_at": "2026-08-19T09:02:21.572Z"
             },
             {
               "team_id": "ebe48095-9d17-44db-bfcf-14e7b317853c",
@@ -4271,7 +4276,7 @@
               "points_for": 43,
               "points_against": 55,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.127Z"
+              "updated_at": "2026-08-19T09:02:21.581Z"
             },
             {
               "team_id": "fd31cf6b-7a9c-4e9f-898d-b60e98e16dfa",
@@ -4301,7 +4306,7 @@
               "points_for": 43,
               "points_against": 58,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.137Z"
+              "updated_at": "2026-08-19T09:02:21.589Z"
             },
             {
               "team_id": "9b2c2c34-0fcd-47cf-a3f9-01559240a826",
@@ -4316,7 +4321,7 @@
               "points_for": 46,
               "points_against": 60,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.145Z"
+              "updated_at": "2026-08-19T09:02:21.597Z"
             },
             {
               "team_id": "695cc9cb-a1cf-428c-9e6a-92422e29491d",
@@ -4346,7 +4351,7 @@
               "points_for": 44,
               "points_against": 56,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.153Z"
+              "updated_at": "2026-08-19T09:02:21.605Z"
             },
             {
               "team_id": "475f53f6-206b-41a1-b0a6-59b2056b77bf",
@@ -4361,7 +4366,7 @@
               "points_for": 49,
               "points_against": 57,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.162Z"
+              "updated_at": "2026-08-19T09:02:21.613Z"
             },
             {
               "team_id": "06b2e2c1-ddd0-4872-8ca5-624d5d1a4f29",
@@ -4376,7 +4381,7 @@
               "points_for": 47,
               "points_against": 61,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.170Z"
+              "updated_at": "2026-08-19T09:02:21.621Z"
             },
             {
               "team_id": "11c16c6c-e761-4a28-8a82-f2b3ab21ad43",
@@ -4391,7 +4396,7 @@
               "points_for": 44,
               "points_against": 50,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.179Z"
+              "updated_at": "2026-08-19T09:02:21.630Z"
             },
             {
               "team_id": "d1937c39-70a9-4680-9e9a-113336fb028b",
@@ -4406,7 +4411,7 @@
               "points_for": 47,
               "points_against": 57,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.186Z"
+              "updated_at": "2026-08-19T09:02:21.637Z"
             },
             {
               "team_id": "1836a9c3-4efa-4219-b1e3-90d209bb6567",
@@ -4421,7 +4426,7 @@
               "points_for": 39,
               "points_against": 55,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.194Z"
+              "updated_at": "2026-08-19T09:02:21.646Z"
             },
             {
               "team_id": "edcd5f67-aedb-4244-b786-6190d3686e80",
@@ -4436,7 +4441,7 @@
               "points_for": 26,
               "points_against": 60,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.203Z"
+              "updated_at": "2026-08-19T09:02:21.654Z"
             }
           ]
         }
@@ -4463,7 +4468,7 @@
               "points_for": 89,
               "points_against": 35,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.499Z"
+              "updated_at": "2026-08-19T09:02:21.932Z"
             },
             {
               "team_id": "e0ecc5a1-616e-4186-afb2-5ee815b57f04",
@@ -4478,7 +4483,7 @@
               "points_for": 58,
               "points_against": 36,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.508Z"
+              "updated_at": "2026-08-19T09:02:21.941Z"
             },
             {
               "team_id": "22033fe3-0a71-435a-9762-749984ea439c",
@@ -4493,7 +4498,7 @@
               "points_for": 59,
               "points_against": 31,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.515Z"
+              "updated_at": "2026-08-19T09:02:21.948Z"
             },
             {
               "team_id": "40463b4d-7cb3-4ce4-a4ca-d2e4a71e0abf",
@@ -4508,7 +4513,7 @@
               "points_for": 65,
               "points_against": 29,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.523Z"
+              "updated_at": "2026-08-19T09:02:21.957Z"
             },
             {
               "team_id": "f6d37fa6-81ad-4c70-bea5-ddde2e839331",
@@ -4523,7 +4528,7 @@
               "points_for": 53,
               "points_against": 35,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.530Z"
+              "updated_at": "2026-08-19T09:02:21.964Z"
             },
             {
               "team_id": "1afc40a5-a6a6-41fc-85ff-95ac9c140733",
@@ -4538,7 +4543,7 @@
               "points_for": 61,
               "points_against": 34,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.539Z"
+              "updated_at": "2026-08-19T09:02:21.973Z"
             },
             {
               "team_id": "5390f42a-5d9a-438e-a19b-05d353c0aa26",
@@ -4553,7 +4558,7 @@
               "points_for": 51,
               "points_against": 36,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.545Z"
+              "updated_at": "2026-08-19T09:02:21.980Z"
             },
             {
               "team_id": "a84e310f-4fb7-41a3-ba6f-f3ea61ec16fe",
@@ -4583,7 +4588,7 @@
               "points_for": 49,
               "points_against": 46,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.552Z"
+              "updated_at": "2026-08-19T09:02:21.990Z"
             },
             {
               "team_id": "98b55896-77bd-4eab-b63d-43bc36c861d2",
@@ -4598,7 +4603,7 @@
               "points_for": 41,
               "points_against": 40,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.560Z"
+              "updated_at": "2026-08-19T09:02:22.000Z"
             },
             {
               "team_id": "54f2689e-67a8-4cb9-af85-2d518cd3f342",
@@ -4613,7 +4618,7 @@
               "points_for": 45,
               "points_against": 48,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.567Z"
+              "updated_at": "2026-08-19T09:02:22.010Z"
             },
             {
               "team_id": "d056c5bb-7239-417c-a9d1-71c324f8a593",
@@ -4628,7 +4633,7 @@
               "points_for": 46,
               "points_against": 50,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.573Z"
+              "updated_at": "2026-08-19T09:02:22.018Z"
             },
             {
               "team_id": "13988291-03bc-44b9-851c-e02140c56ba2",
@@ -4643,7 +4648,7 @@
               "points_for": 44,
               "points_against": 63,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.582Z"
+              "updated_at": "2026-08-19T09:02:22.027Z"
             },
             {
               "team_id": "96751637-62ae-4b89-99c6-730d6554cfbf",
@@ -4658,7 +4663,7 @@
               "points_for": 28,
               "points_against": 46,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.590Z"
+              "updated_at": "2026-08-19T09:02:22.036Z"
             },
             {
               "team_id": "251a4431-857e-4eb5-9a07-293b4cda3c56",
@@ -4688,7 +4693,7 @@
               "points_for": 40,
               "points_against": 53,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.597Z"
+              "updated_at": "2026-08-19T09:02:22.044Z"
             },
             {
               "team_id": "70226120-96e4-4516-b8a2-20a58f49bf12",
@@ -4703,7 +4708,7 @@
               "points_for": 41,
               "points_against": 50,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.605Z"
+              "updated_at": "2026-08-19T09:02:22.054Z"
             },
             {
               "team_id": "d8bca7a9-dd55-42c8-9b00-5388d8af40df",
@@ -4718,7 +4723,7 @@
               "points_for": 41,
               "points_against": 51,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.613Z"
+              "updated_at": "2026-08-19T09:02:22.062Z"
             },
             {
               "team_id": "a6e9b919-98dc-4447-a06c-216762bb5b1c",
@@ -4733,7 +4738,7 @@
               "points_for": 28,
               "points_against": 50,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.621Z"
+              "updated_at": "2026-08-19T09:02:22.070Z"
             },
             {
               "team_id": "e1b8a281-37c6-4178-bc86-8d0526c34d60",
@@ -4748,7 +4753,7 @@
               "points_for": 32,
               "points_against": 57,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.628Z"
+              "updated_at": "2026-08-19T09:02:22.079Z"
             },
             {
               "team_id": "f16550f9-4b3a-402b-add4-c38dad048a36",
@@ -4763,7 +4768,7 @@
               "points_for": 25,
               "points_against": 61,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.637Z"
+              "updated_at": "2026-08-19T09:02:22.088Z"
             },
             {
               "team_id": "c362d9b2-4727-42d1-aeeb-ce8d763ffe83",
@@ -4778,7 +4783,7 @@
               "points_for": 26,
               "points_against": 71,
               "streak": null,
-              "updated_at": "2026-08-19T07:04:04.644Z"
+              "updated_at": "2026-08-19T09:02:22.097Z"
             },
             {
               "team_id": "f4f0ca06-9941-4289-9ba0-76db26979dec",
