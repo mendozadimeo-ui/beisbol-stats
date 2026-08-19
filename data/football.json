@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-18T23:00:07.654Z",
+  "updatedAt": "2026-08-19T02:07:26.559Z",
   "leagues": {
     "epl": "Premier League",
     "laliga": "La Liga",
@@ -19,7 +19,37 @@
         "kickoff": "2026-08-21T19:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null,
+        "odds": {
+          "moneyline": {
+            "Bovada": {
+              "home": "1.18",
+              "draw": "7.00",
+              "away": "14.00"
+            },
+            "Bet365": {
+              "home": "1.181",
+              "draw": "7.500",
+              "away": "15.000"
+            },
+            "Bet365 (no latency)": {
+              "home": "1.18",
+              "draw": "7.50",
+              "away": "15.00"
+            }
+          },
+          "total": {
+            "Bovada": {
+              "line": 3,
+              "over": "1.91",
+              "under": "1.91"
+            },
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.575",
+              "under": "2.350"
+            }
+          }
+        },
         "picks": []
       },
       {
@@ -31,7 +61,37 @@
         "kickoff": "2026-08-22T11:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null,
+        "odds": {
+          "moneyline": {
+            "Bovada": {
+              "home": "7.75",
+              "draw": "5.00",
+              "away": "1.38"
+            },
+            "Bet365": {
+              "home": "8.000",
+              "draw": "5.000",
+              "away": "1.380"
+            },
+            "Bet365 (no latency)": {
+              "home": "8.00",
+              "draw": "5.00",
+              "away": "1.38"
+            }
+          },
+          "total": {
+            "Bovada": {
+              "line": 3,
+              "over": "2.14",
+              "under": "1.72"
+            },
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.650",
+              "under": "2.200"
+            }
+          }
+        },
         "picks": []
       },
       {
@@ -43,8 +103,94 @@
         "kickoff": "2026-08-22T14:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null,
-        "picks": []
+        "odds": {
+          "moneyline": {
+            "Bovada": {
+              "home": "2.15",
+              "draw": "3.45",
+              "away": "3.35"
+            },
+            "Bet365": {
+              "home": "2.150",
+              "draw": "3.400",
+              "away": "3.400"
+            },
+            "Bet365 (no latency)": {
+              "home": "2.15",
+              "draw": "3.40",
+              "away": "3.40"
+            }
+          },
+          "total": {
+            "Bovada": {
+              "line": 2.5,
+              "over": "1.93",
+              "under": "1.89"
+            },
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.925",
+              "under": "1.925"
+            }
+          }
+        },
+        "picks": [
+          {
+            "market": "Moneyline",
+            "side": "home",
+            "team": "Everton",
+            "odds": "2.15",
+            "bookmaker": "Bovada",
+            "ourProb": 0.441,
+            "impliedProb": 0.465,
+            "edge": -0.024,
+            "isValue": false
+          },
+          {
+            "market": "Moneyline",
+            "side": "draw",
+            "team": null,
+            "odds": "3.45",
+            "bookmaker": "Bovada",
+            "ourProb": 0.273,
+            "impliedProb": 0.29,
+            "edge": -0.017,
+            "isValue": false
+          },
+          {
+            "market": "Moneyline",
+            "side": "away",
+            "team": "Crystal Palace",
+            "odds": "3.35",
+            "bookmaker": "Bovada",
+            "ourProb": 0.286,
+            "impliedProb": 0.299,
+            "edge": -0.013,
+            "isValue": false
+          },
+          {
+            "market": "Total 2.5 goles",
+            "side": "over",
+            "team": null,
+            "odds": "1.93",
+            "bookmaker": "Bovada",
+            "ourProb": 0.426,
+            "impliedProb": 0.518,
+            "edge": -0.092,
+            "isValue": false
+          },
+          {
+            "market": "Total 2.5 goles",
+            "side": "under",
+            "team": null,
+            "odds": "1.89",
+            "bookmaker": "Bovada",
+            "ourProb": 0.574,
+            "impliedProb": 0.529,
+            "edge": 0.045,
+            "isValue": false
+          }
+        ]
       },
       {
         "id": "9dea17d9-dbb8-4722-a564-85249e5c4b7c",
@@ -55,7 +201,37 @@
         "kickoff": "2026-08-22T14:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null,
+        "odds": {
+          "moneyline": {
+            "Bovada": {
+              "home": "2.75",
+              "draw": "3.30",
+              "away": "2.60"
+            },
+            "Bet365": {
+              "home": "2.750",
+              "draw": "3.200",
+              "away": "2.700"
+            },
+            "Bet365 (no latency)": {
+              "home": "2.75",
+              "draw": "3.20",
+              "away": "2.70"
+            }
+          },
+          "total": {
+            "Bovada": {
+              "line": 2.5,
+              "over": "1.91",
+              "under": "1.91"
+            },
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.975",
+              "under": "1.875"
+            }
+          }
+        },
         "picks": []
       },
       {
@@ -67,8 +243,94 @@
         "kickoff": "2026-08-22T14:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null,
-        "picks": []
+        "odds": {
+          "moneyline": {
+            "Bovada": {
+              "home": "2.30",
+              "draw": "3.40",
+              "away": "3.05"
+            },
+            "Bet365": {
+              "home": "2.300",
+              "draw": "3.400",
+              "away": "3.100"
+            },
+            "Bet365 (no latency)": {
+              "home": "2.30",
+              "draw": "3.40",
+              "away": "3.10"
+            }
+          },
+          "total": {
+            "Bovada": {
+              "line": 2.5,
+              "over": "1.93",
+              "under": "1.89"
+            },
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.925",
+              "under": "1.925"
+            }
+          }
+        },
+        "picks": [
+          {
+            "market": "Moneyline",
+            "side": "home",
+            "team": "Nottingham Forest",
+            "odds": "2.30",
+            "bookmaker": "Bovada",
+            "ourProb": 0.433,
+            "impliedProb": 0.435,
+            "edge": -0.002,
+            "isValue": false
+          },
+          {
+            "market": "Moneyline",
+            "side": "draw",
+            "team": null,
+            "odds": "3.40",
+            "bookmaker": "Bovada",
+            "ourProb": 0.252,
+            "impliedProb": 0.294,
+            "edge": -0.042,
+            "isValue": false
+          },
+          {
+            "market": "Moneyline",
+            "side": "away",
+            "team": "Leeds United",
+            "odds": "3.05",
+            "bookmaker": "Bovada",
+            "ourProb": 0.316,
+            "impliedProb": 0.328,
+            "edge": -0.012,
+            "isValue": false
+          },
+          {
+            "market": "Total 2.5 goles",
+            "side": "over",
+            "team": null,
+            "odds": "1.93",
+            "bookmaker": "Bovada",
+            "ourProb": 0.525,
+            "impliedProb": 0.518,
+            "edge": 0.006,
+            "isValue": false
+          },
+          {
+            "market": "Total 2.5 goles",
+            "side": "under",
+            "team": null,
+            "odds": "1.89",
+            "bookmaker": "Bovada",
+            "ourProb": 0.475,
+            "impliedProb": 0.529,
+            "edge": -0.054,
+            "isValue": false
+          }
+        ]
       },
       {
         "id": "972c6768-077d-4ed3-8120-4b0604435a92",
@@ -79,8 +341,72 @@
         "kickoff": "2026-08-22T16:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null,
-        "picks": []
+        "odds": {
+          "moneyline": {
+            "Bovada": {
+              "home": "2.45",
+              "draw": "3.60",
+              "away": "2.75"
+            },
+            "Bet365": {
+              "home": "2.400",
+              "draw": "3.600",
+              "away": "2.800"
+            },
+            "Bet365 (no latency)": {
+              "home": "2.40",
+              "draw": "3.60",
+              "away": "2.80"
+            }
+          },
+          "total": {
+            "Bovada": {
+              "line": 3,
+              "over": "2.11",
+              "under": "1.76"
+            },
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.650",
+              "under": "2.200"
+            }
+          }
+        },
+        "picks": [
+          {
+            "market": "Moneyline",
+            "side": "home",
+            "team": "Brentford",
+            "odds": "2.45",
+            "bookmaker": "Bovada",
+            "ourProb": 0.494,
+            "impliedProb": 0.408,
+            "edge": 0.086,
+            "isValue": false
+          },
+          {
+            "market": "Moneyline",
+            "side": "draw",
+            "team": null,
+            "odds": "3.60",
+            "bookmaker": "Bovada",
+            "ourProb": 0.233,
+            "impliedProb": 0.278,
+            "edge": -0.044,
+            "isValue": false
+          },
+          {
+            "market": "Moneyline",
+            "side": "away",
+            "team": "Tottenham Hotspur",
+            "odds": "2.75",
+            "bookmaker": "Bovada",
+            "ourProb": 0.272,
+            "impliedProb": 0.364,
+            "edge": -0.091,
+            "isValue": false
+          }
+        ]
       },
       {
         "id": "3da8d7bf-c0b0-4250-a851-cb2309a9de5a",
@@ -91,8 +417,72 @@
         "kickoff": "2026-08-23T13:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null,
-        "picks": []
+        "odds": {
+          "moneyline": {
+            "Bovada": {
+              "home": "2.30",
+              "draw": "3.65",
+              "away": "3.00"
+            },
+            "Bet365": {
+              "home": "2.250",
+              "draw": "3.700",
+              "away": "3.000"
+            },
+            "Bet365 (no latency)": {
+              "home": "2.25",
+              "draw": "3.70",
+              "away": "3.00"
+            }
+          },
+          "total": {
+            "Bovada": {
+              "line": 3,
+              "over": "2.10",
+              "under": "1.77"
+            },
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.650",
+              "under": "2.200"
+            }
+          }
+        },
+        "picks": [
+          {
+            "market": "Moneyline",
+            "side": "home",
+            "team": "Brighton & Hove Albion",
+            "odds": "2.30",
+            "bookmaker": "Bovada",
+            "ourProb": 0.404,
+            "impliedProb": 0.435,
+            "edge": -0.031,
+            "isValue": false
+          },
+          {
+            "market": "Moneyline",
+            "side": "draw",
+            "team": null,
+            "odds": "3.65",
+            "bookmaker": "Bovada",
+            "ourProb": 0.256,
+            "impliedProb": 0.274,
+            "edge": -0.018,
+            "isValue": false
+          },
+          {
+            "market": "Moneyline",
+            "side": "away",
+            "team": "Aston Villa",
+            "odds": "3.00",
+            "bookmaker": "Bovada",
+            "ourProb": 0.34,
+            "impliedProb": 0.333,
+            "edge": 0.007,
+            "isValue": false
+          }
+        ]
       },
       {
         "id": "c41cac2a-34af-4a04-adca-4c05e811dcdb",
@@ -103,8 +493,72 @@
         "kickoff": "2026-08-23T13:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null,
-        "picks": []
+        "odds": {
+          "moneyline": {
+            "Bovada": {
+              "home": "1.49",
+              "draw": "4.90",
+              "away": "5.75"
+            },
+            "Bet365": {
+              "home": "1.500",
+              "draw": "4.500",
+              "away": "6.000"
+            },
+            "Bet365 (no latency)": {
+              "home": "1.50",
+              "draw": "4.50",
+              "away": "6.00"
+            }
+          },
+          "total": {
+            "Bovada": {
+              "line": 3.5,
+              "over": "2.12",
+              "under": "1.75"
+            },
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.425",
+              "under": "2.750"
+            }
+          }
+        },
+        "picks": [
+          {
+            "market": "Moneyline",
+            "side": "home",
+            "team": "Manchester City",
+            "odds": "1.49",
+            "bookmaker": "Bovada",
+            "ourProb": 0.668,
+            "impliedProb": 0.671,
+            "edge": -0.003,
+            "isValue": false
+          },
+          {
+            "market": "Moneyline",
+            "side": "draw",
+            "team": null,
+            "odds": "4.90",
+            "bookmaker": "Bovada",
+            "ourProb": 0.182,
+            "impliedProb": 0.204,
+            "edge": -0.022,
+            "isValue": false
+          },
+          {
+            "market": "Moneyline",
+            "side": "away",
+            "team": "AFC Bournemouth",
+            "odds": "5.75",
+            "bookmaker": "Bovada",
+            "ourProb": 0.15,
+            "impliedProb": 0.174,
+            "edge": -0.024,
+            "isValue": false
+          }
+        ]
       },
       {
         "id": "80e90947-9077-47bf-ab5a-f7c205d5bcde",
@@ -115,8 +569,72 @@
         "kickoff": "2026-08-23T15:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null,
-        "picks": []
+        "odds": {
+          "moneyline": {
+            "Bovada": {
+              "home": "3.55",
+              "draw": "3.95",
+              "away": "1.91"
+            },
+            "Bet365": {
+              "home": "3.750",
+              "draw": "3.750",
+              "away": "1.950"
+            },
+            "Bet365 (no latency)": {
+              "home": "3.75",
+              "draw": "3.75",
+              "away": "1.95"
+            }
+          },
+          "total": {
+            "Bovada": {
+              "line": 3,
+              "over": "1.70",
+              "under": "2.18"
+            },
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.475",
+              "under": "2.600"
+            }
+          }
+        },
+        "picks": [
+          {
+            "market": "Moneyline",
+            "side": "home",
+            "team": "Newcastle United",
+            "odds": "3.55",
+            "bookmaker": "Bovada",
+            "ourProb": 0.352,
+            "impliedProb": 0.282,
+            "edge": 0.07,
+            "isValue": false
+          },
+          {
+            "market": "Moneyline",
+            "side": "draw",
+            "team": null,
+            "odds": "3.95",
+            "bookmaker": "Bovada",
+            "ourProb": 0.228,
+            "impliedProb": 0.253,
+            "edge": -0.025,
+            "isValue": false
+          },
+          {
+            "market": "Moneyline",
+            "side": "away",
+            "team": "Liverpool",
+            "odds": "1.91",
+            "bookmaker": "Bovada",
+            "ourProb": 0.419,
+            "impliedProb": 0.524,
+            "edge": -0.104,
+            "isValue": false
+          }
+        ]
       },
       {
         "id": "12a39487-379d-4c84-ac40-a197c51d8308",
@@ -621,7 +1139,37 @@
         "kickoff": "2026-08-19T19:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null,
+        "odds": {
+          "moneyline": {
+            "Bovada": {
+              "home": "1.32",
+              "draw": "5.25",
+              "away": "9.50"
+            },
+            "Bet365": {
+              "home": "1.333",
+              "draw": "5.000",
+              "away": "10.000"
+            },
+            "Bet365 (no latency)": {
+              "home": "1.33",
+              "draw": "5.00",
+              "away": "10.00"
+            }
+          },
+          "total": {
+            "Bovada": {
+              "line": 2.5,
+              "over": "2.00",
+              "under": "1.83"
+            },
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.775",
+              "under": "2.025"
+            }
+          }
+        },
         "picks": []
       },
       {
@@ -633,7 +1181,37 @@
         "kickoff": "2026-08-19T19:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null,
+        "odds": {
+          "moneyline": {
+            "Bovada": {
+              "home": "1.32",
+              "draw": "5.25",
+              "away": "9.50"
+            },
+            "Bet365": {
+              "home": "1.333",
+              "draw": "5.000",
+              "away": "10.000"
+            },
+            "Bet365 (no latency)": {
+              "home": "1.33",
+              "draw": "5.00",
+              "away": "10.00"
+            }
+          },
+          "total": {
+            "Bovada": {
+              "line": 2.5,
+              "over": "2.00",
+              "under": "1.83"
+            },
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.775",
+              "under": "2.025"
+            }
+          }
+        },
         "picks": []
       },
       {
@@ -705,8 +1283,94 @@
         "kickoff": "2026-08-23T15:00:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null,
-        "picks": []
+        "odds": {
+          "moneyline": {
+            "Bovada": {
+              "home": "1.85",
+              "draw": "3.70",
+              "away": "4.10"
+            },
+            "Bet365": {
+              "home": "1.909",
+              "draw": "3.600",
+              "away": "4.000"
+            },
+            "Bet365 (no latency)": {
+              "home": "1.90",
+              "draw": "3.60",
+              "away": "4.00"
+            }
+          },
+          "total": {
+            "Bovada": {
+              "line": 2.5,
+              "over": "1.85",
+              "under": "1.98"
+            },
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.875",
+              "under": "1.975"
+            }
+          }
+        },
+        "picks": [
+          {
+            "market": "Moneyline",
+            "side": "home",
+            "team": "Atlético Madrid",
+            "odds": "1.85",
+            "bookmaker": "Bovada",
+            "ourProb": 0.387,
+            "impliedProb": 0.541,
+            "edge": -0.153,
+            "isValue": false
+          },
+          {
+            "market": "Moneyline",
+            "side": "draw",
+            "team": null,
+            "odds": "3.70",
+            "bookmaker": "Bovada",
+            "ourProb": 0.231,
+            "impliedProb": 0.27,
+            "edge": -0.039,
+            "isValue": false
+          },
+          {
+            "market": "Moneyline",
+            "side": "away",
+            "team": "Villarreal",
+            "odds": "4.10",
+            "bookmaker": "Bovada",
+            "ourProb": 0.381,
+            "impliedProb": 0.244,
+            "edge": 0.137,
+            "isValue": false
+          },
+          {
+            "market": "Total 2.5 goles",
+            "side": "over",
+            "team": null,
+            "odds": "1.85",
+            "bookmaker": "Bovada",
+            "ourProb": 0.634,
+            "impliedProb": 0.541,
+            "edge": 0.094,
+            "isValue": true
+          },
+          {
+            "market": "Total 2.5 goles",
+            "side": "under",
+            "team": null,
+            "odds": "1.98",
+            "bookmaker": "Bovada",
+            "ourProb": 0.366,
+            "impliedProb": 0.505,
+            "edge": -0.139,
+            "isValue": false
+          }
+        ]
       },
       {
         "id": "bbbe48ff-4451-4a80-a98f-351143c9d0d6",
@@ -729,8 +1393,72 @@
         "kickoff": "2026-08-23T19:30:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null,
-        "picks": []
+        "odds": {
+          "moneyline": {
+            "Bovada": {
+              "home": "7.50",
+              "draw": "6.00",
+              "away": "1.32"
+            },
+            "Bet365": {
+              "home": "9.000",
+              "draw": "5.250",
+              "away": "1.333"
+            },
+            "Bet365 (no latency)": {
+              "home": "9.00",
+              "draw": "5.25",
+              "away": "1.33"
+            }
+          },
+          "total": {
+            "Bovada": {
+              "line": 3,
+              "over": "1.93",
+              "under": "1.89"
+            },
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.475",
+              "under": "2.600"
+            }
+          }
+        },
+        "picks": [
+          {
+            "market": "Moneyline",
+            "side": "home",
+            "team": "Elche",
+            "odds": "7.50",
+            "bookmaker": "Bovada",
+            "ourProb": 0.111,
+            "impliedProb": 0.133,
+            "edge": -0.022,
+            "isValue": false
+          },
+          {
+            "market": "Moneyline",
+            "side": "draw",
+            "team": null,
+            "odds": "6.00",
+            "bookmaker": "Bovada",
+            "ourProb": 0.147,
+            "impliedProb": 0.167,
+            "edge": -0.019,
+            "isValue": false
+          },
+          {
+            "market": "Moneyline",
+            "side": "away",
+            "team": "Barcelona",
+            "odds": "1.32",
+            "bookmaker": "Bovada",
+            "ourProb": 0.739,
+            "impliedProb": 0.758,
+            "edge": -0.018,
+            "isValue": false
+          }
+        ]
       },
       {
         "id": "a66ae259-8e80-4292-9899-7a4d2e5bdef3",
@@ -1295,8 +2023,94 @@
         "kickoff": "2026-08-23T18:45:00.000Z",
         "status": "scheduled",
         "score": null,
-        "odds": null,
-        "picks": []
+        "odds": {
+          "moneyline": {
+            "Bovada": {
+              "home": "4.40",
+              "draw": "3.75",
+              "away": "1.82"
+            },
+            "Bet365": {
+              "home": "4.333",
+              "draw": "3.600",
+              "away": "1.800"
+            },
+            "Bet365 (no latency)": {
+              "home": "4.33",
+              "draw": "3.60",
+              "away": "1.80"
+            }
+          },
+          "total": {
+            "Bovada": {
+              "line": 2.5,
+              "over": "1.89",
+              "under": "1.93"
+            },
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.925",
+              "under": "1.925"
+            }
+          }
+        },
+        "picks": [
+          {
+            "market": "Moneyline",
+            "side": "home",
+            "team": "Torino",
+            "odds": "4.40",
+            "bookmaker": "Bovada",
+            "ourProb": 0.191,
+            "impliedProb": 0.227,
+            "edge": -0.037,
+            "isValue": false
+          },
+          {
+            "market": "Moneyline",
+            "side": "draw",
+            "team": null,
+            "odds": "3.75",
+            "bookmaker": "Bovada",
+            "ourProb": 0.22,
+            "impliedProb": 0.267,
+            "edge": -0.047,
+            "isValue": false
+          },
+          {
+            "market": "Moneyline",
+            "side": "away",
+            "team": "AC Milan",
+            "odds": "1.82",
+            "bookmaker": "Bovada",
+            "ourProb": 0.589,
+            "impliedProb": 0.549,
+            "edge": 0.039,
+            "isValue": false
+          },
+          {
+            "market": "Total 2.5 goles",
+            "side": "over",
+            "team": null,
+            "odds": "1.89",
+            "bookmaker": "Bovada",
+            "ourProb": 0.552,
+            "impliedProb": 0.529,
+            "edge": 0.023,
+            "isValue": false
+          },
+          {
+            "market": "Total 2.5 goles",
+            "side": "under",
+            "team": null,
+            "odds": "1.93",
+            "bookmaker": "Bovada",
+            "ourProb": 0.448,
+            "impliedProb": 0.518,
+            "edge": -0.07,
+            "isValue": false
+          }
+        ]
       },
       {
         "id": "5179f707-003d-4dc7-822e-c15ba460c323",
@@ -1599,6 +2413,18 @@
         "picks": []
       },
       {
+        "id": "14947c23-b88d-438a-8459-d3427d7a0a4a",
+        "home": "Sassuolo",
+        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/xystvp1448806138.png",
+        "away": "Juventus",
+        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/uxf0gr1742983727.png",
+        "kickoff": "2026-09-12T16:00:00.000Z",
+        "status": "scheduled",
+        "score": null,
+        "odds": null,
+        "picks": []
+      },
+      {
         "id": "d01600df-a329-4fc4-84a4-714e4b96c5fd",
         "home": "Lazio",
         "homeLogo": "https://crests.football-data.org/110.png",
@@ -1665,18 +2491,6 @@
         "away": "Bologna",
         "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/2qi1u31655592366.png",
         "kickoff": "2026-09-13T16:00:00.000Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": null,
-        "picks": []
-      },
-      {
-        "id": "14947c23-b88d-438a-8459-d3427d7a0a4a",
-        "home": "Sassuolo",
-        "homeLogo": "https://r2.thesportsdb.com/images/media/team/badge/xystvp1448806138.png",
-        "away": "Juventus",
-        "awayLogo": "https://r2.thesportsdb.com/images/media/team/badge/uxf0gr1742983727.png",
-        "kickoff": "2026-09-13T18:45:00.000Z",
         "status": "scheduled",
         "score": null,
         "odds": null,
@@ -1817,99 +2631,6 @@
     ],
     "ucl": [
       {
-        "id": 73394740,
-        "home": "Fenerbahce Istanbul",
-        "homeLogo": null,
-        "away": "Olympique Lyon",
-        "awayLogo": null,
-        "kickoff": "2026-08-18T19:00:00Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": {
-          "moneyline": {
-            "Bet365": {
-              "home": "1.950",
-              "draw": "3.600",
-              "away": "3.400"
-            }
-          },
-          "total": {
-            "Bet365": {
-              "line": 2.5,
-              "over": "1.750",
-              "under": "2.050"
-            },
-            "Bet365 (no latency)": {
-              "line": 2.75,
-              "over": "1.825",
-              "under": "1.975"
-            }
-          }
-        }
-      },
-      {
-        "id": 73394626,
-        "home": "PFC Levski Sofia",
-        "homeLogo": null,
-        "away": "AEK Athens",
-        "awayLogo": null,
-        "kickoff": "2026-08-18T19:00:00Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": {
-          "moneyline": {
-            "Bet365": {
-              "home": "3.100",
-              "draw": "3.100",
-              "away": "2.200"
-            }
-          },
-          "total": {
-            "Bet365": {
-              "line": 2.5,
-              "over": "2.250",
-              "under": "1.625"
-            },
-            "Bet365 (no latency)": {
-              "line": 2.25,
-              "over": "2.025",
-              "under": "1.775"
-            }
-          }
-        }
-      },
-      {
-        "id": 73394728,
-        "home": "GNK Dinamo Zagreb",
-        "homeLogo": null,
-        "away": "Viking FK",
-        "awayLogo": null,
-        "kickoff": "2026-08-18T19:00:00Z",
-        "status": "scheduled",
-        "score": null,
-        "odds": {
-          "moneyline": {
-            "Bet365": {
-              "home": "1.700",
-              "draw": "4.000",
-              "away": "4.100"
-            }
-          },
-          "total": {
-            "Bet365": {
-              "line": 2.5,
-              "over": "1.600",
-              "under": "2.300"
-            },
-            "Bet365 (no latency)": {
-              "line": 2.5,
-              "over": "1.60",
-              "under": "2.29"
-            }
-          }
-        }
-      },
-      {
         "id": 73394630,
         "home": "Celtic Glasgow",
         "homeLogo": null,
@@ -1924,18 +2645,13 @@
               "home": "1.650",
               "draw": "3.750",
               "away": "4.500"
-            },
-            "Bet365 (no latency)": {
-              "home": "1.65",
-              "draw": "3.75",
-              "away": "4.50"
             }
           },
           "total": {
             "Bet365": {
               "line": 2.5,
-              "over": "1.750",
-              "under": "2.050"
+              "over": "1.700",
+              "under": "2.100"
             }
           }
         }
@@ -1960,8 +2676,8 @@
           "total": {
             "Bet365": {
               "line": 2.5,
-              "over": "1.800",
-              "under": "2.000"
+              "over": "1.750",
+              "under": "2.050"
             }
           }
         }
@@ -1978,9 +2694,9 @@
         "odds": {
           "moneyline": {
             "Bet365": {
-              "home": "2.250",
+              "home": "2.200",
               "draw": "3.100",
-              "away": "3.000"
+              "away": "3.100"
             }
           },
           "total": {
@@ -1988,11 +2704,6 @@
               "line": 2.5,
               "over": "1.900",
               "under": "1.900"
-            },
-            "Bet365 (no latency)": {
-              "line": 2.5,
-              "over": "1.95",
-              "under": "1.85"
             }
           }
         }
@@ -2009,21 +2720,21 @@
         "odds": {
           "moneyline": {
             "Bet365": {
-              "home": "2.450",
+              "home": "2.500",
               "draw": "3.600",
-              "away": "2.450"
+              "away": "2.400"
             },
             "Bet365 (no latency)": {
-              "home": "2.45",
+              "home": "2.50",
               "draw": "3.60",
-              "away": "2.45"
+              "away": "2.40"
             }
           },
           "total": {
             "Bet365": {
               "line": 2.5,
-              "over": "1.450",
-              "under": "2.675"
+              "over": "1.425",
+              "under": "2.750"
             }
           }
         }
@@ -2042,9 +2753,9 @@
         "odds": {
           "moneyline": {
             "Bet365": {
-              "home": "3.200",
-              "draw": "3.300",
-              "away": "2.100"
+              "home": "3.300",
+              "draw": "3.400",
+              "away": "2.000"
             }
           },
           "total": {
@@ -2055,8 +2766,8 @@
             },
             "Bet365 (no latency)": {
               "line": 2.5,
-              "over": "2.00",
-              "under": "1.80"
+              "over": "1.95",
+              "under": "1.85"
             }
           }
         }
@@ -2111,9 +2822,14 @@
           },
           "total": {
             "Bet365": {
+              "line": 3,
+              "over": "1.950",
+              "under": "1.850"
+            },
+            "Bet365 (no latency)": {
               "line": 2.5,
-              "over": "1.575",
-              "under": "2.350"
+              "over": "1.57",
+              "under": "2.35"
             }
           }
         }
@@ -2140,11 +2856,6 @@
               "line": 2.5,
               "over": "1.900",
               "under": "1.900"
-            },
-            "Bet365 (no latency)": {
-              "line": 2.5,
-              "over": "1.90",
-              "under": "1.90"
             }
           }
         }
@@ -2182,9 +2893,14 @@
           },
           "total": {
             "Bet365": {
-              "line": 2.75,
-              "over": "1.925",
-              "under": "1.875"
+              "line": 2.5,
+              "over": "1.700",
+              "under": "2.100"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "1.70",
+              "under": "2.10"
             }
           }
         }
@@ -2225,11 +2941,6 @@
               "line": 2.5,
               "over": "1.450",
               "under": "2.675"
-            },
-            "Bet365 (no latency)": {
-              "line": 2.5,
-              "over": "1.36",
-              "under": "3.00"
             }
           }
         }
@@ -2254,13 +2965,8 @@
           "total": {
             "Bet365": {
               "line": 2.5,
-              "over": "2.075",
-              "under": "1.725"
-            },
-            "Bet365 (no latency)": {
-              "line": 2.5,
-              "over": "2.07",
-              "under": "1.72"
+              "over": "2.050",
+              "under": "1.750"
             }
           }
         }
@@ -2308,9 +3014,9 @@
         "odds": {
           "moneyline": {
             "Bet365": {
-              "home": "1.850",
+              "home": "1.800",
               "draw": "3.400",
-              "away": "3.900"
+              "away": "4.100"
             }
           },
           "total": {
@@ -2419,21 +3125,16 @@
         "odds": {
           "moneyline": {
             "Bet365": {
-              "home": "4.750",
-              "draw": "3.600",
-              "away": "1.650"
+              "home": "5.750",
+              "draw": "3.900",
+              "away": "1.500"
             }
           },
           "total": {
             "Bet365": {
               "line": 2.5,
-              "over": "1.700",
-              "under": "2.100"
-            },
-            "Bet365 (no latency)": {
-              "line": 2.75,
-              "over": "1.950",
-              "under": "1.850"
+              "over": "1.725",
+              "under": "2.075"
             }
           }
         }
@@ -2505,8 +3206,20 @@
         "status": "scheduled",
         "score": null,
         "odds": {
-          "moneyline": {},
-          "total": {}
+          "moneyline": {
+            "Bet365": {
+              "home": "3.800",
+              "draw": "3.700",
+              "away": "1.800"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.75,
+              "over": "1.800",
+              "under": "2.000"
+            }
+          }
         }
       },
       {
@@ -2529,13 +3242,8 @@
           "total": {
             "Bet365": {
               "line": 2.5,
-              "over": "1.775",
-              "under": "2.025"
-            },
-            "Bet365 (no latency)": {
-              "line": 2.5,
-              "over": "1.80",
-              "under": "2.00"
+              "over": "1.800",
+              "under": "2.000"
             }
           }
         }
@@ -2619,11 +3327,6 @@
               "line": 2.5,
               "over": "1.650",
               "under": "2.200"
-            },
-            "Bet365 (no latency)": {
-              "line": 2.5,
-              "over": "1.65",
-              "under": "2.20"
             }
           }
         }
@@ -2637,7 +3340,27 @@
         "kickoff": "2026-08-20T18:00:00Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.615",
+              "draw": "3.600",
+              "away": "5.000"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.700",
+              "under": "2.100"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "1.70",
+              "under": "2.10"
+            }
+          }
+        }
       },
       {
         "id": 73399230,
@@ -2648,7 +3371,22 @@
         "kickoff": "2026-08-20T18:15:00Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "4.000",
+              "draw": "4.100",
+              "away": "1.650"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.600",
+              "under": "2.300"
+            }
+          }
+        }
       },
       {
         "id": 73399198,
@@ -2659,7 +3397,27 @@
         "kickoff": "2026-08-20T18:30:00Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.480",
+              "draw": "4.000",
+              "away": "6.250"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.975",
+              "under": "1.825"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "1.95",
+              "under": "1.85"
+            }
+          }
+        }
       },
       {
         "id": 73399202,
@@ -2670,7 +3428,27 @@
         "kickoff": "2026-08-20T18:30:00Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.600",
+              "draw": "3.700",
+              "away": "5.000"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "2.025",
+              "under": "1.775"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "2.00",
+              "under": "1.80"
+            }
+          }
+        }
       },
       {
         "id": 73399166,
@@ -2681,7 +3459,27 @@
         "kickoff": "2026-08-20T18:30:00Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "6.500",
+              "draw": "4.500",
+              "away": "1.380"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.550",
+              "under": "2.375"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "1.57",
+              "under": "2.35"
+            }
+          }
+        }
       },
       {
         "id": 73399250,
@@ -2692,7 +3490,22 @@
         "kickoff": "2026-08-20T18:30:00Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "2.000",
+              "draw": "3.400",
+              "away": "3.300"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.925",
+              "under": "1.875"
+            }
+          }
+        }
       },
       {
         "id": 73399210,
@@ -2703,7 +3516,27 @@
         "kickoff": "2026-08-20T18:30:00Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.142",
+              "draw": "7.000",
+              "away": "15.000"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.425",
+              "under": "2.750"
+            },
+            "Bet365 (no latency)": {
+              "line": 3.25,
+              "over": "1.850",
+              "under": "1.950"
+            }
+          }
+        }
       },
       {
         "id": 73399182,
@@ -2714,7 +3547,22 @@
         "kickoff": "2026-08-20T18:45:00Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "2.250",
+              "draw": "3.500",
+              "away": "2.750"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.75,
+              "over": "1.950",
+              "under": "1.850"
+            }
+          }
+        }
       },
       {
         "id": 73399218,
@@ -2725,7 +3573,22 @@
         "kickoff": "2026-08-20T18:45:00Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.333",
+              "draw": "4.750",
+              "away": "7.500"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.750",
+              "under": "2.050"
+            }
+          }
+        }
       },
       {
         "id": 73399242,
@@ -2736,7 +3599,27 @@
         "kickoff": "2026-08-20T19:00:00Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.285",
+              "draw": "4.500",
+              "away": "10.000"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.975",
+              "under": "1.825"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "1.95",
+              "under": "1.85"
+            }
+          }
+        }
       },
       {
         "id": 73399082,
@@ -2747,7 +3630,22 @@
         "kickoff": "2026-08-20T19:00:00Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "2.000",
+              "draw": "3.300",
+              "away": "3.400"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.925",
+              "under": "1.875"
+            }
+          }
+        }
       },
       {
         "id": 73399194,
@@ -2758,7 +3656,27 @@
         "kickoff": "2026-08-20T19:00:00Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.950",
+              "draw": "3.500",
+              "away": "3.400"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "2.025",
+              "under": "1.775"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "2.025",
+              "under": "1.775"
+            }
+          }
+        }
       },
       {
         "id": 73399226,
@@ -2769,7 +3687,22 @@
         "kickoff": "2026-08-20T19:00:00Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "3.600",
+              "draw": "3.400",
+              "away": "1.909"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.75,
+              "over": "2.250",
+              "under": "1.625"
+            }
+          }
+        }
       },
       {
         "id": 73399234,
@@ -2780,7 +3713,27 @@
         "kickoff": "2026-08-20T19:00:00Z",
         "status": "scheduled",
         "score": null,
-        "odds": null
+        "odds": {
+          "moneyline": {
+            "Bet365": {
+              "home": "1.300",
+              "draw": "4.750",
+              "away": "9.000"
+            }
+          },
+          "total": {
+            "Bet365": {
+              "line": 2.5,
+              "over": "1.625",
+              "under": "2.250"
+            },
+            "Bet365 (no latency)": {
+              "line": 2.5,
+              "over": "1.61",
+              "under": "2.25"
+            }
+          }
+        }
       }
     ]
   },
@@ -2806,7 +3759,7 @@
               "points_for": 71,
               "points_against": 27,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.085Z"
+              "updated_at": "2026-08-19T02:03:44.060Z"
             },
             {
               "team_id": "c12cf38c-1e19-4095-b367-c4ef2a184bb4",
@@ -2821,7 +3774,7 @@
               "points_for": 77,
               "points_against": 35,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.097Z"
+              "updated_at": "2026-08-19T02:03:44.069Z"
             },
             {
               "team_id": "7aa8f8ce-df72-41bd-ac07-d8699514f9e0",
@@ -2836,7 +3789,7 @@
               "points_for": 69,
               "points_against": 50,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.108Z"
+              "updated_at": "2026-08-19T02:03:44.078Z"
             },
             {
               "team_id": "5e780499-f34a-4303-b887-7cbb42be6ad0",
@@ -2851,7 +3804,7 @@
               "points_for": 56,
               "points_against": 49,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.119Z"
+              "updated_at": "2026-08-19T02:03:44.088Z"
             },
             {
               "team_id": "74a9c474-32e5-4b48-b9c0-b67122a1617a",
@@ -2866,7 +3819,7 @@
               "points_for": 63,
               "points_against": 53,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.133Z"
+              "updated_at": "2026-08-19T02:03:44.098Z"
             },
             {
               "team_id": "659f7d1c-8d18-47d8-b083-dc2340708592",
@@ -2881,7 +3834,7 @@
               "points_for": 58,
               "points_against": 54,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.143Z"
+              "updated_at": "2026-08-19T02:03:44.107Z"
             },
             {
               "team_id": "ad9f372c-fbba-416d-8a2b-cca844247495",
@@ -2896,7 +3849,7 @@
               "points_for": 42,
               "points_against": 48,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.161Z"
+              "updated_at": "2026-08-19T02:03:44.118Z"
             },
             {
               "team_id": "b663685e-6611-4d9b-b817-71d68eea74f5",
@@ -2926,7 +3879,7 @@
               "points_for": 52,
               "points_against": 46,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.181Z"
+              "updated_at": "2026-08-19T02:03:44.127Z"
             },
             {
               "team_id": "f1dad0f2-fa00-4787-ab2a-4f17699d8aa8",
@@ -2941,7 +3894,7 @@
               "points_for": 55,
               "points_against": 52,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.211Z"
+              "updated_at": "2026-08-19T02:03:44.138Z"
             },
             {
               "team_id": "544de6be-906a-40c9-8d32-17ed7239348f",
@@ -2956,7 +3909,7 @@
               "points_for": 58,
               "points_against": 52,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.258Z"
+              "updated_at": "2026-08-19T02:03:44.148Z"
             },
             {
               "team_id": "1db0b3ae-b02c-489d-9cb9-660a0c8ee005",
@@ -2971,7 +3924,7 @@
               "points_for": 47,
               "points_against": 51,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.282Z"
+              "updated_at": "2026-08-19T02:03:44.159Z"
             },
             {
               "team_id": "fd1a7234-c96d-4628-a0e6-71c44b29d838",
@@ -3001,7 +3954,7 @@
               "points_for": 53,
               "points_against": 55,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.317Z"
+              "updated_at": "2026-08-19T02:03:44.168Z"
             },
             {
               "team_id": "37fc8acf-b467-4811-937d-6ebebb3fa61f",
@@ -3031,7 +3984,7 @@
               "points_for": 47,
               "points_against": 50,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.341Z"
+              "updated_at": "2026-08-19T02:03:44.187Z"
             },
             {
               "team_id": "ea86337a-d297-450e-af66-d197c1dae17a",
@@ -3046,7 +3999,7 @@
               "points_for": 49,
               "points_against": 56,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.358Z"
+              "updated_at": "2026-08-19T02:03:44.204Z"
             },
             {
               "team_id": "75b48108-aa4a-4b0f-95ee-70fbf8f2fc29",
@@ -3061,7 +4014,7 @@
               "points_for": 41,
               "points_against": 51,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.369Z"
+              "updated_at": "2026-08-19T02:03:44.216Z"
             },
             {
               "team_id": "417992e3-3af2-4dd4-a25a-ffb70ddd991b",
@@ -3076,7 +4029,7 @@
               "points_for": 48,
               "points_against": 51,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.382Z"
+              "updated_at": "2026-08-19T02:03:44.227Z"
             },
             {
               "team_id": "e03f803f-cd23-4db0-a79a-318f58734c7c",
@@ -3091,7 +4044,7 @@
               "points_for": 48,
               "points_against": 57,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.391Z"
+              "updated_at": "2026-08-19T02:03:44.236Z"
             },
             {
               "team_id": "b9d28b6f-1a20-4b1f-bd2b-97c84078c614",
@@ -3106,7 +4059,7 @@
               "points_for": 46,
               "points_against": 65,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.401Z"
+              "updated_at": "2026-08-19T02:03:44.245Z"
             },
             {
               "team_id": "410f522a-5fa5-44a5-afc2-128b4f482a96",
@@ -3121,7 +4074,7 @@
               "points_for": 38,
               "points_against": 75,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.409Z"
+              "updated_at": "2026-08-19T02:03:44.253Z"
             },
             {
               "team_id": "3161f38d-55d2-4dc3-80dc-82b665528c94",
@@ -3136,7 +4089,7 @@
               "points_for": 27,
               "points_against": 68,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.420Z"
+              "updated_at": "2026-08-19T02:03:44.262Z"
             }
           ]
         }
@@ -3163,7 +4116,7 @@
               "points_for": 95,
               "points_against": 36,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.529Z"
+              "updated_at": "2026-08-19T02:03:44.365Z"
             },
             {
               "team_id": "e0dcfb37-2786-4270-894a-af7c411627f9",
@@ -3178,7 +4131,7 @@
               "points_for": 77,
               "points_against": 35,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.565Z"
+              "updated_at": "2026-08-19T02:03:44.375Z"
             },
             {
               "team_id": "720c1633-8fc4-4e88-970a-058832c2a109",
@@ -3193,7 +4146,7 @@
               "points_for": 72,
               "points_against": 46,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.608Z"
+              "updated_at": "2026-08-19T02:03:44.385Z"
             },
             {
               "team_id": "9fe82092-5ef1-4101-b8e3-2ab08f41b82e",
@@ -3208,7 +4161,7 @@
               "points_for": 62,
               "points_against": 44,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.652Z"
+              "updated_at": "2026-08-19T02:03:44.395Z"
             },
             {
               "team_id": "dcaba401-a83a-4195-8c89-145d9bd5ad28",
@@ -3223,7 +4176,7 @@
               "points_for": 59,
               "points_against": 48,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.686Z"
+              "updated_at": "2026-08-19T02:03:44.405Z"
             },
             {
               "team_id": "d8fc1e4d-5c8b-44a1-9472-a946a0ec183f",
@@ -3238,7 +4191,7 @@
               "points_for": 53,
               "points_against": 48,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.699Z"
+              "updated_at": "2026-08-19T02:03:44.415Z"
             },
             {
               "team_id": "ae11ccec-9712-476d-9d0c-82eea145d77d",
@@ -3268,7 +4221,7 @@
               "points_for": 32,
               "points_against": 38,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.710Z"
+              "updated_at": "2026-08-19T02:03:44.424Z"
             },
             {
               "team_id": "8fdb3038-d3ab-416d-ba76-115c7d041f68",
@@ -3283,7 +4236,7 @@
               "points_for": 41,
               "points_against": 44,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.721Z"
+              "updated_at": "2026-08-19T02:03:44.434Z"
             },
             {
               "team_id": "c97ca45b-263f-45d6-8ab1-043cce8318cf",
@@ -3298,7 +4251,7 @@
               "points_for": 46,
               "points_against": 55,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.732Z"
+              "updated_at": "2026-08-19T02:03:44.445Z"
             },
             {
               "team_id": "e628c26c-4618-497b-83bf-c0242592f670",
@@ -3313,7 +4266,7 @@
               "points_for": 59,
               "points_against": 61,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.742Z"
+              "updated_at": "2026-08-19T02:03:44.455Z"
             },
             {
               "team_id": "ebe48095-9d17-44db-bfcf-14e7b317853c",
@@ -3328,7 +4281,7 @@
               "points_for": 43,
               "points_against": 55,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.752Z"
+              "updated_at": "2026-08-19T02:03:44.464Z"
             },
             {
               "team_id": "fd31cf6b-7a9c-4e9f-898d-b60e98e16dfa",
@@ -3358,7 +4311,7 @@
               "points_for": 43,
               "points_against": 58,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.763Z"
+              "updated_at": "2026-08-19T02:03:44.474Z"
             },
             {
               "team_id": "9b2c2c34-0fcd-47cf-a3f9-01559240a826",
@@ -3373,7 +4326,7 @@
               "points_for": 46,
               "points_against": 60,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.772Z"
+              "updated_at": "2026-08-19T02:03:44.483Z"
             },
             {
               "team_id": "695cc9cb-a1cf-428c-9e6a-92422e29491d",
@@ -3403,7 +4356,7 @@
               "points_for": 44,
               "points_against": 56,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.782Z"
+              "updated_at": "2026-08-19T02:03:44.491Z"
             },
             {
               "team_id": "475f53f6-206b-41a1-b0a6-59b2056b77bf",
@@ -3418,7 +4371,7 @@
               "points_for": 49,
               "points_against": 57,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.792Z"
+              "updated_at": "2026-08-19T02:03:44.501Z"
             },
             {
               "team_id": "06b2e2c1-ddd0-4872-8ca5-624d5d1a4f29",
@@ -3433,7 +4386,7 @@
               "points_for": 47,
               "points_against": 61,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.807Z"
+              "updated_at": "2026-08-19T02:03:44.511Z"
             },
             {
               "team_id": "11c16c6c-e761-4a28-8a82-f2b3ab21ad43",
@@ -3448,7 +4401,7 @@
               "points_for": 44,
               "points_against": 50,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.819Z"
+              "updated_at": "2026-08-19T02:03:44.523Z"
             },
             {
               "team_id": "d1937c39-70a9-4680-9e9a-113336fb028b",
@@ -3463,7 +4416,7 @@
               "points_for": 47,
               "points_against": 57,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.826Z"
+              "updated_at": "2026-08-19T02:03:44.533Z"
             },
             {
               "team_id": "1836a9c3-4efa-4219-b1e3-90d209bb6567",
@@ -3478,7 +4431,7 @@
               "points_for": 39,
               "points_against": 55,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.836Z"
+              "updated_at": "2026-08-19T02:03:44.543Z"
             },
             {
               "team_id": "edcd5f67-aedb-4244-b786-6190d3686e80",
@@ -3493,7 +4446,7 @@
               "points_for": 26,
               "points_against": 60,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:25.845Z"
+              "updated_at": "2026-08-19T02:03:44.553Z"
             }
           ]
         }
@@ -3520,7 +4473,7 @@
               "points_for": 89,
               "points_against": 35,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:26.353Z"
+              "updated_at": "2026-08-19T02:03:44.936Z"
             },
             {
               "team_id": "e0ecc5a1-616e-4186-afb2-5ee815b57f04",
@@ -3535,7 +4488,7 @@
               "points_for": 58,
               "points_against": 36,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:26.366Z"
+              "updated_at": "2026-08-19T02:03:44.946Z"
             },
             {
               "team_id": "22033fe3-0a71-435a-9762-749984ea439c",
@@ -3550,7 +4503,7 @@
               "points_for": 59,
               "points_against": 31,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:26.396Z"
+              "updated_at": "2026-08-19T02:03:44.956Z"
             },
             {
               "team_id": "40463b4d-7cb3-4ce4-a4ca-d2e4a71e0abf",
@@ -3565,7 +4518,7 @@
               "points_for": 65,
               "points_against": 29,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:26.425Z"
+              "updated_at": "2026-08-19T02:03:44.970Z"
             },
             {
               "team_id": "f6d37fa6-81ad-4c70-bea5-ddde2e839331",
@@ -3580,7 +4533,7 @@
               "points_for": 53,
               "points_against": 35,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:26.454Z"
+              "updated_at": "2026-08-19T02:03:44.982Z"
             },
             {
               "team_id": "1afc40a5-a6a6-41fc-85ff-95ac9c140733",
@@ -3595,7 +4548,7 @@
               "points_for": 61,
               "points_against": 34,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:26.492Z"
+              "updated_at": "2026-08-19T02:03:44.993Z"
             },
             {
               "team_id": "5390f42a-5d9a-438e-a19b-05d353c0aa26",
@@ -3610,7 +4563,7 @@
               "points_for": 51,
               "points_against": 36,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:26.527Z"
+              "updated_at": "2026-08-19T02:03:45.009Z"
             },
             {
               "team_id": "a84e310f-4fb7-41a3-ba6f-f3ea61ec16fe",
@@ -3640,7 +4593,7 @@
               "points_for": 49,
               "points_against": 46,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:26.540Z"
+              "updated_at": "2026-08-19T02:03:45.023Z"
             },
             {
               "team_id": "98b55896-77bd-4eab-b63d-43bc36c861d2",
@@ -3655,7 +4608,7 @@
               "points_for": 41,
               "points_against": 40,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:26.551Z"
+              "updated_at": "2026-08-19T02:03:45.033Z"
             },
             {
               "team_id": "54f2689e-67a8-4cb9-af85-2d518cd3f342",
@@ -3670,7 +4623,7 @@
               "points_for": 45,
               "points_against": 48,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:26.562Z"
+              "updated_at": "2026-08-19T02:03:45.043Z"
             },
             {
               "team_id": "d056c5bb-7239-417c-a9d1-71c324f8a593",
@@ -3685,7 +4638,7 @@
               "points_for": 46,
               "points_against": 50,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:26.574Z"
+              "updated_at": "2026-08-19T02:03:45.054Z"
             },
             {
               "team_id": "13988291-03bc-44b9-851c-e02140c56ba2",
@@ -3700,7 +4653,7 @@
               "points_for": 44,
               "points_against": 63,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:26.589Z"
+              "updated_at": "2026-08-19T02:03:45.064Z"
             },
             {
               "team_id": "96751637-62ae-4b89-99c6-730d6554cfbf",
@@ -3715,7 +4668,7 @@
               "points_for": 28,
               "points_against": 46,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:26.600Z"
+              "updated_at": "2026-08-19T02:03:45.076Z"
             },
             {
               "team_id": "251a4431-857e-4eb5-9a07-293b4cda3c56",
@@ -3745,7 +4698,7 @@
               "points_for": 40,
               "points_against": 53,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:26.617Z"
+              "updated_at": "2026-08-19T02:03:45.086Z"
             },
             {
               "team_id": "70226120-96e4-4516-b8a2-20a58f49bf12",
@@ -3760,7 +4713,7 @@
               "points_for": 41,
               "points_against": 50,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:26.632Z"
+              "updated_at": "2026-08-19T02:03:45.105Z"
             },
             {
               "team_id": "d8bca7a9-dd55-42c8-9b00-5388d8af40df",
@@ -3775,7 +4728,7 @@
               "points_for": 41,
               "points_against": 51,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:26.659Z"
+              "updated_at": "2026-08-19T02:03:45.116Z"
             },
             {
               "team_id": "a6e9b919-98dc-4447-a06c-216762bb5b1c",
@@ -3790,7 +4743,7 @@
               "points_for": 28,
               "points_against": 50,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:26.685Z"
+              "updated_at": "2026-08-19T02:03:45.133Z"
             },
             {
               "team_id": "e1b8a281-37c6-4178-bc86-8d0526c34d60",
@@ -3805,7 +4758,7 @@
               "points_for": 32,
               "points_against": 57,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:26.718Z"
+              "updated_at": "2026-08-19T02:03:45.143Z"
             },
             {
               "team_id": "f16550f9-4b3a-402b-add4-c38dad048a36",
@@ -3820,7 +4773,7 @@
               "points_for": 25,
               "points_against": 61,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:26.757Z"
+              "updated_at": "2026-08-19T02:03:45.154Z"
             },
             {
               "team_id": "c362d9b2-4727-42d1-aeeb-ce8d763ffe83",
@@ -3835,7 +4788,7 @@
               "points_for": 26,
               "points_against": 71,
               "streak": null,
-              "updated_at": "2026-08-18T22:02:26.787Z"
+              "updated_at": "2026-08-19T02:03:45.163Z"
             },
             {
               "team_id": "f4f0ca06-9941-4289-9ba0-76db26979dec",
