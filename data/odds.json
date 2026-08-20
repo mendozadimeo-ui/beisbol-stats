@@ -1,1522 +1,25 @@
 {
-  "updatedAt": "2026-08-20T20:48:27.781Z",
+  "updatedAt": "2026-08-20T22:47:18.423Z",
   "games": {
-    "New York Yankees@Baltimore Orioles@2026-08-20": {
-      "home": "Baltimore Orioles",
-      "away": "New York Yankees",
-      "date": "2026-08-20T22:35:00Z",
-      "moneyline": {
-        "Bovada": {
-          "home": "1.93",
-          "away": "1.89"
-        },
-        "Bet365": {
-          "home": "1.97",
-          "away": "1.93"
-        }
-      },
-      "total": {
-        "Bovada": {
-          "line": 7.5,
-          "over": "1.95",
-          "under": "1.87"
-        },
-        "Bet365": {
-          "line": 7.5,
-          "over": "1.86",
-          "under": "1.95"
-        }
-      },
-      "spread": {
-        "Bovada": {
-          "homeLine": 2.5,
-          "homeOdds": "1.32",
-          "awayOdds": "3.25"
-        },
-        "Bet365": {
-          "homeLine": 1.5,
-          "homeOdds": "1.55",
-          "awayOdds": "2.50"
-        }
-      },
-      "props": [
-        {
-          "market": "Pitcher Strikeouts O/U",
-          "kind": "pitching",
-          "player": "Kyle Bradish",
-          "line": 1.5,
-          "over": "1.01",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 680694,
-          "side": "over",
-          "odds": "1.01",
-          "ourProb": 0.965,
-          "impliedProb": 0.99,
-          "edge": -0.025,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Gerrit Cole",
-          "why": null
-        },
-        {
-          "market": "Pitcher Strikeouts O/U",
-          "kind": "pitching",
-          "player": "Gerrit Cole",
-          "line": 1.5,
-          "over": "1.00",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 543037,
-          "side": "over",
-          "odds": "1.00",
-          "ourProb": 0.985,
-          "impliedProb": 1,
-          "edge": -0.015,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Kyle Bradish",
-          "why": null
-        },
-        {
-          "market": "Total Bases O/U",
-          "kind": "hitting",
-          "player": "Jose Caballero",
-          "line": 1.5,
-          "over": "3.70",
-          "under": "1.26",
-          "bookmaker": "Bet365",
-          "playerId": 676609,
-          "side": "over",
-          "odds": "3.70",
-          "ourProb": 0.29,
-          "impliedProb": 0.27,
-          "edge": 0.019,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Kyle Bradish",
-          "why": "viento moderado saliendo hacia el jardín (10mph) · en racha en los últimos 15 partidos · Statcast: contacto real peor que sus resultados (SLG esperado 0.341 vs real 0.388)",
-          "seasonTb": 127,
-          "gamesPlayed": 105,
-          "tbPerGame": 1.21,
-          "matchup": {
-            "pitcher": "Kyle Bradish",
-            "ab": 7,
-            "hits": 1,
-            "hr": 0,
-            "so": 3,
-            "bb": 2,
-            "avg": ".143",
-            "ops": ".476"
-          }
-        },
-        {
-          "market": "Total Bases O/U",
-          "kind": "hitting",
-          "player": "Jazz Chisholm Jr.",
-          "line": 1.5,
-          "over": "2.82",
-          "under": "1.40",
-          "bookmaker": "Bet365",
-          "playerId": 665862,
-          "side": "under",
-          "odds": "1.40",
-          "ourProb": 0.748,
-          "impliedProb": 0.714,
-          "edge": 0.033,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Kyle Bradish",
-          "why": "viento moderado saliendo hacia el jardín (10mph) · bajón en los últimos 15 partidos",
-          "seasonTb": 157,
-          "gamesPlayed": 117,
-          "tbPerGame": 1.34,
-          "matchup": {
-            "pitcher": "Kyle Bradish",
-            "ab": 5,
-            "hits": 1,
-            "hr": 0,
-            "so": 3,
-            "bb": 1,
-            "avg": ".200",
-            "ops": ".733"
-          }
-        },
-        {
-          "market": "Total Bases O/U",
-          "kind": "hitting",
-          "player": "Luis Garcia",
-          "line": 1.5,
-          "over": "2.10",
-          "under": "1.66",
-          "bookmaker": "Bet365",
-          "playerId": 671277,
-          "side": "under",
-          "odds": "1.66",
-          "ourProb": 0.613,
-          "impliedProb": 0.602,
-          "edge": 0.011,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Kyle Bradish",
-          "why": "viento moderado saliendo hacia el jardín (10mph) · mejor de lo normal vs lanzadores derechos esta temporada · bajón en los últimos 15 partidos · Statcast: contacto real peor que sus resultados (SLG esperado 0.491 vs real 0.532)",
-          "seasonTb": 217,
-          "gamesPlayed": 117,
-          "tbPerGame": 1.85
-        },
-        {
-          "market": "Total Bases O/U",
-          "kind": "hitting",
-          "player": "Trent Grisham",
-          "line": 1.5,
-          "over": "2.35",
-          "under": "1.55",
-          "bookmaker": "Bet365",
-          "playerId": 663757,
-          "side": "over",
-          "odds": "2.35",
-          "ourProb": 0.396,
-          "impliedProb": 0.426,
-          "edge": -0.03,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Kyle Bradish",
-          "why": "viento moderado saliendo hacia el jardín (10mph) · en racha en los últimos 15 partidos",
-          "seasonTb": 157,
-          "gamesPlayed": 106,
-          "tbPerGame": 1.48,
-          "matchup": {
-            "pitcher": "Kyle Bradish",
-            "ab": 10,
-            "hits": 2,
-            "hr": 1,
-            "so": 4,
-            "bb": 3,
-            "avg": ".200",
-            "ops": ".985"
-          }
-        },
-        {
-          "market": "Total Bases O/U",
-          "kind": "hitting",
-          "player": "Spencer Jones",
-          "line": 1.5,
-          "over": "2.95",
-          "under": "1.37",
-          "bookmaker": "Bet365",
-          "playerId": 682987,
-          "side": "under",
-          "odds": "1.37",
-          "ourProb": 0.762,
-          "impliedProb": 0.73,
-          "edge": 0.032,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Kyle Bradish",
-          "why": "viento moderado saliendo hacia el jardín (10mph) · peor de lo normal vs lanzadores derechos esta temporada · bajón en los últimos 15 partidos · Statcast: contacto real mejor que sus resultados (SLG esperado 0.412 vs real 0.377)",
-          "seasonTb": 55,
-          "gamesPlayed": 53,
-          "tbPerGame": 1.04,
-          "matchup": {
-            "pitcher": "Kyle Bradish",
-            "ab": 1,
-            "hits": 0,
-            "hr": 0,
-            "so": 0,
-            "bb": 1,
-            "avg": ".000",
-            "ops": ".500"
-          }
-        },
-        {
-          "market": "Total Bases O/U",
-          "kind": "hitting",
-          "player": "George Lombard Jr.",
-          "line": 1.5,
-          "over": "3.15",
-          "under": "1.32",
-          "bookmaker": "Bet365",
-          "playerId": 806146,
-          "side": "under",
-          "odds": "1.32",
-          "ourProb": 0.724,
-          "impliedProb": 0.758,
-          "edge": -0.033,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Kyle Bradish",
-          "why": "viento moderado saliendo hacia el jardín (10mph) · Statcast: contacto real peor que sus resultados (SLG esperado 0.401 vs real 0.477)",
-          "seasonTb": 21,
-          "gamesPlayed": 13,
-          "tbPerGame": 1.62
-        },
-        {
-          "market": "Total Bases O/U",
-          "kind": "hitting",
-          "player": "Heliot Ramos",
-          "line": 1.5,
-          "over": "2.35",
-          "under": "1.55",
-          "bookmaker": "Bet365",
-          "playerId": 671218,
-          "side": "over",
-          "odds": "2.35",
-          "ourProb": 0.446,
-          "impliedProb": 0.426,
-          "edge": 0.021,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Kyle Bradish",
-          "why": "viento moderado saliendo hacia el jardín (10mph) · bajón en los últimos 15 partidos · Statcast: contacto real mejor que sus resultados (SLG esperado 0.436 vs real 0.391)",
-          "seasonTb": 129,
-          "gamesPlayed": 87,
-          "tbPerGame": 1.48
-        },
-        {
-          "market": "Total Bases O/U",
-          "kind": "hitting",
-          "player": "Ben Rice",
-          "line": 1.5,
-          "over": "2.15",
-          "under": "1.64",
-          "bookmaker": "Bet365",
-          "playerId": 700250,
-          "side": "over",
-          "odds": "2.15",
-          "ourProb": 0.471,
-          "impliedProb": 0.465,
-          "edge": 0.006,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Kyle Bradish",
-          "why": "viento moderado saliendo hacia el jardín (10mph) · bajón en los últimos 15 partidos",
-          "seasonTb": 241,
-          "gamesPlayed": 121,
-          "tbPerGame": 1.99,
-          "matchup": {
-            "pitcher": "Kyle Bradish",
-            "ab": 10,
-            "hits": 4,
-            "hr": 1,
-            "so": 3,
-            "bb": 1,
-            "avg": ".400",
-            "ops": "1.155"
-          }
-        },
-        {
-          "market": "Total Bases O/U",
-          "kind": "hitting",
-          "player": "Austin Wells",
-          "line": 1.5,
-          "over": "3.40",
-          "under": "1.29",
-          "bookmaker": "Bet365",
-          "playerId": 669224,
-          "side": "over",
-          "odds": "3.40",
-          "ourProb": 0.309,
-          "impliedProb": 0.294,
-          "edge": 0.015,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Kyle Bradish",
-          "why": "viento moderado saliendo hacia el jardín (10mph) · en racha en los últimos 15 partidos · Statcast: contacto real mejor que sus resultados (SLG esperado 0.358 vs real 0.294)",
-          "seasonTb": 74,
-          "gamesPlayed": 91,
-          "tbPerGame": 0.81,
-          "matchup": {
-            "pitcher": "Kyle Bradish",
-            "ab": 6,
-            "hits": 0,
-            "hr": 0,
-            "so": 3,
-            "bb": 0,
-            "avg": ".000",
-            "ops": ".000"
-          }
-        },
-        {
-          "market": "Total Bases O/U",
-          "kind": "hitting",
-          "player": "Pete Alonso",
-          "line": 1.5,
-          "over": "2.10",
-          "under": "1.66",
-          "bookmaker": "Bet365",
-          "playerId": 624413,
-          "side": "over",
-          "odds": "2.10",
-          "ourProb": 0.624,
-          "impliedProb": 0.476,
-          "edge": 0.148,
-          "isValue": true,
-          "pitcherHand": "R",
-          "pitcherName": "Gerrit Cole",
-          "why": "viento moderado saliendo hacia el jardín (10mph) · en racha en los últimos 15 partidos · Statcast: contacto real mejor que sus resultados (SLG esperado 0.545 vs real 0.498)",
-          "seasonTb": 237,
-          "gamesPlayed": 127,
-          "tbPerGame": 1.87,
-          "matchup": {
-            "pitcher": "Gerrit Cole",
-            "ab": 6,
-            "hits": 1,
-            "hr": 1,
-            "so": 2,
-            "bb": 1,
-            "avg": ".167",
-            "ops": ".953"
-          }
-        },
-        {
-          "market": "Total Bases O/U",
-          "kind": "hitting",
-          "player": "Samuel Basallo",
-          "line": 1.5,
-          "over": "2.55",
-          "under": "1.47",
-          "bookmaker": "Bet365",
-          "playerId": 694212,
-          "side": "over",
-          "odds": "2.55",
-          "ourProb": 0.4,
-          "impliedProb": 0.392,
-          "edge": 0.007,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Gerrit Cole",
-          "why": "viento moderado saliendo hacia el jardín (10mph) · mejor de lo normal vs lanzadores derechos esta temporada",
-          "seasonTb": 128,
-          "gamesPlayed": 87,
-          "tbPerGame": 1.47
-        },
-        {
-          "market": "Total Bases O/U",
-          "kind": "hitting",
-          "player": "Dylan Beavers",
-          "line": 1.5,
-          "over": "3.20",
-          "under": "1.31",
-          "bookmaker": "Bet365",
-          "playerId": 687637,
-          "side": "over",
-          "odds": "3.20",
-          "ourProb": 0.329,
-          "impliedProb": 0.313,
-          "edge": 0.017,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Gerrit Cole",
-          "why": "viento moderado saliendo hacia el jardín (10mph)",
-          "seasonTb": 74,
-          "gamesPlayed": 72,
-          "tbPerGame": 1.03
-        },
-        {
-          "market": "Total Bases O/U",
-          "kind": "hitting",
-          "player": "Colton Cowser",
-          "line": 1.5,
-          "over": "3.80",
-          "under": "1.25",
-          "bookmaker": "Bet365",
-          "playerId": 681297,
-          "side": "under",
-          "odds": "1.25",
-          "ourProb": 0.792,
-          "impliedProb": 0.8,
-          "edge": -0.008,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Gerrit Cole",
-          "why": "viento moderado saliendo hacia el jardín (10mph) · en racha en los últimos 15 partidos · Statcast: contacto real mejor que sus resultados (SLG esperado 0.421 vs real 0.354)",
-          "seasonTb": 92,
-          "gamesPlayed": 113,
-          "tbPerGame": 0.81,
-          "matchup": {
-            "pitcher": "Gerrit Cole",
-            "ab": 7,
-            "hits": 0,
-            "hr": 0,
-            "so": 6,
-            "bb": 0,
-            "avg": ".000",
-            "ops": ".000"
-          }
-        },
-        {
-          "market": "Total Bases O/U",
-          "kind": "hitting",
-          "player": "Christian Encarnacion-Strand",
-          "line": 1.5,
-          "over": "2.55",
-          "under": "1.47",
-          "bookmaker": "Bet365",
-          "playerId": 687952,
-          "side": "under",
-          "odds": "1.47",
-          "ourProb": 0.692,
-          "impliedProb": 0.68,
-          "edge": 0.012,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Gerrit Cole",
-          "why": "viento moderado saliendo hacia el jardín (10mph) · peor de lo normal vs lanzadores derechos esta temporada · Statcast: contacto real mejor que sus resultados (SLG esperado 0.566 vs real 0.518)",
-          "seasonTb": 44,
-          "gamesPlayed": 26,
-          "tbPerGame": 1.69
-        },
-        {
-          "market": "Total Bases O/U",
-          "kind": "hitting",
-          "player": "Gunnar Henderson",
-          "line": 1.5,
-          "over": "2.40",
-          "under": "1.52",
-          "bookmaker": "Bet365",
-          "playerId": 683002,
-          "side": "over",
-          "odds": "2.40",
-          "ourProb": 0.411,
-          "impliedProb": 0.417,
-          "edge": -0.006,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Gerrit Cole",
-          "why": "viento moderado saliendo hacia el jardín (10mph)",
-          "seasonTb": 203,
-          "gamesPlayed": 126,
-          "tbPerGame": 1.61,
-          "matchup": {
-            "pitcher": "Gerrit Cole",
-            "ab": 12,
-            "hits": 3,
-            "hr": 1,
-            "so": 2,
-            "bb": 1,
-            "avg": ".250",
-            "ops": ".891"
-          }
-        },
-        {
-          "market": "Total Bases O/U",
-          "kind": "hitting",
-          "player": "Jackson Holliday",
-          "line": 1.5,
-          "over": "2.90",
-          "under": "1.38",
-          "bookmaker": "Bet365",
-          "playerId": 702616,
-          "side": "under",
-          "odds": "1.38",
-          "ourProb": 0.724,
-          "impliedProb": 0.725,
-          "edge": -0.001,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Gerrit Cole",
-          "why": "viento moderado saliendo hacia el jardín (10mph)",
-          "seasonTb": 81,
-          "gamesPlayed": 75,
-          "tbPerGame": 1.08
-        },
-        {
-          "market": "Total Bases O/U",
-          "kind": "hitting",
-          "player": "Leody Taveras",
-          "line": 1.5,
-          "over": "3.30",
-          "under": "1.30",
-          "bookmaker": "Bet365",
-          "playerId": 665750,
-          "side": "over",
-          "odds": "3.30",
-          "ourProb": 0.345,
-          "impliedProb": 0.303,
-          "edge": 0.042,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Gerrit Cole",
-          "why": "viento moderado saliendo hacia el jardín (10mph) · mejor de lo normal vs lanzadores derechos esta temporada · en racha en los últimos 15 partidos · Statcast: contacto real peor que sus resultados (SLG esperado 0.328 vs real 0.367)",
-          "seasonTb": 125,
-          "gamesPlayed": 110,
-          "tbPerGame": 1.14,
-          "matchup": {
-            "pitcher": "Gerrit Cole",
-            "ab": 11,
-            "hits": 4,
-            "hr": 1,
-            "so": 7,
-            "bb": 0,
-            "avg": ".364",
-            "ops": "1.091"
-          }
-        },
-        {
-          "market": "Hits O/U",
-          "kind": "hitting",
-          "player": "Pete Alonso",
-          "line": 0.5,
-          "over": "1.36",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 624413,
-          "side": "over",
-          "odds": "1.36",
-          "ourProb": 0.688,
-          "impliedProb": 0.735,
-          "edge": -0.047,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Gerrit Cole",
-          "why": null,
-          "matchup": {
-            "pitcher": "Gerrit Cole",
-            "ab": 6,
-            "hits": 1,
-            "hr": 1,
-            "so": 2,
-            "bb": 1,
-            "avg": ".167",
-            "ops": ".953"
-          }
-        },
-        {
-          "market": "Hits O/U",
-          "kind": "hitting",
-          "player": "Luis Garcia",
-          "line": 0.5,
-          "over": "1.36",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 671277,
-          "side": "over",
-          "odds": "1.36",
-          "ourProb": 0.674,
-          "impliedProb": 0.735,
-          "edge": -0.061,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Kyle Bradish",
-          "why": null
-        },
-        {
-          "market": "Hits O/U",
-          "kind": "hitting",
-          "player": "Ben Rice",
-          "line": 0.5,
-          "over": "1.40",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 700250,
-          "side": "over",
-          "odds": "1.40",
-          "ourProb": 0.659,
-          "impliedProb": 0.714,
-          "edge": -0.055,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Kyle Bradish",
-          "why": null,
-          "matchup": {
-            "pitcher": "Kyle Bradish",
-            "ab": 10,
-            "hits": 4,
-            "hr": 1,
-            "so": 3,
-            "bb": 1,
-            "avg": ".400",
-            "ops": "1.155"
-          }
-        },
-        {
-          "market": "Hits O/U",
-          "kind": "hitting",
-          "player": "Heliot Ramos",
-          "line": 0.5,
-          "over": "1.41",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 671218,
-          "side": "over",
-          "odds": "1.41",
-          "ourProb": 0.65,
-          "impliedProb": 0.709,
-          "edge": -0.059,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Kyle Bradish",
-          "why": null
-        },
-        {
-          "market": "Hits O/U",
-          "kind": "hitting",
-          "player": "Gunnar Henderson",
-          "line": 0.5,
-          "over": "1.45",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 683002,
-          "side": "over",
-          "odds": "1.45",
-          "ourProb": 0.633,
-          "impliedProb": 0.69,
-          "edge": -0.057,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Gerrit Cole",
-          "why": null,
-          "matchup": {
-            "pitcher": "Gerrit Cole",
-            "ab": 12,
-            "hits": 3,
-            "hr": 1,
-            "so": 2,
-            "bb": 1,
-            "avg": ".250",
-            "ops": ".891"
-          }
-        },
-        {
-          "market": "Hits O/U",
-          "kind": "hitting",
-          "player": "Christian Encarnacion-Strand",
-          "line": 0.5,
-          "over": "1.47",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 687952,
-          "side": "over",
-          "odds": "1.47",
-          "ourProb": 0.625,
-          "impliedProb": 0.68,
-          "edge": -0.056,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Gerrit Cole",
-          "why": null
-        },
-        {
-          "market": "Hits O/U",
-          "kind": "hitting",
-          "player": "Trent Grisham",
-          "line": 0.5,
-          "over": "1.47",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 663757,
-          "side": "over",
-          "odds": "1.47",
-          "ourProb": 0.587,
-          "impliedProb": 0.68,
-          "edge": -0.093,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Kyle Bradish",
-          "why": null,
-          "matchup": {
-            "pitcher": "Kyle Bradish",
-            "ab": 10,
-            "hits": 2,
-            "hr": 1,
-            "so": 4,
-            "bb": 3,
-            "avg": ".200",
-            "ops": ".985"
-          }
-        },
-        {
-          "market": "Hits O/U",
-          "kind": "hitting",
-          "player": "Samuel Basallo",
-          "line": 0.5,
-          "over": "1.55",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 694212,
-          "side": "over",
-          "odds": "1.55",
-          "ourProb": 0.597,
-          "impliedProb": 0.645,
-          "edge": -0.049,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Gerrit Cole",
-          "why": null
-        },
-        {
-          "market": "Hits O/U",
-          "kind": "hitting",
-          "player": "Jackson Holliday",
-          "line": 0.5,
-          "over": "1.55",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 702616,
-          "side": "over",
-          "odds": "1.55",
-          "ourProb": 0.546,
-          "impliedProb": 0.645,
-          "edge": -0.099,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Gerrit Cole",
-          "why": null
-        },
-        {
-          "market": "Hits O/U",
-          "kind": "hitting",
-          "player": "Jazz Chisholm Jr.",
-          "line": 0.5,
-          "over": "1.60",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 665862,
-          "side": "over",
-          "odds": "1.60",
-          "ourProb": 0.572,
-          "impliedProb": 0.625,
-          "edge": -0.053,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Kyle Bradish",
-          "why": null,
-          "matchup": {
-            "pitcher": "Kyle Bradish",
-            "ab": 5,
-            "hits": 1,
-            "hr": 0,
-            "so": 3,
-            "bb": 1,
-            "avg": ".200",
-            "ops": ".733"
-          }
-        },
-        {
-          "market": "Hits O/U",
-          "kind": "hitting",
-          "player": "George Lombard Jr.",
-          "line": 0.5,
-          "over": "1.60",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 806146,
-          "side": "over",
-          "odds": "1.60",
-          "ourProb": 0.726,
-          "impliedProb": 0.625,
-          "edge": 0.101,
-          "isValue": true,
-          "pitcherHand": "R",
-          "pitcherName": "Kyle Bradish",
-          "why": null
-        },
-        {
-          "market": "Hits O/U",
-          "kind": "hitting",
-          "player": "Jose Caballero",
-          "line": 0.5,
-          "over": "1.66",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 676609,
-          "side": "over",
-          "odds": "1.66",
-          "ourProb": 0.578,
-          "impliedProb": 0.602,
-          "edge": -0.024,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Kyle Bradish",
-          "why": null,
-          "matchup": {
-            "pitcher": "Kyle Bradish",
-            "ab": 7,
-            "hits": 1,
-            "hr": 0,
-            "so": 3,
-            "bb": 2,
-            "avg": ".143",
-            "ops": ".476"
-          }
-        },
-        {
-          "market": "Hits O/U",
-          "kind": "hitting",
-          "player": "Spencer Jones",
-          "line": 0.5,
-          "over": "1.66",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 682987,
-          "side": "over",
-          "odds": "1.66",
-          "ourProb": 0.481,
-          "impliedProb": 0.602,
-          "edge": -0.121,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Kyle Bradish",
-          "why": null,
-          "matchup": {
-            "pitcher": "Kyle Bradish",
-            "ab": 1,
-            "hits": 0,
-            "hr": 0,
-            "so": 0,
-            "bb": 1,
-            "avg": ".000",
-            "ops": ".500"
-          }
-        },
-        {
-          "market": "Hits O/U",
-          "kind": "hitting",
-          "player": "Leody Taveras",
-          "line": 0.5,
-          "over": "1.76",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 665750,
-          "side": "over",
-          "odds": "1.76",
-          "ourProb": 0.559,
-          "impliedProb": 0.568,
-          "edge": -0.009,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Gerrit Cole",
-          "why": null,
-          "matchup": {
-            "pitcher": "Gerrit Cole",
-            "ab": 11,
-            "hits": 4,
-            "hr": 1,
-            "so": 7,
-            "bb": 0,
-            "avg": ".364",
-            "ops": "1.091"
-          }
-        },
-        {
-          "market": "Hits O/U",
-          "kind": "hitting",
-          "player": "Austin Wells",
-          "line": 0.5,
-          "over": "1.83",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 669224,
-          "side": "over",
-          "odds": "1.83",
-          "ourProb": 0.413,
-          "impliedProb": 0.546,
-          "edge": -0.133,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Kyle Bradish",
-          "why": null,
-          "matchup": {
-            "pitcher": "Kyle Bradish",
-            "ab": 6,
-            "hits": 0,
-            "hr": 0,
-            "so": 3,
-            "bb": 0,
-            "avg": ".000",
-            "ops": ".000"
-          }
-        },
-        {
-          "market": "Hits O/U",
-          "kind": "hitting",
-          "player": "Dylan Beavers",
-          "line": 0.5,
-          "over": "1.86",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 687637,
-          "side": "over",
-          "odds": "1.86",
-          "ourProb": 0.547,
-          "impliedProb": 0.538,
-          "edge": 0.01,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Gerrit Cole",
-          "why": null
-        },
-        {
-          "market": "Hits O/U",
-          "kind": "hitting",
-          "player": "Colton Cowser",
-          "line": 0.5,
-          "over": "2.05",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 681297,
-          "side": "over",
-          "odds": "2.05",
-          "ourProb": 0.422,
-          "impliedProb": 0.488,
-          "edge": -0.066,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Gerrit Cole",
-          "why": null,
-          "matchup": {
-            "pitcher": "Gerrit Cole",
-            "ab": 7,
-            "hits": 0,
-            "hr": 0,
-            "so": 6,
-            "bb": 0,
-            "avg": ".000",
-            "ops": ".000"
-          }
-        },
-        {
-          "market": "Home Runs O/U",
-          "kind": "hitting",
-          "player": "Heliot Ramos",
-          "line": 1.5,
-          "over": "66.00",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 671218,
-          "side": "over",
-          "odds": "66.00",
-          "ourProb": 0.008,
-          "impliedProb": 0.015,
-          "edge": -0.007,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Kyle Bradish",
-          "why": "viento moderado saliendo hacia el jardín (10mph) · mejor de lo normal vs lanzadores derechos esta temporada · bajón en los últimos 15 partidos · Statcast: contacto real mejor que sus resultados (SLG esperado 0.436 vs real 0.391)",
-          "seasonHr": 9,
-          "gamesPlayed": 87,
-          "last5Hr": 0,
-          "last5Games": 5
-        },
-        {
-          "market": "Home Runs O/U",
-          "kind": "hitting",
-          "player": "Colton Cowser",
-          "line": 1.5,
-          "over": "81.00",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 681297,
-          "side": "over",
-          "odds": "81.00",
-          "ourProb": 0.009,
-          "impliedProb": 0.012,
-          "edge": -0.003,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Gerrit Cole",
-          "why": "viento moderado saliendo hacia el jardín (10mph) · en racha en los últimos 15 partidos · Statcast: contacto real mejor que sus resultados (SLG esperado 0.421 vs real 0.354)",
-          "seasonHr": 11,
-          "gamesPlayed": 113,
-          "last5Hr": 1,
-          "last5Games": 5,
-          "matchup": {
-            "pitcher": "Gerrit Cole",
-            "ab": 7,
-            "hits": 0,
-            "hr": 0,
-            "so": 6,
-            "bb": 0,
-            "avg": ".000",
-            "ops": ".000"
-          }
-        },
-        {
-          "market": "Home Runs O/U",
-          "kind": "hitting",
-          "player": "Jackson Holliday",
-          "line": 1.5,
-          "over": "81.00",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 702616,
-          "side": "over",
-          "odds": "81.00",
-          "ourProb": 0.004,
-          "impliedProb": 0.012,
-          "edge": -0.009,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Gerrit Cole",
-          "why": "viento moderado saliendo hacia el jardín (10mph) · mejor de lo normal vs lanzadores derechos esta temporada · bajón en los últimos 15 partidos",
-          "seasonHr": 6,
-          "gamesPlayed": 75,
-          "last5Hr": 0,
-          "last5Games": 5
-        },
-        {
-          "market": "Home Runs O/U",
-          "kind": "hitting",
-          "player": "Leody Taveras",
-          "line": 1.5,
-          "over": "101.00",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 665750,
-          "side": "over",
-          "odds": "101.00",
-          "ourProb": 0.005,
-          "impliedProb": 0.01,
-          "edge": -0.005,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Gerrit Cole",
-          "why": "viento moderado saliendo hacia el jardín (10mph) · mejor de lo normal vs lanzadores derechos esta temporada · 1 HR en 11 turnos de por vida vs Gerrit Cole · en racha en los últimos 15 partidos · Statcast: contacto real peor que sus resultados (SLG esperado 0.328 vs real 0.367)",
-          "seasonHr": 7,
-          "gamesPlayed": 110,
-          "last5Hr": 0,
-          "last5Games": 5,
-          "matchup": {
-            "pitcher": "Gerrit Cole",
-            "ab": 11,
-            "hits": 4,
-            "hr": 1,
-            "so": 7,
-            "bb": 0,
-            "avg": ".364",
-            "ops": "1.091"
-          }
-        },
-        {
-          "market": "Home Runs O/U",
-          "kind": "hitting",
-          "player": "Pete Alonso",
-          "line": 1.5,
-          "over": "31.00",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 624413,
-          "side": "over",
-          "odds": "31.00",
-          "ourProb": 0.044,
-          "impliedProb": 0.032,
-          "edge": 0.011,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Gerrit Cole",
-          "why": "viento moderado saliendo hacia el jardín (10mph) · en racha en los últimos 15 partidos · Statcast: contacto real mejor que sus resultados (SLG esperado 0.545 vs real 0.498) · 🏆 4° en la pelea por el título de HR de Liga Americana (29 vs 36 del líder)",
-          "seasonHr": 29,
-          "gamesPlayed": 127,
-          "last5Hr": 3,
-          "last5Games": 5,
-          "matchup": {
-            "pitcher": "Gerrit Cole",
-            "ab": 6,
-            "hits": 1,
-            "hr": 1,
-            "so": 2,
-            "bb": 1,
-            "avg": ".167",
-            "ops": ".953"
-          }
-        },
-        {
-          "market": "Home Runs O/U",
-          "kind": "hitting",
-          "player": "Ben Rice",
-          "line": 1.5,
-          "over": "36.00",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 700250,
-          "side": "over",
-          "odds": "36.00",
-          "ourProb": 0.047,
-          "impliedProb": 0.028,
-          "edge": 0.02,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Kyle Bradish",
-          "why": "viento moderado saliendo hacia el jardín (10mph) · 1 HR en 10 turnos de por vida vs Kyle Bradish · bajón en los últimos 15 partidos · 🏆 3° en la pelea por el título de HR de Liga Americana (34 vs 36 del líder)",
-          "seasonHr": 34,
-          "gamesPlayed": 121,
-          "last5Hr": 2,
-          "last5Games": 5,
-          "matchup": {
-            "pitcher": "Kyle Bradish",
-            "ab": 10,
-            "hits": 4,
-            "hr": 1,
-            "so": 3,
-            "bb": 1,
-            "avg": ".400",
-            "ops": "1.155"
-          }
-        },
-        {
-          "market": "Home Runs O/U",
-          "kind": "hitting",
-          "player": "Trent Grisham",
-          "line": 1.5,
-          "over": "36.00",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 663757,
-          "side": "over",
-          "odds": "36.00",
-          "ourProb": 0.032,
-          "impliedProb": 0.028,
-          "edge": 0.004,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Kyle Bradish",
-          "why": "viento moderado saliendo hacia el jardín (10mph) · mejor de lo normal vs lanzadores derechos esta temporada · 1 HR en 10 turnos de por vida vs Kyle Bradish · en racha en los últimos 15 partidos",
-          "seasonHr": 17,
-          "gamesPlayed": 106,
-          "last5Hr": 2,
-          "last5Games": 5,
-          "matchup": {
-            "pitcher": "Kyle Bradish",
-            "ab": 10,
-            "hits": 2,
-            "hr": 1,
-            "so": 4,
-            "bb": 3,
-            "avg": ".200",
-            "ops": ".985"
-          }
-        },
-        {
-          "market": "Home Runs O/U",
-          "kind": "hitting",
-          "player": "Luis Garcia",
-          "line": 1.5,
-          "over": "36.00",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 671277,
-          "side": "over",
-          "odds": "36.00",
-          "ourProb": 0.014,
-          "impliedProb": 0.028,
-          "edge": -0.014,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Kyle Bradish",
-          "why": "viento moderado saliendo hacia el jardín (10mph) · mejor de lo normal vs lanzadores derechos esta temporada · 0 HR en 10 turnos de por vida vs Kyle Bradish · bajón en los últimos 15 partidos · Statcast: contacto real peor que sus resultados (SLG esperado 0.491 vs real 0.532)",
-          "seasonHr": 24,
-          "gamesPlayed": 117,
-          "last5Hr": 0,
-          "last5Games": 5
-        },
-        {
-          "market": "Home Runs O/U",
-          "kind": "hitting",
-          "player": "Samuel Basallo",
-          "line": 1.5,
-          "over": "41.00",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 694212,
-          "side": "over",
-          "odds": "41.00",
-          "ourProb": 0.032,
-          "impliedProb": 0.024,
-          "edge": 0.008,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Gerrit Cole",
-          "why": "viento moderado saliendo hacia el jardín (10mph) · mejor de lo normal vs lanzadores derechos esta temporada · en racha en los últimos 15 partidos",
-          "seasonHr": 16,
-          "gamesPlayed": 87,
-          "last5Hr": 1,
-          "last5Games": 5
-        },
-        {
-          "market": "Home Runs O/U",
-          "kind": "hitting",
-          "player": "Christian Encarnacion-Strand",
-          "line": 1.5,
-          "over": "51.00",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 687952,
-          "side": "over",
-          "odds": "51.00",
-          "ourProb": 0.017,
-          "impliedProb": 0.02,
-          "edge": -0.003,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Gerrit Cole",
-          "why": "viento moderado saliendo hacia el jardín (10mph) · peor de lo normal vs lanzadores derechos esta temporada · Statcast: contacto real mejor que sus resultados (SLG esperado 0.566 vs real 0.518)",
-          "seasonHr": 6,
-          "gamesPlayed": 26,
-          "last5Hr": 2,
-          "last5Games": 5
-        },
-        {
-          "market": "Home Runs O/U",
-          "kind": "hitting",
-          "player": "Gunnar Henderson",
-          "line": 1.5,
-          "over": "51.00",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 683002,
-          "side": "over",
-          "odds": "51.00",
-          "ourProb": 0.019,
-          "impliedProb": 0.02,
-          "edge": -0.001,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Gerrit Cole",
-          "why": "viento moderado saliendo hacia el jardín (10mph) · 1 HR en 12 turnos de por vida vs Gerrit Cole",
-          "seasonHr": 20,
-          "gamesPlayed": 126,
-          "last5Hr": 0,
-          "last5Games": 5,
-          "matchup": {
-            "pitcher": "Gerrit Cole",
-            "ab": 12,
-            "hits": 3,
-            "hr": 1,
-            "so": 2,
-            "bb": 1,
-            "avg": ".250",
-            "ops": ".891"
-          }
-        },
-        {
-          "market": "Home Runs O/U",
-          "kind": "hitting",
-          "player": "Jazz Chisholm Jr.",
-          "line": 1.5,
-          "over": "51.00",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 665862,
-          "side": "over",
-          "odds": "51.00",
-          "ourProb": 0.01,
-          "impliedProb": 0.02,
-          "edge": -0.009,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Kyle Bradish",
-          "why": "viento moderado saliendo hacia el jardín (10mph) · mejor de lo normal vs lanzadores derechos esta temporada · bajón en los últimos 15 partidos",
-          "seasonHr": 17,
-          "gamesPlayed": 117,
-          "last5Hr": 0,
-          "last5Games": 5,
-          "matchup": {
-            "pitcher": "Kyle Bradish",
-            "ab": 5,
-            "hits": 1,
-            "hr": 0,
-            "so": 3,
-            "bb": 1,
-            "avg": ".200",
-            "ops": ".733"
-          }
-        },
-        {
-          "market": "Home Runs O/U",
-          "kind": "hitting",
-          "player": "Spencer Jones",
-          "line": 1.5,
-          "over": "61.00",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 682987,
-          "side": "over",
-          "odds": "61.00",
-          "ourProb": 0.003,
-          "impliedProb": 0.016,
-          "edge": -0.014,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Kyle Bradish",
-          "why": "viento moderado saliendo hacia el jardín (10mph) · peor de lo normal vs lanzadores derechos esta temporada · bajón en los últimos 15 partidos · Statcast: contacto real mejor que sus resultados (SLG esperado 0.412 vs real 0.377)",
-          "seasonHr": 5,
-          "gamesPlayed": 53,
-          "last5Hr": 0,
-          "last5Games": 5,
-          "matchup": {
-            "pitcher": "Kyle Bradish",
-            "ab": 1,
-            "hits": 0,
-            "hr": 0,
-            "so": 0,
-            "bb": 1,
-            "avg": ".000",
-            "ops": ".500"
-          }
-        },
-        {
-          "market": "Home Runs O/U",
-          "kind": "hitting",
-          "player": "Austin Wells",
-          "line": 1.5,
-          "over": "61.00",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 669224,
-          "side": "over",
-          "odds": "61.00",
-          "ourProb": 0.006,
-          "impliedProb": 0.016,
-          "edge": -0.011,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Kyle Bradish",
-          "why": "viento moderado saliendo hacia el jardín (10mph) · Statcast: contacto real mejor que sus resultados (SLG esperado 0.358 vs real 0.294)",
-          "seasonHr": 8,
-          "gamesPlayed": 91,
-          "last5Hr": 0,
-          "last5Games": 5,
-          "matchup": {
-            "pitcher": "Kyle Bradish",
-            "ab": 6,
-            "hits": 0,
-            "hr": 0,
-            "so": 3,
-            "bb": 0,
-            "avg": ".000",
-            "ops": ".000"
-          }
-        },
-        {
-          "market": "Home Runs O/U",
-          "kind": "hitting",
-          "player": "Dylan Beavers",
-          "line": 1.5,
-          "over": "66.00",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 687637,
-          "side": "over",
-          "odds": "66.00",
-          "ourProb": 0.003,
-          "impliedProb": 0.015,
-          "edge": -0.012,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Gerrit Cole",
-          "why": "viento moderado saliendo hacia el jardín (10mph) · mejor de lo normal vs lanzadores derechos esta temporada · en racha en los últimos 15 partidos",
-          "seasonHr": 4,
-          "gamesPlayed": 72,
-          "last5Hr": 1,
-          "last5Games": 5
-        },
-        {
-          "market": "Home Runs O/U",
-          "kind": "hitting",
-          "player": "George Lombard Jr.",
-          "line": 1.5,
-          "over": "126.00",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 806146,
-          "side": "over",
-          "odds": "126.00",
-          "ourProb": 0.011,
-          "impliedProb": 0.008,
-          "edge": 0.003,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Kyle Bradish",
-          "why": "viento moderado saliendo hacia el jardín (10mph) · mejor de lo normal vs lanzadores derechos esta temporada · Statcast: contacto real peor que sus resultados (SLG esperado 0.401 vs real 0.477)",
-          "seasonHr": 2,
-          "gamesPlayed": 13,
-          "last5Hr": 0,
-          "last5Games": 5
-        },
-        {
-          "market": "Home Runs O/U",
-          "kind": "hitting",
-          "player": "Jose Caballero",
-          "line": 0.5,
-          "over": "13.50",
-          "under": "1.04",
-          "bookmaker": "Bet365",
-          "playerId": 676609,
-          "side": "over",
-          "odds": "13.50",
-          "ourProb": 0.116,
-          "impliedProb": 0.074,
-          "edge": 0.042,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Kyle Bradish",
-          "why": "viento moderado saliendo hacia el jardín (10mph) · en racha en los últimos 15 partidos · Statcast: contacto real peor que sus resultados (SLG esperado 0.341 vs real 0.388)",
-          "seasonHr": 12,
-          "gamesPlayed": 105,
-          "last5Hr": 0,
-          "last5Games": 5,
-          "matchup": {
-            "pitcher": "Kyle Bradish",
-            "ab": 7,
-            "hits": 1,
-            "hr": 0,
-            "so": 3,
-            "bb": 2,
-            "avg": ".143",
-            "ops": ".476"
-          }
-        }
-      ],
-      "moneylinePicks": [
-        {
-          "market": "Moneyline",
-          "kind": "moneyline",
-          "player": "New York Yankees",
-          "line": null,
-          "side": "gana",
-          "odds": "1.89",
-          "bookmaker": "Bovada",
-          "ourProb": 0.598,
-          "impliedProb": 0.529,
-          "edge": 0.068,
-          "isValue": true,
-          "why": "New York Yankees tiene menos lesionados en la lista (6 vs 8 de Baltimore Orioles)"
-        },
-        {
-          "market": "Moneyline",
-          "kind": "moneyline",
-          "player": "Baltimore Orioles",
-          "line": null,
-          "side": "gana",
-          "odds": "1.93",
-          "bookmaker": "Bovada",
-          "ourProb": 0.402,
-          "impliedProb": 0.518,
-          "edge": -0.116,
-          "isValue": false,
-          "why": "Baltimore Orioles tiene mas lesionados en la lista (8 vs 6 de New York Yankees) — jugado a favor del rival · peleando de cerca por el comodín"
-        }
-      ]
-    },
     "Washington Nationals@Texas Rangers@2026-08-20": {
       "home": "Texas Rangers",
       "away": "Washington Nationals",
       "date": "2026-08-21T00:05:00Z",
       "moneyline": {
         "Bovada": {
-          "home": "1.55",
-          "away": "2.51"
+          "home": "1.53",
+          "away": "2.56"
         },
         "Bet365": {
-          "home": "1.59",
-          "away": "2.53"
+          "home": "1.58",
+          "away": "2.56"
         }
       },
       "total": {
         "Bovada": {
-          "line": 9,
-          "over": "2.65",
-          "under": "1.45"
+          "line": 6,
+          "over": "1.42",
+          "under": "2.75"
         },
         "Bet365": {
           "line": 7.5,
@@ -1527,52 +30,402 @@
       "spread": {
         "Bovada": {
           "homeLine": 1.5,
-          "homeOdds": "1.32",
-          "awayOdds": "3.25"
+          "homeOdds": "1.31",
+          "awayOdds": "3.30"
         },
         "Bet365": {
-          "homeLine": 4.5,
-          "homeOdds": "1.06",
-          "awayOdds": "8.50"
+          "homeLine": 2.5,
+          "homeOdds": "1.18",
+          "awayOdds": "4.50"
         }
       },
       "props": [
         {
-          "market": "Pitcher Strikeouts O/U",
-          "kind": "pitching",
-          "player": "Jacob deGrom",
-          "line": 1.5,
-          "over": "1.01",
+          "market": "Total Bases O/U",
+          "kind": "hitting",
+          "player": "Brandon Nimmo",
+          "line": 0.5,
+          "over": "1.38",
           "under": null,
           "bookmaker": "Bet365",
-          "playerId": 594798,
+          "playerId": 607043,
           "side": "over",
-          "odds": "1.01",
-          "ourProb": 0.988,
-          "impliedProb": 0.99,
-          "edge": -0.002,
+          "odds": "1.38",
+          "ourProb": 0.841,
+          "impliedProb": 0.725,
+          "edge": 0.117,
+          "isValue": true,
+          "pitcherHand": "L",
+          "pitcherName": "Andrew Alvarez",
+          "why": "mejor de lo normal vs lanzadores zurdos esta temporada · Statcast: contacto real mejor que sus resultados (SLG esperado 0.488 vs real 0.433)",
+          "seasonTb": 200,
+          "gamesPlayed": 121,
+          "tbPerGame": 1.65,
+          "matchup": {
+            "pitcher": "Andrew Alvarez",
+            "ab": 2,
+            "hits": 1,
+            "hr": 0,
+            "so": 1,
+            "bb": 0,
+            "avg": ".500",
+            "ops": "1.000"
+          }
+        },
+        {
+          "market": "Total Bases O/U",
+          "kind": "hitting",
+          "player": "Corey Seager",
+          "line": 0.5,
+          "over": "1.40",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 608369,
+          "side": "over",
+          "odds": "1.40",
+          "ourProb": 0.586,
+          "impliedProb": 0.714,
+          "edge": -0.128,
           "isValue": false,
           "pitcherHand": "L",
           "pitcherName": "Andrew Alvarez",
-          "why": null
+          "why": "peor de lo normal vs lanzadores zurdos esta temporada · Statcast: contacto real mejor que sus resultados (SLG esperado 0.453 vs real 0.398)",
+          "seasonTb": 97,
+          "gamesPlayed": 67,
+          "tbPerGame": 1.45
+        },
+        {
+          "market": "Total Bases O/U",
+          "kind": "hitting",
+          "player": "Wyatt Langford",
+          "line": 0.5,
+          "over": "1.43",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 694671,
+          "side": "over",
+          "odds": "1.43",
+          "ourProb": 0.573,
+          "impliedProb": 0.699,
+          "edge": -0.127,
+          "isValue": false,
+          "pitcherHand": "L",
+          "pitcherName": "Andrew Alvarez",
+          "why": "bajón en los últimos 15 partidos · Statcast: contacto real peor que sus resultados (SLG esperado 0.399 vs real 0.459)",
+          "seasonTb": 134,
+          "gamesPlayed": 75,
+          "tbPerGame": 1.79
+        },
+        {
+          "market": "Total Bases O/U",
+          "kind": "hitting",
+          "player": "Jake Burger",
+          "line": 0.5,
+          "over": "1.44",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 669394,
+          "side": "over",
+          "odds": "1.44",
+          "ourProb": 0.742,
+          "impliedProb": 0.694,
+          "edge": 0.048,
+          "isValue": false,
+          "pitcherHand": "L",
+          "pitcherName": "Andrew Alvarez",
+          "why": "mejor de lo normal vs lanzadores zurdos esta temporada",
+          "seasonTb": 186,
+          "gamesPlayed": 120,
+          "tbPerGame": 1.55
+        },
+        {
+          "market": "Total Bases O/U",
+          "kind": "hitting",
+          "player": "Daylen Lile",
+          "line": 0.5,
+          "over": "1.44",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 695734,
+          "side": "over",
+          "odds": "1.44",
+          "ourProb": 0.705,
+          "impliedProb": 0.694,
+          "edge": 0.01,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Jacob deGrom",
+          "why": "mejor de lo normal vs lanzadores derechos esta temporada",
+          "seasonTb": 195,
+          "gamesPlayed": 126,
+          "tbPerGame": 1.55
+        },
+        {
+          "market": "Total Bases O/U",
+          "kind": "hitting",
+          "player": "Ezequiel Duran",
+          "line": 0.5,
+          "over": "1.52",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 677649,
+          "side": "over",
+          "odds": "1.52",
+          "ourProb": 0.483,
+          "impliedProb": 0.658,
+          "edge": -0.175,
+          "isValue": false,
+          "pitcherHand": "L",
+          "pitcherName": "Andrew Alvarez",
+          "why": "Statcast: contacto real peor que sus resultados (SLG esperado 0.372 vs real 0.427)",
+          "seasonTb": 175,
+          "gamesPlayed": 118,
+          "tbPerGame": 1.48
+        },
+        {
+          "market": "Total Bases O/U",
+          "kind": "hitting",
+          "player": "Keibert Ruiz",
+          "line": 0.5,
+          "over": "1.55",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 660688,
+          "side": "over",
+          "odds": "1.55",
+          "ourProb": 0.523,
+          "impliedProb": 0.645,
+          "edge": -0.122,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Jacob deGrom",
+          "why": "Statcast: contacto real peor que sus resultados (SLG esperado 0.362 vs real 0.438)",
+          "seasonTb": 116,
+          "gamesPlayed": 82,
+          "tbPerGame": 1.41,
+          "matchup": {
+            "pitcher": "Jacob deGrom",
+            "ab": 4,
+            "hits": 1,
+            "hr": 0,
+            "so": 1,
+            "bb": 0,
+            "avg": ".250",
+            "ops": ".500"
+          }
+        },
+        {
+          "market": "Total Bases O/U",
+          "kind": "hitting",
+          "player": "Brady House",
+          "line": 0.5,
+          "over": "1.60",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 691781,
+          "side": "over",
+          "odds": "1.60",
+          "ourProb": 0.581,
+          "impliedProb": 0.625,
+          "edge": -0.044,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Jacob deGrom",
+          "why": "peor de lo normal vs lanzadores derechos esta temporada · Statcast: contacto real mejor que sus resultados (SLG esperado 0.445 vs real 0.396)",
+          "seasonTb": 91,
+          "gamesPlayed": 65,
+          "tbPerGame": 1.4
+        },
+        {
+          "market": "Total Bases O/U",
+          "kind": "hitting",
+          "player": "Dylan Crews",
+          "line": 0.5,
+          "over": "1.64",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 686611,
+          "side": "over",
+          "odds": "1.64",
+          "ourProb": 0.546,
+          "impliedProb": 0.61,
+          "edge": -0.064,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Jacob deGrom",
+          "why": "peor de lo normal vs lanzadores derechos esta temporada · bajón en los últimos 15 partidos · Statcast: contacto real mejor que sus resultados (SLG esperado 0.424 vs real 0.358)",
+          "seasonTb": 100,
+          "gamesPlayed": 76,
+          "tbPerGame": 1.32
+        },
+        {
+          "market": "Total Bases O/U",
+          "kind": "hitting",
+          "player": "Cody Freeman",
+          "line": 0.5,
+          "over": "1.71",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 683227,
+          "side": "over",
+          "odds": "1.71",
+          "ourProb": 0.402,
+          "impliedProb": 0.585,
+          "edge": -0.183,
+          "isValue": false,
+          "pitcherHand": "L",
+          "pitcherName": "Andrew Alvarez",
+          "why": "Statcast: contacto real peor que sus resultados (SLG esperado 0.156 vs real 0.269)",
+          "seasonTb": 7,
+          "gamesPlayed": 11,
+          "tbPerGame": 0.64
+        },
+        {
+          "market": "Total Bases O/U",
+          "kind": "hitting",
+          "player": "Abimelec Ortiz",
+          "line": 0.5,
+          "over": "1.71",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 694673,
+          "side": "over",
+          "odds": "1.71",
+          "ourProb": 0.647,
+          "impliedProb": 0.585,
+          "edge": 0.062,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Jacob deGrom",
+          "why": null,
+          "seasonTb": 30,
+          "gamesPlayed": 16,
+          "tbPerGame": 1.88
+        },
+        {
+          "market": "Total Bases O/U",
+          "kind": "hitting",
+          "player": "Nasim Nunez",
+          "line": 0.5,
+          "over": "1.76",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 683083,
+          "side": "over",
+          "odds": "1.76",
+          "ourProb": 0.497,
+          "impliedProb": 0.568,
+          "edge": -0.071,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Jacob deGrom",
+          "why": "bajón en los últimos 15 partidos",
+          "seasonTb": 95,
+          "gamesPlayed": 117,
+          "tbPerGame": 0.81
+        },
+        {
+          "market": "Total Bases O/U",
+          "kind": "hitting",
+          "player": "Danny Jansen",
+          "line": 0.5,
+          "over": "1.83",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 643376,
+          "side": "over",
+          "odds": "1.83",
+          "ourProb": 0.402,
+          "impliedProb": 0.546,
+          "edge": -0.145,
+          "isValue": false,
+          "pitcherHand": "L",
+          "pitcherName": "Andrew Alvarez",
+          "why": "mejor de lo normal vs lanzadores zurdos esta temporada · Statcast: contacto real peor que sus resultados (SLG esperado 0.267 vs real 0.299)",
+          "seasonTb": 38,
+          "gamesPlayed": 42,
+          "tbPerGame": 0.9
+        },
+        {
+          "market": "Total Bases O/U",
+          "kind": "hitting",
+          "player": "Justin Foscue",
+          "line": 0.5,
+          "over": "1.86",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 679822,
+          "side": "over",
+          "odds": "1.86",
+          "ourProb": 0.474,
+          "impliedProb": 0.538,
+          "edge": -0.064,
+          "isValue": false,
+          "pitcherHand": "L",
+          "pitcherName": "Andrew Alvarez",
+          "why": "mejor de lo normal vs lanzadores zurdos esta temporada · Statcast: contacto real peor que sus resultados (SLG esperado 0.426 vs real 0.474)",
+          "seasonTb": 72,
+          "gamesPlayed": 70,
+          "tbPerGame": 1.03
+        },
+        {
+          "market": "Total Bases O/U",
+          "kind": "hitting",
+          "player": "Evan Carter",
+          "line": 0.5,
+          "over": "2.00",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 694497,
+          "side": "over",
+          "odds": "2.00",
+          "ourProb": 0.352,
+          "impliedProb": 0.5,
+          "edge": -0.148,
+          "isValue": false,
+          "pitcherHand": "L",
+          "pitcherName": "Andrew Alvarez",
+          "why": "peor de lo normal vs lanzadores zurdos esta temporada · bajón en los últimos 15 partidos",
+          "seasonTb": 99,
+          "gamesPlayed": 108,
+          "tbPerGame": 0.92
         },
         {
           "market": "Pitcher Strikeouts O/U",
           "kind": "pitching",
           "player": "Andrew Alvarez",
-          "line": 9.5,
-          "over": "19.00",
+          "line": 7.5,
+          "over": "9.25",
           "under": null,
           "bookmaker": "Bet365",
           "playerId": 674841,
           "side": "over",
-          "odds": "19.00",
-          "ourProb": 0.16,
-          "impliedProb": 0.053,
-          "edge": 0.107,
+          "odds": "9.25",
+          "ourProb": 0.386,
+          "impliedProb": 0.108,
+          "edge": 0.278,
           "isValue": false,
           "pitcherHand": "R",
           "pitcherName": "Jacob deGrom",
+          "why": null
+        },
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "Jacob deGrom",
+          "line": 9.5,
+          "over": "11.50",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 594798,
+          "side": "over",
+          "odds": "11.50",
+          "ourProb": 0.113,
+          "impliedProb": 0.087,
+          "edge": 0.027,
+          "isValue": false,
+          "pitcherHand": "L",
+          "pitcherName": "Andrew Alvarez",
           "why": null
         }
       ],
@@ -1583,11 +436,11 @@
           "player": "Washington Nationals",
           "line": null,
           "side": "gana",
-          "odds": "2.51",
+          "odds": "2.56",
           "bookmaker": "Bovada",
           "ourProb": 0.532,
-          "impliedProb": 0.398,
-          "edge": 0.133,
+          "impliedProb": 0.391,
+          "edge": 0.141,
           "isValue": false,
           "why": null
         },
@@ -1597,11 +450,11 @@
           "player": "Texas Rangers",
           "line": null,
           "side": "gana",
-          "odds": "1.55",
+          "odds": "1.53",
           "bookmaker": "Bovada",
           "ourProb": 0.468,
-          "impliedProb": 0.645,
-          "edge": -0.177,
+          "impliedProb": 0.654,
+          "edge": -0.185,
           "isValue": false,
           "why": "peleando de cerca por el comodín"
         }
@@ -1613,19 +466,19 @@
       "date": "2026-08-21T00:10:00Z",
       "moneyline": {
         "Bovada": {
-          "home": "1.54",
-          "away": "2.54"
+          "home": "1.51",
+          "away": "2.61"
         },
         "Bet365": {
-          "home": "1.56",
-          "away": "2.63"
+          "home": "1.55",
+          "away": "2.66"
         }
       },
       "total": {
         "Bovada": {
-          "line": 7,
-          "over": "1.50",
-          "under": "2.50"
+          "line": 6.5,
+          "over": "1.41",
+          "under": "2.80"
         },
         "Bet365": {
           "line": 8.5,
@@ -1635,9 +488,9 @@
       },
       "spread": {
         "Bovada": {
-          "homeLine": 1,
-          "homeOdds": "1.36",
-          "awayOdds": "3.00"
+          "homeLine": -3,
+          "homeOdds": "3.25",
+          "awayOdds": "1.32"
         },
         "Bet365": {
           "homeLine": 2.5,
@@ -1649,17 +502,267 @@
         {
           "market": "Hits O/U",
           "kind": "hitting",
-          "player": "Yordan Alvarez",
+          "player": "Moises Ballesteros",
           "line": 0.5,
-          "over": "1.35",
-          "under": null,
+          "over": "1.64",
+          "under": "2.15",
+          "bookmaker": "Bet365",
+          "playerId": 694208,
+          "side": "under",
+          "odds": "2.15",
+          "ourProb": 0.525,
+          "impliedProb": 0.465,
+          "edge": 0.06,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Peter Lambert",
+          "why": null
+        },
+        {
+          "market": "Hits O/U",
+          "kind": "hitting",
+          "player": "Adam Frazier",
+          "line": 0.5,
+          "over": "1.86",
+          "under": "1.86",
+          "bookmaker": "Bet365",
+          "playerId": 624428,
+          "side": "under",
+          "odds": "1.86",
+          "ourProb": 0.585,
+          "impliedProb": 0.538,
+          "edge": 0.048,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Peter Lambert",
+          "why": null
+        },
+        {
+          "market": "Hits O/U",
+          "kind": "hitting",
+          "player": "Vaughn Grissom",
+          "line": 0.5,
+          "over": "1.57",
+          "under": "2.32",
+          "bookmaker": "Bet365",
+          "playerId": 687093,
+          "side": "over",
+          "odds": "1.57",
+          "ourProb": 0.621,
+          "impliedProb": 0.637,
+          "edge": -0.016,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Peter Lambert",
+          "why": null,
+          "matchup": {
+            "pitcher": "Peter Lambert",
+            "ab": 3,
+            "hits": 2,
+            "hr": 0,
+            "so": 1,
+            "bb": 0,
+            "avg": ".667",
+            "ops": "1.334"
+          }
+        },
+        {
+          "market": "Hits O/U",
+          "kind": "hitting",
+          "player": "Tyler Heineman",
+          "line": 0.5,
+          "over": "1.86",
+          "under": "1.86",
+          "bookmaker": "Bet365",
+          "playerId": 623168,
+          "side": "under",
+          "odds": "1.86",
+          "ourProb": 0.639,
+          "impliedProb": 0.538,
+          "edge": 0.102,
+          "isValue": true,
+          "pitcherHand": "R",
+          "pitcherName": "Peter Lambert",
+          "why": null
+        },
+        {
+          "market": "Hits O/U",
+          "kind": "hitting",
+          "player": "Josh Lowe",
+          "line": 0.5,
+          "over": "1.83",
+          "under": "1.90",
+          "bookmaker": "Bet365",
+          "playerId": 666139,
+          "side": "under",
+          "odds": "1.90",
+          "ourProb": 0.522,
+          "impliedProb": 0.526,
+          "edge": -0.004,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Peter Lambert",
+          "why": null,
+          "matchup": {
+            "pitcher": "Peter Lambert",
+            "ab": 2,
+            "hits": 0,
+            "hr": 0,
+            "so": 1,
+            "bb": 0,
+            "avg": ".000",
+            "ops": ".000"
+          }
+        },
+        {
+          "market": "Hits O/U",
+          "kind": "hitting",
+          "player": "Wade Meckler",
+          "line": 0.5,
+          "over": "1.52",
+          "under": "2.40",
+          "bookmaker": "Bet365",
+          "playerId": 685133,
+          "side": "over",
+          "odds": "1.52",
+          "ourProb": 0.629,
+          "impliedProb": 0.658,
+          "edge": -0.029,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Peter Lambert",
+          "why": null,
+          "matchup": {
+            "pitcher": "Peter Lambert",
+            "ab": 6,
+            "hits": 0,
+            "hr": 0,
+            "so": 3,
+            "bb": 0,
+            "avg": ".000",
+            "ops": ".000"
+          }
+        },
+        {
+          "market": "Hits O/U",
+          "kind": "hitting",
+          "player": "Zach Neto",
+          "line": 0.5,
+          "over": "1.66",
+          "under": "2.10",
+          "bookmaker": "Bet365",
+          "playerId": 687263,
+          "side": "over",
+          "odds": "1.66",
+          "ourProb": 0.634,
+          "impliedProb": 0.602,
+          "edge": 0.031,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Peter Lambert",
+          "why": null,
+          "matchup": {
+            "pitcher": "Peter Lambert",
+            "ab": 7,
+            "hits": 1,
+            "hr": 0,
+            "so": 4,
+            "bb": 0,
+            "avg": ".143",
+            "ops": ".286"
+          }
+        },
+        {
+          "market": "Hits O/U",
+          "kind": "hitting",
+          "player": "Nolan Schanuel",
+          "line": 0.5,
+          "over": "1.43",
+          "under": "2.70",
+          "bookmaker": "Bet365",
+          "playerId": 694384,
+          "side": "over",
+          "odds": "1.43",
+          "ourProb": 0.696,
+          "impliedProb": 0.699,
+          "edge": -0.003,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Peter Lambert",
+          "why": null,
+          "matchup": {
+            "pitcher": "Peter Lambert",
+            "ab": 4,
+            "hits": 1,
+            "hr": 0,
+            "so": 0,
+            "bb": 0,
+            "avg": ".250",
+            "ops": ".500"
+          }
+        },
+        {
+          "market": "Hits O/U",
+          "kind": "hitting",
+          "player": "Mike Trout",
+          "line": 0.5,
+          "over": "1.55",
+          "under": "2.35",
+          "bookmaker": "Bet365",
+          "playerId": 545361,
+          "side": "over",
+          "odds": "1.55",
+          "ourProb": 0.63,
+          "impliedProb": 0.645,
+          "edge": -0.015,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Peter Lambert",
+          "why": null,
+          "matchup": {
+            "pitcher": "Peter Lambert",
+            "ab": 7,
+            "hits": 2,
+            "hr": 1,
+            "so": 3,
+            "bb": 0,
+            "avg": ".286",
+            "ops": "1.000"
+          }
+        },
+        {
+          "market": "Hits O/U",
+          "kind": "hitting",
+          "player": "Nick Allen",
+          "line": 0.5,
+          "over": "1.74",
+          "under": "2.00",
+          "bookmaker": "Bet365",
+          "playerId": 669397,
+          "side": "under",
+          "odds": "2.00",
+          "ourProb": 0.621,
+          "impliedProb": 0.5,
+          "edge": 0.121,
+          "isValue": true,
+          "pitcherHand": "R",
+          "pitcherName": "Grayson Rodriguez",
+          "why": null
+        },
+        {
+          "market": "Hits O/U",
+          "kind": "hitting",
+          "player": "Yordan Alvarez",
+          "line": 1.5,
+          "over": "2.95",
+          "under": "1.37",
           "bookmaker": "Bet365",
           "playerId": 670541,
           "side": "over",
-          "odds": "1.35",
-          "ourProb": 0.75,
-          "impliedProb": 0.741,
-          "edge": 0.009,
+          "odds": "2.95",
+          "ourProb": 0.378,
+          "impliedProb": 0.339,
+          "edge": 0.039,
           "isValue": false,
           "pitcherHand": "R",
           "pitcherName": "Grayson Rodriguez",
@@ -1673,6 +776,35 @@
             "bb": 2,
             "avg": ".000",
             "ops": ".167"
+          }
+        },
+        {
+          "market": "Hits O/U",
+          "kind": "hitting",
+          "player": "Isaac Paredes",
+          "line": 0.5,
+          "over": "1.45",
+          "under": "2.60",
+          "bookmaker": "Bet365",
+          "playerId": 670623,
+          "side": "over",
+          "odds": "1.45",
+          "ourProb": 0.668,
+          "impliedProb": 0.69,
+          "edge": -0.022,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Grayson Rodriguez",
+          "why": null,
+          "matchup": {
+            "pitcher": "Grayson Rodriguez",
+            "ab": 11,
+            "hits": 3,
+            "hr": 0,
+            "so": 0,
+            "bb": 0,
+            "avg": ".273",
+            "ops": ".637"
           }
         },
         {
@@ -1707,122 +839,6 @@
         {
           "market": "Hits O/U",
           "kind": "hitting",
-          "player": "Yainer Diaz",
-          "line": 0.5,
-          "over": "1.40",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 673237,
-          "side": "over",
-          "odds": "1.40",
-          "ourProb": 0.643,
-          "impliedProb": 0.714,
-          "edge": -0.071,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Grayson Rodriguez",
-          "why": null,
-          "matchup": {
-            "pitcher": "Grayson Rodriguez",
-            "ab": 5,
-            "hits": 2,
-            "hr": 1,
-            "so": 0,
-            "bb": 1,
-            "avg": ".400",
-            "ops": "1.500"
-          }
-        },
-        {
-          "market": "Hits O/U",
-          "kind": "hitting",
-          "player": "Nolan Schanuel",
-          "line": 0.5,
-          "over": "1.43",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 694384,
-          "side": "over",
-          "odds": "1.43",
-          "ourProb": 0.696,
-          "impliedProb": 0.699,
-          "edge": -0.003,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Peter Lambert",
-          "why": null,
-          "matchup": {
-            "pitcher": "Peter Lambert",
-            "ab": 4,
-            "hits": 1,
-            "hr": 0,
-            "so": 0,
-            "bb": 0,
-            "avg": ".250",
-            "ops": ".500"
-          }
-        },
-        {
-          "market": "Hits O/U",
-          "kind": "hitting",
-          "player": "Wade Meckler",
-          "line": 0.5,
-          "over": "1.47",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 685133,
-          "side": "over",
-          "odds": "1.47",
-          "ourProb": 0.629,
-          "impliedProb": 0.68,
-          "edge": -0.051,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Peter Lambert",
-          "why": null,
-          "matchup": {
-            "pitcher": "Peter Lambert",
-            "ab": 6,
-            "hits": 0,
-            "hr": 0,
-            "so": 3,
-            "bb": 0,
-            "avg": ".000",
-            "ops": ".000"
-          }
-        },
-        {
-          "market": "Hits O/U",
-          "kind": "hitting",
-          "player": "Isaac Paredes",
-          "line": 0.5,
-          "over": "1.47",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 670623,
-          "side": "over",
-          "odds": "1.47",
-          "ourProb": 0.668,
-          "impliedProb": 0.68,
-          "edge": -0.013,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Grayson Rodriguez",
-          "why": null,
-          "matchup": {
-            "pitcher": "Grayson Rodriguez",
-            "ab": 11,
-            "hits": 3,
-            "hr": 0,
-            "so": 0,
-            "bb": 0,
-            "avg": ".273",
-            "ops": ".637"
-          }
-        },
-        {
-          "market": "Hits O/U",
-          "kind": "hitting",
           "player": "Cam Smith",
           "line": 0.5,
           "over": "1.52",
@@ -1847,189 +863,6 @@
             "bb": 0,
             "avg": ".400",
             "ops": "1.200"
-          }
-        },
-        {
-          "market": "Hits O/U",
-          "kind": "hitting",
-          "player": "Mike Trout",
-          "line": 0.5,
-          "over": "1.52",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 545361,
-          "side": "over",
-          "odds": "1.52",
-          "ourProb": 0.63,
-          "impliedProb": 0.658,
-          "edge": -0.028,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Peter Lambert",
-          "why": null,
-          "matchup": {
-            "pitcher": "Peter Lambert",
-            "ab": 7,
-            "hits": 2,
-            "hr": 1,
-            "so": 3,
-            "bb": 0,
-            "avg": ".286",
-            "ops": "1.000"
-          }
-        },
-        {
-          "market": "Hits O/U",
-          "kind": "hitting",
-          "player": "Christian Walker",
-          "line": 0.5,
-          "over": "1.52",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 572233,
-          "side": "over",
-          "odds": "1.52",
-          "ourProb": 0.617,
-          "impliedProb": 0.658,
-          "edge": -0.041,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Grayson Rodriguez",
-          "why": null,
-          "matchup": {
-            "pitcher": "Grayson Rodriguez",
-            "ab": 5,
-            "hits": 2,
-            "hr": 0,
-            "so": 2,
-            "bb": 1,
-            "avg": ".400",
-            "ops": "1.100"
-          }
-        },
-        {
-          "market": "Hits O/U",
-          "kind": "hitting",
-          "player": "Vaughn Grissom",
-          "line": 0.5,
-          "over": "1.58",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 687093,
-          "side": "over",
-          "odds": "1.58",
-          "ourProb": 0.621,
-          "impliedProb": 0.633,
-          "edge": -0.012,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Peter Lambert",
-          "why": null,
-          "matchup": {
-            "pitcher": "Peter Lambert",
-            "ab": 3,
-            "hits": 2,
-            "hr": 0,
-            "so": 1,
-            "bb": 0,
-            "avg": ".667",
-            "ops": "1.334"
-          }
-        },
-        {
-          "market": "Hits O/U",
-          "kind": "hitting",
-          "player": "Moises Ballesteros",
-          "line": 0.5,
-          "over": "1.64",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 694208,
-          "side": "over",
-          "odds": "1.64",
-          "ourProb": 0.475,
-          "impliedProb": 0.61,
-          "edge": -0.135,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Peter Lambert",
-          "why": null
-        },
-        {
-          "market": "Hits O/U",
-          "kind": "hitting",
-          "player": "Zach Neto",
-          "line": 0.5,
-          "over": "1.66",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 687263,
-          "side": "over",
-          "odds": "1.66",
-          "ourProb": 0.634,
-          "impliedProb": 0.602,
-          "edge": 0.031,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Peter Lambert",
-          "why": null,
-          "matchup": {
-            "pitcher": "Peter Lambert",
-            "ab": 7,
-            "hits": 1,
-            "hr": 0,
-            "so": 4,
-            "bb": 0,
-            "avg": ".143",
-            "ops": ".286"
-          }
-        },
-        {
-          "market": "Hits O/U",
-          "kind": "hitting",
-          "player": "Nick Allen",
-          "line": 0.5,
-          "over": "1.76",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 669397,
-          "side": "over",
-          "odds": "1.76",
-          "ourProb": 0.379,
-          "impliedProb": 0.568,
-          "edge": -0.189,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Grayson Rodriguez",
-          "why": null
-        },
-        {
-          "market": "Hits O/U",
-          "kind": "hitting",
-          "player": "Josh Lowe",
-          "line": 0.5,
-          "over": "1.76",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 666139,
-          "side": "over",
-          "odds": "1.76",
-          "ourProb": 0.478,
-          "impliedProb": 0.568,
-          "edge": -0.09,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Peter Lambert",
-          "why": null,
-          "matchup": {
-            "pitcher": "Peter Lambert",
-            "ab": 2,
-            "hits": 0,
-            "hr": 0,
-            "so": 1,
-            "bb": 0,
-            "avg": ".000",
-            "ops": ".000"
           }
         },
         {
@@ -2062,19 +895,19 @@
           }
         },
         {
-          "market": "Hits O/U",
-          "kind": "hitting",
-          "player": "Tyler Heineman",
-          "line": 0.5,
-          "over": "1.95",
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "Grayson Rodriguez",
+          "line": 1.5,
+          "over": "1.02",
           "under": null,
           "bookmaker": "Bet365",
-          "playerId": 623168,
+          "playerId": 680570,
           "side": "over",
-          "odds": "1.95",
-          "ourProb": 0.361,
-          "impliedProb": 0.513,
-          "edge": -0.152,
+          "odds": "1.02",
+          "ourProb": 0.924,
+          "impliedProb": 0.98,
+          "edge": -0.056,
           "isValue": false,
           "pitcherHand": "R",
           "pitcherName": "Peter Lambert",
@@ -2098,25 +931,6 @@
           "pitcherHand": "R",
           "pitcherName": "Grayson Rodriguez",
           "why": null
-        },
-        {
-          "market": "Pitcher Strikeouts O/U",
-          "kind": "pitching",
-          "player": "Grayson Rodriguez",
-          "line": 1.5,
-          "over": "1.02",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 680570,
-          "side": "over",
-          "odds": "1.02",
-          "ourProb": 0.924,
-          "impliedProb": 0.98,
-          "edge": -0.056,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Peter Lambert",
-          "why": null
         }
       ],
       "moneylinePicks": [
@@ -2126,11 +940,11 @@
           "player": "Los Angeles Angels",
           "line": null,
           "side": "gana",
-          "odds": "2.54",
+          "odds": "2.61",
           "bookmaker": "Bovada",
           "ourProb": 0.369,
-          "impliedProb": 0.394,
-          "edge": -0.024,
+          "impliedProb": 0.383,
+          "edge": -0.014,
           "isValue": false,
           "why": "Los Angeles Angels tiene mas lesionados en la lista (9 vs 4 de Houston Astros) — jugado a favor del rival"
         },
@@ -2140,44 +954,886 @@
           "player": "Houston Astros",
           "line": null,
           "side": "gana",
-          "odds": "1.54",
+          "odds": "1.51",
           "bookmaker": "Bovada",
           "ourProb": 0.631,
-          "impliedProb": 0.649,
-          "edge": -0.019,
+          "impliedProb": 0.662,
+          "edge": -0.032,
           "isValue": false,
           "why": "Houston Astros tiene menos lesionados en la lista (4 vs 9 de Los Angeles Angels) · líder de su división"
+        }
+      ]
+    },
+    "Atlanta Braves@Milwaukee Brewers@2026-08-21": {
+      "home": "Milwaukee Brewers",
+      "away": "Atlanta Braves",
+      "date": "2026-08-21T20:10:00Z",
+      "moneyline": {
+        "Bovada": {
+          "home": "1.70",
+          "away": "2.19"
+        },
+        "Bet365": {
+          "home": "1.66",
+          "away": "2.25"
+        }
+      },
+      "total": {
+        "Bovada": {
+          "line": 6.5,
+          "over": "1.95",
+          "under": "1.87"
+        },
+        "Bet365": {
+          "line": 6.5,
+          "over": "1.95",
+          "under": "1.86"
+        }
+      },
+      "spread": {
+        "Bovada": {
+          "homeLine": -1.5,
+          "homeOdds": "2.80",
+          "awayOdds": "1.45"
+        },
+        "Bet365": {
+          "homeLine": -1.5,
+          "homeOdds": "2.60",
+          "awayOdds": "1.52"
+        }
+      },
+      "props": [
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "Jacob Misiorowski",
+          "line": 1.5,
+          "over": "1.00",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 694819,
+          "side": "over",
+          "odds": "1.00",
+          "ourProb": 0.999,
+          "impliedProb": 1,
+          "edge": -0.001,
+          "isValue": false,
+          "pitcherHand": "L",
+          "pitcherName": "Chris Sale",
+          "why": "🏆 líder de Liga Nacional en efectividad (1.75) · 🏆 líder de Liga Nacional en ponches (210)"
+        },
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "Chris Sale",
+          "line": 1.5,
+          "over": "1.00",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 519242,
+          "side": "over",
+          "odds": "1.00",
+          "ourProb": 0.994,
+          "impliedProb": 1,
+          "edge": -0.006,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Jacob Misiorowski",
+          "why": "🏆 2° en la pelea por el título de efectividad de Liga Nacional (2.16 vs 1.75 del líder)"
+        }
+      ],
+      "moneylinePicks": [
+        {
+          "market": "Moneyline",
+          "kind": "moneyline",
+          "player": "Atlanta Braves",
+          "line": null,
+          "side": "gana",
+          "odds": "2.19",
+          "bookmaker": "Bovada",
+          "ourProb": 0.43,
+          "impliedProb": 0.457,
+          "edge": -0.026,
+          "isValue": false,
+          "why": "Atlanta Braves tiene menos lesionados en la lista (6 vs 9 de Milwaukee Brewers) · líder de su división"
+        },
+        {
+          "market": "Moneyline",
+          "kind": "moneyline",
+          "player": "Milwaukee Brewers",
+          "line": null,
+          "side": "gana",
+          "odds": "1.70",
+          "bookmaker": "Bovada",
+          "ourProb": 0.57,
+          "impliedProb": 0.588,
+          "edge": -0.018,
+          "isValue": false,
+          "why": "Milwaukee Brewers tiene mas lesionados en la lista (9 vs 6 de Atlanta Braves) — jugado a favor del rival · líder de su división"
+        }
+      ]
+    },
+    "Toronto Blue Jays@New York Yankees@2026-08-21": {
+      "home": "New York Yankees",
+      "away": "Toronto Blue Jays",
+      "date": "2026-08-21T23:05:00Z",
+      "moneyline": {
+        "Bovada": {
+          "home": "1.42",
+          "away": "2.95"
+        }
+      },
+      "total": {
+        "Bovada": {
+          "line": 7.5,
+          "over": "1.91",
+          "under": "1.91"
+        }
+      },
+      "spread": {
+        "Bovada": {
+          "homeLine": -1.5,
+          "homeOdds": "2.00",
+          "awayOdds": "1.83"
+        }
+      },
+      "props": [],
+      "moneylinePicks": [
+        {
+          "market": "Moneyline",
+          "kind": "moneyline",
+          "player": "Toronto Blue Jays",
+          "line": null,
+          "side": "gana",
+          "odds": "2.95",
+          "bookmaker": "Bovada",
+          "ourProb": 0.385,
+          "impliedProb": 0.339,
+          "edge": 0.046,
+          "isValue": false,
+          "why": "Toronto Blue Jays tiene mas lesionados en la lista (15 vs 6 de New York Yankees) — jugado a favor del rival · peleando de cerca por el comodín"
+        },
+        {
+          "market": "Moneyline",
+          "kind": "moneyline",
+          "player": "New York Yankees",
+          "line": null,
+          "side": "gana",
+          "odds": "1.42",
+          "bookmaker": "Bovada",
+          "ourProb": 0.615,
+          "impliedProb": 0.704,
+          "edge": -0.089,
+          "isValue": false,
+          "why": "New York Yankees tiene menos lesionados en la lista (6 vs 15 de Toronto Blue Jays)"
+        }
+      ]
+    },
+    "Washington Nationals@Miami Marlins@2026-08-21": {
+      "home": "Miami Marlins",
+      "away": "Washington Nationals",
+      "date": "2026-08-21T23:10:00Z",
+      "moneyline": {
+        "Bovada": {
+          "home": "1.65",
+          "away": "2.30"
+        }
+      },
+      "total": {
+        "Bovada": {
+          "line": 8.5,
+          "over": "2.05",
+          "under": "1.80"
+        }
+      },
+      "spread": {
+        "Bovada": {
+          "homeLine": -1.5,
+          "homeOdds": "2.50",
+          "awayOdds": "1.57"
+        }
+      },
+      "props": [],
+      "moneylinePicks": [
+        {
+          "market": "Moneyline",
+          "kind": "moneyline",
+          "player": "Washington Nationals",
+          "line": null,
+          "side": "gana",
+          "odds": "2.30",
+          "bookmaker": "Bovada",
+          "ourProb": 0.47,
+          "impliedProb": 0.435,
+          "edge": 0.035,
+          "isValue": false,
+          "why": "Washington Nationals tiene mas lesionados en la lista (9 vs 8 de Miami Marlins) — jugado a favor del rival"
+        },
+        {
+          "market": "Moneyline",
+          "kind": "moneyline",
+          "player": "Miami Marlins",
+          "line": null,
+          "side": "gana",
+          "odds": "1.65",
+          "bookmaker": "Bovada",
+          "ourProb": 0.53,
+          "impliedProb": 0.606,
+          "edge": -0.076,
+          "isValue": false,
+          "why": "Miami Marlins tiene menos lesionados en la lista (8 vs 9 de Washington Nationals)"
+        }
+      ]
+    },
+    "San Francisco Giants@Boston Red Sox@2026-08-21": {
+      "home": "Boston Red Sox",
+      "away": "San Francisco Giants",
+      "date": "2026-08-21T23:10:00Z",
+      "moneyline": {
+        "Bovada": {
+          "home": "1.57",
+          "away": "2.43"
+        }
+      },
+      "total": {
+        "Bovada": {
+          "line": 7.5,
+          "over": "1.80",
+          "under": "2.05"
+        }
+      },
+      "spread": {
+        "Bovada": {
+          "homeLine": -1.5,
+          "homeOdds": "2.35",
+          "awayOdds": "1.63"
+        }
+      },
+      "props": [],
+      "moneylinePicks": [
+        {
+          "market": "Moneyline",
+          "kind": "moneyline",
+          "player": "San Francisco Giants",
+          "line": null,
+          "side": "gana",
+          "odds": "2.43",
+          "bookmaker": "Bovada",
+          "ourProb": 0.331,
+          "impliedProb": 0.412,
+          "edge": -0.081,
+          "isValue": false,
+          "why": "San Francisco Giants tiene mas lesionados en la lista (14 vs 13 de Boston Red Sox) — jugado a favor del rival"
+        },
+        {
+          "market": "Moneyline",
+          "kind": "moneyline",
+          "player": "Boston Red Sox",
+          "line": null,
+          "side": "gana",
+          "odds": "1.57",
+          "bookmaker": "Bovada",
+          "ourProb": 0.669,
+          "impliedProb": 0.637,
+          "edge": 0.032,
+          "isValue": false,
+          "why": "Boston Red Sox tiene menos lesionados en la lista (13 vs 14 de San Francisco Giants)"
+        }
+      ]
+    },
+    "Tampa Bay Rays@Baltimore Orioles@2026-08-21": {
+      "home": "Baltimore Orioles",
+      "away": "Tampa Bay Rays",
+      "date": "2026-08-21T23:15:00Z",
+      "moneyline": {
+        "Bovada": {
+          "home": "1.71",
+          "away": "2.17"
+        }
+      },
+      "total": {
+        "Bovada": {
+          "line": 8.5,
+          "over": "1.95",
+          "under": "1.87"
+        }
+      },
+      "spread": {
+        "Bovada": {
+          "homeLine": -1.5,
+          "homeOdds": "2.55",
+          "awayOdds": "1.56"
+        }
+      },
+      "props": [],
+      "moneylinePicks": [
+        {
+          "market": "Moneyline",
+          "kind": "moneyline",
+          "player": "Tampa Bay Rays",
+          "line": null,
+          "side": "gana",
+          "odds": "2.17",
+          "bookmaker": "Bovada",
+          "ourProb": 0.517,
+          "impliedProb": 0.461,
+          "edge": 0.057,
+          "isValue": false,
+          "why": "Tampa Bay Rays tiene mas lesionados en la lista (10 vs 8 de Baltimore Orioles) — jugado a favor del rival · líder de su división"
+        },
+        {
+          "market": "Moneyline",
+          "kind": "moneyline",
+          "player": "Baltimore Orioles",
+          "line": null,
+          "side": "gana",
+          "odds": "1.71",
+          "bookmaker": "Bovada",
+          "ourProb": 0.483,
+          "impliedProb": 0.585,
+          "edge": -0.102,
+          "isValue": false,
+          "why": "Baltimore Orioles tiene menos lesionados en la lista (8 vs 10 de Tampa Bay Rays) · peleando de cerca por el comodín"
+        }
+      ]
+    },
+    "New York Mets@Chicago White Sox@2026-08-21": {
+      "home": "Chicago White Sox",
+      "away": "New York Mets",
+      "date": "2026-08-21T23:40:00Z",
+      "moneyline": {
+        "Bovada": {
+          "home": "1.65",
+          "away": "2.30"
+        }
+      },
+      "total": {
+        "Bovada": {
+          "line": 7.5,
+          "over": "1.80",
+          "under": "2.05"
+        }
+      },
+      "spread": {
+        "Bovada": {
+          "homeLine": -1.5,
+          "homeOdds": "2.45",
+          "awayOdds": "1.59"
+        }
+      },
+      "props": [],
+      "moneylinePicks": [
+        {
+          "market": "Moneyline",
+          "kind": "moneyline",
+          "player": "New York Mets",
+          "line": null,
+          "side": "gana",
+          "odds": "2.30",
+          "bookmaker": "Bovada",
+          "ourProb": 0.493,
+          "impliedProb": 0.435,
+          "edge": 0.058,
+          "isValue": false,
+          "why": "New York Mets tiene menos lesionados en la lista (8 vs 11 de Chicago White Sox)"
+        },
+        {
+          "market": "Moneyline",
+          "kind": "moneyline",
+          "player": "Chicago White Sox",
+          "line": null,
+          "side": "gana",
+          "odds": "1.65",
+          "bookmaker": "Bovada",
+          "ourProb": 0.507,
+          "impliedProb": 0.606,
+          "edge": -0.099,
+          "isValue": false,
+          "why": "Chicago White Sox tiene mas lesionados en la lista (11 vs 8 de New York Mets) — jugado a favor del rival · líder de su división"
+        }
+      ]
+    },
+    "Athletics@Houston Astros@2026-08-21": {
+      "home": "Houston Astros",
+      "away": "Athletics",
+      "date": "2026-08-22T00:10:00Z",
+      "moneyline": {
+        "Bovada": {
+          "home": "1.50",
+          "away": "2.64"
+        }
+      },
+      "total": {
+        "Bovada": {
+          "line": 8.5,
+          "over": "2.00",
+          "under": "1.83"
+        }
+      },
+      "spread": {
+        "Bovada": {
+          "homeLine": -1.5,
+          "homeOdds": "2.20",
+          "awayOdds": "1.71"
+        }
+      },
+      "props": [],
+      "moneylinePicks": [
+        {
+          "market": "Moneyline",
+          "kind": "moneyline",
+          "player": "Athletics",
+          "line": null,
+          "side": "gana",
+          "odds": "2.64",
+          "bookmaker": "Bovada",
+          "ourProb": 0.245,
+          "impliedProb": 0.379,
+          "edge": -0.134,
+          "isValue": false,
+          "why": "Athletics tiene mas lesionados en la lista (12 vs 4 de Houston Astros) — jugado a favor del rival"
+        },
+        {
+          "market": "Moneyline",
+          "kind": "moneyline",
+          "player": "Houston Astros",
+          "line": null,
+          "side": "gana",
+          "odds": "1.50",
+          "bookmaker": "Bovada",
+          "ourProb": 0.755,
+          "impliedProb": 0.667,
+          "edge": 0.088,
+          "isValue": true,
+          "why": "Houston Astros tiene menos lesionados en la lista (4 vs 12 de Athletics) · líder de su división"
+        }
+      ]
+    },
+    "Detroit Tigers@Kansas City Royals@2026-08-21": {
+      "home": "Kansas City Royals",
+      "away": "Detroit Tigers",
+      "date": "2026-08-22T00:10:00Z",
+      "moneyline": {
+        "Bovada": {
+          "home": "2.01",
+          "away": "1.83"
+        }
+      },
+      "total": {
+        "Bovada": {
+          "line": 8.5,
+          "over": "1.87",
+          "under": "1.95"
+        }
+      },
+      "spread": {
+        "Bovada": {
+          "homeLine": 1.5,
+          "homeOdds": "1.61",
+          "awayOdds": "2.40"
+        }
+      },
+      "props": [],
+      "moneylinePicks": [
+        {
+          "market": "Moneyline",
+          "kind": "moneyline",
+          "player": "Detroit Tigers",
+          "line": null,
+          "side": "gana",
+          "odds": "1.83",
+          "bookmaker": "Bovada",
+          "ourProb": 0.432,
+          "impliedProb": 0.546,
+          "edge": -0.114,
+          "isValue": false,
+          "why": "Detroit Tigers tiene mas lesionados en la lista (14 vs 11 de Kansas City Royals) — jugado a favor del rival · peleando de cerca por el comodín"
+        },
+        {
+          "market": "Moneyline",
+          "kind": "moneyline",
+          "player": "Kansas City Royals",
+          "line": null,
+          "side": "gana",
+          "odds": "2.01",
+          "bookmaker": "Bovada",
+          "ourProb": 0.568,
+          "impliedProb": 0.498,
+          "edge": 0.071,
+          "isValue": true,
+          "why": "Kansas City Royals tiene menos lesionados en la lista (11 vs 14 de Detroit Tigers)"
+        }
+      ]
+    },
+    "Cleveland Guardians@Colorado Rockies@2026-08-21": {
+      "home": "Colorado Rockies",
+      "away": "Cleveland Guardians",
+      "date": "2026-08-22T00:40:00Z",
+      "moneyline": {
+        "Bovada": {
+          "home": "2.30",
+          "away": "1.65"
+        }
+      },
+      "total": {
+        "Bovada": {
+          "line": 10.5,
+          "over": "1.83",
+          "under": "2.00"
+        }
+      },
+      "spread": {
+        "Bovada": {
+          "homeLine": 1.5,
+          "homeOdds": "1.83",
+          "awayOdds": "2.00"
+        }
+      },
+      "props": [],
+      "moneylinePicks": [
+        {
+          "market": "Moneyline",
+          "kind": "moneyline",
+          "player": "Cleveland Guardians",
+          "line": null,
+          "side": "gana",
+          "odds": "1.65",
+          "bookmaker": "Bovada",
+          "ourProb": 0.594,
+          "impliedProb": 0.606,
+          "edge": -0.012,
+          "isValue": false,
+          "why": "Cleveland Guardians tiene menos lesionados en la lista (3 vs 10 de Colorado Rockies) · peleando de cerca por el comodín"
+        },
+        {
+          "market": "Moneyline",
+          "kind": "moneyline",
+          "player": "Colorado Rockies",
+          "line": null,
+          "side": "gana",
+          "odds": "2.30",
+          "bookmaker": "Bovada",
+          "ourProb": 0.406,
+          "impliedProb": 0.435,
+          "edge": -0.029,
+          "isValue": false,
+          "why": "Colorado Rockies tiene mas lesionados en la lista (10 vs 3 de Cleveland Guardians) — jugado a favor del rival"
+        }
+      ]
+    },
+    "Cincinnati Reds@Arizona Diamondbacks@2026-08-21": {
+      "home": "Arizona Diamondbacks",
+      "away": "Cincinnati Reds",
+      "date": "2026-08-22T01:40:00Z",
+      "moneyline": {
+        "Bovada": {
+          "home": "1.69",
+          "away": "2.21"
+        }
+      },
+      "total": {
+        "Bovada": {
+          "line": 8.5,
+          "over": "1.91",
+          "under": "1.91"
+        }
+      },
+      "spread": {
+        "Bovada": {
+          "homeLine": -1.5,
+          "homeOdds": "2.60",
+          "awayOdds": "1.54"
+        }
+      },
+      "props": [],
+      "moneylinePicks": [
+        {
+          "market": "Moneyline",
+          "kind": "moneyline",
+          "player": "Cincinnati Reds",
+          "line": null,
+          "side": "gana",
+          "odds": "2.21",
+          "bookmaker": "Bovada",
+          "ourProb": 0.394,
+          "impliedProb": 0.452,
+          "edge": -0.059,
+          "isValue": false,
+          "why": "Cincinnati Reds tiene menos lesionados en la lista (6 vs 11 de Arizona Diamondbacks)"
+        },
+        {
+          "market": "Moneyline",
+          "kind": "moneyline",
+          "player": "Arizona Diamondbacks",
+          "line": null,
+          "side": "gana",
+          "odds": "1.69",
+          "bookmaker": "Bovada",
+          "ourProb": 0.606,
+          "impliedProb": 0.592,
+          "edge": 0.015,
+          "isValue": false,
+          "why": "Arizona Diamondbacks tiene mas lesionados en la lista (11 vs 6 de Cincinnati Reds) — jugado a favor del rival · peleando de cerca por el comodín"
+        }
+      ]
+    },
+    "Pittsburgh Pirates@Los Angeles Dodgers@2026-08-21": {
+      "home": "Los Angeles Dodgers",
+      "away": "Pittsburgh Pirates",
+      "date": "2026-08-22T02:10:00Z",
+      "moneyline": {
+        "Bovada": {
+          "home": "1.43",
+          "away": "2.90"
+        }
+      },
+      "total": {
+        "Bovada": {
+          "line": 8,
+          "over": "1.87",
+          "under": "1.95"
+        }
+      },
+      "spread": {
+        "Bovada": {
+          "homeLine": -1.5,
+          "homeOdds": "1.95",
+          "awayOdds": "1.87"
+        }
+      },
+      "props": [],
+      "moneylinePicks": [
+        {
+          "market": "Moneyline",
+          "kind": "moneyline",
+          "player": "Pittsburgh Pirates",
+          "line": null,
+          "side": "gana",
+          "odds": "2.90",
+          "bookmaker": "Bovada",
+          "ourProb": 0.394,
+          "impliedProb": 0.345,
+          "edge": 0.05,
+          "isValue": false,
+          "why": "Pittsburgh Pirates tiene menos lesionados en la lista (4 vs 13 de Los Angeles Dodgers)"
+        },
+        {
+          "market": "Moneyline",
+          "kind": "moneyline",
+          "player": "Los Angeles Dodgers",
+          "line": null,
+          "side": "gana",
+          "odds": "1.43",
+          "bookmaker": "Bovada",
+          "ourProb": 0.606,
+          "impliedProb": 0.699,
+          "edge": -0.094,
+          "isValue": false,
+          "why": "Los Angeles Dodgers tiene mas lesionados en la lista (13 vs 4 de Pittsburgh Pirates) — jugado a favor del rival · líder de su división"
+        }
+      ]
+    },
+    "Chicago Cubs@Seattle Mariners@2026-08-21": {
+      "home": "Seattle Mariners",
+      "away": "Chicago Cubs",
+      "date": "2026-08-22T02:10:00Z",
+      "moneyline": {
+        "Bovada": {
+          "home": "1.91",
+          "away": "1.91"
+        }
+      },
+      "total": {
+        "Bovada": {
+          "line": 8,
+          "over": "1.95",
+          "under": "1.87"
+        }
+      },
+      "spread": {
+        "Bovada": {
+          "homeLine": 1.5,
+          "homeOdds": "1.54",
+          "awayOdds": "2.60"
+        }
+      },
+      "props": [],
+      "moneylinePicks": [
+        {
+          "market": "Moneyline",
+          "kind": "moneyline",
+          "player": "Chicago Cubs",
+          "line": null,
+          "side": "gana",
+          "odds": "1.91",
+          "bookmaker": "Bovada",
+          "ourProb": 0.563,
+          "impliedProb": 0.524,
+          "edge": 0.04,
+          "isValue": false,
+          "why": "Chicago Cubs tiene mas lesionados en la lista (15 vs 9 de Seattle Mariners) — jugado a favor del rival"
+        },
+        {
+          "market": "Moneyline",
+          "kind": "moneyline",
+          "player": "Seattle Mariners",
+          "line": null,
+          "side": "gana",
+          "odds": "1.91",
+          "bookmaker": "Bovada",
+          "ourProb": 0.437,
+          "impliedProb": 0.524,
+          "edge": -0.087,
+          "isValue": false,
+          "why": "Seattle Mariners tiene menos lesionados en la lista (9 vs 15 de Chicago Cubs) · peleando de cerca por el comodín"
         }
       ]
     }
   },
   "parlays": [
     {
+      "label": "Moneyline (2 picks)",
+      "category": "moneyline",
+      "bookmaker": "Bovada",
+      "legs": [
+        {
+          "player": "Houston Astros",
+          "market": "Moneyline",
+          "side": "gana",
+          "line": null,
+          "odds": "1.50",
+          "ourProb": 0.755,
+          "game": "Athletics @ Houston Astros"
+        },
+        {
+          "player": "Kansas City Royals",
+          "market": "Moneyline",
+          "side": "gana",
+          "line": null,
+          "odds": "2.01",
+          "ourProb": 0.568,
+          "game": "Detroit Tigers @ Kansas City Royals"
+        }
+      ],
+      "combinedOdds": 3.01,
+      "combinedProb": 0.429
+    },
+    {
+      "label": "Moneyline (3 picks)",
+      "category": "moneyline",
+      "bookmaker": "Bovada",
+      "legs": [
+        {
+          "player": "Houston Astros",
+          "market": "Moneyline",
+          "side": "gana",
+          "line": null,
+          "odds": "1.50",
+          "ourProb": 0.755,
+          "game": "Athletics @ Houston Astros"
+        },
+        {
+          "player": "Kansas City Royals",
+          "market": "Moneyline",
+          "side": "gana",
+          "line": null,
+          "odds": "2.01",
+          "ourProb": 0.568,
+          "game": "Detroit Tigers @ Kansas City Royals"
+        }
+      ],
+      "combinedOdds": 3.01,
+      "combinedProb": 0.429
+    },
+    {
+      "label": "Solo Hits (2 picks)",
+      "category": "hits",
+      "bookmaker": "Bet365",
+      "legs": [
+        {
+          "player": "Nick Allen",
+          "market": "Hits O/U",
+          "side": "under",
+          "line": 0.5,
+          "odds": "2.00",
+          "ourProb": 0.621,
+          "game": "Los Angeles Angels @ Houston Astros"
+        },
+        {
+          "player": "Tyler Heineman",
+          "market": "Hits O/U",
+          "side": "under",
+          "line": 0.5,
+          "odds": "1.86",
+          "ourProb": 0.639,
+          "game": "Los Angeles Angels @ Houston Astros"
+        }
+      ],
+      "combinedOdds": 3.72,
+      "combinedProb": 0.397
+    },
+    {
+      "label": "Solo Hits (3 picks)",
+      "category": "hits",
+      "bookmaker": "Bet365",
+      "legs": [
+        {
+          "player": "Nick Allen",
+          "market": "Hits O/U",
+          "side": "under",
+          "line": 0.5,
+          "odds": "2.00",
+          "ourProb": 0.621,
+          "game": "Los Angeles Angels @ Houston Astros"
+        },
+        {
+          "player": "Tyler Heineman",
+          "market": "Hits O/U",
+          "side": "under",
+          "line": 0.5,
+          "odds": "1.86",
+          "ourProb": 0.639,
+          "game": "Los Angeles Angels @ Houston Astros"
+        }
+      ],
+      "combinedOdds": 3.72,
+      "combinedProb": 0.397
+    },
+    {
       "label": "Mixto (3 picks)",
       "category": "mixto",
       "bookmaker": "Bet365",
       "legs": [
         {
-          "player": "Pete Alonso",
-          "market": "Total Bases O/U",
-          "side": "over",
-          "line": 1.5,
-          "odds": "2.10",
-          "ourProb": 0.624,
-          "game": "New York Yankees @ Baltimore Orioles"
+          "player": "Nick Allen",
+          "market": "Hits O/U",
+          "side": "under",
+          "line": 0.5,
+          "odds": "2.00",
+          "ourProb": 0.621,
+          "game": "Los Angeles Angels @ Houston Astros"
         },
         {
-          "player": "George Lombard Jr.",
-          "market": "Hits O/U",
+          "player": "Brandon Nimmo",
+          "market": "Total Bases O/U",
           "side": "over",
           "line": 0.5,
-          "odds": "1.60",
-          "ourProb": 0.726,
-          "game": "New York Yankees @ Baltimore Orioles"
+          "odds": "1.38",
+          "ourProb": 0.841,
+          "game": "Washington Nationals @ Texas Rangers"
+        },
+        {
+          "player": "Tyler Heineman",
+          "market": "Hits O/U",
+          "side": "under",
+          "line": 0.5,
+          "odds": "1.86",
+          "ourProb": 0.639,
+          "game": "Los Angeles Angels @ Houston Astros"
         }
       ],
-      "combinedOdds": 3.36,
-      "combinedProb": 0.453
+      "combinedOdds": 5.13,
+      "combinedProb": 0.334
     },
     {
       "label": "Mixto (4 picks)",
@@ -2185,26 +1841,35 @@
       "bookmaker": "Bet365",
       "legs": [
         {
-          "player": "Pete Alonso",
-          "market": "Total Bases O/U",
-          "side": "over",
-          "line": 1.5,
-          "odds": "2.10",
-          "ourProb": 0.624,
-          "game": "New York Yankees @ Baltimore Orioles"
+          "player": "Nick Allen",
+          "market": "Hits O/U",
+          "side": "under",
+          "line": 0.5,
+          "odds": "2.00",
+          "ourProb": 0.621,
+          "game": "Los Angeles Angels @ Houston Astros"
         },
         {
-          "player": "George Lombard Jr.",
-          "market": "Hits O/U",
+          "player": "Brandon Nimmo",
+          "market": "Total Bases O/U",
           "side": "over",
           "line": 0.5,
-          "odds": "1.60",
-          "ourProb": 0.726,
-          "game": "New York Yankees @ Baltimore Orioles"
+          "odds": "1.38",
+          "ourProb": 0.841,
+          "game": "Washington Nationals @ Texas Rangers"
+        },
+        {
+          "player": "Tyler Heineman",
+          "market": "Hits O/U",
+          "side": "under",
+          "line": 0.5,
+          "odds": "1.86",
+          "ourProb": 0.639,
+          "game": "Los Angeles Angels @ Houston Astros"
         }
       ],
-      "combinedOdds": 3.36,
-      "combinedProb": 0.453
+      "combinedOdds": 5.13,
+      "combinedProb": 0.334
     }
   ],
   "injuries": [
@@ -2218,11 +1883,209 @@
       "eligibleReturn": "2026-05-05"
     },
     {
+      "name": "Triston Casas",
+      "team": "Boston Red Sox",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Recovery from left patellar tendon repair",
+      "since": "2026-04-22",
+      "eligibleReturn": "2026-06-21"
+    },
+    {
+      "name": "Bailey Horn",
+      "team": "Detroit Tigers",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left elbow arthroscopy recovery",
+      "since": "2026-04-22",
+      "eligibleReturn": "2026-06-21"
+    },
+    {
+      "name": "Edwin Uceta",
+      "team": "Tampa Bay Rays",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right shoulder impingement",
+      "since": "2026-04-24",
+      "eligibleReturn": "2026-06-23"
+    },
+    {
+      "name": "Porter Hodge",
+      "team": "Chicago Cubs",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right elbow strain",
+      "since": "2026-04-24",
+      "eligibleReturn": "2026-06-23"
+    },
+    {
+      "name": "Yimi García",
+      "team": "Toronto Blue Jays",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right elbow ulnar nerve and AC joint surgery.",
+      "since": "2026-04-25",
+      "eligibleReturn": "2026-06-24"
+    },
+    {
+      "name": "Matt Brash",
+      "team": "Seattle Mariners",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Right lat strain.",
+      "since": "2026-06-09",
+      "eligibleReturn": "2026-06-24"
+    },
+    {
+      "name": "Tanner Murray",
+      "team": "Chicago White Sox",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left shoulder dislocation.",
+      "since": "2026-05-04",
+      "eligibleReturn": "2026-07-03"
+    },
+    {
+      "name": "Drew Thorpe",
+      "team": "Chicago White Sox",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Recovery from Tommy John surgery.",
+      "since": "2026-05-05",
+      "eligibleReturn": "2026-07-04"
+    },
+    {
+      "name": "Brandon Williamson",
+      "team": "Cincinnati Reds",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left shoulder fatigue.",
+      "since": "2026-05-06",
+      "eligibleReturn": "2026-07-05"
+    },
+    {
+      "name": "Robert Suarez",
+      "team": "Atlanta Braves",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Right elbow inflammation.",
+      "since": "2026-06-23",
+      "eligibleReturn": "2026-07-08"
+    },
+    {
+      "name": "Tony Santillan",
+      "team": "Cincinnati Reds",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Left oblique strain.",
+      "since": "2026-06-23",
+      "eligibleReturn": "2026-07-08"
+    },
+    {
+      "name": "Justin Verlander",
+      "team": "Detroit Tigers",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left hip inflammation.",
+      "since": "2026-05-10",
+      "eligibleReturn": "2026-07-09"
+    },
+    {
+      "name": "Matt Shaw",
+      "team": "Chicago Cubs",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "left-hand sprain",
+      "since": "2026-06-29",
+      "eligibleReturn": "2026-07-09"
+    },
+    {
+      "name": "Hoby Milner",
+      "team": "Chicago Cubs",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Appendicitis",
+      "since": "2026-06-26",
+      "eligibleReturn": "2026-07-11"
+    },
+    {
+      "name": "Anthony Bender",
+      "team": "Miami Marlins",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Right shin stress reaction.",
+      "since": "2026-06-30",
+      "eligibleReturn": "2026-07-15"
+    },
+    {
+      "name": "Hunter Harvey",
+      "team": "Chicago Cubs",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right triceps inflammation.",
+      "since": "2026-05-17",
+      "eligibleReturn": "2026-07-16"
+    },
+    {
+      "name": "Riley Martin",
+      "team": "Chicago Cubs",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left elbow inflammation.",
+      "since": "2026-05-17",
+      "eligibleReturn": "2026-07-16"
+    },
+    {
+      "name": "Ben Casparius",
+      "team": "Los Angeles Dodgers",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right shoulder inflammation",
+      "since": "2026-05-18",
+      "eligibleReturn": "2026-07-17"
+    },
+    {
+      "name": "Mark Vientos",
+      "team": "New York Mets",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Right hand fracture.",
+      "since": "2026-07-10",
+      "eligibleReturn": "2026-07-20"
+    },
+    {
+      "name": "Robby Snelling",
+      "team": "Miami Marlins",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": null,
+      "since": "2026-05-21",
+      "eligibleReturn": "2026-07-20"
+    },
+    {
+      "name": "Sean Sullivan",
+      "team": "Colorado Rockies",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": null,
+      "since": "2026-07-05",
+      "eligibleReturn": "2026-07-20"
+    },
+    {
       "name": "Yusei Kikuchi",
       "team": "Los Angeles Angels",
       "code": "D60",
       "description": "Injured 60-Day",
       "note": "Left shoulder inflammation.",
+      "since": "2026-05-22",
+      "eligibleReturn": "2026-07-21"
+    },
+    {
+      "name": "Kutter Crawford",
+      "team": "Boston Red Sox",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right wrist surgery",
       "since": "2026-05-22",
       "eligibleReturn": "2026-07-21"
     },
@@ -2254,6 +2117,123 @@
       "eligibleReturn": "2026-07-22"
     },
     {
+      "name": "Tommy Troy",
+      "team": "Arizona Diamondbacks",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Sprained right AC joint.",
+      "since": "2026-07-12",
+      "eligibleReturn": "2026-07-22"
+    },
+    {
+      "name": "Denzel Clarke",
+      "team": "Athletics",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Mid foot bone bruise in right foot.",
+      "since": "2026-05-26",
+      "eligibleReturn": "2026-07-25"
+    },
+    {
+      "name": "José Berríos",
+      "team": "Toronto Blue Jays",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right elbow stress fracture.",
+      "since": "2026-05-27",
+      "eligibleReturn": "2026-07-26"
+    },
+    {
+      "name": "Gavin Lux",
+      "team": "Tampa Bay Rays",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right shoulder impingement",
+      "since": "2026-05-27",
+      "eligibleReturn": "2026-07-26"
+    },
+    {
+      "name": "Jose Quintana",
+      "team": "Colorado Rockies",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left elbow sprain.",
+      "since": "2026-05-28",
+      "eligibleReturn": "2026-07-27"
+    },
+    {
+      "name": "William Kempner",
+      "team": "Miami Marlins",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Right elbow sprain.",
+      "since": "2026-07-12",
+      "eligibleReturn": "2026-07-27"
+    },
+    {
+      "name": "Lourdes Gurriel Jr.",
+      "team": "Arizona Diamondbacks",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Right adductor strain",
+      "since": "2026-07-18",
+      "eligibleReturn": "2026-07-28"
+    },
+    {
+      "name": "Graham Ashcraft",
+      "team": "Cincinnati Reds",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right forearm UCL sprain.",
+      "since": "2026-05-29",
+      "eligibleReturn": "2026-07-28"
+    },
+    {
+      "name": "Brant Hurter",
+      "team": "Detroit Tigers",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Lumbar spine inflammation.",
+      "since": "2026-05-29",
+      "eligibleReturn": "2026-07-28"
+    },
+    {
+      "name": "Sal Frelick",
+      "team": "Milwaukee Brewers",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Right shoulder strain.",
+      "since": "2026-07-18",
+      "eligibleReturn": "2026-07-28"
+    },
+    {
+      "name": "Jordan Leasure",
+      "team": "Chicago White Sox",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right flexor strain.",
+      "since": "2026-05-30",
+      "eligibleReturn": "2026-07-29"
+    },
+    {
+      "name": "Angel Zerpa",
+      "team": "Milwaukee Brewers",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left forearm tightness.",
+      "since": "2026-05-31",
+      "eligibleReturn": "2026-07-30"
+    },
+    {
+      "name": "Joel Peguero",
+      "team": "San Francisco Giants",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left hamstring strain",
+      "since": "2026-06-01",
+      "eligibleReturn": "2026-07-31"
+    },
+    {
       "name": "Robert Garcia",
       "team": "Texas Rangers",
       "code": "D60",
@@ -2263,11 +2243,65 @@
       "eligibleReturn": "2026-07-31"
     },
     {
+      "name": "Andrew Nardi",
+      "team": "Miami Marlins",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left rib cage stress reaction.",
+      "since": "2026-06-01",
+      "eligibleReturn": "2026-07-31"
+    },
+    {
+      "name": "Jonatan Clase",
+      "team": "Toronto Blue Jays",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Left plantar fasciitis.",
+      "since": "2026-07-21",
+      "eligibleReturn": "2026-07-31"
+    },
+    {
+      "name": "Kyle Teel",
+      "team": "Chicago White Sox",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Left ankle sprain.",
+      "since": "2026-07-21",
+      "eligibleReturn": "2026-07-31"
+    },
+    {
+      "name": "Welinton Herrera",
+      "team": "Colorado Rockies",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left elbow inflammation.",
+      "since": "2026-06-01",
+      "eligibleReturn": "2026-07-31"
+    },
+    {
+      "name": "Joshua Kuroda-Grauer",
+      "team": "Athletics",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Ruptured testicle surgery.",
+      "since": "2026-07-21",
+      "eligibleReturn": "2026-07-31"
+    },
+    {
       "name": "Carlos Correa",
       "team": "Houston Astros",
       "code": "D60",
       "description": "Injured 60-Day",
       "note": "Left ankle tendon injury.",
+      "since": "2026-06-02",
+      "eligibleReturn": "2026-08-01"
+    },
+    {
+      "name": "Brooks Kriske",
+      "team": "Athletics",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right shoulder impingement",
       "since": "2026-06-02",
       "eligibleReturn": "2026-08-01"
     },
@@ -2281,6 +2315,87 @@
       "eligibleReturn": "2026-08-01"
     },
     {
+      "name": "Joe Mantiply",
+      "team": "Toronto Blue Jays",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left knee inflammation.",
+      "since": "2026-06-03",
+      "eligibleReturn": "2026-08-02"
+    },
+    {
+      "name": "Trevor Story",
+      "team": "Boston Red Sox",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Sports hernia.",
+      "since": "2026-06-04",
+      "eligibleReturn": "2026-08-03"
+    },
+    {
+      "name": "Jonathan India",
+      "team": "Kansas City Royals",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left shoulder subluxation.",
+      "since": "2026-06-04",
+      "eligibleReturn": "2026-08-03"
+    },
+    {
+      "name": "Max Meyer",
+      "team": "Miami Marlins",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Neck strain.",
+      "since": "2026-07-19",
+      "eligibleReturn": "2026-08-03"
+    },
+    {
+      "name": "Juan Soto",
+      "team": "New York Mets",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Left calf strain",
+      "since": "2026-07-25",
+      "eligibleReturn": "2026-08-04"
+    },
+    {
+      "name": "Shea Langeliers",
+      "team": "Athletics",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Torn meniscus in right knee.",
+      "since": "2026-07-25",
+      "eligibleReturn": "2026-08-04"
+    },
+    {
+      "name": "Garrett Crochet",
+      "team": "Boston Red Sox",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left shoulder inflammation.",
+      "since": "2026-06-05",
+      "eligibleReturn": "2026-08-04"
+    },
+    {
+      "name": "Drey Jameson",
+      "team": "Arizona Diamondbacks",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Right hip inflammation.",
+      "since": "2026-07-20",
+      "eligibleReturn": "2026-08-04"
+    },
+    {
+      "name": "Tyler Glasnow",
+      "team": "Los Angeles Dodgers",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Low back spasms.",
+      "since": "2026-06-06",
+      "eligibleReturn": "2026-08-05"
+    },
+    {
       "name": "Cody Bellinger",
       "team": "New York Yankees",
       "code": "D10",
@@ -2288,6 +2403,42 @@
       "note": "Left hamstring strain.",
       "since": "2026-07-26",
       "eligibleReturn": "2026-08-05"
+    },
+    {
+      "name": "Jack Flaherty",
+      "team": "Detroit Tigers",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Right flexor inflammation.",
+      "since": "2026-07-21",
+      "eligibleReturn": "2026-08-05"
+    },
+    {
+      "name": "Quinn Priester",
+      "team": "Milwaukee Brewers",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right thoracic outlet syndrome",
+      "since": "2026-06-06",
+      "eligibleReturn": "2026-08-05"
+    },
+    {
+      "name": "Spencer Steer",
+      "team": "Cincinnati Reds",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Right wrist sprain",
+      "since": "2026-07-27",
+      "eligibleReturn": "2026-08-06"
+    },
+    {
+      "name": "Kerry Carpenter",
+      "team": "Detroit Tigers",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Left foot plantar fasciitis",
+      "since": "2026-07-27",
+      "eligibleReturn": "2026-08-06"
     },
     {
       "name": "Yoán Moncada",
@@ -2299,6 +2450,60 @@
       "eligibleReturn": "2026-08-07"
     },
     {
+      "name": "Jonathan Heasley",
+      "team": "Tampa Bay Rays",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": null,
+      "since": "2026-06-08",
+      "eligibleReturn": "2026-08-07"
+    },
+    {
+      "name": "Casey Schmitt",
+      "team": "San Francisco Giants",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Left knee meniscus tear.",
+      "since": "2026-07-28",
+      "eligibleReturn": "2026-08-07"
+    },
+    {
+      "name": "Curtis Mead",
+      "team": "Boston Red Sox",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Left wrist tracture",
+      "since": "2026-07-28",
+      "eligibleReturn": "2026-08-07"
+    },
+    {
+      "name": "Brian Fitzpatrick",
+      "team": "Milwaukee Brewers",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left elbow injury",
+      "since": "2026-06-09",
+      "eligibleReturn": "2026-08-08"
+    },
+    {
+      "name": "J.P. Crawford",
+      "team": "Seattle Mariners",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Left wrist inflammation",
+      "since": "2026-07-30",
+      "eligibleReturn": "2026-08-09"
+    },
+    {
+      "name": "Matt Vierling",
+      "team": "Detroit Tigers",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Left adductor strain",
+      "since": "2026-07-30",
+      "eligibleReturn": "2026-08-09"
+    },
+    {
       "name": "Jack Kochanowicz",
       "team": "Los Angeles Angels",
       "code": "D60",
@@ -2308,6 +2513,96 @@
       "eligibleReturn": "2026-08-09"
     },
     {
+      "name": "Cole Sulser",
+      "team": "Tampa Bay Rays",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Lower back spasms.",
+      "since": "2026-07-26",
+      "eligibleReturn": "2026-08-10"
+    },
+    {
+      "name": "Ryan O'Hearn",
+      "team": "Pittsburgh Pirates",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Left quad strain.",
+      "since": "2026-08-01",
+      "eligibleReturn": "2026-08-11"
+    },
+    {
+      "name": "Jesus Rodriguez",
+      "team": "San Francisco Giants",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Right elbow neuritis.",
+      "since": "2026-08-01",
+      "eligibleReturn": "2026-08-11"
+    },
+    {
+      "name": "Nick Kurtz",
+      "team": "Athletics",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Strained right thumb.",
+      "since": "2026-08-01",
+      "eligibleReturn": "2026-08-11"
+    },
+    {
+      "name": "Chase Dollander",
+      "team": "Colorado Rockies",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right elbow strain.",
+      "since": "2026-06-12",
+      "eligibleReturn": "2026-08-11"
+    },
+    {
+      "name": "Beck Way",
+      "team": "Kansas City Royals",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Low back spasms/tightness.",
+      "since": "2026-07-28",
+      "eligibleReturn": "2026-08-12"
+    },
+    {
+      "name": "Dalton Rushing",
+      "team": "Los Angeles Dodgers",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Right elbow inflammation.",
+      "since": "2026-08-03",
+      "eligibleReturn": "2026-08-13"
+    },
+    {
+      "name": "Carlos Estévez",
+      "team": "Kansas City Royals",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left foot contusion.",
+      "since": "2026-06-15",
+      "eligibleReturn": "2026-08-14"
+    },
+    {
+      "name": "Reynaldo López",
+      "team": "Atlanta Braves",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Left knee inflammation.",
+      "since": "2026-07-30",
+      "eligibleReturn": "2026-08-14"
+    },
+    {
+      "name": "Cionel Pérez",
+      "team": "New York Mets",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Left forearm strain.",
+      "since": "2026-07-30",
+      "eligibleReturn": "2026-08-14"
+    },
+    {
       "name": "James Wood",
       "team": "Washington Nationals",
       "code": "D10",
@@ -2315,6 +2610,87 @@
       "note": "Left oblique strain.",
       "since": "2026-08-04",
       "eligibleReturn": "2026-08-14"
+    },
+    {
+      "name": "Gavin Hollowell",
+      "team": "Chicago Cubs",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Right shoulder inflammation.",
+      "since": "2026-07-31",
+      "eligibleReturn": "2026-08-15"
+    },
+    {
+      "name": "Will Wilson",
+      "team": "Seattle Mariners",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left thumb fracture.",
+      "since": "2026-06-16",
+      "eligibleReturn": "2026-08-15"
+    },
+    {
+      "name": "Cole Ragans",
+      "team": "Kansas City Royals",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left elbow impingement.",
+      "since": "2026-06-17",
+      "eligibleReturn": "2026-08-16"
+    },
+    {
+      "name": "Spencer Strider",
+      "team": "Atlanta Braves",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right elbow inflammation.",
+      "since": "2026-06-17",
+      "eligibleReturn": "2026-08-16"
+    },
+    {
+      "name": "Will Klein",
+      "team": "Los Angeles Dodgers",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Right elbow discomfort.",
+      "since": "2026-08-01",
+      "eligibleReturn": "2026-08-16"
+    },
+    {
+      "name": "Ben Williamson",
+      "team": "Tampa Bay Rays",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Right hamstring strain.",
+      "since": "2026-08-06",
+      "eligibleReturn": "2026-08-16"
+    },
+    {
+      "name": "Luis Urías",
+      "team": "Toronto Blue Jays",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Right quad strain.",
+      "since": "2026-08-07",
+      "eligibleReturn": "2026-08-17"
+    },
+    {
+      "name": "Joey Bart",
+      "team": "Chicago White Sox",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Fifth metacarpal fracture in his left hand.",
+      "since": "2026-08-07",
+      "eligibleReturn": "2026-08-17"
+    },
+    {
+      "name": "JoJo Romero",
+      "team": "Milwaukee Brewers",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": null,
+      "since": "2026-08-03",
+      "eligibleReturn": "2026-08-18"
     },
     {
       "name": "Michael Helman",
@@ -2335,12 +2711,165 @@
       "eligibleReturn": "2026-08-18"
     },
     {
+      "name": "Tyler Freeman",
+      "team": "Colorado Rockies",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Lumbar pain",
+      "since": "2026-08-09",
+      "eligibleReturn": "2026-08-19"
+    },
+    {
+      "name": "Kyle Karros",
+      "team": "Colorado Rockies",
+      "code": "D7",
+      "description": "Injured 7-Day",
+      "note": "Concussion.",
+      "since": "2026-08-12",
+      "eligibleReturn": "2026-08-19"
+    },
+    {
+      "name": "Luis Severino",
+      "team": "Athletics",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right shoulder strain.",
+      "since": "2026-06-21",
+      "eligibleReturn": "2026-08-20"
+    },
+    {
+      "name": "Ryan Thompson",
+      "team": "Arizona Diamondbacks",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Strained lower back.",
+      "since": "2026-08-05",
+      "eligibleReturn": "2026-08-20"
+    },
+    {
+      "name": "Kyle Stowers",
+      "team": "Miami Marlins",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Left hamstring strain.",
+      "since": "2026-08-10",
+      "eligibleReturn": "2026-08-20"
+    },
+    {
+      "name": "James Outman",
+      "team": "Detroit Tigers",
+      "code": "D7",
+      "description": "Injured 7-Day",
+      "note": "Concussion.",
+      "since": "2026-08-13",
+      "eligibleReturn": "2026-08-20"
+    },
+    {
+      "name": "Endy Rodríguez",
+      "team": "Pittsburgh Pirates",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Left hip inflammation.",
+      "since": "2026-08-10",
+      "eligibleReturn": "2026-08-20"
+    },
+    {
+      "name": "Trey Yesavage",
+      "team": "Toronto Blue Jays",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Left knee inflammation.",
+      "since": "2026-08-05",
+      "eligibleReturn": "2026-08-20"
+    },
+    {
+      "name": "Griffin Jax",
+      "team": "Tampa Bay Rays",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Right elbow discomfort.",
+      "since": "2026-08-06",
+      "eligibleReturn": "2026-08-21"
+    },
+    {
+      "name": "Burch Smith",
+      "team": "Detroit Tigers",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right shoulder inflammation.",
+      "since": "2026-06-23",
+      "eligibleReturn": "2026-08-22"
+    },
+    {
+      "name": "Vladimir Guerrero Jr.",
+      "team": "Toronto Blue Jays",
+      "code": "D7",
+      "description": "Injured 7-Day",
+      "note": "Concussion.",
+      "since": "2026-08-15",
+      "eligibleReturn": "2026-08-22"
+    },
+    {
+      "name": "Chris Murphy",
+      "team": "Chicago White Sox",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Left flexor strain.",
+      "since": "2026-08-07",
+      "eligibleReturn": "2026-08-22"
+    },
+    {
+      "name": "Cole Wilcox",
+      "team": "Seattle Mariners",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Left oblique strain.",
+      "since": "2026-08-07",
+      "eligibleReturn": "2026-08-22"
+    },
+    {
+      "name": "Riley Greene",
+      "team": "Detroit Tigers",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Right hamstring strain.",
+      "since": "2026-08-12",
+      "eligibleReturn": "2026-08-22"
+    },
+    {
+      "name": "Devin Williams",
+      "team": "New York Mets",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Right shoulder strain.",
+      "since": "2026-08-08",
+      "eligibleReturn": "2026-08-23"
+    },
+    {
       "name": "Nathan Eovaldi",
       "team": "Texas Rangers",
       "code": "D15",
       "description": "Injured 15-Day",
       "note": "Right posterior elbow inflammation",
       "since": "2026-08-09",
+      "eligibleReturn": "2026-08-24"
+    },
+    {
+      "name": "Ryne Nelson",
+      "team": "Arizona Diamondbacks",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Strained right elbow.",
+      "since": "2026-06-25",
+      "eligibleReturn": "2026-08-24"
+    },
+    {
+      "name": "Colt Emerson",
+      "team": "Seattle Mariners",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Left wrist tendon inflammation.",
+      "since": "2026-08-14",
       "eligibleReturn": "2026-08-24"
     },
     {
@@ -2362,12 +2891,147 @@
       "eligibleReturn": "2026-08-25"
     },
     {
+      "name": "Wenceel Pérez",
+      "team": "Detroit Tigers",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left orbital fracture.",
+      "since": "2026-06-26",
+      "eligibleReturn": "2026-08-25"
+    },
+    {
+      "name": "Garrett Whitlock",
+      "team": "Boston Red Sox",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Right elbow inflammation.",
+      "since": "2026-08-10",
+      "eligibleReturn": "2026-08-25"
+    },
+    {
+      "name": "Tyler Soderstrom",
+      "team": "Athletics",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Left hip impingement.",
+      "since": "2026-08-15",
+      "eligibleReturn": "2026-08-25"
+    },
+    {
+      "name": "Hunter Goodman",
+      "team": "Colorado Rockies",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Left shoulder strain",
+      "since": "2026-08-15",
+      "eligibleReturn": "2026-08-25"
+    },
+    {
+      "name": "Jameson Taillon",
+      "team": "Toronto Blue Jays",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Right forearm tendinits",
+      "since": "2026-08-11",
+      "eligibleReturn": "2026-08-26"
+    },
+    {
+      "name": "Abner Uribe",
+      "team": "Milwaukee Brewers",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Right forearm flexor strain.",
+      "since": "2026-08-11",
+      "eligibleReturn": "2026-08-26"
+    },
+    {
+      "name": "Masataka Yoshida",
+      "team": "Boston Red Sox",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Left hamstring strain.",
+      "since": "2026-08-16",
+      "eligibleReturn": "2026-08-26"
+    },
+    {
+      "name": "Dansby Swanson",
+      "team": "Chicago Cubs",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Left oblique strain.",
+      "since": "2026-08-17",
+      "eligibleReturn": "2026-08-27"
+    },
+    {
+      "name": "José Suarez",
+      "team": "Athletics",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Right hip strain",
+      "since": "2026-08-12",
+      "eligibleReturn": "2026-08-27"
+    },
+    {
+      "name": "Roman Anthony",
+      "team": "Boston Red Sox",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": null,
+      "since": "2026-06-28",
+      "eligibleReturn": "2026-08-27"
+    },
+    {
+      "name": "Justin Slaten",
+      "team": "Boston Red Sox",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Right elbow inflammation.",
+      "since": "2026-08-13",
+      "eligibleReturn": "2026-08-28"
+    },
+    {
+      "name": "Jorge Polanco",
+      "team": "New York Mets",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Left ankle bursitis.",
+      "since": "2026-08-19",
+      "eligibleReturn": "2026-08-29"
+    },
+    {
       "name": "Max Fried",
       "team": "New York Yankees",
       "code": "D15",
       "description": "Injured 15-Day",
       "note": "Left elbow bone bruise.",
       "since": "2026-08-14",
+      "eligibleReturn": "2026-08-29"
+    },
+    {
+      "name": "Rhys Hoskins",
+      "team": "Cleveland Guardians",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Lower back inflammation.",
+      "since": "2026-08-19",
+      "eligibleReturn": "2026-08-29"
+    },
+    {
+      "name": "Davis Martin",
+      "team": "Chicago White Sox",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Right middle finger blister.",
+      "since": "2026-08-14",
+      "eligibleReturn": "2026-08-29"
+    },
+    {
+      "name": "Victor Mesa Jr.",
+      "team": "Tampa Bay Rays",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Left hamstring strain.",
+      "since": "2026-08-19",
       "eligibleReturn": "2026-08-29"
     },
     {
@@ -2380,6 +3044,33 @@
       "eligibleReturn": "2026-08-30"
     },
     {
+      "name": "Justin Wrobleski",
+      "team": "Los Angeles Dodgers",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Left forearm inflammation.",
+      "since": "2026-08-16",
+      "eligibleReturn": "2026-08-31"
+    },
+    {
+      "name": "Edward Cabrera",
+      "team": "Chicago Cubs",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Right middle finger blister.",
+      "since": "2026-08-17",
+      "eligibleReturn": "2026-09-01"
+    },
+    {
+      "name": "Cooper Criswell",
+      "team": "Seattle Mariners",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right shoulder strain.",
+      "since": "2026-07-03",
+      "eligibleReturn": "2026-09-01"
+    },
+    {
       "name": "Samy Natera Jr.",
       "team": "Los Angeles Angels",
       "code": "D15",
@@ -2389,6 +3080,42 @@
       "eligibleReturn": "2026-09-01"
     },
     {
+      "name": "Edwin Díaz",
+      "team": "Los Angeles Dodgers",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Neck inflammation.",
+      "since": "2026-08-18",
+      "eligibleReturn": "2026-09-02"
+    },
+    {
+      "name": "Keaton Winn",
+      "team": "San Francisco Giants",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Right elbow neuritis.",
+      "since": "2026-08-19",
+      "eligibleReturn": "2026-09-03"
+    },
+    {
+      "name": "Konnor Griffin",
+      "team": "Pittsburgh Pirates",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left ring finger sagittal back injury.",
+      "since": "2026-07-11",
+      "eligibleReturn": "2026-09-09"
+    },
+    {
+      "name": "Brandon Woodruff",
+      "team": "Milwaukee Brewers",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right shoulder inflammation.",
+      "since": "2026-07-12",
+      "eligibleReturn": "2026-09-10"
+    },
+    {
       "name": "Keegan Akin",
       "team": "Baltimore Orioles",
       "code": "D60",
@@ -2396,6 +3123,33 @@
       "note": "Left elbow discomfort",
       "since": "2026-07-13",
       "eligibleReturn": "2026-09-11"
+    },
+    {
+      "name": "Nick Mears",
+      "team": "Kansas City Royals",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right shoulder impingement.",
+      "since": "2026-07-14",
+      "eligibleReturn": "2026-09-12"
+    },
+    {
+      "name": "Rob Zastryzny",
+      "team": "Milwaukee Brewers",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left trapezius strain.",
+      "since": "2026-07-15",
+      "eligibleReturn": "2026-09-13"
+    },
+    {
+      "name": "Brent Rooker",
+      "team": "Athletics",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Bone bruise in left knee.",
+      "since": "2026-07-17",
+      "eligibleReturn": "2026-09-15"
     },
     {
       "name": "Aaron Judge",
@@ -2425,6 +3179,15 @@
       "eligibleReturn": "2026-09-17"
     },
     {
+      "name": "Will Vest",
+      "team": "Detroit Tigers",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right posterior elbow inflammation.",
+      "since": "2026-07-19",
+      "eligibleReturn": "2026-09-17"
+    },
+    {
       "name": "Jalen Beeks",
       "team": "Texas Rangers",
       "code": "D60",
@@ -2432,6 +3195,42 @@
       "note": null,
       "since": "2026-07-21",
       "eligibleReturn": "2026-09-19"
+    },
+    {
+      "name": "Will Smith",
+      "team": "Los Angeles Dodgers",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Neck inflammation.",
+      "since": "2026-07-21",
+      "eligibleReturn": "2026-09-19"
+    },
+    {
+      "name": "Zack Kelly",
+      "team": "Boston Red Sox",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right elbow inflammation.",
+      "since": "2026-07-21",
+      "eligibleReturn": "2026-09-19"
+    },
+    {
+      "name": "Stephen Kolek",
+      "team": "Kansas City Royals",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right flexor strain.",
+      "since": "2026-07-22",
+      "eligibleReturn": "2026-09-20"
+    },
+    {
+      "name": "Addison Barger",
+      "team": "Toronto Blue Jays",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right elbow inflammation.",
+      "since": "2026-07-23",
+      "eligibleReturn": "2026-09-21"
     },
     {
       "name": "Jose Corniell",
@@ -2443,6 +3242,33 @@
       "eligibleReturn": "2026-09-27"
     },
     {
+      "name": "Mark Leiter Jr.",
+      "team": "Athletics",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right hip impingement.",
+      "since": "2026-07-30",
+      "eligibleReturn": "2026-09-28"
+    },
+    {
+      "name": "Jake Fraley",
+      "team": "Tampa Bay Rays",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Hernia.",
+      "since": "2026-08-02",
+      "eligibleReturn": "2026-10-01"
+    },
+    {
+      "name": "Matt Gage",
+      "team": "San Francisco Giants",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left elbow strain.",
+      "since": "2026-08-02",
+      "eligibleReturn": "2026-10-01"
+    },
+    {
       "name": "PJ Poulin",
       "team": "Washington Nationals",
       "code": "D60",
@@ -2450,6 +3276,78 @@
       "note": "Left flexor strain.",
       "since": "2026-08-02",
       "eligibleReturn": "2026-10-01"
+    },
+    {
+      "name": "Shawn Armstrong",
+      "team": "Cleveland Guardians",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left calf strain.",
+      "since": "2026-08-03",
+      "eligibleReturn": "2026-10-02"
+    },
+    {
+      "name": "Mitch Keller",
+      "team": "Pittsburgh Pirates",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right arm teres major muscle injury.",
+      "since": "2026-08-03",
+      "eligibleReturn": "2026-10-02"
+    },
+    {
+      "name": "Connor Seabold",
+      "team": "Kansas City Royals",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right lat strain.",
+      "since": "2026-08-03",
+      "eligibleReturn": "2026-10-02"
+    },
+    {
+      "name": "Zac Gallen",
+      "team": "Arizona Diamondbacks",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right elbow inflammation.",
+      "since": "2026-08-03",
+      "eligibleReturn": "2026-10-02"
+    },
+    {
+      "name": "Ben Brown",
+      "team": "Chicago Cubs",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Neck strain.",
+      "since": "2026-08-03",
+      "eligibleReturn": "2026-10-02"
+    },
+    {
+      "name": "Patrick Corbin",
+      "team": "Toronto Blue Jays",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left teres major strain.",
+      "since": "2026-08-05",
+      "eligibleReturn": "2026-10-04"
+    },
+    {
+      "name": "Luinder Avila",
+      "team": "Kansas City Royals",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right forearm tightness.",
+      "since": "2026-08-06",
+      "eligibleReturn": "2026-10-05"
+    },
+    {
+      "name": "Blake Dunn",
+      "team": "Cincinnati Reds",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right elbow sprain.",
+      "since": "2026-08-06",
+      "eligibleReturn": "2026-10-05"
     },
     {
       "name": "Jack Leiter",
@@ -2461,6 +3359,60 @@
       "eligibleReturn": "2026-10-08"
     },
     {
+      "name": "Blake Treinen",
+      "team": "Los Angeles Dodgers",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right elbow inflammation.",
+      "since": "2026-08-11",
+      "eligibleReturn": "2026-10-10"
+    },
+    {
+      "name": "Isiah Kiner-Falefa",
+      "team": "Boston Red Sox",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": null,
+      "since": "2026-08-11",
+      "eligibleReturn": "2026-10-10"
+    },
+    {
+      "name": "Hunter Greene",
+      "team": "Cincinnati Reds",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right elbow soreness.",
+      "since": "2026-08-11",
+      "eligibleReturn": "2026-10-10"
+    },
+    {
+      "name": "Jake Bloss",
+      "team": "Toronto Blue Jays",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": null,
+      "since": "2026-08-12",
+      "eligibleReturn": "2026-10-11"
+    },
+    {
+      "name": "Matt Chapman",
+      "team": "San Francisco Giants",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Abdominal strain.",
+      "since": "2026-08-13",
+      "eligibleReturn": "2026-10-12"
+    },
+    {
+      "name": "Trevor McDonald",
+      "team": "San Francisco Giants",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right elbow strain.",
+      "since": "2026-08-13",
+      "eligibleReturn": "2026-10-12"
+    },
+    {
       "name": "Sebastián Rivero",
       "team": "Los Angeles Angels",
       "code": "D60",
@@ -2468,6 +3420,60 @@
       "note": "Left hamate fracture.",
       "since": "2026-08-15",
       "eligibleReturn": "2026-10-14"
+    },
+    {
+      "name": "Justin Sterner",
+      "team": "Athletics",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right knee chondromalacia.",
+      "since": "2026-08-16",
+      "eligibleReturn": "2026-10-15"
+    },
+    {
+      "name": "Daniel Palencia",
+      "team": "Chicago Cubs",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right elbow inflammation.",
+      "since": "2026-08-17",
+      "eligibleReturn": "2026-10-16"
+    },
+    {
+      "name": "Harrison Bader",
+      "team": "San Francisco Giants",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left plantar fasciitis.",
+      "since": "2026-08-19",
+      "eligibleReturn": "2026-10-18"
+    },
+    {
+      "name": "Phil Maton",
+      "team": "Chicago Cubs",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right knee tendinitis.",
+      "since": "2026-08-19",
+      "eligibleReturn": "2026-10-18"
+    },
+    {
+      "name": "Luke Raley",
+      "team": "Seattle Mariners",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left forearm strain.",
+      "since": "2026-08-19",
+      "eligibleReturn": "2026-10-18"
+    },
+    {
+      "name": "Daniel Susac",
+      "team": "San Francisco Giants",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left knee patella fracture.",
+      "since": "2026-08-19",
+      "eligibleReturn": "2026-10-18"
     },
     {
       "name": "Brice Matthews",
@@ -2493,6 +3499,34 @@
       "note": "Left hip labrum surgery."
     },
     {
+      "name": "Shelby Miller",
+      "team": "Chicago Cubs",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right Elbow UCL Injury"
+    },
+    {
+      "name": "Tyler Austin",
+      "team": "Chicago Cubs",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right knee surgery."
+    },
+    {
+      "name": "Kris Bryant",
+      "team": "Colorado Rockies",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Lumbar degenerative disk disease."
+    },
+    {
+      "name": "Rowan Wick",
+      "team": "San Francisco Giants",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Recovery from Tommy John surgery."
+    },
+    {
       "name": "Robert Stephenson",
       "team": "Los Angeles Angels",
       "code": "D60",
@@ -2507,11 +3541,60 @@
       "note": "Right elbow discomfort."
     },
     {
+      "name": "Anthony Santander",
+      "team": "Toronto Blue Jays",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left shoulder labral tear."
+    },
+    {
+      "name": "A.J. Puk",
+      "team": "Arizona Diamondbacks",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left ulnar collateral ligament surgery recovery."
+    },
+    {
+      "name": "Joe Jiménez",
+      "team": "Atlanta Braves",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": null
+    },
+    {
       "name": "Félix Bautista",
       "team": "Baltimore Orioles",
       "code": "D60",
       "description": "Injured 60-Day",
       "note": "Right shoulder surgery."
+    },
+    {
+      "name": "Manuel Rodríguez",
+      "team": "Tampa Bay Rays",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": null
+    },
+    {
+      "name": "Tanner Houck",
+      "team": "Boston Red Sox",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": null
+    },
+    {
+      "name": "Tylor Megill",
+      "team": "New York Mets",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right elbow sprain."
+    },
+    {
+      "name": "Justin Steele",
+      "team": "Chicago Cubs",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left elbow injury"
     },
     {
       "name": "Clarke Schmidt",
@@ -2521,11 +3604,116 @@
       "note": "Right forearm tightness."
     },
     {
+      "name": "Reed Garrett",
+      "team": "New York Mets",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": null
+    },
+    {
+      "name": "Brusdar Graterol",
+      "team": "Los Angeles Dodgers",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": null
+    },
+    {
+      "name": "Kris Bubic",
+      "team": "Los Angeles Dodgers",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": null
+    },
+    {
       "name": "Ryan Mountcastle",
       "team": "Baltimore Orioles",
       "code": "D60",
       "description": "Injured 60-Day",
       "note": "Left foot fracture"
+    },
+    {
+      "name": "James McArthur",
+      "team": "Kansas City Royals",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right elbow inflammation."
+    },
+    {
+      "name": "Justin Hagenman",
+      "team": "New York Mets",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Rib Fracture"
+    },
+    {
+      "name": "Tony Gonsolin",
+      "team": "Kansas City Royals",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Right elbow surgery."
+    },
+    {
+      "name": "Cody Ponce",
+      "team": "Toronto Blue Jays",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right knee ACL sprain."
+    },
+    {
+      "name": "Jake Cousins",
+      "team": "Los Angeles Dodgers",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": null
+    },
+    {
+      "name": "Joey Wentz",
+      "team": "Atlanta Braves",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right knee ACL tear."
+    },
+    {
+      "name": "Corbin Burnes",
+      "team": "Arizona Diamondbacks",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right ulnar collateral ligament surgery recovery."
+    },
+    {
+      "name": "Joel Kuhnel",
+      "team": "Milwaukee Brewers",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Right shoulder impingement."
+    },
+    {
+      "name": "Bowden Francis",
+      "team": "Toronto Blue Jays",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right elbow surgery."
+    },
+    {
+      "name": "Johan Oviedo",
+      "team": "Boston Red Sox",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right elbow strain.."
+    },
+    {
+      "name": "Carlos Vargas",
+      "team": "Seattle Mariners",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right lat strain."
+    },
+    {
+      "name": "Prelander Berroa",
+      "team": "Chicago White Sox",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Tommy John surgery recovery"
     },
     {
       "name": "Jordan Westburg",
@@ -2535,11 +3723,74 @@
       "note": "Right elbow UCL sprain."
     },
     {
+      "name": "José Buttó",
+      "team": "San Francisco Giants",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right arm fatigue"
+    },
+    {
+      "name": "Bobby Miller",
+      "team": "Los Angeles Dodgers",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right shoulder soreness."
+    },
+    {
       "name": "Blaze Alexander",
       "team": "Baltimore Orioles",
       "code": "D10",
       "description": "Injured 10-Day",
       "note": "Left hand fracture."
+    },
+    {
+      "name": "Slade Cecconi",
+      "team": "Cleveland Guardians",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Right forearm inflammation."
+    },
+    {
+      "name": "Parker Meadows",
+      "team": "Detroit Tigers",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left radius fracture."
+    },
+    {
+      "name": "Mike Vasil",
+      "team": "Chicago White Sox",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Tommy John surgery recovery."
+    },
+    {
+      "name": "Randy Rodríguez",
+      "team": "San Francisco Giants",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": null
+    },
+    {
+      "name": "Ronny Henriquez",
+      "team": "Miami Marlins",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right elbow surgery."
+    },
+    {
+      "name": "Alec Marsh",
+      "team": "Kansas City Royals",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right shoulder impingement."
+    },
+    {
+      "name": "Gunnar Hoglund",
+      "team": "Athletics",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Sprained right knee."
     },
     {
       "name": "Josiah Gray",
@@ -2549,8 +3800,57 @@
       "note": "Right flexor strain."
     },
     {
+      "name": "Spencer Schwellenbach",
+      "team": "Atlanta Braves",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": null
+    },
+    {
+      "name": "Ky Bush",
+      "team": "Chicago White Sox",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": null
+    },
+    {
+      "name": "Spencer Arrighetti",
+      "team": "Toronto Blue Jays",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": null
+    },
+    {
+      "name": "Brooks Baldwin",
+      "team": "Chicago White Sox",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right elbow sprain"
+    },
+    {
+      "name": "Reese Olson",
+      "team": "Detroit Tigers",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right Shoulder Labral Repair"
+    },
+    {
       "name": "Colin Selby",
       "team": "Baltimore Orioles",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right shoulder inflammation."
+    },
+    {
+      "name": "Andrew Saalfrank",
+      "team": "Arizona Diamondbacks",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left labrum repair surgery."
+    },
+    {
+      "name": "McCade Brown",
+      "team": "Colorado Rockies",
       "code": "D60",
       "description": "Injured 60-Day",
       "note": "Right shoulder inflammation."
@@ -2561,6 +3861,20 @@
       "code": "D60",
       "description": "Injured 60-Day",
       "note": "Left forearm tightness."
+    },
+    {
+      "name": "Ryan Pepiot",
+      "team": "Tampa Bay Rays",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right hip inflammation"
+    },
+    {
+      "name": "Blake Walston",
+      "team": "Arizona Diamondbacks",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left UCL surgery"
     },
     {
       "name": "DJ Herz",
@@ -2575,6 +3889,69 @@
       "code": "D60",
       "description": "Injured 60-Day",
       "note": "Left elbow surgery recovery"
+    },
+    {
+      "name": "Logan Evans",
+      "team": "Seattle Mariners",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Recovery from torn UCL in right arm."
+    },
+    {
+      "name": "Cade Horton",
+      "team": "Chicago Cubs",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right forearm strain."
+    },
+    {
+      "name": "Cristian Mena",
+      "team": "Arizona Diamondbacks",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right shoulder strain"
+    },
+    {
+      "name": "Marcelo Mayer",
+      "team": "San Francisco Giants",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": null
+    },
+    {
+      "name": "Gavin Stone",
+      "team": "Los Angeles Dodgers",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right shoulder inflammation."
+    },
+    {
+      "name": "Trey Sweeney",
+      "team": "Detroit Tigers",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right shoulder strain"
+    },
+    {
+      "name": "Pierson Ohl",
+      "team": "Colorado Rockies",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": null
+    },
+    {
+      "name": "Adam Mazur",
+      "team": "Miami Marlins",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right elbow surgery."
+    },
+    {
+      "name": "Hayden Birdsong",
+      "team": "San Francisco Giants",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Tommy John surgery."
     },
     {
       "name": "Connelly Early",
