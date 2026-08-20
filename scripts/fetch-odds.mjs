@@ -886,7 +886,7 @@ async function recordPicks(games, history) {
         date: dateISO, gamePk, game: `${game.away} @ ${game.home}`,
         market: p.market, player: p.player, playerId: p.playerId ?? null,
         line: p.line ?? null, side: p.side, odds: p.odds, bookmaker: p.bookmaker,
-        ourProb: p.ourProb, edge: p.edge
+        ourProb: p.ourProb, edge: p.edge, why: p.why ?? null
       };
       const id = pickHistoryId(record);
       if (known.has(id)) continue;
