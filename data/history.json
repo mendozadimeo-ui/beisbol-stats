@@ -906,6 +906,40 @@
       "edge": 0.1,
       "why": "91°F, el calor ayuda a la pelota a viajar · viento moderado saliendo hacia el jardín (11mph) · en racha en los últimos 15 partidos · Statcast: contacto real mejor que sus resultados (SLG esperado 0.545 vs real 0.498)",
       "recordedAt": "2026-08-20T13:12:38.991Z"
+    },
+    {
+      "id": "2026-08-20|824395|Total Bases O/U|Bryce Eldridge|0.5|over",
+      "date": "2026-08-20",
+      "gamePk": 824395,
+      "game": "San Francisco Giants @ Cleveland Guardians",
+      "market": "Total Bases O/U",
+      "player": "Bryce Eldridge",
+      "playerId": 805811,
+      "line": 0.5,
+      "side": "over",
+      "odds": "1.74",
+      "bookmaker": "Bet365",
+      "ourProb": 0.669,
+      "edge": 0.094,
+      "why": "viento moderado entrando desde el jardín (8mph)",
+      "recordedAt": "2026-08-20T14:56:59.552Z"
+    },
+    {
+      "id": "2026-08-20|822934|Total Bases O/U|Alejandro Kirk|1.5|under",
+      "date": "2026-08-20",
+      "gamePk": 822934,
+      "game": "Toronto Blue Jays @ Tampa Bay Rays",
+      "market": "Total Bases O/U",
+      "player": "Alejandro Kirk",
+      "playerId": 672386,
+      "line": 1.5,
+      "side": "under",
+      "odds": "1.50",
+      "bookmaker": "Bet365",
+      "ourProb": 0.747,
+      "edge": 0.081,
+      "why": "peor de lo normal vs lanzadores zurdos esta temporada · en racha en los últimos 15 partidos · Statcast: contacto real peor que sus resultados (SLG esperado 0.373 vs real 0.435)",
+      "recordedAt": "2026-08-20T14:56:59.552Z"
     }
   ],
   "graded": [
