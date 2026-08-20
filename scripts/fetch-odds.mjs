@@ -620,11 +620,14 @@ function isRealValue(edge, ourProb, odds, edgeThreshold, minProb = MIN_REALISTIC
 let leaderboardsCache = null;
 async function fetchTitleLeaderboards() {
   if (leaderboardsCache) return leaderboardsCache;
-  const cats = [["hr", "homeRuns"], ["avg", "battingAverage"]];
+  const cats = [
+    ["hr", "homeRuns", "hitting"], ["avg", "battingAverage", "hitting"],
+    ["era", "earnedRunAverage", "pitching"], ["k", "strikeOuts", "pitching"]
+  ];
   const leagueIds = [103, 104];
   const results = {};
-  await Promise.all(cats.flatMap(([key, category]) => leagueIds.map(leagueId =>
-    getJSON(`${MLB_BASE}/stats/leaders?leaderCategories=${category}&season=${SEASON}&sportId=1&leagueId=${leagueId}&limit=5`)
+  await Promise.all(cats.flatMap(([key, category, statGroup]) => leagueIds.map(leagueId =>
+    getJSON(`${MLB_BASE}/stats/leaders?leaderCategories=${category}&season=${SEASON}&sportId=1&leagueId=${leagueId}&statGroup=${statGroup}&limit=5`)
       .then(d => { results[`${key}_${leagueId}`] = d.leagueLeaders?.[0]?.leaders ?? []; })
       .catch(() => { results[`${key}_${leagueId}`] = []; })
   )));
@@ -686,6 +689,10 @@ async function evaluateProp(prop, awayTeam, homeTeam, gameCtx) {
 
   if (prop.market === "Pitcher Strikeouts O/U" && proj.isPitcher && proj.kPerStart) {
     ourProbOver = poissonProbOver(prop.line, proj.kPerStart);
+    const boards = await fetchTitleLeaderboards();
+    const eraNote = titleRaceNote(proj.id, "era", "efectividad", boards);
+    const kNote = titleRaceNote(proj.id, "k", "ponches", boards);
+    why = [eraNote, kNote].filter(Boolean).join(" · ") || null;
   } else if (prop.market === "Hits O/U" && !proj.isPitcher && proj.avg != null) {
     // Hits O/U casi siempre es linea 0.5 (al menos 1 hit) -- modelo ya afinado,
     // no le metemos los ajustes de parque/clima/matchup de HR y TB. Si algun dia
