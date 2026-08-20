@@ -753,6 +753,40 @@
       "edge": 0.118,
       "why": "Statcast: contacto real peor que sus resultados (SLG esperado 0.291 vs real 0.347)",
       "recordedAt": "2026-08-20T07:08:46.644Z"
+    },
+    {
+      "id": "2026-08-20|822934|Pitcher Strikeouts O/U|Ian Seymour|6.5|over",
+      "date": "2026-08-20",
+      "gamePk": 822934,
+      "game": "Toronto Blue Jays @ Tampa Bay Rays",
+      "market": "Pitcher Strikeouts O/U",
+      "player": "Ian Seymour",
+      "playerId": 693855,
+      "line": 6.5,
+      "side": "over",
+      "odds": "3.02",
+      "bookmaker": "Bet365",
+      "ourProb": 0.94,
+      "edge": 0.609,
+      "why": null,
+      "recordedAt": "2026-08-20T08:58:29.087Z"
+    },
+    {
+      "id": "2026-08-20|822861|Pitcher Strikeouts O/U|Andrew Alvarez|5.5|over",
+      "date": "2026-08-20",
+      "gamePk": 822861,
+      "game": "Washington Nationals @ Texas Rangers",
+      "market": "Pitcher Strikeouts O/U",
+      "player": "Andrew Alvarez",
+      "playerId": 674841,
+      "line": 5.5,
+      "side": "over",
+      "odds": "3.20",
+      "bookmaker": "Bet365",
+      "ourProb": 0.686,
+      "edge": 0.374,
+      "why": null,
+      "recordedAt": "2026-08-20T08:58:29.087Z"
     }
   ],
   "graded": [
