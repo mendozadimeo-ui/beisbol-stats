@@ -68,10 +68,11 @@ async function fetchStandingsMap() {
   // El endpoint de standings devuelve nombres cortos ("Dodgers"), pero el resto
   // del pipeline (odds-api.io, schedule, etc.) usa nombres completos ("Los Angeles
   // Dodgers"). Cruzamos por team.id, que es consistente en toda la API de MLB.
-  const [standingsData, teamsData, injuries] = await Promise.all([
+  const [standingsData, teamsData, injuries, eloRatings] = await Promise.all([
     getJSON(`${MLB_BASE}/standings?leagueId=103,104&season=${SEASON}&standingsTypes=regularSeason`),
     getJSON(`${MLB_BASE}/teams?sportId=1`),
-    fetchMlbInjuries().catch(() => ({ countByTeamId: {} }))
+    fetchMlbInjuries().catch(() => ({ countByTeamId: {} })),
+    computeEloRatings()
   ]);
   const byId = {};
   for (const division of standingsData.records ?? []) {
@@ -85,7 +86,8 @@ async function fetchStandingsMap() {
         injuryCount: injuries.countByTeamId[r.team.id] || 0,
         gamesBack: r.gamesBack, wildCardGamesBack: r.wildCardGamesBack,
         eliminationNumber: r.eliminationNumber, wildCardEliminationNumber: r.wildCardEliminationNumber,
-        divisionRank: r.divisionRank, clinched: !!r.clinched
+        divisionRank: r.divisionRank, clinched: !!r.clinched,
+        elo: eloRatings[r.team.id] ?? null
       };
     }
   }
@@ -96,24 +98,79 @@ async function fetchStandingsMap() {
   return map;
 }
 
-// Metodo Log5 (Bill James): probabilidad de que el equipo A le gane a B a partir
-// de sus porcentajes de victoria en la temporada, mas un ajuste chico por racha y localia.
-// El ajuste por lesionados es deliberadamente chico y crudo: contamos cuantos
-// jugadores del roster de 40 estan inactivos por equipo, sin distinguir si es
-// un titular clave o un suplente (no tenemos ese dato con precision) -- es
-// honesto reflejar solo "este equipo tiene mas bajas que el rival", no fingir
-// que sabemos cuanto vale cada ausencia especifica.
+// ---------- Rating Elo (reemplaza el % de victorias crudo) ----------
+// El % de victorias no distingue si un equipo gano sus partidos contra rivales
+// fuertes o flojos -- Elo si, porque el ajuste de cada partido depende de la
+// fuerza real del rival (ganarle a un equipo top suma mas que ganarle a uno
+// colista). Se recalcula desde cero cada corrida repasando TODOS los partidos
+// de temporada regular ya jugados (1 sola llamada al calendario oficial, sin
+// estado propio que mantener ni riesgo de que se corrompa entre corridas).
+// K=4 y ventaja de localia +24 son los valores publicados por FiveThirtyEight
+// para su modelo de MLB (temporada larga de 162 partidos = ajustes chicos por
+// partido). El multiplicador de margen de victoria (log de la diferencia de
+// carreras) es la tecnica estandar para que golear pese un poco mas que ganar
+// por una carrera, sin dejar que una goleada puntual dispare el rating.
+const ELO_BASE = 1500, ELO_K = 4, ELO_HFA = 24;
+let eloCache = null;
+async function computeEloRatings() {
+  if (eloCache) return eloCache;
+  const ratings = {};
+  try {
+    const data = await getJSON(`${MLB_BASE}/schedule?sportId=1&startDate=${SEASON}-01-01&endDate=${SEASON}-12-31`);
+    const games = [];
+    for (const day of data.dates ?? []) {
+      for (const g of day.games ?? []) {
+        if (g.gameType !== "R" || g.status.abstractGameState !== "Final") continue;
+        const hs = g.teams.home.score, as = g.teams.away.score;
+        if (hs == null || as == null || hs === as) continue;
+        games.push({ date: g.gameDate, home: g.teams.home.team.id, away: g.teams.away.team.id, hs, as });
+      }
+    }
+    games.sort((a, b) => new Date(a.date) - new Date(b.date));
+    for (const g of games) {
+      const rHome = ratings[g.home] ?? ELO_BASE;
+      const rAway = ratings[g.away] ?? ELO_BASE;
+      const expectedHome = 1 / (1 + Math.pow(10, (rAway - (rHome + ELO_HFA)) / 400));
+      const homeWon = g.hs > g.as ? 1 : 0;
+      const movMult = Math.log(Math.abs(g.hs - g.as) + 1);
+      const delta = ELO_K * movMult * (homeWon - expectedHome);
+      ratings[g.home] = rHome + delta;
+      ratings[g.away] = rAway - delta;
+    }
+  } catch { /* seguimos sin Elo (el resto del modelo sigue andando con streak/injury) */ }
+  eloCache = ratings;
+  return eloCache;
+}
+
+// Probabilidad de que el equipo A le gane a B a partir del rating Elo de cada
+// uno (opponent-adjusted, ver arriba), mas un ajuste chico por racha reciente y
+// localia. El ajuste por lesionados es deliberadamente chico y crudo: contamos
+// cuantos jugadores del roster de 40 estan inactivos por equipo, sin distinguir
+// si es un titular clave o un suplente (no tenemos ese dato con precision) --
+// es honesto reflejar solo "este equipo tiene mas bajas que el rival", no
+// fingir que sabemos cuanto vale cada ausencia especifica.
 function estimateWinProb(teamName, oppName, standingsMap, isHome) {
   const t = standingsMap[teamName];
   const o = standingsMap[oppName];
   if (!t || !o) return null;
-  const pa = Math.min(0.9, Math.max(0.1, t.pct));
-  const pb = Math.min(0.9, Math.max(0.1, o.pct));
-  let p = (pa - pa * pb) / (pa + pb - 2 * pa * pb);
+  let p;
+  const usedElo = t.elo != null && o.elo != null;
+  if (usedElo) {
+    const hfa = isHome ? ELO_HFA : -ELO_HFA;
+    p = 1 / (1 + Math.pow(10, (o.elo - (t.elo + hfa)) / 400));
+  } else {
+    // Sin Elo disponible (fallo la llamada al calendario completo): Log5 de
+    // respaldo sobre el % de victorias crudo, como antes.
+    const pa = Math.min(0.9, Math.max(0.1, t.pct));
+    const pb = Math.min(0.9, Math.max(0.1, o.pct));
+    p = (pa - pa * pb) / (pa + pb - 2 * pa * pb);
+  }
   const streakAdj = (t.streakSigned - o.streakSigned) * 0.01 + (t.last10Diff - o.last10Diff) * 0.008;
   const injuryDiff = (t.injuryCount ?? 0) - (o.injuryCount ?? 0);
   const injuryAdj = Math.max(-0.03, Math.min(0.03, -injuryDiff * 0.006));
-  p += streakAdj + injuryAdj + (isHome ? 0.02 : -0.02);
+  // La localia ya esta adentro del calculo de Elo (ELO_HFA); si se cayo al
+  // respaldo de Log5, que no la tiene, se suma acá como antes.
+  p += streakAdj + injuryAdj + (usedElo ? 0 : (isHome ? 0.02 : -0.02));
   return Math.max(0.05, Math.min(0.95, p));
 }
 
