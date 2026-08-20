@@ -321,37 +321,43 @@ async function fetchMatchup(batterId, pitcherId) {
 // Factor de parque real (escala aprox. -1 a 1, ya usado como referencia visual en
 // el sitio). positivo = favorece bateo, negativo = favorece pitcheo. Coors Field
 // (altura) es el mas extremo en +, Oracle Park (marine layer) el mas extremo en -.
+// orientation: direccion real de home plate hacia el jardin central, en grados
+// (0=N, 45=NE, 90=E...), sacada de Clem's Baseball (andrewclem.com/Baseball/
+// Stadium_statistics.html), la unica fuente publica que compila esto para los
+// 30 estadios. null donde no hay dato confiable (Sutter Health Park es la sede
+// temporal de Athletics desde 2025, muy nuevo para estar en esa fuente) -- se
+// deja sin ajuste de viento antes que inventar un numero.
 const VENUES = {
-  133: { name: "Sutter Health Park", lat: 38.57994, lon: -121.51246, roofed: false, parkFactor: 0.2, parkLabel: "Favorece bateo (parque chico)" },
-  134: { name: "PNC Park", lat: 40.446904, lon: -80.005753, roofed: false, parkFactor: -0.25, parkLabel: "Favorece pitcheo" },
-  135: { name: "Petco Park", lat: 32.707861, lon: -117.157278, roofed: false, parkFactor: -0.3, parkLabel: "Favorece pitcheo" },
-  136: { name: "T-Mobile Park", lat: 47.591333, lon: -122.33251, roofed: false, parkFactor: -0.35, parkLabel: "Favorece pitcheo (aire marino)" },
-  137: { name: "Oracle Park", lat: 37.778383, lon: -122.389448, roofed: false, parkFactor: -0.45, parkLabel: "Favorece pitcheo fuerte (marine layer)" },
-  138: { name: "Busch Stadium", lat: 38.62256667, lon: -90.19286667, roofed: false, parkFactor: -0.2, parkLabel: "Favorece pitcheo (leve)" },
-  139: { name: "Tropicana Field", lat: 27.767778, lon: -82.6525, roofed: true, parkFactor: -0.1, parkLabel: "Neutral (techo)" },
-  140: { name: "Globe Life Field", lat: 32.747299, lon: -97.081818, roofed: true, parkFactor: 0, parkLabel: "Neutral (techo retractil)" },
-  141: { name: "Rogers Centre", lat: 43.64155, lon: -79.38915, roofed: true, parkFactor: 0.1, parkLabel: "Leve bateo (techo retractil)" },
-  142: { name: "Target Field", lat: 44.981829, lon: -93.277891, roofed: false, parkFactor: 0, parkLabel: "Neutral" },
-  143: { name: "Citizens Bank Park", lat: 39.90539086, lon: -75.16716957, roofed: false, parkFactor: 0.35, parkLabel: "Favorece bateo" },
-  144: { name: "Truist Park", lat: 33.890672, lon: -84.467641, roofed: false, parkFactor: 0.1, parkLabel: "Leve bateo" },
-  145: { name: "Rate Field", lat: 41.83, lon: -87.634167, roofed: false, parkFactor: 0.15, parkLabel: "Leve bateo" },
-  146: { name: "loanDepot park", lat: 25.77796236, lon: -80.21951795, roofed: true, parkFactor: -0.35, parkLabel: "Favorece pitcheo (techo)" },
-  147: { name: "Yankee Stadium", lat: 40.82919482, lon: -73.9264977, roofed: false, parkFactor: 0.3, parkLabel: "Favorece bateo (porche corto)" },
-  158: { name: "American Family Field", lat: 43.02838, lon: -87.97099, roofed: true, parkFactor: 0.1, parkLabel: "Leve bateo (techo retractil)" },
-  108: { name: "Angel Stadium", lat: 33.80019044, lon: -117.8823996, roofed: false, parkFactor: 0, parkLabel: "Neutral" },
-  109: { name: "Chase Field", lat: 33.445302, lon: -112.066687, roofed: true, parkFactor: 0.25, parkLabel: "Leve bateo (techo retractil)" },
-  110: { name: "Oriole Park at Camden Yards", lat: 39.283787, lon: -76.621689, roofed: false, parkFactor: 0, parkLabel: "Neutral" },
-  111: { name: "Fenway Park", lat: 42.346456, lon: -71.097441, roofed: false, parkFactor: 0.3, parkLabel: "Favorece bateo (Green Monster)" },
-  112: { name: "Wrigley Field", lat: 41.948171, lon: -87.655503, roofed: false, parkFactor: 0, parkLabel: "Variable (depende del viento)" },
-  113: { name: "Great American Ball Park", lat: 39.097389, lon: -84.506611, roofed: false, parkFactor: 0.4, parkLabel: "Favorece bateo" },
-  114: { name: "Progressive Field", lat: 41.495861, lon: -81.685255, roofed: false, parkFactor: -0.1, parkLabel: "Neutral/leve pitcheo" },
-  115: { name: "Coors Field", lat: 39.756042, lon: -104.994136, roofed: false, parkFactor: 0.9, parkLabel: "Favorece bateo extremo (altitud)" },
-  116: { name: "Comerica Park", lat: 42.3391151, lon: -83.048695, roofed: false, parkFactor: -0.3, parkLabel: "Favorece pitcheo" },
-  117: { name: "Daikin Park", lat: 29.756967, lon: -95.355509, roofed: true, parkFactor: 0.1, parkLabel: "Neutral/leve bateo (techo retractil)" },
-  118: { name: "Kauffman Stadium", lat: 39.051567, lon: -94.480483, roofed: false, parkFactor: -0.25, parkLabel: "Favorece pitcheo" },
-  119: { name: "Dodger Stadium", lat: 34.07368, lon: -118.24053, roofed: false, parkFactor: -0.15, parkLabel: "Leve pitcheo" },
-  120: { name: "Nationals Park", lat: 38.872861, lon: -77.007501, roofed: false, parkFactor: 0, parkLabel: "Neutral" },
-  121: { name: "Citi Field", lat: 40.75753012, lon: -73.84559155, roofed: false, parkFactor: -0.2, parkLabel: "Favorece pitcheo (leve)" }
+  133: { name: "Sutter Health Park", lat: 38.57994, lon: -121.51246, roofed: false, parkFactor: 0.2, parkLabel: "Favorece bateo (parque chico)", orientation: null },
+  134: { name: "PNC Park", lat: 40.446904, lon: -80.005753, roofed: false, parkFactor: -0.25, parkLabel: "Favorece pitcheo", orientation: 112.5 },
+  135: { name: "Petco Park", lat: 32.707861, lon: -117.157278, roofed: false, parkFactor: -0.3, parkLabel: "Favorece pitcheo", orientation: 0 },
+  136: { name: "T-Mobile Park", lat: 47.591333, lon: -122.33251, roofed: false, parkFactor: -0.35, parkLabel: "Favorece pitcheo (aire marino)", orientation: 45 },
+  137: { name: "Oracle Park", lat: 37.778383, lon: -122.389448, roofed: false, parkFactor: -0.45, parkLabel: "Favorece pitcheo fuerte (marine layer)", orientation: 112.5 },
+  138: { name: "Busch Stadium", lat: 38.62256667, lon: -90.19286667, roofed: false, parkFactor: -0.2, parkLabel: "Favorece pitcheo (leve)", orientation: 45 },
+  139: { name: "Tropicana Field", lat: 27.767778, lon: -82.6525, roofed: true, parkFactor: -0.1, parkLabel: "Neutral (techo)", orientation: 45 },
+  140: { name: "Globe Life Field", lat: 32.747299, lon: -97.081818, roofed: true, parkFactor: 0, parkLabel: "Neutral (techo retractil)", orientation: 67.5 },
+  141: { name: "Rogers Centre", lat: 43.64155, lon: -79.38915, roofed: true, parkFactor: 0.1, parkLabel: "Leve bateo (techo retractil)", orientation: 337.5 },
+  142: { name: "Target Field", lat: 44.981829, lon: -93.277891, roofed: false, parkFactor: 0, parkLabel: "Neutral", orientation: 90 },
+  143: { name: "Citizens Bank Park", lat: 39.90539086, lon: -75.16716957, roofed: false, parkFactor: 0.35, parkLabel: "Favorece bateo", orientation: 22.5 },
+  144: { name: "Truist Park", lat: 33.890672, lon: -84.467641, roofed: false, parkFactor: 0.1, parkLabel: "Leve bateo", orientation: 157.5 },
+  145: { name: "Rate Field", lat: 41.83, lon: -87.634167, roofed: false, parkFactor: 0.15, parkLabel: "Leve bateo", orientation: 112.5 },
+  146: { name: "loanDepot park", lat: 25.77796236, lon: -80.21951795, roofed: true, parkFactor: -0.35, parkLabel: "Favorece pitcheo (techo)", orientation: 112.5 },
+  147: { name: "Yankee Stadium", lat: 40.82919482, lon: -73.9264977, roofed: false, parkFactor: 0.3, parkLabel: "Favorece bateo (porche corto)", orientation: 67.5 },
+  158: { name: "American Family Field", lat: 43.02838, lon: -87.97099, roofed: true, parkFactor: 0.1, parkLabel: "Leve bateo (techo retractil)", orientation: 135 },
+  108: { name: "Angel Stadium", lat: 33.80019044, lon: -117.8823996, roofed: false, parkFactor: 0, parkLabel: "Neutral", orientation: 45 },
+  109: { name: "Chase Field", lat: 33.445302, lon: -112.066687, roofed: true, parkFactor: 0.25, parkLabel: "Leve bateo (techo retractil)", orientation: 0 },
+  110: { name: "Oriole Park at Camden Yards", lat: 39.283787, lon: -76.621689, roofed: false, parkFactor: 0, parkLabel: "Neutral", orientation: 22.5 },
+  111: { name: "Fenway Park", lat: 42.346456, lon: -71.097441, roofed: false, parkFactor: 0.3, parkLabel: "Favorece bateo (Green Monster)", orientation: 45 },
+  112: { name: "Wrigley Field", lat: 41.948171, lon: -87.655503, roofed: false, parkFactor: 0, parkLabel: "Variable (depende del viento)", orientation: 45 },
+  113: { name: "Great American Ball Park", lat: 39.097389, lon: -84.506611, roofed: false, parkFactor: 0.4, parkLabel: "Favorece bateo", orientation: 112.5 },
+  114: { name: "Progressive Field", lat: 41.495861, lon: -81.685255, roofed: false, parkFactor: -0.1, parkLabel: "Neutral/leve pitcheo", orientation: 0 },
+  115: { name: "Coors Field", lat: 39.756042, lon: -104.994136, roofed: false, parkFactor: 0.9, parkLabel: "Favorece bateo extremo (altitud)", orientation: 0 },
+  116: { name: "Comerica Park", lat: 42.3391151, lon: -83.048695, roofed: false, parkFactor: -0.3, parkLabel: "Favorece pitcheo", orientation: 157.5 },
+  117: { name: "Daikin Park", lat: 29.756967, lon: -95.355509, roofed: true, parkFactor: 0.1, parkLabel: "Neutral/leve bateo (techo retractil)", orientation: 67.5 },
+  118: { name: "Kauffman Stadium", lat: 39.051567, lon: -94.480483, roofed: false, parkFactor: -0.25, parkLabel: "Favorece pitcheo", orientation: 45 },
+  119: { name: "Dodger Stadium", lat: 34.07368, lon: -118.24053, roofed: false, parkFactor: -0.15, parkLabel: "Leve pitcheo", orientation: 22.5 },
+  120: { name: "Nationals Park", lat: 38.872861, lon: -77.007501, roofed: false, parkFactor: 0, parkLabel: "Neutral", orientation: 22.5 },
+  121: { name: "Citi Field", lat: 40.75753012, lon: -73.84559155, roofed: false, parkFactor: -0.2, parkLabel: "Favorece pitcheo (leve)", orientation: 22.5 }
 };
 
 let teamIdByNameCache = null;
@@ -442,11 +448,11 @@ async function fetchWeather(venue, gameDateISO) {
   const key = `${venue.lat},${venue.lon},${hourStr}`;
   if (weatherCache.has(key)) return weatherCache.get(key);
   try {
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${venue.lat}&longitude=${venue.lon}&hourly=temperature_2m,wind_speed_10m&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=UTC&start_date=${dateStr}&end_date=${dateStr}`;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${venue.lat}&longitude=${venue.lon}&hourly=temperature_2m,wind_speed_10m,wind_direction_10m&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=UTC&start_date=${dateStr}&end_date=${dateStr}`;
     const data = await getJSON(url);
     const idx = data.hourly?.time?.findIndex(t => t.startsWith(hourStr));
     const result = idx != null && idx >= 0
-      ? { temp: data.hourly.temperature_2m[idx], windSpeed: data.hourly.wind_speed_10m[idx] }
+      ? { temp: data.hourly.temperature_2m[idx], windSpeed: data.hourly.wind_speed_10m[idx], windDirection: data.hourly.wind_direction_10m[idx] }
       : null;
     weatherCache.set(key, result);
     return result;
@@ -550,6 +556,31 @@ async function getBatterRecentRate(batterId) {
 
 function clamp(x, lo, hi) { return Math.max(lo, Math.min(hi, x)); }
 
+// Viento saliendo hacia el jardin central ayuda a la pelota a volar (mas HR/TB),
+// viento entrando la frena -- pero solo importa la componente alineada con el eje
+// real del estadio (home plate -> jardin central), no la velocidad del viento sola
+// (por eso Wrigley Field es tan variable: mismo viento, efecto opuesto segun de
+// donde sople). wind_direction de Open-Meteo es de donde SOPLA el viento (no hacia
+// donde va), hay que invertirlo 180 grados para comparar contra la orientacion.
+function angleDiff(a, b) {
+  const d = Math.abs(a - b) % 360;
+  return d > 180 ? 360 - d : d;
+}
+function windEffect(windDirection, windSpeed, orientation) {
+  if (windDirection == null || windSpeed == null || orientation == null || windSpeed < 6) return null;
+  const towardCF = (orientation + 180) % 360; // de donde tiene que soplar para salir hacia el jardin
+  const diffOut = angleDiff(windDirection, towardCF);
+  const diffIn = angleDiff(windDirection, orientation);
+  const strong = windSpeed >= 15;
+  if (diffOut <= 45) {
+    return { mult: strong ? 1.10 : 1.05, why: `viento ${strong ? "fuerte" : "moderado"} saliendo hacia el jardín (${Math.round(windSpeed)}mph)` };
+  }
+  if (diffIn <= 45) {
+    return { mult: strong ? 0.90 : 0.95, why: `viento ${strong ? "fuerte" : "moderado"} entrando desde el jardín (${Math.round(windSpeed)}mph)` };
+  }
+  return null; // viento cruzado -- efecto no claro, no lo mencionamos
+}
+
 // ---------- Statcast: SLG esperado segun calidad de contacto real ----------
 // Las stats normales (SLG real) incluyen suerte: un batazo a 105mph que cae
 // directo en un guante cuenta como out igual que uno mal pegado. Baseball Savant
@@ -608,6 +639,8 @@ function buildAdjustment(statKey, seasonPerAB, ctx) {
     if (ctx.weather.temp >= 85) why.push(`${Math.round(ctx.weather.temp)}°F, el calor ayuda a la pelota a viajar`);
     else if (ctx.weather.temp <= 55) why.push(`${Math.round(ctx.weather.temp)}°F, el frío le resta distancia a la pelota`);
   }
+  const wind = windEffect(ctx.weather?.windDirection, ctx.weather?.windSpeed, ctx.venue?.orientation);
+  if (wind) { mult *= wind.mult; why.push(wind.why); }
   if (ctx.handSplit && seasonPerAB > 0) {
     const splitRate = statKey === "hr" ? ctx.handSplit.hrPerAB : ctx.handSplit.tbPerAB;
     const ratio = clamp(splitRate / seasonPerAB, 0.75, 1.35);
