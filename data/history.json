@@ -872,6 +872,40 @@
       "edge": 0.114,
       "why": null,
       "recordedAt": "2026-08-20T10:49:38.760Z"
+    },
+    {
+      "id": "2026-08-20|822934|Pitcher Strikeouts O/U|Ian Seymour|4.5|over",
+      "date": "2026-08-20",
+      "gamePk": 822934,
+      "game": "Toronto Blue Jays @ Tampa Bay Rays",
+      "market": "Pitcher Strikeouts O/U",
+      "player": "Ian Seymour",
+      "playerId": 693855,
+      "line": 4.5,
+      "side": "over",
+      "odds": "1.47",
+      "bookmaker": "Bet365",
+      "ourProb": 0.989,
+      "edge": 0.309,
+      "why": null,
+      "recordedAt": "2026-08-20T13:12:38.991Z"
+    },
+    {
+      "id": "2026-08-20|824802|Total Bases O/U|Pete Alonso|0.5|over",
+      "date": "2026-08-20",
+      "gamePk": 824802,
+      "game": "New York Yankees @ Baltimore Orioles",
+      "market": "Total Bases O/U",
+      "player": "Pete Alonso",
+      "playerId": 624413,
+      "line": 0.5,
+      "side": "over",
+      "odds": "1.34",
+      "bookmaker": "Bet365",
+      "ourProb": 0.846,
+      "edge": 0.1,
+      "why": "91°F, el calor ayuda a la pelota a viajar · viento moderado saliendo hacia el jardín (11mph) · en racha en los últimos 15 partidos · Statcast: contacto real mejor que sus resultados (SLG esperado 0.545 vs real 0.498)",
+      "recordedAt": "2026-08-20T13:12:38.991Z"
     }
   ],
   "graded": [
