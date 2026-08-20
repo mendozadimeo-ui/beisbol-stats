@@ -82,7 +82,10 @@ async function fetchStandingsMap() {
         pct: parseFloat(r.leagueRecord.pct) || 0.5,
         streakSigned: r.streak?.streakType === "wins" ? streakNum : -streakNum,
         last10Diff: last10 ? last10.wins - last10.losses : 0,
-        injuryCount: injuries.countByTeamId[r.team.id] || 0
+        injuryCount: injuries.countByTeamId[r.team.id] || 0,
+        gamesBack: r.gamesBack, wildCardGamesBack: r.wildCardGamesBack,
+        eliminationNumber: r.eliminationNumber, wildCardEliminationNumber: r.wildCardEliminationNumber,
+        divisionRank: r.divisionRank, clinched: !!r.clinched
       };
     }
   }
@@ -609,6 +612,36 @@ function isRealValue(edge, ourProb, odds, edgeThreshold, minProb = MIN_REALISTIC
   return edge >= edgeThreshold && ourProb >= minProb && odds >= MIN_PAYOUT_ODDS;
 }
 
+// ---------- Carrera por titulos de bateo (informativo, no mueve la probabilidad) ----------
+// Igual que con la pelea por playoffs: real evidencia de que "jugar por un
+// titulo" cambia el desempeño verdadero de un jugador no hay (ya intenta dar lo
+// maximo siempre), asi que esto es solo contexto honesto -- top 5 real de las
+// Mayores por liga, sacado del mismo endpoint que usa la pestaña Lideres.
+let leaderboardsCache = null;
+async function fetchTitleLeaderboards() {
+  if (leaderboardsCache) return leaderboardsCache;
+  const cats = [["hr", "homeRuns"], ["avg", "battingAverage"]];
+  const leagueIds = [103, 104];
+  const results = {};
+  await Promise.all(cats.flatMap(([key, category]) => leagueIds.map(leagueId =>
+    getJSON(`${MLB_BASE}/stats/leaders?leaderCategories=${category}&season=${SEASON}&sportId=1&leagueId=${leagueId}&limit=5`)
+      .then(d => { results[`${key}_${leagueId}`] = d.leagueLeaders?.[0]?.leaders ?? []; })
+      .catch(() => { results[`${key}_${leagueId}`] = []; })
+  )));
+  leaderboardsCache = results;
+  return leaderboardsCache;
+}
+function titleRaceNote(playerId, statKey, statLabel, boards) {
+  for (const [leagueLabel, leagueId] of [["Liga Americana", 103], ["Liga Nacional", 104]]) {
+    const leaders = boards[`${statKey}_${leagueId}`] ?? [];
+    const idx = leaders.findIndex(l => l.person.id === playerId);
+    if (idx === -1) continue;
+    if (idx === 0) return `🏆 líder de ${leagueLabel} en ${statLabel} (${leaders[0].value})`;
+    return `🏆 ${leaders[idx].rank}° en la pelea por el título de ${statLabel} de ${leagueLabel} (${leaders[idx].value} vs ${leaders[0].value} del líder)`;
+  }
+  return null;
+}
+
 function pickSide(overOdds, underOdds, ourProbOver) {
   // Elegimos el lado (over/under) que tenga cuota disponible y mejor separacion vs nuestra probabilidad.
   const impliedOver = overOdds != null ? decimalToImpliedProb(overOdds) : null;
@@ -660,6 +693,7 @@ async function evaluateProp(prop, awayTeam, homeTeam, gameCtx) {
     ourProbOver = prop.line < 1
       ? binomialProbAtLeastOneHit(proj.avg, abPerGame)
       : binomialProbOver(prop.line, abPerGame, proj.avg);
+    why = titleRaceNote(proj.id, "avg", "bateo", await fetchTitleLeaderboards());
   } else if (prop.market === "Home Runs O/U" && !proj.isPitcher && proj.hrPerGame != null) {
     const seasonHrPerAB = abPerGame > 0 ? proj.hrPerGame / abPerGame : 0;
     const [handSplit, matchup, recentRate] = await Promise.all([
@@ -672,7 +706,8 @@ async function evaluateProp(prop, awayTeam, homeTeam, gameCtx) {
       pitcherHand: opposingPitcher?.hand, pitcherName: opposingPitcher?.name
     });
     ourProbOver = poissonProbOver(prop.line, proj.hrPerGame * adj.mult);
-    why = adj.why;
+    const hrTitleNote = titleRaceNote(proj.id, "hr", "HR", await fetchTitleLeaderboards());
+    why = [adj.why, hrTitleNote].filter(Boolean).join(" · ") || null;
     statLine = {
       seasonHr: proj.seasonHr,
       gamesPlayed: proj.gamesPlayed,
@@ -737,6 +772,32 @@ function injuryNoteForMoneyline(teamName, oppName, standingsMap) {
     : `${teamName} tiene mas lesionados en la lista (${t} vs ${o} de ${oppName}) — jugado a favor del rival`;
 }
 
+// Contexto real de la pelea por playoffs (division/comodin), sacado directo del
+// endpoint oficial de standings. Es informativo, NO mueve la probabilidad: no hay
+// evidencia real de cuanto "pesa" jugar con presion de playoffs (el equipo ya
+// intenta ganar siempre), y el desempeño reciente que si correlaciona con estar
+// en la pelea ya esta contemplado via streak/last10 en estimateWinProb. Sumar
+// otro numero inventado encima seria doble-contar la misma señal sin evidencia.
+function playoffRaceNote(standing) {
+  if (!standing) return null;
+  if (standing.clinched) return "ya clasificó a playoffs";
+  const elim = parseInt(standing.eliminationNumber, 10);
+  const wcElim = parseInt(standing.wildCardEliminationNumber, 10);
+  const bestElim = Math.min(Number.isNaN(elim) ? Infinity : elim, Number.isNaN(wcElim) ? Infinity : wcElim);
+  if (Number.isFinite(bestElim) && bestElim <= 3) return "prácticamente eliminado de playoffs";
+  if (standing.divisionRank === "1" || standing.gamesBack === "-") return "líder de su división";
+  const wcgb = parseFloat(standing.wildCardGamesBack);
+  if (!Number.isNaN(wcgb) && Math.abs(wcgb) <= 3) return "peleando de cerca por el comodín";
+  const gb = parseFloat(standing.gamesBack);
+  if (!Number.isNaN(gb) && gb <= 4) return "peleando de cerca por el título de división";
+  return null;
+}
+
+function moneylineContextNote(teamName, oppName, standingsMap) {
+  const notes = [injuryNoteForMoneyline(teamName, oppName, standingsMap), playoffRaceNote(standingsMap[teamName])].filter(Boolean);
+  return notes.length ? notes.join(" · ") : null;
+}
+
 function evaluateMoneylineLegs(ev, gameOdds, standingsMap) {
   const ml = gameOdds.moneyline?.Bovada;
   if (!ml) return [];
@@ -754,7 +815,7 @@ function evaluateMoneylineLegs(ev, gameOdds, standingsMap) {
       odds: ml.away, bookmaker: "Bovada",
       ourProb: Math.round(awayProb * 1000) / 1000, impliedProb: Math.round(awayImplied * 1000) / 1000,
       edge, isValue: isRealValue(edge, awayProb, ml.away, 0.06),
-      why: injuryNoteForMoneyline(ev.away, ev.home, standingsMap)
+      why: moneylineContextNote(ev.away, ev.home, standingsMap)
     });
   }
   if (homeImplied != null) {
@@ -764,7 +825,7 @@ function evaluateMoneylineLegs(ev, gameOdds, standingsMap) {
       odds: ml.home, bookmaker: "Bovada",
       ourProb: Math.round(homeProb * 1000) / 1000, impliedProb: Math.round(homeImplied * 1000) / 1000,
       edge, isValue: isRealValue(edge, homeProb, ml.home, 0.06),
-      why: injuryNoteForMoneyline(ev.home, ev.away, standingsMap)
+      why: moneylineContextNote(ev.home, ev.away, standingsMap)
     });
   }
   return legs;
