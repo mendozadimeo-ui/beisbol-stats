@@ -550,6 +550,46 @@ async function getBatterRecentRate(batterId) {
 
 function clamp(x, lo, hi) { return Math.max(lo, Math.min(hi, x)); }
 
+// ---------- Statcast: SLG esperado segun calidad de contacto real ----------
+// Las stats normales (SLG real) incluyen suerte: un batazo a 105mph que cae
+// directo en un guante cuenta como out igual que uno mal pegado. Baseball Savant
+// calcula que "deberia" haber pasado segun velocidad de salida + angulo de cada
+// batazo (est_slg) -- si un bateador viene pegandole fuerte pero con mala suerte,
+// esto lo separa de alguien que realmente esta bateando peor. Dato publico,
+// gratis, sin autenticacion.
+function parseCsvLine(line) {
+  const result = [];
+  let cur = "";
+  let inQuotes = false;
+  for (const c of line) {
+    if (c === '"') { inQuotes = !inQuotes; continue; }
+    if (c === "," && !inQuotes) { result.push(cur); cur = ""; continue; }
+    cur += c;
+  }
+  result.push(cur);
+  return result;
+}
+let expectedStatsCache = null;
+async function fetchExpectedStats() {
+  if (expectedStatsCache) return expectedStatsCache;
+  const map = {};
+  try {
+    const res = await fetch(`https://baseballsavant.mlb.com/leaderboard/expected_statistics?type=batter&year=${SEASON}&position=&team=&min=1&csv=true`);
+    const text = await res.text();
+    const rows = text.trim().split("\n").slice(1);
+    for (const row of rows) {
+      const cols = parseCsvLine(row);
+      const playerId = parseInt(cols[1], 10);
+      const pa = parseInt(cols[3], 10);
+      const slg = parseFloat(cols[8]), estSlg = parseFloat(cols[9]);
+      if (!playerId || !pa || Number.isNaN(slg) || Number.isNaN(estSlg) || slg <= 0) continue;
+      map[playerId] = { pa, slg, estSlg };
+    }
+  } catch { /* seguimos sin este ajuste si Baseball Savant falla */ }
+  expectedStatsCache = map;
+  return expectedStatsCache;
+}
+
 // Combina parque + clima + split vs mano + historial puntual vs el abridor +
 // forma reciente en un solo multiplicador sobre la tasa base (HR o TB por
 // partido), mas un texto corto explicando que peso mas. Todo acotado para que
@@ -589,6 +629,15 @@ function buildAdjustment(statKey, seasonPerAB, ctx) {
     mult *= (0.7 + ratio * 0.3); // se pesa mas suave: 15 partidos es muestra chica
     if (ratio >= 1.25) why.push(`en racha en los últimos ${ctx.recentRate.games} partidos`);
     else if (ratio <= 0.75) why.push(`bajón en los últimos ${ctx.recentRate.games} partidos`);
+  }
+  // Solo si tiene muestra real (25+ PA) -- con pocos turnos el "esperado" de
+  // Statcast es tan ruidoso como el resultado real, no aporta nada.
+  if (ctx.xStat && ctx.xStat.pa >= 25) {
+    const ratio = clamp(ctx.xStat.estSlg / ctx.xStat.slg, 0.85, 1.15);
+    mult *= ratio;
+    if (Math.abs(ratio - 1) >= 0.06) {
+      why.push(`Statcast: contacto real ${ratio > 1 ? "mejor" : "peor"} que sus resultados (SLG esperado ${ctx.xStat.estSlg.toFixed(3)} vs real ${ctx.xStat.slg.toFixed(3)})`);
+    }
   }
 
   return { mult: clamp(mult, 0.6, 1.8), why: why.length ? why.join(" · ") : null };
@@ -703,14 +752,16 @@ async function evaluateProp(prop, awayTeam, homeTeam, gameCtx) {
     why = titleRaceNote(proj.id, "avg", "bateo", await fetchTitleLeaderboards());
   } else if (prop.market === "Home Runs O/U" && !proj.isPitcher && proj.hrPerGame != null) {
     const seasonHrPerAB = abPerGame > 0 ? proj.hrPerGame / abPerGame : 0;
-    const [handSplit, matchup, recentRate] = await Promise.all([
+    const [handSplit, matchup, recentRate, expectedStats] = await Promise.all([
       opposingPitcher?.hand ? getBatterSplitVsHand(proj.id, opposingPitcher.hand) : null,
       opposingPitcher?.id ? getMatchup(proj.id, opposingPitcher.id) : null,
-      getBatterRecentRate(proj.id)
+      getBatterRecentRate(proj.id),
+      fetchExpectedStats()
     ]);
     const adj = buildAdjustment("hr", seasonHrPerAB, {
       venue: gameCtx?.venue, weather: gameCtx?.weather, handSplit, matchup, recentRate,
-      pitcherHand: opposingPitcher?.hand, pitcherName: opposingPitcher?.name
+      pitcherHand: opposingPitcher?.hand, pitcherName: opposingPitcher?.name,
+      xStat: expectedStats[proj.id]
     });
     ourProbOver = poissonProbOver(prop.line, proj.hrPerGame * adj.mult);
     const hrTitleNote = titleRaceNote(proj.id, "hr", "HR", await fetchTitleLeaderboards());
@@ -723,13 +774,15 @@ async function evaluateProp(prop, awayTeam, homeTeam, gameCtx) {
     };
   } else if (prop.market === "Total Bases O/U" && !proj.isPitcher && proj.tbPerGame != null) {
     const seasonTbPerAB = abPerGame > 0 ? proj.tbPerGame / abPerGame : 0;
-    const [handSplit, recentRate] = await Promise.all([
+    const [handSplit, recentRate, expectedStats] = await Promise.all([
       opposingPitcher?.hand ? getBatterSplitVsHand(proj.id, opposingPitcher.hand) : null,
-      getBatterRecentRate(proj.id)
+      getBatterRecentRate(proj.id),
+      fetchExpectedStats()
     ]);
     const adj = buildAdjustment("tb", seasonTbPerAB, {
       venue: gameCtx?.venue, weather: gameCtx?.weather, handSplit, matchup: null, recentRate,
-      pitcherHand: opposingPitcher?.hand, pitcherName: opposingPitcher?.name
+      pitcherHand: opposingPitcher?.hand, pitcherName: opposingPitcher?.name,
+      xStat: expectedStats[proj.id]
     });
     // Se escala cada tasa de hit por el mismo multiplicador contextual (parque,
     // clima, matchup, forma reciente) que antes se aplicaba directo al promedio
