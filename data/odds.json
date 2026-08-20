@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-20T01:53:36.039Z",
+  "updatedAt": "2026-08-20T03:12:31.258Z",
   "games": {
     "St. Louis Cardinals@Cincinnati Reds@2026-08-20": {
       "home": "Cincinnati Reds",
@@ -29,9 +29,9 @@
       },
       "spread": {
         "Bovada": {
-          "homeLine": -3.5,
-          "homeOdds": "5.30",
-          "awayOdds": "1.14"
+          "homeLine": -2.5,
+          "homeOdds": "3.75",
+          "awayOdds": "1.25"
         },
         "Bet365": {
           "homeLine": 3.5,
@@ -105,11 +105,50 @@
         },
         "Bet365": {
           "homeLine": -2.5,
-          "homeOdds": "2.90",
-          "awayOdds": "1.38"
+          "homeOdds": "2.85",
+          "awayOdds": "1.40"
         }
       },
-      "props": [],
+      "props": [
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "Landen Roupp",
+          "line": 0.5,
+          "over": "1.00",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 694738,
+          "side": "over",
+          "odds": "1.00",
+          "ourProb": 0.995,
+          "impliedProb": 1,
+          "edge": -0.005,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Gavin Williams",
+          "why": null
+        },
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "Gavin Williams",
+          "line": 1.5,
+          "over": "1.00",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 668909,
+          "side": "over",
+          "odds": "1.00",
+          "ourProb": 0.996,
+          "impliedProb": 1,
+          "edge": -0.004,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Landen Roupp",
+          "why": null
+        }
+      ],
       "moneylinePicks": [
         {
           "market": "Moneyline",
@@ -162,9 +201,9 @@
           "under": "1.95"
         },
         "Bet365": {
-          "line": 8,
-          "over": "2.05",
-          "under": "1.80"
+          "line": 7.5,
+          "over": "1.86",
+          "under": "1.95"
         }
       },
       "spread": {
@@ -259,9 +298,9 @@
           "side": "gana",
           "odds": "2.15",
           "bookmaker": "Bovada",
-          "ourProb": 0.379,
+          "ourProb": 0.335,
           "impliedProb": 0.465,
-          "edge": -0.086,
+          "edge": -0.13,
           "isValue": false,
           "why": "Athletics tiene mas lesionados en la lista (12 vs 11 de Kansas City Royals) — jugado a favor del rival"
         },
@@ -273,10 +312,10 @@
           "side": "gana",
           "odds": "1.72",
           "bookmaker": "Bovada",
-          "ourProb": 0.621,
+          "ourProb": 0.665,
           "impliedProb": 0.581,
-          "edge": 0.04,
-          "isValue": false,
+          "edge": 0.084,
+          "isValue": true,
           "why": "Kansas City Royals tiene menos lesionados en la lista (11 vs 12 de Athletics)"
         }
       ]
@@ -314,9 +353,9 @@
           "awayOdds": "1.13"
         },
         "Bet365": {
-          "homeLine": 1.5,
-          "homeOdds": "1.58",
-          "awayOdds": "2.45"
+          "homeLine": 5.5,
+          "homeOdds": "1.07",
+          "awayOdds": "7.50"
         }
       },
       "props": [
@@ -428,7 +467,46 @@
           "awayOdds": "7.00"
         }
       },
-      "props": [],
+      "props": [
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "Robert Gasser",
+          "line": 0.5,
+          "over": "1.00",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 688107,
+          "side": "over",
+          "odds": "1.00",
+          "ourProb": 0.992,
+          "impliedProb": 1,
+          "edge": -0.008,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "George Kirby",
+          "why": null
+        },
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "George Kirby",
+          "line": 0.5,
+          "over": "1.00",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 669923,
+          "side": "over",
+          "odds": "1.00",
+          "ourProb": 0.993,
+          "impliedProb": 1,
+          "edge": -0.007,
+          "isValue": false,
+          "pitcherHand": "L",
+          "pitcherName": "Robert Gasser",
+          "why": null
+        }
+      ],
       "moneylinePicks": [
         {
           "market": "Moneyline",
@@ -438,9 +516,9 @@
           "side": "gana",
           "odds": "2.07",
           "bookmaker": "Bovada",
-          "ourProb": 0.243,
+          "ourProb": 0.344,
           "impliedProb": 0.483,
-          "edge": -0.24,
+          "edge": -0.139,
           "isValue": false,
           "why": null
         },
@@ -452,9 +530,9 @@
           "side": "gana",
           "odds": "1.78",
           "bookmaker": "Bovada",
-          "ourProb": 0.757,
+          "ourProb": 0.656,
           "impliedProb": 0.562,
-          "edge": 0.195,
+          "edge": 0.094,
           "isValue": true,
           "why": null
         }
@@ -498,7 +576,488 @@
           "awayOdds": "4.30"
         }
       },
-      "props": [],
+      "props": [
+        {
+          "market": "Hits O/U",
+          "kind": "hitting",
+          "player": "Pete Alonso",
+          "line": 0.5,
+          "over": "1.36",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 624413,
+          "side": "over",
+          "odds": "1.36",
+          "ourProb": 0.688,
+          "impliedProb": 0.735,
+          "edge": -0.047,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Gerrit Cole",
+          "why": null,
+          "matchup": {
+            "pitcher": "Gerrit Cole",
+            "ab": 6,
+            "hits": 1,
+            "hr": 1,
+            "so": 2,
+            "bb": 1,
+            "avg": ".167",
+            "ops": ".953"
+          }
+        },
+        {
+          "market": "Hits O/U",
+          "kind": "hitting",
+          "player": "Luis Garcia",
+          "line": 0.5,
+          "over": "1.36",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 671277,
+          "side": "over",
+          "odds": "1.36",
+          "ourProb": 0.674,
+          "impliedProb": 0.735,
+          "edge": -0.061,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Kyle Bradish",
+          "why": null
+        },
+        {
+          "market": "Hits O/U",
+          "kind": "hitting",
+          "player": "Ben Rice",
+          "line": 0.5,
+          "over": "1.40",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 700250,
+          "side": "over",
+          "odds": "1.40",
+          "ourProb": 0.659,
+          "impliedProb": 0.714,
+          "edge": -0.055,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Kyle Bradish",
+          "why": null,
+          "matchup": {
+            "pitcher": "Kyle Bradish",
+            "ab": 10,
+            "hits": 4,
+            "hr": 1,
+            "so": 3,
+            "bb": 1,
+            "avg": ".400",
+            "ops": "1.155"
+          }
+        },
+        {
+          "market": "Hits O/U",
+          "kind": "hitting",
+          "player": "Heliot Ramos",
+          "line": 0.5,
+          "over": "1.41",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 671218,
+          "side": "over",
+          "odds": "1.41",
+          "ourProb": 0.65,
+          "impliedProb": 0.709,
+          "edge": -0.059,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Kyle Bradish",
+          "why": null
+        },
+        {
+          "market": "Hits O/U",
+          "kind": "hitting",
+          "player": "Gunnar Henderson",
+          "line": 0.5,
+          "over": "1.45",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 683002,
+          "side": "over",
+          "odds": "1.45",
+          "ourProb": 0.633,
+          "impliedProb": 0.69,
+          "edge": -0.057,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Gerrit Cole",
+          "why": null,
+          "matchup": {
+            "pitcher": "Gerrit Cole",
+            "ab": 12,
+            "hits": 3,
+            "hr": 1,
+            "so": 2,
+            "bb": 1,
+            "avg": ".250",
+            "ops": ".891"
+          }
+        },
+        {
+          "market": "Hits O/U",
+          "kind": "hitting",
+          "player": "Christian Encarnacion-Strand",
+          "line": 0.5,
+          "over": "1.47",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 687952,
+          "side": "over",
+          "odds": "1.47",
+          "ourProb": 0.625,
+          "impliedProb": 0.68,
+          "edge": -0.056,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Gerrit Cole",
+          "why": null
+        },
+        {
+          "market": "Hits O/U",
+          "kind": "hitting",
+          "player": "Trent Grisham",
+          "line": 0.5,
+          "over": "1.47",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 663757,
+          "side": "over",
+          "odds": "1.47",
+          "ourProb": 0.587,
+          "impliedProb": 0.68,
+          "edge": -0.093,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Kyle Bradish",
+          "why": null,
+          "matchup": {
+            "pitcher": "Kyle Bradish",
+            "ab": 10,
+            "hits": 2,
+            "hr": 1,
+            "so": 4,
+            "bb": 3,
+            "avg": ".200",
+            "ops": ".985"
+          }
+        },
+        {
+          "market": "Hits O/U",
+          "kind": "hitting",
+          "player": "Samuel Basallo",
+          "line": 0.5,
+          "over": "1.55",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 694212,
+          "side": "over",
+          "odds": "1.55",
+          "ourProb": 0.597,
+          "impliedProb": 0.645,
+          "edge": -0.049,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Gerrit Cole",
+          "why": null
+        },
+        {
+          "market": "Hits O/U",
+          "kind": "hitting",
+          "player": "Jackson Holliday",
+          "line": 0.5,
+          "over": "1.55",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 702616,
+          "side": "over",
+          "odds": "1.55",
+          "ourProb": 0.546,
+          "impliedProb": 0.645,
+          "edge": -0.099,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Gerrit Cole",
+          "why": null
+        },
+        {
+          "market": "Hits O/U",
+          "kind": "hitting",
+          "player": "Jazz Chisholm Jr.",
+          "line": 0.5,
+          "over": "1.60",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 665862,
+          "side": "over",
+          "odds": "1.60",
+          "ourProb": 0.572,
+          "impliedProb": 0.625,
+          "edge": -0.053,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Kyle Bradish",
+          "why": null,
+          "matchup": {
+            "pitcher": "Kyle Bradish",
+            "ab": 5,
+            "hits": 1,
+            "hr": 0,
+            "so": 3,
+            "bb": 1,
+            "avg": ".200",
+            "ops": ".733"
+          }
+        },
+        {
+          "market": "Hits O/U",
+          "kind": "hitting",
+          "player": "George Lombard Jr.",
+          "line": 0.5,
+          "over": "1.60",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 806146,
+          "side": "over",
+          "odds": "1.60",
+          "ourProb": 0.726,
+          "impliedProb": 0.625,
+          "edge": 0.101,
+          "isValue": true,
+          "pitcherHand": "R",
+          "pitcherName": "Kyle Bradish",
+          "why": null
+        },
+        {
+          "market": "Hits O/U",
+          "kind": "hitting",
+          "player": "Coby Mayo",
+          "line": 0.5,
+          "over": "1.64",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 691723,
+          "side": "over",
+          "odds": "1.64",
+          "ourProb": 0.509,
+          "impliedProb": 0.61,
+          "edge": -0.101,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Gerrit Cole",
+          "why": null
+        },
+        {
+          "market": "Hits O/U",
+          "kind": "hitting",
+          "player": "Jose Caballero",
+          "line": 0.5,
+          "over": "1.66",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 676609,
+          "side": "over",
+          "odds": "1.66",
+          "ourProb": 0.578,
+          "impliedProb": 0.602,
+          "edge": -0.024,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Kyle Bradish",
+          "why": null,
+          "matchup": {
+            "pitcher": "Kyle Bradish",
+            "ab": 7,
+            "hits": 1,
+            "hr": 0,
+            "so": 3,
+            "bb": 2,
+            "avg": ".143",
+            "ops": ".476"
+          }
+        },
+        {
+          "market": "Hits O/U",
+          "kind": "hitting",
+          "player": "Spencer Jones",
+          "line": 0.5,
+          "over": "1.66",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 682987,
+          "side": "over",
+          "odds": "1.66",
+          "ourProb": 0.481,
+          "impliedProb": 0.602,
+          "edge": -0.121,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Kyle Bradish",
+          "why": null,
+          "matchup": {
+            "pitcher": "Kyle Bradish",
+            "ab": 1,
+            "hits": 0,
+            "hr": 0,
+            "so": 0,
+            "bb": 1,
+            "avg": ".000",
+            "ops": ".500"
+          }
+        },
+        {
+          "market": "Hits O/U",
+          "kind": "hitting",
+          "player": "Leody Taveras",
+          "line": 0.5,
+          "over": "1.76",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 665750,
+          "side": "over",
+          "odds": "1.76",
+          "ourProb": 0.559,
+          "impliedProb": 0.568,
+          "edge": -0.009,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Gerrit Cole",
+          "why": null,
+          "matchup": {
+            "pitcher": "Gerrit Cole",
+            "ab": 11,
+            "hits": 4,
+            "hr": 1,
+            "so": 7,
+            "bb": 0,
+            "avg": ".364",
+            "ops": "1.091"
+          }
+        },
+        {
+          "market": "Hits O/U",
+          "kind": "hitting",
+          "player": "Austin Wells",
+          "line": 0.5,
+          "over": "1.83",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 669224,
+          "side": "over",
+          "odds": "1.83",
+          "ourProb": 0.413,
+          "impliedProb": 0.546,
+          "edge": -0.133,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Kyle Bradish",
+          "why": null,
+          "matchup": {
+            "pitcher": "Kyle Bradish",
+            "ab": 6,
+            "hits": 0,
+            "hr": 0,
+            "so": 3,
+            "bb": 0,
+            "avg": ".000",
+            "ops": ".000"
+          }
+        },
+        {
+          "market": "Hits O/U",
+          "kind": "hitting",
+          "player": "Dylan Beavers",
+          "line": 0.5,
+          "over": "1.86",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 687637,
+          "side": "over",
+          "odds": "1.86",
+          "ourProb": 0.547,
+          "impliedProb": 0.538,
+          "edge": 0.01,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Gerrit Cole",
+          "why": null
+        },
+        {
+          "market": "Hits O/U",
+          "kind": "hitting",
+          "player": "Colton Cowser",
+          "line": 0.5,
+          "over": "2.05",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 681297,
+          "side": "over",
+          "odds": "2.05",
+          "ourProb": 0.422,
+          "impliedProb": 0.488,
+          "edge": -0.066,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Gerrit Cole",
+          "why": null,
+          "matchup": {
+            "pitcher": "Gerrit Cole",
+            "ab": 7,
+            "hits": 0,
+            "hr": 0,
+            "so": 6,
+            "bb": 0,
+            "avg": ".000",
+            "ops": ".000"
+          }
+        },
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "Gerrit Cole",
+          "line": 0.5,
+          "over": "1.00",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 543037,
+          "side": "over",
+          "odds": "1.00",
+          "ourProb": 0.998,
+          "impliedProb": 1,
+          "edge": -0.002,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Kyle Bradish",
+          "why": null
+        },
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "Kyle Bradish",
+          "line": 0.5,
+          "over": "1.00",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 680694,
+          "side": "over",
+          "odds": "1.00",
+          "ourProb": 0.994,
+          "impliedProb": 1,
+          "edge": -0.006,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Gerrit Cole",
+          "why": null
+        }
+      ],
       "moneylinePicks": [
         {
           "market": "Moneyline",
@@ -546,9 +1105,9 @@
       },
       "total": {
         "Bovada": {
-          "line": 7.5,
-          "over": "1.80",
-          "under": "2.05"
+          "line": 5.5,
+          "over": "1.30",
+          "under": "3.35"
         },
         "Bet365": {
           "line": 7.5,
@@ -563,9 +1122,9 @@
           "awayOdds": "1.67"
         },
         "Bet365": {
-          "homeLine": -2.5,
-          "homeOdds": "3.15",
-          "awayOdds": "1.32"
+          "homeLine": 4.5,
+          "homeOdds": "1.06",
+          "awayOdds": "8.25"
         }
       },
       "props": [],
@@ -578,9 +1137,9 @@
           "side": "gana",
           "odds": "2.45",
           "bookmaker": "Bovada",
-          "ourProb": 0.41,
+          "ourProb": 0.505,
           "impliedProb": 0.408,
-          "edge": 0.002,
+          "edge": 0.097,
           "isValue": false,
           "why": null
         },
@@ -592,9 +1151,9 @@
           "side": "gana",
           "odds": "1.56",
           "bookmaker": "Bovada",
-          "ourProb": 0.59,
+          "ourProb": 0.495,
           "impliedProb": 0.641,
-          "edge": -0.051,
+          "edge": -0.146,
           "isValue": false,
           "why": null
         }
@@ -648,9 +1207,9 @@
           "side": "gana",
           "odds": "2.57",
           "bookmaker": "Bovada",
-          "ourProb": 0.409,
+          "ourProb": 0.342,
           "impliedProb": 0.389,
-          "edge": 0.02,
+          "edge": -0.047,
           "isValue": false,
           "why": "Los Angeles Angels tiene mas lesionados en la lista (8 vs 4 de Houston Astros) — jugado a favor del rival"
         },
@@ -662,9 +1221,9 @@
           "side": "gana",
           "odds": "1.52",
           "bookmaker": "Bovada",
-          "ourProb": 0.591,
+          "ourProb": 0.658,
           "impliedProb": 0.658,
-          "edge": -0.067,
+          "edge": 0,
           "isValue": false,
           "why": "Houston Astros tiene menos lesionados en la lista (4 vs 8 de Los Angeles Angels)"
         }
@@ -678,15 +1237,6 @@
       "bookmaker": "Bovada",
       "legs": [
         {
-          "player": "Milwaukee Brewers",
-          "market": "Moneyline",
-          "side": "gana",
-          "line": null,
-          "odds": "1.78",
-          "ourProb": 0.757,
-          "game": "Seattle Mariners @ Milwaukee Brewers"
-        },
-        {
           "player": "New York Yankees",
           "market": "Moneyline",
           "side": "gana",
@@ -694,10 +1244,19 @@
           "odds": "1.84",
           "ourProb": 0.651,
           "game": "New York Yankees @ Baltimore Orioles"
+        },
+        {
+          "player": "Milwaukee Brewers",
+          "market": "Moneyline",
+          "side": "gana",
+          "line": null,
+          "odds": "1.78",
+          "ourProb": 0.656,
+          "game": "Seattle Mariners @ Milwaukee Brewers"
         }
       ],
       "combinedOdds": 3.28,
-      "combinedProb": 0.493
+      "combinedProb": 0.427
     },
     {
       "label": "Moneyline (3 picks)",
@@ -705,13 +1264,13 @@
       "bookmaker": "Bovada",
       "legs": [
         {
-          "player": "Milwaukee Brewers",
+          "player": "Kansas City Royals",
           "market": "Moneyline",
           "side": "gana",
           "line": null,
-          "odds": "1.78",
-          "ourProb": 0.757,
-          "game": "Seattle Mariners @ Milwaukee Brewers"
+          "odds": "1.72",
+          "ourProb": 0.665,
+          "game": "Athletics @ Kansas City Royals"
         },
         {
           "player": "New York Yankees",
@@ -721,10 +1280,19 @@
           "odds": "1.84",
           "ourProb": 0.651,
           "game": "New York Yankees @ Baltimore Orioles"
+        },
+        {
+          "player": "Milwaukee Brewers",
+          "market": "Moneyline",
+          "side": "gana",
+          "line": null,
+          "odds": "1.78",
+          "ourProb": 0.656,
+          "game": "Seattle Mariners @ Milwaukee Brewers"
         }
       ],
-      "combinedOdds": 3.28,
-      "combinedProb": 0.493
+      "combinedOdds": 5.63,
+      "combinedProb": 0.284
     }
   ],
   "injuries": [
