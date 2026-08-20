@@ -719,6 +719,40 @@
       "ourProb": 0.684,
       "edge": 0.138,
       "recordedAt": "2026-08-20T04:55:31.793Z"
+    },
+    {
+      "id": "2026-08-20|823747|Total Bases O/U|Brendan Donovan|1.5|under",
+      "date": "2026-08-20",
+      "gamePk": 823747,
+      "game": "Seattle Mariners @ Milwaukee Brewers",
+      "market": "Total Bases O/U",
+      "player": "Brendan Donovan",
+      "playerId": 680977,
+      "line": 1.5,
+      "side": "under",
+      "odds": "1.38",
+      "bookmaker": "Bet365",
+      "ourProb": 0.82,
+      "edge": 0.096,
+      "why": "peor de lo normal vs lanzadores zurdos esta temporada · Statcast: contacto real peor que sus resultados (SLG esperado 0.337 vs real 0.392)",
+      "recordedAt": "2026-08-20T07:08:46.644Z"
+    },
+    {
+      "id": "2026-08-20|823747|Total Bases O/U|Weston Wilson|1.5|under",
+      "date": "2026-08-20",
+      "gamePk": 823747,
+      "game": "Seattle Mariners @ Milwaukee Brewers",
+      "market": "Total Bases O/U",
+      "player": "Weston Wilson",
+      "playerId": 642215,
+      "line": 1.5,
+      "side": "under",
+      "odds": "1.33",
+      "bookmaker": "Bet365",
+      "ourProb": 0.87,
+      "edge": 0.118,
+      "why": "Statcast: contacto real peor que sus resultados (SLG esperado 0.291 vs real 0.347)",
+      "recordedAt": "2026-08-20T07:08:46.644Z"
     }
   ],
   "graded": [
