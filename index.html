@@ -2436,6 +2436,16 @@ async function loadResults() {
       if (p.result === "win") byCategory[cat].w++; else byCategory[cat].l++;
     });
 
+    // Desglose dia por dia: usa la fecha del partido (p.date), no cuando se
+    // califico, para que un pick de un juego de anoche cuente en el dia que
+    // realmente jugo. Orden mas reciente primero.
+    const byDate = {};
+    graded.forEach(p => {
+      byDate[p.date] = byDate[p.date] ?? { w: 0, l: 0 };
+      if (p.result === "win") byDate[p.date].w++; else byDate[p.date].l++;
+    });
+    const dateRows = Object.entries(byDate).sort((a, b) => b[0].localeCompare(a[0]));
+
     summaryEl.innerHTML = `
       <div class="results-summary-grid">
         <div class="results-stat-box"><div class="v">${wins}-${losses}</div><div class="l">Récord general</div></div>
@@ -2444,6 +2454,18 @@ async function loadResults() {
           <div class="results-stat-box"><div class="v">${r.w}-${r.l}</div><div class="l">${cat}</div></div>
         `).join("")}
         <div class="results-stat-box"><div class="v">${pending.length}</div><div class="l">Pendientes</div></div>
+      </div>
+      <div class="props-section" style="margin-top:12px;">
+        <div class="props-title">Acierto por día</div>
+        ${dateRows.map(([date, r]) => {
+          const total = r.w + r.l;
+          const pct = total ? Math.round((r.w / total) * 100) : 0;
+          return `
+            <div class="prop-row">
+              <span class="prop-desc"><b>${date}</b></span>
+              <span class="prop-odds"><b style="color:var(${pct >= 50 ? "--win" : "--loss"});">${r.w}-${r.l}</b> <span class="muted">(${pct}%)</span></span>
+            </div>`;
+        }).join("")}
       </div>`;
 
     if (!graded.length) {

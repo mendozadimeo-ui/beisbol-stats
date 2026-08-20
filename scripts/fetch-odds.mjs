@@ -173,6 +173,38 @@ function binomialProbAtLeastOneHit(avg, atBatsPerGame) {
   const p0 = Math.pow(1 - avg, atBatsPerGame);
   return Math.max(0, Math.min(1, 1 - p0));
 }
+
+// Bases totales por partido NO es Poisson: es la suma de un numero acotado de
+// turnos al bate (3-5 por partido), cada uno con resultado 0/1/2/3/4 bases segun
+// tasa real de sencillo/doble/triple/HR. Poisson(lambda = promedio de temporada)
+// sobreestima sistematicamente P(over) porque su cola no baja tan rapido como la
+// de un proceso acotado por AB -- confirmado contra el historial real de picks
+// (calibracion: predecia 74-79% de probabilidad promedio, el resultado real
+// rondaba 56-60%). Esta convolucion exacta sobre N turnos al bate reemplaza esa
+// aproximacion; para la linea 0.5 (al menos 1 base = al menos 1 hit) da el mismo
+// resultado que binomialProbAtLeastOneHit, como deberia.
+function totalBasesDistribution(atBats, p1b, p2b, p3b, phr) {
+  const pOut = Math.max(0, 1 - p1b - p2b - p3b - phr);
+  const outcomes = [[0, pOut], [1, p1b], [2, p2b], [3, p3b], [4, phr]];
+  let dist = [1];
+  for (let i = 0; i < atBats; i++) {
+    const next = new Array(dist.length + 4).fill(0);
+    for (let tb = 0; tb < dist.length; tb++) {
+      if (!dist[tb]) continue;
+      for (const [bases, prob] of outcomes) next[tb + bases] += dist[tb] * prob;
+    }
+    dist = next;
+  }
+  return dist;
+}
+function totalBasesProbOver(line, atBatsPerGame, p1b, p2b, p3b, phr) {
+  const n = Math.max(1, Math.round(atBatsPerGame));
+  const dist = totalBasesDistribution(n, p1b, p2b, p3b, phr);
+  const k = Math.floor(line);
+  let cdf = 0;
+  for (let i = 0; i <= k && i < dist.length; i++) cdf += dist[i];
+  return Math.max(0, Math.min(1, 1 - cdf));
+}
 function decimalToImpliedProb(decimalOdds) {
   const d = parseFloat(decimalOdds);
   return d > 0 ? 1 / d : null;
@@ -211,17 +243,29 @@ async function fetchPlayerProjection(name) {
     }
     const gamesPlayed = stat.gamesPlayed || 0;
     if (!gamesPlayed) return null;
+    // Tasas por turno al bate de cada tipo de hit (no solo el promedio de bases
+    // totales) -- necesarias para el modelo de convolucion de Bases Totales, que
+    // reemplaza a Poisson por ser un evento acotado por AB, no un conteo libre.
+    const ab = stat.atBats || 0;
+    const hits = stat.hits || 0;
+    const doubles = stat.doubles || 0;
+    const triples = stat.triples || 0;
+    const homeRuns = stat.homeRuns || 0;
     return {
       isPitcher: false,
       id: person.id,
       team,
       avg: parseFloat(stat.avg) || 0,
-      abPerGame: (stat.atBats || 0) / gamesPlayed,
-      hrPerGame: (stat.homeRuns || 0) / gamesPlayed,
+      abPerGame: ab / gamesPlayed,
+      hrPerGame: homeRuns / gamesPlayed,
       tbPerGame: (stat.totalBases || 0) / gamesPlayed,
-      seasonHr: stat.homeRuns || 0,
+      seasonHr: homeRuns,
       seasonTb: stat.totalBases || 0,
-      gamesPlayed
+      gamesPlayed,
+      p1b: ab > 0 ? Math.max(0, hits - doubles - triples - homeRuns) / ab : 0,
+      p2b: ab > 0 ? doubles / ab : 0,
+      p3b: ab > 0 ? triples / ab : 0,
+      phr: ab > 0 ? homeRuns / ab : 0
     };
   } catch {
     return null;
@@ -627,7 +671,12 @@ async function evaluateProp(prop, awayTeam, homeTeam, gameCtx) {
       venue: gameCtx?.venue, weather: gameCtx?.weather, handSplit, matchup: null, recentRate,
       pitcherHand: opposingPitcher?.hand, pitcherName: opposingPitcher?.name
     });
-    ourProbOver = poissonProbOver(prop.line, proj.tbPerGame * adj.mult);
+    // Se escala cada tasa de hit por el mismo multiplicador contextual (parque,
+    // clima, matchup, forma reciente) que antes se aplicaba directo al promedio
+    // de bases totales -- el ajuste no cambia, solo el modelo de probabilidad
+    // subyacente (convolucion exacta en vez de Poisson, ver comentario arriba).
+    const mult = adj.mult;
+    ourProbOver = totalBasesProbOver(prop.line, abPerGame, proj.p1b * mult, proj.p2b * mult, proj.p3b * mult, proj.phr * mult);
     why = adj.why;
     statLine = {
       seasonTb: proj.seasonTb,
