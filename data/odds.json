@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-20T03:12:31.258Z",
+  "updatedAt": "2026-08-20T04:55:31.767Z",
   "games": {
     "St. Louis Cardinals@Cincinnati Reds@2026-08-20": {
       "home": "Cincinnati Reds",
@@ -7,8 +7,8 @@
       "date": "2026-08-20T16:40:00Z",
       "moneyline": {
         "Bovada": {
-          "home": "1.93",
-          "away": "1.89"
+          "home": "1.99",
+          "away": "1.84"
         },
         "Bet365": {
           "home": "2.00",
@@ -17,9 +17,9 @@
       },
       "total": {
         "Bovada": {
-          "line": 9,
-          "over": "1.87",
-          "under": "1.95"
+          "line": 7.5,
+          "over": "1.50",
+          "under": "2.50"
         },
         "Bet365": {
           "line": 9,
@@ -29,9 +29,9 @@
       },
       "spread": {
         "Bovada": {
-          "homeLine": -2.5,
-          "homeOdds": "3.75",
-          "awayOdds": "1.25"
+          "homeLine": -1.5,
+          "homeOdds": "2.85",
+          "awayOdds": "1.40"
         },
         "Bet365": {
           "homeLine": 3.5,
@@ -39,7 +39,46 @@
           "awayOdds": "4.30"
         }
       },
-      "props": [],
+      "props": [
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "Michael McGreevy",
+          "line": 0.5,
+          "over": "1.00",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 700241,
+          "side": "over",
+          "odds": "1.00",
+          "ourProb": 0.977,
+          "impliedProb": 1,
+          "edge": -0.023,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Brady Singer",
+          "why": null
+        },
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "Brady Singer",
+          "line": 7.5,
+          "over": "11.00",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 663903,
+          "side": "over",
+          "odds": "11.00",
+          "ourProb": 0.073,
+          "impliedProb": 0.091,
+          "edge": -0.017,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Michael McGreevy",
+          "why": null
+        }
+      ],
       "moneylinePicks": [
         {
           "market": "Moneyline",
@@ -47,11 +86,11 @@
           "player": "St. Louis Cardinals",
           "line": null,
           "side": "gana",
-          "odds": "1.89",
+          "odds": "1.84",
           "bookmaker": "Bovada",
           "ourProb": 0.528,
-          "impliedProb": 0.529,
-          "edge": -0.001,
+          "impliedProb": 0.543,
+          "edge": -0.015,
           "isValue": false,
           "why": "St. Louis Cardinals tiene menos lesionados en la lista (2 vs 6 de Cincinnati Reds)"
         },
@@ -61,11 +100,11 @@
           "player": "Cincinnati Reds",
           "line": null,
           "side": "gana",
-          "odds": "1.93",
+          "odds": "1.99",
           "bookmaker": "Bovada",
           "ourProb": 0.472,
-          "impliedProb": 0.518,
-          "edge": -0.046,
+          "impliedProb": 0.503,
+          "edge": -0.03,
           "isValue": false,
           "why": "Cincinnati Reds tiene mas lesionados en la lista (6 vs 2 de St. Louis Cardinals) — jugado a favor del rival"
         }
@@ -77,8 +116,8 @@
       "date": "2026-08-20T17:10:00Z",
       "moneyline": {
         "Bovada": {
-          "home": "1.50",
-          "away": "2.64"
+          "home": "1.53",
+          "away": "2.55"
         },
         "Bet365": {
           "home": "1.52",
@@ -87,9 +126,9 @@
       },
       "total": {
         "Bovada": {
-          "line": 5.5,
-          "over": "1.36",
-          "under": "3.00"
+          "line": 6.5,
+          "over": "1.54",
+          "under": "2.40"
         },
         "Bet365": {
           "line": 7.5,
@@ -99,9 +138,9 @@
       },
       "spread": {
         "Bovada": {
-          "homeLine": -4.5,
-          "homeOdds": "5.00",
-          "awayOdds": "1.15"
+          "homeLine": -3,
+          "homeOdds": "3.45",
+          "awayOdds": "1.29"
         },
         "Bet365": {
           "homeLine": -2.5,
@@ -113,39 +152,39 @@
         {
           "market": "Pitcher Strikeouts O/U",
           "kind": "pitching",
-          "player": "Landen Roupp",
-          "line": 0.5,
-          "over": "1.00",
-          "under": null,
-          "bookmaker": "Bet365",
-          "playerId": 694738,
-          "side": "over",
-          "odds": "1.00",
-          "ourProb": 0.995,
-          "impliedProb": 1,
-          "edge": -0.005,
-          "isValue": false,
-          "pitcherHand": "R",
-          "pitcherName": "Gavin Williams",
-          "why": null
-        },
-        {
-          "market": "Pitcher Strikeouts O/U",
-          "kind": "pitching",
           "player": "Gavin Williams",
-          "line": 1.5,
+          "line": 0.5,
           "over": "1.00",
           "under": null,
           "bookmaker": "Bet365",
           "playerId": 668909,
           "side": "over",
           "odds": "1.00",
-          "ourProb": 0.996,
+          "ourProb": 0.999,
           "impliedProb": 1,
-          "edge": -0.004,
+          "edge": -0.001,
           "isValue": false,
           "pitcherHand": "R",
           "pitcherName": "Landen Roupp",
+          "why": null
+        },
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "Landen Roupp",
+          "line": 2.5,
+          "over": "1.16",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 694738,
+          "side": "over",
+          "odds": "1.16",
+          "ourProb": 0.901,
+          "impliedProb": 0.862,
+          "edge": 0.039,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Gavin Williams",
           "why": null
         }
       ],
@@ -156,11 +195,11 @@
           "player": "San Francisco Giants",
           "line": null,
           "side": "gana",
-          "odds": "2.64",
+          "odds": "2.55",
           "bookmaker": "Bovada",
           "ourProb": 0.403,
-          "impliedProb": 0.379,
-          "edge": 0.024,
+          "impliedProb": 0.392,
+          "edge": 0.01,
           "isValue": false,
           "why": "San Francisco Giants tiene mas lesionados en la lista (13 vs 3 de Cleveland Guardians) — jugado a favor del rival"
         },
@@ -170,11 +209,11 @@
           "player": "Cleveland Guardians",
           "line": null,
           "side": "gana",
-          "odds": "1.50",
+          "odds": "1.53",
           "bookmaker": "Bovada",
           "ourProb": 0.597,
-          "impliedProb": 0.667,
-          "edge": -0.069,
+          "impliedProb": 0.654,
+          "edge": -0.056,
           "isValue": false,
           "why": "Cleveland Guardians tiene menos lesionados en la lista (3 vs 13 de San Francisco Giants)"
         }
@@ -196,9 +235,9 @@
       },
       "total": {
         "Bovada": {
-          "line": 7.5,
-          "over": "1.87",
-          "under": "1.95"
+          "line": 7,
+          "over": "1.61",
+          "under": "2.25"
         },
         "Bet365": {
           "line": 7.5,
@@ -208,9 +247,9 @@
       },
       "spread": {
         "Bovada": {
-          "homeLine": -4.5,
-          "homeOdds": "4.75",
-          "awayOdds": "1.17"
+          "homeLine": -3,
+          "homeOdds": "3.60",
+          "awayOdds": "1.27"
         },
         "Bet365": {
           "homeLine": 2.5,
@@ -218,7 +257,46 @@
           "awayOdds": "4.30"
         }
       },
-      "props": [],
+      "props": [
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "Ian Seymour",
+          "line": 0.5,
+          "over": "1.00",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 693855,
+          "side": "over",
+          "odds": "1.00",
+          "ourProb": 1,
+          "impliedProb": 1,
+          "edge": 0,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Shane Bieber",
+          "why": null
+        },
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "Shane Bieber",
+          "line": 0.5,
+          "over": "1.01",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 669456,
+          "side": "over",
+          "odds": "1.01",
+          "ourProb": 0.975,
+          "impliedProb": 0.99,
+          "edge": -0.015,
+          "isValue": false,
+          "pitcherHand": "L",
+          "pitcherName": "Ian Seymour",
+          "why": null
+        }
+      ],
       "moneylinePicks": [
         {
           "market": "Moneyline",
@@ -256,8 +334,8 @@
       "date": "2026-08-20T18:10:00Z",
       "moneyline": {
         "Bovada": {
-          "home": "1.72",
-          "away": "2.15"
+          "home": "1.71",
+          "away": "2.18"
         },
         "Bet365": {
           "home": "1.74",
@@ -266,9 +344,9 @@
       },
       "total": {
         "Bovada": {
-          "line": 6.5,
-          "over": "1.33",
-          "under": "3.15"
+          "line": 7,
+          "over": "1.41",
+          "under": "2.80"
         },
         "Bet365": {
           "line": 8.5,
@@ -278,9 +356,9 @@
       },
       "spread": {
         "Bovada": {
-          "homeLine": -4.5,
-          "homeOdds": "5.75",
-          "awayOdds": "1.11"
+          "homeLine": 1.5,
+          "homeOdds": "1.41",
+          "awayOdds": "2.80"
         },
         "Bet365": {
           "homeLine": -1.5,
@@ -296,11 +374,11 @@
           "player": "Athletics",
           "line": null,
           "side": "gana",
-          "odds": "2.15",
+          "odds": "2.18",
           "bookmaker": "Bovada",
           "ourProb": 0.335,
-          "impliedProb": 0.465,
-          "edge": -0.13,
+          "impliedProb": 0.459,
+          "edge": -0.124,
           "isValue": false,
           "why": "Athletics tiene mas lesionados en la lista (12 vs 11 de Kansas City Royals) — jugado a favor del rival"
         },
@@ -310,11 +388,11 @@
           "player": "Kansas City Royals",
           "line": null,
           "side": "gana",
-          "odds": "1.72",
+          "odds": "1.71",
           "bookmaker": "Bovada",
           "ourProb": 0.665,
-          "impliedProb": 0.581,
-          "edge": 0.084,
+          "impliedProb": 0.585,
+          "edge": 0.081,
           "isValue": true,
           "why": "Kansas City Royals tiene menos lesionados en la lista (11 vs 12 de Athletics)"
         }
@@ -336,9 +414,9 @@
       },
       "total": {
         "Bovada": {
-          "line": 6.5,
-          "over": "1.36",
-          "under": "3.00"
+          "line": 7,
+          "over": "1.43",
+          "under": "2.70"
         },
         "Bet365": {
           "line": 8.5,
@@ -348,31 +426,537 @@
       },
       "spread": {
         "Bovada": {
-          "homeLine": -3.5,
-          "homeOdds": "5.60",
-          "awayOdds": "1.13"
+          "homeLine": -1.5,
+          "homeOdds": "2.75",
+          "awayOdds": "1.42"
         },
         "Bet365": {
-          "homeLine": 5.5,
-          "homeOdds": "1.07",
-          "awayOdds": "7.50"
+          "homeLine": 3.5,
+          "homeOdds": "1.20",
+          "awayOdds": "4.30"
         }
       },
       "props": [
         {
+          "market": "Total Bases O/U",
+          "kind": "hitting",
+          "player": "Ozzie Albies",
+          "line": 0.5,
+          "over": "1.35",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 645277,
+          "side": "over",
+          "odds": "1.35",
+          "ourProb": 0.815,
+          "impliedProb": 0.741,
+          "edge": 0.075,
+          "isValue": false,
+          "pitcherHand": "L",
+          "pitcherName": "Anthony Kay",
+          "why": "Rate Field (leve bateo) · mejor de lo normal vs lanzadores zurdos esta temporada · bajón en los últimos 15 partidos",
+          "seasonTb": 205,
+          "gamesPlayed": 127,
+          "tbPerGame": 1.61,
+          "matchup": {
+            "pitcher": "Anthony Kay",
+            "ab": 1,
+            "hits": 0,
+            "hr": 0,
+            "so": 1,
+            "bb": 0,
+            "avg": ".000",
+            "ops": ".000"
+          }
+        },
+        {
+          "market": "Total Bases O/U",
+          "kind": "hitting",
+          "player": "Drake Baldwin",
+          "line": 0.5,
+          "over": "1.36",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 686948,
+          "side": "over",
+          "odds": "1.36",
+          "ourProb": 0.791,
+          "impliedProb": 0.735,
+          "edge": 0.055,
+          "isValue": false,
+          "pitcherHand": "L",
+          "pitcherName": "Anthony Kay",
+          "why": "Rate Field (leve bateo)",
+          "seasonTb": 185,
+          "gamesPlayed": 104,
+          "tbPerGame": 1.78
+        },
+        {
+          "market": "Total Bases O/U",
+          "kind": "hitting",
+          "player": "Ronald Acuna Jr.",
+          "line": 0.5,
+          "over": "1.42",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 660670,
+          "side": "over",
+          "odds": "1.42",
+          "ourProb": 0.81,
+          "impliedProb": 0.704,
+          "edge": 0.105,
+          "isValue": true,
+          "pitcherHand": "L",
+          "pitcherName": "Anthony Kay",
+          "why": "Rate Field (leve bateo)",
+          "seasonTb": 121,
+          "gamesPlayed": 75,
+          "tbPerGame": 1.61
+        },
+        {
+          "market": "Total Bases O/U",
+          "kind": "hitting",
+          "player": "Michael Harris II",
+          "line": 0.5,
+          "over": "1.42",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 671739,
+          "side": "over",
+          "odds": "1.42",
+          "ourProb": 0.834,
+          "impliedProb": 0.704,
+          "edge": 0.13,
+          "isValue": true,
+          "pitcherHand": "L",
+          "pitcherName": "Anthony Kay",
+          "why": "Rate Field (leve bateo)",
+          "seasonTb": 223,
+          "gamesPlayed": 121,
+          "tbPerGame": 1.84
+        },
+        {
+          "market": "Total Bases O/U",
+          "kind": "hitting",
+          "player": "Sam Antonacci",
+          "line": 0.5,
+          "over": "1.43",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 803011,
+          "side": "over",
+          "odds": "1.43",
+          "ourProb": 0.767,
+          "impliedProb": 0.699,
+          "edge": 0.067,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Grant Holmes",
+          "why": "Rate Field (leve bateo)",
+          "seasonTb": 145,
+          "gamesPlayed": 106,
+          "tbPerGame": 1.37,
+          "matchup": {
+            "pitcher": "Grant Holmes",
+            "ab": 1,
+            "hits": 0,
+            "hr": 0,
+            "so": 0,
+            "bb": 1,
+            "avg": ".000",
+            "ops": ".500"
+          }
+        },
+        {
+          "market": "Total Bases O/U",
+          "kind": "hitting",
+          "player": "Matt Olson",
+          "line": 0.5,
+          "over": "1.43",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 621566,
+          "side": "over",
+          "odds": "1.43",
+          "ourProb": 0.882,
+          "impliedProb": 0.699,
+          "edge": 0.182,
+          "isValue": true,
+          "pitcherHand": "L",
+          "pitcherName": "Anthony Kay",
+          "why": "Rate Field (leve bateo)",
+          "seasonTb": 268,
+          "gamesPlayed": 127,
+          "tbPerGame": 2.11,
+          "matchup": {
+            "pitcher": "Anthony Kay",
+            "ab": 2,
+            "hits": 0,
+            "hr": 0,
+            "so": 0,
+            "bb": 0,
+            "avg": ".000",
+            "ops": ".000"
+          }
+        },
+        {
+          "market": "Total Bases O/U",
+          "kind": "hitting",
+          "player": "Mauricio Dubon",
+          "line": 0.5,
+          "over": "1.44",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 643289,
+          "side": "over",
+          "odds": "1.44",
+          "ourProb": 0.742,
+          "impliedProb": 0.694,
+          "edge": 0.048,
+          "isValue": false,
+          "pitcherHand": "L",
+          "pitcherName": "Anthony Kay",
+          "why": "Rate Field (leve bateo)",
+          "seasonTb": 173,
+          "gamesPlayed": 120,
+          "tbPerGame": 1.44
+        },
+        {
+          "market": "Total Bases O/U",
+          "kind": "hitting",
+          "player": "Miguel Vargas",
+          "line": 0.5,
+          "over": "1.47",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 678246,
+          "side": "over",
+          "odds": "1.47",
+          "ourProb": 0.847,
+          "impliedProb": 0.68,
+          "edge": 0.166,
+          "isValue": true,
+          "pitcherHand": "R",
+          "pitcherName": "Grant Holmes",
+          "why": "Rate Field (leve bateo)",
+          "seasonTb": 227,
+          "gamesPlayed": 124,
+          "tbPerGame": 1.83,
+          "matchup": {
+            "pitcher": "Grant Holmes",
+            "ab": 2,
+            "hits": 1,
+            "hr": 1,
+            "so": 0,
+            "bb": 0,
+            "avg": ".500",
+            "ops": "2.500"
+          }
+        },
+        {
+          "market": "Total Bases O/U",
+          "kind": "hitting",
+          "player": "Braden Montgomery",
+          "line": 0.5,
+          "over": "1.50",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 695731,
+          "side": "over",
+          "odds": "1.50",
+          "ourProb": 0.773,
+          "impliedProb": 0.667,
+          "edge": 0.106,
+          "isValue": true,
+          "pitcherHand": "R",
+          "pitcherName": "Grant Holmes",
+          "why": "Rate Field (leve bateo)",
+          "seasonTb": 80,
+          "gamesPlayed": 59,
+          "tbPerGame": 1.36,
+          "matchup": {
+            "pitcher": "Grant Holmes",
+            "ab": 2,
+            "hits": 1,
+            "hr": 0,
+            "so": 1,
+            "bb": 0,
+            "avg": ".500",
+            "ops": "1.000"
+          }
+        },
+        {
+          "market": "Total Bases O/U",
+          "kind": "hitting",
+          "player": "Chase Meidroth",
+          "line": 0.5,
+          "over": "1.55",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 805367,
+          "side": "over",
+          "odds": "1.55",
+          "ourProb": 0.775,
+          "impliedProb": 0.645,
+          "edge": 0.13,
+          "isValue": true,
+          "pitcherHand": "R",
+          "pitcherName": "Grant Holmes",
+          "why": "Rate Field (leve bateo) · peor de lo normal vs lanzadores derechos esta temporada · en racha en los últimos 15 partidos",
+          "seasonTb": 183,
+          "gamesPlayed": 121,
+          "tbPerGame": 1.51,
+          "matchup": {
+            "pitcher": "Grant Holmes",
+            "ab": 1,
+            "hits": 1,
+            "hr": 0,
+            "so": 0,
+            "bb": 0,
+            "avg": "1.000",
+            "ops": "2.000"
+          }
+        },
+        {
+          "market": "Total Bases O/U",
+          "kind": "hitting",
+          "player": "Munetaka Murakami",
+          "line": 0.5,
+          "over": "1.58",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 808959,
+          "side": "over",
+          "odds": "1.58",
+          "ourProb": 0.883,
+          "impliedProb": 0.633,
+          "edge": 0.25,
+          "isValue": true,
+          "pitcherHand": "R",
+          "pitcherName": "Grant Holmes",
+          "why": "Rate Field (leve bateo) · mejor de lo normal vs lanzadores derechos esta temporada",
+          "seasonTb": 175,
+          "gamesPlayed": 91,
+          "tbPerGame": 1.92
+        },
+        {
+          "market": "Total Bases O/U",
+          "kind": "hitting",
+          "player": "Austin Riley",
+          "line": 0.5,
+          "over": "1.58",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 663586,
+          "side": "over",
+          "odds": "1.58",
+          "ourProb": 0.749,
+          "impliedProb": 0.633,
+          "edge": 0.116,
+          "isValue": true,
+          "pitcherHand": "L",
+          "pitcherName": "Anthony Kay",
+          "why": "Rate Field (leve bateo) · en racha en los últimos 15 partidos",
+          "seasonTb": 166,
+          "gamesPlayed": 126,
+          "tbPerGame": 1.32,
+          "matchup": {
+            "pitcher": "Anthony Kay",
+            "ab": 1,
+            "hits": 0,
+            "hr": 0,
+            "so": 0,
+            "bb": 0,
+            "avg": ".000",
+            "ops": ".000"
+          }
+        },
+        {
+          "market": "Total Bases O/U",
+          "kind": "hitting",
+          "player": "Colson Montgomery",
+          "line": 0.5,
+          "over": "1.60",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 695657,
+          "side": "over",
+          "odds": "1.60",
+          "ourProb": 0.773,
+          "impliedProb": 0.625,
+          "edge": 0.148,
+          "isValue": true,
+          "pitcherHand": "R",
+          "pitcherName": "Grant Holmes",
+          "why": "Rate Field (leve bateo)",
+          "seasonTb": 196,
+          "gamesPlayed": 119,
+          "tbPerGame": 1.65
+        },
+        {
+          "market": "Total Bases O/U",
+          "kind": "hitting",
+          "player": "Tristan Peters",
+          "line": 0.5,
+          "over": "1.71",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 671976,
+          "side": "over",
+          "odds": "1.71",
+          "ourProb": 0.747,
+          "impliedProb": 0.585,
+          "edge": 0.163,
+          "isValue": true,
+          "pitcherHand": "R",
+          "pitcherName": "Grant Holmes",
+          "why": "Rate Field (leve bateo)",
+          "seasonTb": 143,
+          "gamesPlayed": 121,
+          "tbPerGame": 1.18,
+          "matchup": {
+            "pitcher": "Grant Holmes",
+            "ab": 2,
+            "hits": 0,
+            "hr": 0,
+            "so": 1,
+            "bb": 0,
+            "avg": ".000",
+            "ops": ".000"
+          }
+        },
+        {
+          "market": "Total Bases O/U",
+          "kind": "hitting",
+          "player": "Andrew Benintendi",
+          "line": 0.5,
+          "over": "1.74",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 643217,
+          "side": "over",
+          "odds": "1.74",
+          "ourProb": 0.751,
+          "impliedProb": 0.575,
+          "edge": 0.177,
+          "isValue": true,
+          "pitcherHand": "R",
+          "pitcherName": "Grant Holmes",
+          "why": "Rate Field (leve bateo)",
+          "seasonTb": 145,
+          "gamesPlayed": 112,
+          "tbPerGame": 1.29,
+          "matchup": {
+            "pitcher": "Grant Holmes",
+            "ab": 2,
+            "hits": 0,
+            "hr": 0,
+            "so": 0,
+            "bb": 0,
+            "avg": ".000",
+            "ops": ".000"
+          }
+        },
+        {
+          "market": "Total Bases O/U",
+          "kind": "hitting",
+          "player": "Drew Romo",
+          "line": 0.5,
+          "over": "1.83",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 691011,
+          "side": "over",
+          "odds": "1.83",
+          "ourProb": 0.599,
+          "impliedProb": 0.546,
+          "edge": 0.053,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Grant Holmes",
+          "why": "Rate Field (leve bateo)",
+          "seasonTb": 48,
+          "gamesPlayed": 52,
+          "tbPerGame": 0.92,
+          "matchup": {
+            "pitcher": "Grant Holmes",
+            "ab": 1,
+            "hits": 0,
+            "hr": 0,
+            "so": 0,
+            "bb": 1,
+            "avg": ".000",
+            "ops": ".500"
+          }
+        },
+        {
+          "market": "Total Bases O/U",
+          "kind": "hitting",
+          "player": "Lane Thomas",
+          "line": 0.5,
+          "over": "1.83",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 657041,
+          "side": "over",
+          "odds": "1.83",
+          "ourProb": 0.684,
+          "impliedProb": 0.546,
+          "edge": 0.138,
+          "isValue": true,
+          "pitcherHand": "L",
+          "pitcherName": "Anthony Kay",
+          "why": "Rate Field (leve bateo)",
+          "seasonTb": 121,
+          "gamesPlayed": 107,
+          "tbPerGame": 1.13
+        },
+        {
+          "market": "Total Bases O/U",
+          "kind": "hitting",
+          "player": "Sean Murphy",
+          "line": 0.5,
+          "over": "1.86",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 669221,
+          "side": "over",
+          "odds": "1.86",
+          "ourProb": 0.401,
+          "impliedProb": 0.538,
+          "edge": -0.137,
+          "isValue": false,
+          "pitcherHand": "L",
+          "pitcherName": "Anthony Kay",
+          "why": "Rate Field (leve bateo)",
+          "seasonTb": 5,
+          "gamesPlayed": 10,
+          "tbPerGame": 0.5,
+          "matchup": {
+            "pitcher": "Anthony Kay",
+            "ab": 1,
+            "hits": 1,
+            "hr": 0,
+            "so": 0,
+            "bb": 0,
+            "avg": "1.000",
+            "ops": "2.000"
+          }
+        },
+        {
           "market": "Pitcher Strikeouts O/U",
           "kind": "pitching",
           "player": "Anthony Kay",
-          "line": 1.5,
-          "over": "1.06",
+          "line": 4.5,
+          "over": "2.20",
           "under": null,
           "bookmaker": "Bet365",
           "playerId": 641743,
           "side": "over",
-          "odds": "1.06",
-          "ourProb": 0.926,
-          "impliedProb": 0.943,
-          "edge": -0.018,
+          "odds": "2.20",
+          "ourProb": 0.422,
+          "impliedProb": 0.455,
+          "edge": -0.033,
           "isValue": false,
           "pitcherHand": "R",
           "pitcherName": "Grant Holmes",
@@ -382,16 +966,16 @@
           "market": "Pitcher Strikeouts O/U",
           "kind": "pitching",
           "player": "Grant Holmes",
-          "line": 1.5,
-          "over": "1.06",
+          "line": 5.5,
+          "over": "3.90",
           "under": null,
           "bookmaker": "Bet365",
           "playerId": 656550,
           "side": "over",
-          "odds": "1.06",
-          "ourProb": 0.923,
-          "impliedProb": 0.943,
-          "edge": -0.02,
+          "odds": "3.90",
+          "ourProb": 0.25,
+          "impliedProb": 0.256,
+          "edge": -0.007,
           "isValue": false,
           "pitcherHand": "L",
           "pitcherName": "Anthony Kay",
@@ -435,8 +1019,8 @@
       "date": "2026-08-20T18:10:00Z",
       "moneyline": {
         "Bovada": {
-          "home": "1.78",
-          "away": "2.07"
+          "home": "1.76",
+          "away": "2.09"
         },
         "Bet365": {
           "home": "1.76",
@@ -445,9 +1029,9 @@
       },
       "total": {
         "Bovada": {
-          "line": 8,
-          "over": "1.91",
-          "under": "1.91"
+          "line": 7,
+          "over": "1.53",
+          "under": "2.45"
         },
         "Bet365": {
           "line": 8,
@@ -457,9 +1041,9 @@
       },
       "spread": {
         "Bovada": {
-          "homeLine": -3.5,
-          "homeOdds": "4.75",
-          "awayOdds": "1.17"
+          "homeLine": -3,
+          "homeOdds": "4.30",
+          "awayOdds": "1.20"
         },
         "Bet365": {
           "homeLine": 4.5,
@@ -514,11 +1098,11 @@
           "player": "Seattle Mariners",
           "line": null,
           "side": "gana",
-          "odds": "2.07",
+          "odds": "2.09",
           "bookmaker": "Bovada",
           "ourProb": 0.344,
-          "impliedProb": 0.483,
-          "edge": -0.139,
+          "impliedProb": 0.478,
+          "edge": -0.135,
           "isValue": false,
           "why": null
         },
@@ -528,11 +1112,11 @@
           "player": "Milwaukee Brewers",
           "line": null,
           "side": "gana",
-          "odds": "1.78",
+          "odds": "1.76",
           "bookmaker": "Bovada",
           "ourProb": 0.656,
-          "impliedProb": 0.562,
-          "edge": 0.094,
+          "impliedProb": 0.568,
+          "edge": 0.088,
           "isValue": true,
           "why": null
         }
@@ -544,8 +1128,8 @@
       "date": "2026-08-20T22:35:00Z",
       "moneyline": {
         "Bovada": {
-          "home": "1.99",
-          "away": "1.84"
+          "home": "2.05",
+          "away": "1.80"
         },
         "Bet365": {
           "home": "2.05",
@@ -554,9 +1138,9 @@
       },
       "total": {
         "Bovada": {
-          "line": 7.5,
-          "over": "1.69",
-          "under": "2.10"
+          "line": 6.5,
+          "over": "1.42",
+          "under": "2.75"
         },
         "Bet365": {
           "line": 8,
@@ -567,8 +1151,8 @@
       "spread": {
         "Bovada": {
           "homeLine": -1.5,
-          "homeOdds": "3.10",
-          "awayOdds": "1.34"
+          "homeOdds": "3.05",
+          "awayOdds": "1.36"
         },
         "Bet365": {
           "homeLine": 3.5,
@@ -1065,11 +1649,11 @@
           "player": "New York Yankees",
           "line": null,
           "side": "gana",
-          "odds": "1.84",
+          "odds": "1.80",
           "bookmaker": "Bovada",
           "ourProb": 0.651,
-          "impliedProb": 0.543,
-          "edge": 0.107,
+          "impliedProb": 0.556,
+          "edge": 0.095,
           "isValue": true,
           "why": "New York Yankees tiene menos lesionados en la lista (6 vs 8 de Baltimore Orioles)"
         },
@@ -1079,11 +1663,11 @@
           "player": "Baltimore Orioles",
           "line": null,
           "side": "gana",
-          "odds": "1.99",
+          "odds": "2.05",
           "bookmaker": "Bovada",
           "ourProb": 0.349,
-          "impliedProb": 0.503,
-          "edge": -0.153,
+          "impliedProb": 0.488,
+          "edge": -0.138,
           "isValue": false,
           "why": "Baltimore Orioles tiene mas lesionados en la lista (8 vs 6 de New York Yankees) — jugado a favor del rival"
         }
@@ -1095,8 +1679,8 @@
       "date": "2026-08-21T00:05:00Z",
       "moneyline": {
         "Bovada": {
-          "home": "1.56",
-          "away": "2.45"
+          "home": "1.62",
+          "away": "2.36"
         },
         "Bet365": {
           "home": "1.60",
@@ -1105,9 +1689,9 @@
       },
       "total": {
         "Bovada": {
-          "line": 5.5,
-          "over": "1.30",
-          "under": "3.35"
+          "line": 8.5,
+          "over": "2.15",
+          "under": "1.67"
         },
         "Bet365": {
           "line": 7.5,
@@ -1117,9 +1701,9 @@
       },
       "spread": {
         "Bovada": {
-          "homeLine": -1.5,
-          "homeOdds": "2.30",
-          "awayOdds": "1.67"
+          "homeLine": 1,
+          "homeOdds": "1.41",
+          "awayOdds": "2.80"
         },
         "Bet365": {
           "homeLine": 4.5,
@@ -1135,11 +1719,11 @@
           "player": "Washington Nationals",
           "line": null,
           "side": "gana",
-          "odds": "2.45",
+          "odds": "2.36",
           "bookmaker": "Bovada",
           "ourProb": 0.505,
-          "impliedProb": 0.408,
-          "edge": 0.097,
+          "impliedProb": 0.424,
+          "edge": 0.081,
           "isValue": false,
           "why": null
         },
@@ -1149,11 +1733,11 @@
           "player": "Texas Rangers",
           "line": null,
           "side": "gana",
-          "odds": "1.56",
+          "odds": "1.62",
           "bookmaker": "Bovada",
           "ourProb": 0.495,
-          "impliedProb": 0.641,
-          "edge": -0.146,
+          "impliedProb": 0.617,
+          "edge": -0.122,
           "isValue": false,
           "why": null
         }
@@ -1165,8 +1749,8 @@
       "date": "2026-08-21T00:10:00Z",
       "moneyline": {
         "Bovada": {
-          "home": "1.52",
-          "away": "2.57"
+          "home": "1.53",
+          "away": "2.56"
         },
         "Bet365": {
           "home": "1.52",
@@ -1175,9 +1759,9 @@
       },
       "total": {
         "Bovada": {
-          "line": 7.5,
-          "over": "1.63",
-          "under": "2.20"
+          "line": 7,
+          "over": "1.47",
+          "under": "2.60"
         },
         "Bet365": {
           "line": 8.5,
@@ -1187,9 +1771,9 @@
       },
       "spread": {
         "Bovada": {
-          "homeLine": -4.5,
-          "homeOdds": "4.75",
-          "awayOdds": "1.17"
+          "homeLine": -3,
+          "homeOdds": "3.25",
+          "awayOdds": "1.32"
         },
         "Bet365": {
           "homeLine": -1.5,
@@ -1205,11 +1789,11 @@
           "player": "Los Angeles Angels",
           "line": null,
           "side": "gana",
-          "odds": "2.57",
+          "odds": "2.56",
           "bookmaker": "Bovada",
           "ourProb": 0.342,
-          "impliedProb": 0.389,
-          "edge": -0.047,
+          "impliedProb": 0.391,
+          "edge": -0.048,
           "isValue": false,
           "why": "Los Angeles Angels tiene mas lesionados en la lista (8 vs 4 de Houston Astros) — jugado a favor del rival"
         },
@@ -1219,11 +1803,11 @@
           "player": "Houston Astros",
           "line": null,
           "side": "gana",
-          "odds": "1.52",
+          "odds": "1.53",
           "bookmaker": "Bovada",
           "ourProb": 0.658,
-          "impliedProb": 0.658,
-          "edge": 0,
+          "impliedProb": 0.654,
+          "edge": 0.004,
           "isValue": false,
           "why": "Houston Astros tiene menos lesionados en la lista (4 vs 8 de Los Angeles Angels)"
         }
@@ -1241,7 +1825,7 @@
           "market": "Moneyline",
           "side": "gana",
           "line": null,
-          "odds": "1.84",
+          "odds": "1.80",
           "ourProb": 0.651,
           "game": "New York Yankees @ Baltimore Orioles"
         },
@@ -1250,12 +1834,12 @@
           "market": "Moneyline",
           "side": "gana",
           "line": null,
-          "odds": "1.78",
+          "odds": "1.76",
           "ourProb": 0.656,
           "game": "Seattle Mariners @ Milwaukee Brewers"
         }
       ],
-      "combinedOdds": 3.28,
+      "combinedOdds": 3.17,
       "combinedProb": 0.427
     },
     {
@@ -1268,7 +1852,7 @@
           "market": "Moneyline",
           "side": "gana",
           "line": null,
-          "odds": "1.72",
+          "odds": "1.71",
           "ourProb": 0.665,
           "game": "Athletics @ Kansas City Royals"
         },
@@ -1277,7 +1861,7 @@
           "market": "Moneyline",
           "side": "gana",
           "line": null,
-          "odds": "1.84",
+          "odds": "1.80",
           "ourProb": 0.651,
           "game": "New York Yankees @ Baltimore Orioles"
         },
@@ -1286,13 +1870,157 @@
           "market": "Moneyline",
           "side": "gana",
           "line": null,
-          "odds": "1.78",
+          "odds": "1.76",
           "ourProb": 0.656,
           "game": "Seattle Mariners @ Milwaukee Brewers"
         }
       ],
-      "combinedOdds": 5.63,
+      "combinedOdds": 5.42,
       "combinedProb": 0.284
+    },
+    {
+      "label": "Solo Bases Totales (2 picks)",
+      "category": "tb",
+      "bookmaker": "Bet365",
+      "legs": [
+        {
+          "player": "Munetaka Murakami",
+          "market": "Total Bases O/U",
+          "side": "over",
+          "line": 0.5,
+          "odds": "1.58",
+          "ourProb": 0.883,
+          "game": "Atlanta Braves @ Chicago White Sox"
+        },
+        {
+          "player": "Matt Olson",
+          "market": "Total Bases O/U",
+          "side": "over",
+          "line": 0.5,
+          "odds": "1.43",
+          "ourProb": 0.882,
+          "game": "Atlanta Braves @ Chicago White Sox"
+        }
+      ],
+      "combinedOdds": 2.26,
+      "combinedProb": 0.779
+    },
+    {
+      "label": "Solo Bases Totales (3 picks)",
+      "category": "tb",
+      "bookmaker": "Bet365",
+      "legs": [
+        {
+          "player": "Munetaka Murakami",
+          "market": "Total Bases O/U",
+          "side": "over",
+          "line": 0.5,
+          "odds": "1.58",
+          "ourProb": 0.883,
+          "game": "Atlanta Braves @ Chicago White Sox"
+        },
+        {
+          "player": "Andrew Benintendi",
+          "market": "Total Bases O/U",
+          "side": "over",
+          "line": 0.5,
+          "odds": "1.74",
+          "ourProb": 0.751,
+          "game": "Atlanta Braves @ Chicago White Sox"
+        },
+        {
+          "player": "Miguel Vargas",
+          "market": "Total Bases O/U",
+          "side": "over",
+          "line": 0.5,
+          "odds": "1.47",
+          "ourProb": 0.847,
+          "game": "Atlanta Braves @ Chicago White Sox"
+        }
+      ],
+      "combinedOdds": 4.04,
+      "combinedProb": 0.562
+    },
+    {
+      "label": "Mixto (3 picks)",
+      "category": "mixto",
+      "bookmaker": "Bet365",
+      "legs": [
+        {
+          "player": "Munetaka Murakami",
+          "market": "Total Bases O/U",
+          "side": "over",
+          "line": 0.5,
+          "odds": "1.58",
+          "ourProb": 0.883,
+          "game": "Atlanta Braves @ Chicago White Sox"
+        },
+        {
+          "player": "Tristan Peters",
+          "market": "Total Bases O/U",
+          "side": "over",
+          "line": 0.5,
+          "odds": "1.71",
+          "ourProb": 0.747,
+          "game": "Atlanta Braves @ Chicago White Sox"
+        },
+        {
+          "player": "Colson Montgomery",
+          "market": "Total Bases O/U",
+          "side": "over",
+          "line": 0.5,
+          "odds": "1.60",
+          "ourProb": 0.773,
+          "game": "Atlanta Braves @ Chicago White Sox"
+        }
+      ],
+      "combinedOdds": 4.32,
+      "combinedProb": 0.51
+    },
+    {
+      "label": "Mixto (4 picks)",
+      "category": "mixto",
+      "bookmaker": "Bet365",
+      "legs": [
+        {
+          "player": "Munetaka Murakami",
+          "market": "Total Bases O/U",
+          "side": "over",
+          "line": 0.5,
+          "odds": "1.58",
+          "ourProb": 0.883,
+          "game": "Atlanta Braves @ Chicago White Sox"
+        },
+        {
+          "player": "Lane Thomas",
+          "market": "Total Bases O/U",
+          "side": "over",
+          "line": 0.5,
+          "odds": "1.83",
+          "ourProb": 0.684,
+          "game": "Atlanta Braves @ Chicago White Sox"
+        },
+        {
+          "player": "Michael Harris II",
+          "market": "Total Bases O/U",
+          "side": "over",
+          "line": 0.5,
+          "odds": "1.42",
+          "ourProb": 0.834,
+          "game": "Atlanta Braves @ Chicago White Sox"
+        },
+        {
+          "player": "Chase Meidroth",
+          "market": "Total Bases O/U",
+          "side": "over",
+          "line": 0.5,
+          "odds": "1.55",
+          "ourProb": 0.775,
+          "game": "Atlanta Braves @ Chicago White Sox"
+        }
+      ],
+      "combinedOdds": 6.36,
+      "combinedProb": 0.39
     }
   ],
   "injuries": [
