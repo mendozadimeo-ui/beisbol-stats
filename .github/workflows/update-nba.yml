@@ -1,8 +1,9 @@
 name: Update NBA odds snapshot
 
 on:
-  schedule:
-    - cron: "0 */2 * * *"
+  # Pausado: nba.html todavia no existe en el sitio, asi que esta corrida gastaba
+  # cuota de odds-api.io (compartida con MLB/NFL/Futbol) cada 2 horas por nada.
+  # Reactivar el cron cuando el frontend de NBA este listo.
   workflow_dispatch: {}
 
 permissions:

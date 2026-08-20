@@ -81,6 +81,27 @@ function normalizeTeam(name) {
 }
 
 // ---------- Cuotas (odds-api.io) ----------
+// /odds/multi trae hasta 10 eventos por llamada y cuenta como 1 sola call contra
+// la cuota horaria (100/hora en el plan free) -- antes pedia 1 llamada de /odds
+// POR EVENTO, lo que agotaba la cuota horaria en una sola corrida del pipeline
+// (llegabamos a Europa League/Conference League, las ultimas ligas del loop, ya
+// sin cuota, y quedaban sin ningun pick). Mismo patron que ya usan MLB/NBA/NFL.
+async function fetchOddsMultiBatched(events) {
+  const oddsById = new Map();
+  for (let i = 0; i < events.length; i += 10) {
+    const batch = events.slice(i, i + 10);
+    await sleep(300);
+    try {
+      const eventIds = batch.map(ev => ev.id).join(",");
+      const list = await getJSON(`${ODDS_BASE}/odds/multi?apiKey=${ODDS_API_KEY}&eventIds=${eventIds}&bookmakers=${BOOKMAKERS}`);
+      for (const item of list) oddsById.set(item.id, item);
+    } catch (e) {
+      console.error(`  odds error batch (${batch.map(ev => ev.id).join(",")}):`, e.message);
+    }
+  }
+  return oddsById;
+}
+
 async function fetchOddsForLeague(oddsLeagueSlugs) {
   const oddsByMatch = {}; // key: normAway|normHome -> {moneyline, total}
   for (const slug of oddsLeagueSlugs) {
@@ -90,16 +111,13 @@ async function fetchOddsForLeague(oddsLeagueSlugs) {
       );
       const cutoff = Date.now() + 5 * 24 * 60 * 60 * 1000; // solo los proximos 5 dias, para no gastar cuota en fixtures lejanos
       const soon = events.filter(ev => new Date(ev.date).getTime() <= cutoff);
+      const oddsById = await fetchOddsMultiBatched(soon);
       for (const ev of soon) {
-        await sleep(300);
-        try {
-          const odds = await getJSON(`${ODDS_BASE}/odds?apiKey=${ODDS_API_KEY}&eventId=${ev.id}&bookmakers=${BOOKMAKERS}`);
-          const parsed = extractFootballOdds(odds);
-          const key = `${normalizeTeam(ev.away)}|${normalizeTeam(ev.home)}`;
-          oddsByMatch[key] = parsed;
-        } catch (e) {
-          console.error(`  odds error evento ${ev.id}:`, e.message);
-        }
+        const raw = oddsById.get(ev.id);
+        if (!raw) continue;
+        const parsed = extractFootballOdds(raw);
+        const key = `${normalizeTeam(ev.away)}|${normalizeTeam(ev.home)}`;
+        oddsByMatch[key] = parsed;
       }
     } catch (e) {
       console.error(`Odds no disponibles para ${slug}:`, e.message);
@@ -305,38 +323,31 @@ async function fetchLeagueData(leagueKey) {
 // El mismo evento nos da equipos + fecha + cuotas en una sola pasada. No hay tabla
 // de posiciones posible por esta via (odds-api.io no la tiene).
 async function fetchOddsApiFixtures(oddsLeagueSlugs) {
-  const matches = [];
   const seenIds = new Set();
+  const soonEvents = [];
   for (const slug of oddsLeagueSlugs) {
     try {
       const events = await getJSON(
         `${ODDS_BASE}/events?apiKey=${ODDS_API_KEY}&sport=football&league=${slug}&status=pending&limit=40`
       );
       const cutoff = Date.now() + 5 * 24 * 60 * 60 * 1000;
-      const soon = events.filter(ev => new Date(ev.date).getTime() <= cutoff);
-      for (const ev of soon) {
+      for (const ev of events) {
+        if (new Date(ev.date).getTime() > cutoff) continue;
         if (seenIds.has(ev.id)) continue;
         seenIds.add(ev.id);
-        await sleep(300);
-        let odds = null;
-        try {
-          const raw = await getJSON(`${ODDS_BASE}/odds?apiKey=${ODDS_API_KEY}&eventId=${ev.id}&bookmakers=${BOOKMAKERS}`);
-          odds = extractFootballOdds(raw);
-        } catch (e) {
-          console.error(`  odds error evento ${ev.id}:`, e.message);
-        }
-        matches.push({
-          id: ev.id, home: ev.home, homeLogo: null, away: ev.away, awayLogo: null,
-          kickoff: ev.date, status: ev.status === "pending" ? "scheduled" : ev.status,
-          score: ev.status !== "pending" && ev.scores ? { home: ev.scores.home, away: ev.scores.away } : null,
-          odds
-        });
+        soonEvents.push(ev);
       }
     } catch (e) {
       console.error(`Fixtures odds-api no disponibles para ${slug}:`, e.message);
     }
   }
-  return matches;
+  const oddsById = await fetchOddsMultiBatched(soonEvents);
+  return soonEvents.map(ev => ({
+    id: ev.id, home: ev.home, homeLogo: null, away: ev.away, awayLogo: null,
+    kickoff: ev.date, status: ev.status === "pending" ? "scheduled" : ev.status,
+    score: ev.status !== "pending" && ev.scores ? { home: ev.scores.home, away: ev.scores.away } : null,
+    odds: oddsById.has(ev.id) ? extractFootballOdds(oddsById.get(ev.id)) : null
+  }));
 }
 
 // ---------- Historial y calificacion (solo en ligas con modelo: EPL/LaLiga/SerieA) ----------
