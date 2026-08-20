@@ -174,6 +174,23 @@ function binomialProbAtLeastOneHit(avg, atBatsPerGame) {
   return Math.max(0, Math.min(1, 1 - p0));
 }
 
+// Para lineas de 2+ hits (Over 1.5) el codigo usaba Poisson(avg*AB) -- mismo
+// error estructural que tenia Bases Totales: hits por partido esta acotado por
+// los turnos al bate (no es un conteo libre), asi que Poisson sobreestima la
+// cola alta. Con N turnos al bate enteros, P(al menos 2 hits) es exacta via
+// binomial: 1 - P(0 hits) - P(1 hit).
+function binomialProbOver(line, atBatsPerGame, p) {
+  const n = Math.max(1, Math.round(atBatsPerGame));
+  const k = Math.floor(line);
+  let cdf = 0;
+  for (let i = 0; i <= k && i <= n; i++) {
+    let comb = 1;
+    for (let j = 0; j < i; j++) comb = comb * (n - j) / (j + 1);
+    cdf += comb * Math.pow(p, i) * Math.pow(1 - p, n - i);
+  }
+  return Math.max(0, Math.min(1, 1 - cdf));
+}
+
 // Bases totales por partido NO es Poisson: es la suma de un numero acotado de
 // turnos al bate (3-5 por partido), cada uno con resultado 0/1/2/3/4 bases segun
 // tasa real de sencillo/doble/triple/HR. Poisson(lambda = promedio de temporada)
@@ -638,10 +655,11 @@ async function evaluateProp(prop, awayTeam, homeTeam, gameCtx) {
     ourProbOver = poissonProbOver(prop.line, proj.kPerStart);
   } else if (prop.market === "Hits O/U" && !proj.isPitcher && proj.avg != null) {
     // Hits O/U casi siempre es linea 0.5 (al menos 1 hit) -- modelo ya afinado,
-    // no le metemos los ajustes de parque/clima/matchup de HR y TB.
+    // no le metemos los ajustes de parque/clima/matchup de HR y TB. Si algun dia
+    // aparece una linea de 1.5+ (2 o mas hits), se usa binomial exacto (no Poisson).
     ourProbOver = prop.line < 1
       ? binomialProbAtLeastOneHit(proj.avg, abPerGame)
-      : poissonProbOver(prop.line, proj.avg * abPerGame);
+      : binomialProbOver(prop.line, abPerGame, proj.avg);
   } else if (prop.market === "Home Runs O/U" && !proj.isPitcher && proj.hrPerGame != null) {
     const seasonHrPerAB = abPerGame > 0 ? proj.hrPerGame / abPerGame : 0;
     const [handSplit, matchup, recentRate] = await Promise.all([
