@@ -629,6 +629,7 @@
       <button data-view="stats" class="active">Estadísticas</button>
       <button data-view="injuries">Lesionados</button>
       <button data-view="players">Jugadores</button>
+      <button data-view="staff">Pitchers</button>
     </div>
     <div id="leaderStatsView">
       <div class="group-toggle" id="leaderGroupToggle">
@@ -651,6 +652,12 @@
       </div>
       <div id="playerResults" class="player-results"></div>
       <div id="playerDetail"></div>
+    </div>
+    <div id="leaderStaffView" style="display:none;">
+      <div id="pitchersYesterdaySection"><div class="loading">Cargando pitcheo de ayer…</div></div>
+      <div class="props-title" style="margin-top:16px;">Rotación y bullpen por equipo</div>
+      <div id="staffTeamPicker"><div class="loading">Cargando equipos…</div></div>
+      <div id="staffTeamResult"></div>
     </div>
   </section>
 
@@ -1903,7 +1910,9 @@ function selectLeaderView(view) {
   document.getElementById("leaderStatsView").style.display = view === "stats" ? "" : "none";
   document.getElementById("leaderInjuriesView").style.display = view === "injuries" ? "" : "none";
   document.getElementById("leaderPlayersView").style.display = view === "players" ? "" : "none";
+  document.getElementById("leaderStaffView").style.display = view === "staff" ? "" : "none";
   if (view === "injuries") loadInjuriesTeamPicker();
+  if (view === "staff") { loadPitchersYesterday(); loadStaffTeamPicker(); }
 }
 document.querySelectorAll("#leaderViewToggle button").forEach(btn => {
   btn.addEventListener("click", () => selectLeaderView(btn.dataset.view));
@@ -1997,6 +2006,167 @@ async function loadTeamInjuries(teamId, teamName) {
       </div>`;
   } catch (e) {
     el.innerHTML = `<div class="error">No se pudieron cargar los lesionados (${e.message}).</div>`;
+  }
+}
+
+// ---------- Líderes: sub-tab Pitchers (de ayer + rotación/bullpen por equipo) ----------
+function yesterdayISO() {
+  const d = new Date();
+  d.setDate(d.getDate() - 1);
+  return d.toISOString().slice(0, 10);
+}
+
+function pitcherLineHTML(p) {
+  const st = p.stats.pitching;
+  const decision = st.note ? ` <span class="muted">${st.note}</span>` : "";
+  return `
+    <div class="prop-row">
+      <div>
+        <span class="prop-desc"><b>${p.person.fullName}</b>${decision} — ${p.game}</span>
+        <div class="matchup-line">${st.inningsPitched} IP · ${st.hits} H · ${st.runs} C · ${st.earnedRuns} CL · ${st.strikeOuts} K · ${st.baseOnBalls} BB</div>
+      </div>
+    </div>`;
+}
+
+async function loadPitchersYesterday() {
+  const el = document.getElementById("pitchersYesterdaySection");
+  const dateStr = yesterdayISO();
+  el.innerHTML = '<div class="loading">Cargando pitcheo de ayer…</div>';
+  try {
+    const sched = await getJSON(`${API}/schedule?sportId=1&date=${dateStr}`);
+    const games = (sched.dates?.[0]?.games ?? []).filter(g => g.status.abstractGameState === "Final");
+    if (!games.length) {
+      el.innerHTML = `<div class="props-section"><div class="props-title">⚾ Pitcheo de ayer (${dateStr})</div><div class="muted">No hubo partidos finalizados ese día.</div></div>`;
+      return;
+    }
+    const boxscores = await Promise.all(games.map(g =>
+      getJSON(`${API}/game/${g.gamePk}/boxscore`)
+        .then(box => ({ game: `${g.teams.away.team.name} @ ${g.teams.home.team.name}`, box }))
+        .catch(() => null)
+    ));
+    const rows = [];
+    for (const entry of boxscores) {
+      if (!entry) continue;
+      for (const side of [entry.box.teams.away, entry.box.teams.home]) {
+        for (const id of side.pitchers ?? []) {
+          const p = side.players[`ID${id}`];
+          if (p?.stats?.pitching?.inningsPitched) rows.push({ ...p, game: entry.game });
+        }
+      }
+    }
+    // Los que mas innings tiraron primero (abridores), despues el resto del bullpen.
+    rows.sort((a, b) => parseFloat(b.stats.pitching.inningsPitched) - parseFloat(a.stats.pitching.inningsPitched));
+    el.innerHTML = `
+      <div class="props-section">
+        <div class="props-title">⚾ Pitcheo de ayer (${dateStr})</div>
+        ${rows.map(pitcherLineHTML).join("")}
+      </div>`;
+  } catch (e) {
+    el.innerHTML = `<div class="error">No se pudo cargar el pitcheo de ayer (${e.message}).</div>`;
+  }
+}
+
+let staffSelectedTeamId = null;
+
+async function loadStaffTeamPicker() {
+  const el = document.getElementById("staffTeamPicker");
+  if (teamsListCache) { renderStaffTeamPicker(); return; }
+  el.innerHTML = '<div class="loading">Cargando equipos…</div>';
+  try {
+    const data = await getJSON(`${API}/teams?sportId=1&season=${currentSeason}`);
+    teamsListCache = (data.teams ?? []).filter(t => t.league?.id === 103 || t.league?.id === 104);
+    renderStaffTeamPicker();
+  } catch (e) {
+    el.innerHTML = `<div class="error">No se pudieron cargar los equipos (${e.message}).</div>`;
+  }
+}
+
+function renderStaffTeamPicker() {
+  const el = document.getElementById("staffTeamPicker");
+  const al = teamsListCache.filter(t => t.league?.id === 103).sort((a, b) => a.name.localeCompare(b.name));
+  const nl = teamsListCache.filter(t => t.league?.id === 104).sort((a, b) => a.name.localeCompare(b.name));
+  const teamBtn = t => `<button data-team-id="${t.id}" class="${String(t.id) === String(staffSelectedTeamId) ? "active" : ""}">${shortTeamName(t.name)}</button>`;
+  el.innerHTML = `
+    <div class="props-title">Liga Americana</div>
+    <div class="stat-chips">${al.map(teamBtn).join("")}</div>
+    <div class="props-title" style="margin-top:10px;">Liga Nacional</div>
+    <div class="stat-chips">${nl.map(teamBtn).join("")}</div>`;
+  el.querySelectorAll("button[data-team-id]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      staffSelectedTeamId = btn.dataset.teamId;
+      el.querySelectorAll("button[data-team-id]").forEach(b => b.classList.toggle("active", b === btn));
+      loadTeamStaff(staffSelectedTeamId, teamsListCache.find(t => String(t.id) === String(staffSelectedTeamId))?.name ?? "");
+    });
+  });
+}
+
+function daysAgoLabel(dateStr) {
+  const days = Math.round((Date.now() - new Date(dateStr + "T12:00:00Z").getTime()) / (24 * 60 * 60 * 1000));
+  if (days <= 0) return "hoy";
+  if (days === 1) return "ayer";
+  return `hace ${days} días`;
+}
+
+async function loadTeamStaff(teamId, teamName) {
+  const el = document.getElementById("staffTeamResult");
+  el.innerHTML = '<div class="loading">Cargando rotación y bullpen…</div>';
+  try {
+    const [rosterData, schedData] = await Promise.all([
+      getJSON(`${API}/teams/${teamId}/roster?rosterType=active`),
+      getJSON(`${API}/schedule?sportId=1&teamId=${teamId}&startDate=${todayISO()}&endDate=${todayISO()}&hydrate=probablePitcher`)
+    ]);
+    const pitchers = (rosterData.roster ?? []).filter(p => p.position?.code === "1");
+    const todayGame = schedData.dates?.[0]?.games?.[0] ?? null;
+    const probable = todayGame
+      ? (todayGame.teams.home.team.id === Number(teamId) ? todayGame.teams.home.probablePitcher : todayGame.teams.away.probablePitcher)
+      : null;
+
+    const withLogs = await Promise.all(pitchers.map(async p => {
+      try {
+        const log = await getJSON(`${API}/people/${p.person.id}/stats?stats=gameLog&group=pitching&season=${currentSeason}`);
+        const last = (log.stats?.[0]?.splits ?? []).slice(-1)[0] ?? null;
+        return { ...p, last };
+      } catch {
+        return { ...p, last: null };
+      }
+    }));
+    // Los que tiraron mas recientemente primero -- son los que menos disponibles
+    // estan hoy (sobre todo el bullpen, que no puede tirar dia tras dia seguido).
+    withLogs.sort((a, b) => {
+      if (!a.last) return 1;
+      if (!b.last) return -1;
+      return new Date(b.last.date) - new Date(a.last.date);
+    });
+
+    const probableHTML = probable ? `
+      <div class="hero-pick" style="margin-bottom:14px;">
+        <div class="hero-pick-label">⭐ Abridor probable de hoy</div>
+        <div class="hero-pick-main">${probable.fullName}</div>
+      </div>` : "";
+
+    const rows = withLogs.map(p => {
+      const l = p.last;
+      const lastLine = l
+        ? `${daysAgoLabel(l.date)} (${l.date}) vs ${l.opponent.name} — ${l.stat.inningsPitched} IP, ${l.stat.hits} H, ${l.stat.runs} C, ${l.stat.strikeOuts} K`
+        : "sin apariciones esta temporada";
+      const isProbable = probable && p.person.id === probable.id;
+      return `
+        <div class="prop-row">
+          <div>
+            <span class="prop-desc"><b>${p.person.fullName}</b>${isProbable ? ' <span class="value-tag">Abridor de hoy</span>' : ""}</span>
+            <div class="matchup-line">Última apertura/salida: ${lastLine}</div>
+          </div>
+        </div>`;
+    }).join("");
+
+    el.innerHTML = `
+      ${probableHTML}
+      <div class="props-section">
+        <div class="props-title">⚾ Staff de pitcheo — ${teamName}</div>
+        ${rows}
+      </div>`;
+  } catch (e) {
+    el.innerHTML = `<div class="error">No se pudo cargar el staff (${e.message}).</div>`;
   }
 }
 
