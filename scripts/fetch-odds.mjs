@@ -1127,7 +1127,46 @@ async function gradePendingPicks(history) {
   history.graded = history.graded.slice(0, 400);
 }
 
+// ---------- Movimiento de linea (contra el snapshot anterior, cada 1-2hs) ----------
+// Es solo informativo (campo why): no lo convertimos en un numero que mueva la
+// probabilidad -- con snapshots cada 1-2hs (no tick a tick como usan las casas)
+// no tenemos la resolucion para afirmar "esto es dinero informado" con certeza,
+// asi que mostramos el movimiento real y dejamos que el usuario lo pese el mismo.
+function buildOddsIndex(previousOutput) {
+  const index = new Map();
+  if (!previousOutput?.games) return index;
+  for (const [gameKey, game] of Object.entries(previousOutput.games)) {
+    for (const p of [...(game.props ?? []), ...(game.moneylinePicks ?? [])]) {
+      index.set(`${gameKey}|${p.market}|${p.player}|${p.line ?? ""}|${p.side}`, parseFloat(p.odds));
+    }
+  }
+  return index;
+}
+function lineMoveNote(previousOdds, currentOddsStr) {
+  const current = parseFloat(currentOddsStr);
+  if (!previousOdds || !current || Number.isNaN(previousOdds) || Number.isNaN(current)) return null;
+  const pctChange = (current - previousOdds) / previousOdds;
+  if (Math.abs(pctChange) < 0.10) return null;
+  return pctChange < 0
+    ? `cuota bajó de ${previousOdds.toFixed(2)} a ${current.toFixed(2)} desde el último chequeo (el mercado se movió hacia este lado)`
+    : `cuota subió de ${previousOdds.toFixed(2)} a ${current.toFixed(2)} desde el último chequeo`;
+}
+function applyLineMovement(picks, gameKey, oddsIndex) {
+  for (const p of picks) {
+    const key = `${gameKey}|${p.market}|${p.player}|${p.line ?? ""}|${p.side}`;
+    const note = lineMoveNote(oddsIndex.get(key), p.odds);
+    if (note) p.why = [p.why, note].filter(Boolean).join(" · ");
+  }
+}
+
 async function main() {
+  let previousOutput = null;
+  try {
+    const fs = await import("node:fs/promises");
+    previousOutput = JSON.parse(await fs.readFile("data/odds.json", "utf8"));
+  } catch { /* primera corrida, o archivo corrupto: seguimos sin movimiento de linea */ }
+  const oddsIndex = buildOddsIndex(previousOutput);
+
   let allEvents;
   try {
     allEvents = await getJSON(
@@ -1224,7 +1263,11 @@ async function main() {
       const hasData = Object.keys(gameOdds.moneyline).length || Object.keys(gameOdds.total).length;
       if (hasData) withOdds++;
 
-      games[`${ev.away}@${ev.home}@${dateISO}`] = {
+      const gameKey = `${ev.away}@${ev.home}@${dateISO}`;
+      applyLineMovement(evaluatedProps, gameKey, oddsIndex);
+      applyLineMovement(moneylineLegs, gameKey, oddsIndex);
+
+      games[gameKey] = {
         home: ev.home,
         away: ev.away,
         date: ev.date,
