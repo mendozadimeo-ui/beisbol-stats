@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-21T03:17:41.957Z",
+  "updatedAt": "2026-08-21T04:55:45.049Z",
   "games": {
     "Atlanta Braves@Milwaukee Brewers@2026-08-21": {
       "home": "Milwaukee Brewers",
@@ -17,9 +17,9 @@
       },
       "total": {
         "Bovada": {
-          "line": 6,
-          "over": "1.83",
-          "under": "2.00"
+          "line": 5.5,
+          "over": "1.67",
+          "under": "2.15"
         },
         "Bet365": {
           "line": 6.5,
@@ -34,9 +34,9 @@
           "awayOdds": "1.51"
         },
         "Bet365": {
-          "homeLine": -1.5,
-          "homeOdds": "2.65",
-          "awayOdds": "1.50"
+          "homeLine": 2.5,
+          "homeOdds": "1.20",
+          "awayOdds": "4.30"
         }
       },
       "props": [
@@ -196,9 +196,9 @@
       },
       "total": {
         "Bovada": {
-          "line": 6.5,
-          "over": "1.40",
-          "under": "2.85"
+          "line": 7,
+          "over": "1.48",
+          "under": "2.55"
         },
         "Bet365": {
           "line": 8,
@@ -218,7 +218,46 @@
           "awayOdds": "1.55"
         }
       },
-      "props": [],
+      "props": [
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "Ryan Gusto",
+          "line": 0.5,
+          "over": "1.00",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 687473,
+          "side": "over",
+          "odds": "1.00",
+          "ourProb": 0.988,
+          "impliedProb": 1,
+          "edge": -0.012,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Brad Lord",
+          "why": null
+        },
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "Brad Lord",
+          "line": 0.5,
+          "over": "1.04",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 695418,
+          "side": "over",
+          "odds": "1.04",
+          "ourProb": 1,
+          "impliedProb": 0.962,
+          "edge": 0.038,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Ryan Gusto",
+          "why": null
+        }
+      ],
       "moneylinePicks": [
         {
           "market": "Moneyline",
@@ -255,10 +294,6 @@
       "away": "San Francisco Giants",
       "date": "2026-08-21T23:10:00Z",
       "moneyline": {
-        "Bovada": {
-          "home": "1.54",
-          "away": "2.52"
-        },
         "Bet365": {
           "home": "1.55",
           "away": "2.50"
@@ -266,9 +301,9 @@
       },
       "total": {
         "Bovada": {
-          "line": 8,
-          "over": "1.95",
-          "under": "1.87"
+          "line": 7.5,
+          "over": "1.91",
+          "under": "1.91"
         },
         "Bet365": {
           "line": 7.5,
@@ -277,15 +312,10 @@
         }
       },
       "spread": {
-        "Bovada": {
-          "homeLine": -1.5,
-          "homeOdds": "2.20",
-          "awayOdds": "1.71"
-        },
         "Bet365": {
-          "homeLine": -1.5,
-          "homeOdds": "2.20",
-          "awayOdds": "1.71"
+          "homeLine": -4.5,
+          "homeOdds": "5.50",
+          "awayOdds": "1.13"
         }
       },
       "props": [
@@ -328,36 +358,7 @@
           "why": null
         }
       ],
-      "moneylinePicks": [
-        {
-          "market": "Moneyline",
-          "kind": "moneyline",
-          "player": "San Francisco Giants",
-          "line": null,
-          "side": "gana",
-          "odds": "2.52",
-          "bookmaker": "Bovada",
-          "ourProb": 0.331,
-          "impliedProb": 0.397,
-          "edge": -0.066,
-          "isValue": false,
-          "why": "San Francisco Giants tiene mas lesionados en la lista (14 vs 13 de Boston Red Sox) — jugado a favor del rival"
-        },
-        {
-          "market": "Moneyline",
-          "kind": "moneyline",
-          "player": "Boston Red Sox",
-          "line": null,
-          "side": "gana",
-          "odds": "1.54",
-          "bookmaker": "Bovada",
-          "ourProb": 0.669,
-          "impliedProb": 0.649,
-          "edge": 0.02,
-          "isValue": false,
-          "why": "Boston Red Sox tiene menos lesionados en la lista (13 vs 14 de San Francisco Giants)"
-        }
-      ]
+      "moneylinePicks": []
     },
     "Tampa Bay Rays@Baltimore Orioles@2026-08-21": {
       "home": "Baltimore Orioles",
@@ -392,12 +393,51 @@
           "awayOdds": "1.54"
         },
         "Bet365": {
-          "homeLine": -1.5,
-          "homeOdds": "2.50",
-          "awayOdds": "1.55"
+          "homeLine": -2.5,
+          "homeOdds": "3.50",
+          "awayOdds": "1.28"
         }
       },
-      "props": [],
+      "props": [
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "Freddy Peralta",
+          "line": 0.5,
+          "over": "1.00",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 642547,
+          "side": "over",
+          "odds": "1.00",
+          "ourProb": 0.993,
+          "impliedProb": 1,
+          "edge": -0.007,
+          "isValue": false,
+          "pitcherHand": "L",
+          "pitcherName": "Trevor Rogers",
+          "why": null
+        },
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "Trevor Rogers",
+          "line": 0.5,
+          "over": "1.00",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 669432,
+          "side": "over",
+          "odds": "1.00",
+          "ourProb": 0.991,
+          "impliedProb": 1,
+          "edge": -0.009,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Freddy Peralta",
+          "why": null
+        }
+      ],
       "moneylinePicks": [
         {
           "market": "Moneyline",
@@ -436,7 +476,7 @@
       "moneyline": {
         "Bovada": {
           "home": "1.68",
-          "away": "2.24"
+          "away": "2.23"
         },
         "Bet365": {
           "home": "1.66",
@@ -472,17 +512,17 @@
           "market": "Pitcher Strikeouts O/U",
           "kind": "pitching",
           "player": "Sean Manaea",
-          "line": 0.5,
-          "over": "1.00",
+          "line": 5.5,
+          "over": "1.66",
           "under": null,
           "bookmaker": "Bet365",
           "playerId": 640455,
           "side": "over",
-          "odds": "1.00",
-          "ourProb": 1,
-          "impliedProb": 1,
-          "edge": 0,
-          "isValue": false,
+          "odds": "1.66",
+          "ourProb": 0.907,
+          "impliedProb": 0.602,
+          "edge": 0.305,
+          "isValue": true,
           "pitcherHand": "R",
           "pitcherName": "Sean Burke",
           "why": null
@@ -514,11 +554,11 @@
           "player": "New York Mets",
           "line": null,
           "side": "gana",
-          "odds": "2.24",
+          "odds": "2.23",
           "bookmaker": "Bovada",
           "ourProb": 0.493,
-          "impliedProb": 0.446,
-          "edge": 0.046,
+          "impliedProb": 0.448,
+          "edge": 0.044,
           "isValue": false,
           "why": "New York Mets tiene menos lesionados en la lista (8 vs 11 de Chicago White Sox)"
         },
@@ -566,14 +606,14 @@
       },
       "spread": {
         "Bovada": {
-          "homeLine": -3,
-          "homeOdds": "3.25",
-          "awayOdds": "1.32"
+          "homeLine": 1,
+          "homeOdds": "1.34",
+          "awayOdds": "3.10"
         },
         "Bet365": {
           "homeLine": 1.5,
-          "homeOdds": "1.28",
-          "awayOdds": "3.50"
+          "homeOdds": "1.29",
+          "awayOdds": "3.40"
         }
       },
       "props": [
@@ -663,29 +703,68 @@
       },
       "total": {
         "Bovada": {
-          "line": 8.5,
-          "over": "2.00",
-          "under": "1.83"
+          "line": 7,
+          "over": "1.50",
+          "under": "2.50"
         },
         "Bet365": {
           "line": 8.5,
-          "over": "1.86",
-          "under": "1.95"
+          "over": "1.90",
+          "under": "1.90"
         }
       },
       "spread": {
         "Bovada": {
-          "homeLine": 1.5,
-          "homeOdds": "1.63",
-          "awayOdds": "2.35"
+          "homeLine": -1.5,
+          "homeOdds": "3.00",
+          "awayOdds": "1.36"
         },
         "Bet365": {
           "homeLine": 1.5,
-          "homeOdds": "1.62",
-          "awayOdds": "2.35"
+          "homeOdds": "1.60",
+          "awayOdds": "2.40"
         }
       },
-      "props": [],
+      "props": [
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "Noah Cameron",
+          "line": 0.5,
+          "over": "1.00",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 702070,
+          "side": "over",
+          "odds": "1.00",
+          "ourProb": 0.996,
+          "impliedProb": 1,
+          "edge": -0.004,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Troy Melton",
+          "why": null
+        },
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "Troy Melton",
+          "line": 0.5,
+          "over": "1.00",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 675512,
+          "side": "over",
+          "odds": "1.00",
+          "ourProb": 0.995,
+          "impliedProb": 1,
+          "edge": -0.005,
+          "isValue": false,
+          "pitcherHand": "L",
+          "pitcherName": "Noah Cameron",
+          "why": null
+        }
+      ],
       "moneylinePicks": [
         {
           "market": "Moneyline",
@@ -723,8 +802,8 @@
       "date": "2026-08-22T00:15:00Z",
       "moneyline": {
         "Bovada": {
-          "home": "1.69",
-          "away": "2.22"
+          "home": "1.68",
+          "away": "2.23"
         },
         "Bet365": {
           "home": "1.66",
@@ -733,9 +812,9 @@
       },
       "total": {
         "Bovada": {
-          "line": 7.5,
-          "over": "1.91",
-          "under": "1.91"
+          "line": 6,
+          "over": "1.41",
+          "under": "2.80"
         },
         "Bet365": {
           "line": 7.5,
@@ -745,14 +824,14 @@
       },
       "spread": {
         "Bovada": {
-          "homeLine": -1.5,
-          "homeOdds": "2.50",
-          "awayOdds": "1.57"
+          "homeLine": -2.5,
+          "homeOdds": "3.25",
+          "awayOdds": "1.32"
         },
         "Bet365": {
-          "homeLine": -1.5,
-          "homeOdds": "2.55",
-          "awayOdds": "1.54"
+          "homeLine": 3.5,
+          "homeOdds": "1.12",
+          "awayOdds": "5.75"
         }
       },
       "props": [],
@@ -763,11 +842,11 @@
           "player": "Los Angeles Angels",
           "line": null,
           "side": "gana",
-          "odds": "2.22",
+          "odds": "2.23",
           "bookmaker": "Bovada",
           "ourProb": 0.474,
-          "impliedProb": 0.45,
-          "edge": 0.023,
+          "impliedProb": 0.448,
+          "edge": 0.025,
           "isValue": false,
           "why": null
         },
@@ -777,11 +856,11 @@
           "player": "Texas Rangers",
           "line": null,
           "side": "gana",
-          "odds": "1.69",
+          "odds": "1.68",
           "bookmaker": "Bovada",
           "ourProb": 0.526,
-          "impliedProb": 0.592,
-          "edge": -0.065,
+          "impliedProb": 0.595,
+          "edge": -0.069,
           "isValue": false,
           "why": "peleando de cerca por el título de división"
         }
@@ -793,8 +872,8 @@
       "date": "2026-08-22T00:40:00Z",
       "moneyline": {
         "Bovada": {
-          "home": "2.27",
-          "away": "1.66"
+          "home": "2.29",
+          "away": "1.65"
         },
         "Bet365": {
           "home": "2.35",
@@ -809,8 +888,8 @@
         },
         "Bet365": {
           "line": 11,
-          "over": "1.95",
-          "under": "1.86"
+          "over": "2.00",
+          "under": "1.83"
         }
       },
       "spread": {
@@ -825,7 +904,46 @@
           "awayOdds": "2.00"
         }
       },
-      "props": [],
+      "props": [
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "Tanner Gordon",
+          "line": 1.5,
+          "over": "1.16",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 685299,
+          "side": "over",
+          "odds": "1.16",
+          "ourProb": 1,
+          "impliedProb": 0.862,
+          "edge": 0.138,
+          "isValue": false,
+          "pitcherHand": "L",
+          "pitcherName": "Joey Cantillo",
+          "why": null
+        },
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "Joey Cantillo",
+          "line": 3.5,
+          "over": "1.14",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 676282,
+          "side": "over",
+          "odds": "1.14",
+          "ourProb": 0.78,
+          "impliedProb": 0.877,
+          "edge": -0.097,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Tanner Gordon",
+          "why": null
+        }
+      ],
       "moneylinePicks": [
         {
           "market": "Moneyline",
@@ -833,11 +951,11 @@
           "player": "Cleveland Guardians",
           "line": null,
           "side": "gana",
-          "odds": "1.66",
+          "odds": "1.65",
           "bookmaker": "Bovada",
           "ourProb": 0.594,
-          "impliedProb": 0.602,
-          "edge": -0.008,
+          "impliedProb": 0.606,
+          "edge": -0.012,
           "isValue": false,
           "why": "Cleveland Guardians tiene menos lesionados en la lista (3 vs 10 de Colorado Rockies) · peleando de cerca por el comodín"
         },
@@ -847,11 +965,11 @@
           "player": "Colorado Rockies",
           "line": null,
           "side": "gana",
-          "odds": "2.27",
+          "odds": "2.29",
           "bookmaker": "Bovada",
           "ourProb": 0.406,
-          "impliedProb": 0.441,
-          "edge": -0.034,
+          "impliedProb": 0.437,
+          "edge": -0.031,
           "isValue": false,
           "why": "Colorado Rockies tiene mas lesionados en la lista (10 vs 3 de Cleveland Guardians) — jugado a favor del rival"
         }
@@ -867,8 +985,8 @@
           "away": "2.27"
         },
         "Bet365": {
-          "home": "1.71",
-          "away": "2.20"
+          "home": "1.66",
+          "away": "2.25"
         }
       },
       "total": {
@@ -885,14 +1003,14 @@
       },
       "spread": {
         "Bovada": {
-          "homeLine": -1.5,
-          "homeOdds": "2.40",
-          "awayOdds": "1.61"
+          "homeLine": -3,
+          "homeOdds": "3.80",
+          "awayOdds": "1.24"
         },
         "Bet365": {
-          "homeLine": -1.5,
-          "homeOdds": "2.55",
-          "awayOdds": "1.54"
+          "homeLine": -2.5,
+          "homeOdds": "3.20",
+          "awayOdds": "1.31"
         }
       },
       "props": [
@@ -900,16 +1018,16 @@
           "market": "Pitcher Strikeouts O/U",
           "kind": "pitching",
           "player": "Eduardo Rodriguez",
-          "line": 1.5,
-          "over": "1.01",
+          "line": 6.5,
+          "over": "3.02",
           "under": null,
           "bookmaker": "Bet365",
           "playerId": 593958,
           "side": "over",
-          "odds": "1.01",
-          "ourProb": 0.925,
-          "impliedProb": 0.99,
-          "edge": -0.066,
+          "odds": "3.02",
+          "ourProb": 0.137,
+          "impliedProb": 0.331,
+          "edge": -0.194,
           "isValue": false,
           "pitcherHand": "L",
           "pitcherName": "Nick Lodolo",
@@ -982,9 +1100,9 @@
       },
       "total": {
         "Bovada": {
-          "line": 8,
-          "over": "1.87",
-          "under": "1.95"
+          "line": 6.5,
+          "over": "1.43",
+          "under": "2.70"
         },
         "Bet365": {
           "line": 8,
@@ -1028,16 +1146,16 @@
           "market": "Pitcher Strikeouts O/U",
           "kind": "pitching",
           "player": "Yoshinobu Yamamoto",
-          "line": 1.5,
-          "over": "1.00",
+          "line": 5.5,
+          "over": "1.30",
           "under": null,
           "bookmaker": "Bet365",
           "playerId": 808967,
           "side": "over",
-          "odds": "1.00",
-          "ourProb": 0.985,
-          "impliedProb": 1,
-          "edge": -0.015,
+          "odds": "1.30",
+          "ourProb": 0.583,
+          "impliedProb": 0.769,
+          "edge": -0.186,
           "isValue": false,
           "pitcherHand": "R",
           "pitcherName": "Bubba Chandler",
@@ -1103,14 +1221,14 @@
       },
       "spread": {
         "Bovada": {
-          "homeLine": 1.5,
-          "homeOdds": "1.56",
-          "awayOdds": "2.55"
+          "homeLine": -1.5,
+          "homeOdds": "2.80",
+          "awayOdds": "1.41"
         },
         "Bet365": {
           "homeLine": -3.5,
-          "homeOdds": "5.50",
-          "awayOdds": "1.13"
+          "homeOdds": "5.25",
+          "awayOdds": "1.14"
         }
       },
       "props": [

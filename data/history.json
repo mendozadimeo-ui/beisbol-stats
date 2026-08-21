@@ -321,6 +321,23 @@
       "edge": 0.071,
       "why": "Kansas City Royals tiene menos lesionados en la lista (11 vs 14 de Detroit Tigers)",
       "recordedAt": "2026-08-20T22:47:18.455Z"
+    },
+    {
+      "id": "2026-08-21|824559|Pitcher Strikeouts O/U|Sean Manaea|5.5|over",
+      "date": "2026-08-21",
+      "gamePk": 824559,
+      "game": "New York Mets @ Chicago White Sox",
+      "market": "Pitcher Strikeouts O/U",
+      "player": "Sean Manaea",
+      "playerId": 640455,
+      "line": 5.5,
+      "side": "over",
+      "odds": "1.66",
+      "bookmaker": "Bet365",
+      "ourProb": 0.907,
+      "edge": 0.305,
+      "why": null,
+      "recordedAt": "2026-08-21T04:55:45.068Z"
     }
   ],
   "graded": [
