@@ -2431,62 +2431,112 @@ function resultRowHTML(p) {
     </div>`;
 }
 
-async function loadResults() {
+// HR es un mercado estructuralmente distinto (probabilidad baja por naturaleza,
+// ver MIN_REALISTIC_PROB_HR en el pipeline) -- mezclarlo en el numero general de
+// acierto lo distorsiona, porque no es comparable contra Moneyline/Hits/Bases
+// Totales/Pitcheo (todos con piso de 50-55%). El record principal lo excluye por
+// defecto; el desglose por mercado de abajo lo sigue mostrando aparte, y el
+// filtro deja verlo solo si se quiere.
+const RESULTS_MARKETS = ["Moneyline", "Hits O/U", "Total Bases O/U", "Pitcher Strikeouts O/U", "Home Runs O/U"];
+let resultsGradedCache = [];
+let resultsPendingCache = [];
+let resultsMarketFilter = "all";
+
+function filterGraded(graded, filter) {
+  if (filter === "all") return graded.filter(p => p.market !== "Home Runs O/U");
+  return graded.filter(p => p.market === filter);
+}
+
+function renderResultsSummary() {
   const summaryEl = document.getElementById("resultsSummary");
+  const filtered = filterGraded(resultsGradedCache, resultsMarketFilter);
+  const wins = filtered.filter(p => p.result === "win").length;
+  const losses = filtered.filter(p => p.result === "loss").length;
+  const winPct = wins + losses ? Math.round((wins / (wins + losses)) * 100) : 0;
+  const recordLabel = resultsMarketFilter === "all" ? "Récord general (sin HR)" : `Récord — ${MARKET_LABELS[resultsMarketFilter] ?? resultsMarketFilter}`;
+
+  const byMarket = {};
+  resultsGradedCache.forEach(p => {
+    byMarket[p.market] = byMarket[p.market] ?? { w: 0, l: 0 };
+    if (p.result === "win") byMarket[p.market].w++; else byMarket[p.market].l++;
+  });
+
+  const byDate = {};
+  filtered.forEach(p => {
+    byDate[p.date] = byDate[p.date] ?? { w: 0, l: 0 };
+    if (p.result === "win") byDate[p.date].w++; else byDate[p.date].l++;
+  });
+  const dateRows = Object.entries(byDate).sort((a, b) => b[0].localeCompare(a[0]));
+
+  const marketLabel = m => m === "Moneyline" ? "Moneyline" : (MARKET_LABELS[m] ?? m);
+
+  summaryEl.innerHTML = `
+    <div class="results-summary-grid">
+      <div class="results-stat-box"><div class="v">${wins}-${losses}</div><div class="l">${recordLabel}</div></div>
+      <div class="results-stat-box"><div class="v ${winPct >= 50 ? "win" : "loss"}">${winPct}%</div><div class="l">% de acierto</div></div>
+      <div class="results-stat-box"><div class="v">${resultsPendingCache.length}</div><div class="l">Pendientes</div></div>
+    </div>
+    <div class="group-toggle" id="resultsMarketToggle" style="margin-top:12px;">
+      ${["all", ...RESULTS_MARKETS].map(m => `<button data-market="${m}" class="${m === resultsMarketFilter ? "active" : ""}">${m === "all" ? "Todos (sin HR)" : marketLabel(m)}</button>`).join("")}
+    </div>
+    <div class="props-section" style="margin-top:12px;">
+      <div class="props-title">Acierto por mercado</div>
+      ${RESULTS_MARKETS.map(m => {
+        const r = byMarket[m] ?? { w: 0, l: 0 };
+        const total = r.w + r.l;
+        const pct = total ? Math.round((r.w / total) * 100) : 0;
+        return `
+          <div class="prop-row">
+            <span class="prop-desc"><b>${marketLabel(m)}</b></span>
+            <span class="prop-odds">${total ? `<b style="color:var(${pct >= 50 ? "--win" : "--loss"});">${r.w}-${r.l}</b> <span class="muted">(${pct}%)</span>` : '<span class="muted">sin calificar todavía</span>'}</span>
+          </div>`;
+      }).join("")}
+    </div>
+    <div class="props-section" style="margin-top:12px;">
+      <div class="props-title">Acierto por día ${resultsMarketFilter === "all" ? "(sin HR)" : `— ${marketLabel(resultsMarketFilter)}`}</div>
+      ${dateRows.length ? dateRows.map(([date, r]) => {
+        const total = r.w + r.l;
+        const pct = total ? Math.round((r.w / total) * 100) : 0;
+        return `
+          <div class="prop-row">
+            <span class="prop-desc"><b>${date}</b></span>
+            <span class="prop-odds"><b style="color:var(${pct >= 50 ? "--win" : "--loss"});">${r.w}-${r.l}</b> <span class="muted">(${pct}%)</span></span>
+          </div>`;
+      }).join("") : '<div class="muted">Sin picks calificados en esta categoría todavía.</div>'}
+    </div>`;
+
+  document.querySelectorAll("#resultsMarketToggle button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      resultsMarketFilter = btn.dataset.market;
+      renderResultsSummary();
+      renderResultsList();
+    });
+  });
+}
+
+function renderResultsList() {
+  const listEl = document.getElementById("resultsList");
+  const filtered = filterGraded(resultsGradedCache, resultsMarketFilter);
+  if (!resultsGradedCache.length) {
+    listEl.innerHTML = `<div class="muted">Todavía no hay picks calificados — hay ${resultsPendingCache.length} pick${resultsPendingCache.length === 1 ? "" : "s"} pendiente${resultsPendingCache.length === 1 ? "" : "s"} esperando a que termine su partido. El historial se arma solo, sin nada cargado a mano: apenas un partido llega a Final, calificamos automáticamente los picks que hicimos antes de que empezara.</div>`;
+    return;
+  }
+  if (!filtered.length) {
+    listEl.innerHTML = '<div class="muted">Sin picks calificados en esta categoría todavía.</div>';
+    return;
+  }
+  listEl.innerHTML = filtered.slice(0, 60).map(resultRowHTML).join("");
+}
+
+async function loadResults() {
   const listEl = document.getElementById("resultsList");
   listEl.innerHTML = '<div class="loading">Cargando historial…</div>';
   try {
     const history = await getJSON(`data/history.json?v=${Date.now()}`);
-    const graded = history.graded ?? [];
-    const pending = history.pending ?? [];
-    const wins = graded.filter(p => p.result === "win").length;
-    const losses = graded.filter(p => p.result === "loss").length;
-    const winPct = wins + losses ? Math.round((wins / (wins + losses)) * 100) : 0;
-
-    const byCategory = {};
-    graded.forEach(p => {
-      const cat = p.market === "Moneyline" ? "Moneyline" : "Props";
-      byCategory[cat] = byCategory[cat] ?? { w: 0, l: 0 };
-      if (p.result === "win") byCategory[cat].w++; else byCategory[cat].l++;
-    });
-
-    // Desglose dia por dia: usa la fecha del partido (p.date), no cuando se
-    // califico, para que un pick de un juego de anoche cuente en el dia que
-    // realmente jugo. Orden mas reciente primero.
-    const byDate = {};
-    graded.forEach(p => {
-      byDate[p.date] = byDate[p.date] ?? { w: 0, l: 0 };
-      if (p.result === "win") byDate[p.date].w++; else byDate[p.date].l++;
-    });
-    const dateRows = Object.entries(byDate).sort((a, b) => b[0].localeCompare(a[0]));
-
-    summaryEl.innerHTML = `
-      <div class="results-summary-grid">
-        <div class="results-stat-box"><div class="v">${wins}-${losses}</div><div class="l">Récord general</div></div>
-        <div class="results-stat-box"><div class="v ${winPct >= 50 ? "win" : "loss"}">${winPct}%</div><div class="l">% de acierto</div></div>
-        ${Object.entries(byCategory).map(([cat, r]) => `
-          <div class="results-stat-box"><div class="v">${r.w}-${r.l}</div><div class="l">${cat}</div></div>
-        `).join("")}
-        <div class="results-stat-box"><div class="v">${pending.length}</div><div class="l">Pendientes</div></div>
-      </div>
-      <div class="props-section" style="margin-top:12px;">
-        <div class="props-title">Acierto por día</div>
-        ${dateRows.map(([date, r]) => {
-          const total = r.w + r.l;
-          const pct = total ? Math.round((r.w / total) * 100) : 0;
-          return `
-            <div class="prop-row">
-              <span class="prop-desc"><b>${date}</b></span>
-              <span class="prop-odds"><b style="color:var(${pct >= 50 ? "--win" : "--loss"});">${r.w}-${r.l}</b> <span class="muted">(${pct}%)</span></span>
-            </div>`;
-        }).join("")}
-      </div>`;
-
-    if (!graded.length) {
-      listEl.innerHTML = `<div class="muted">Todavía no hay picks calificados — hay ${pending.length} pick${pending.length === 1 ? "" : "s"} pendiente${pending.length === 1 ? "" : "s"} esperando a que termine su partido. El historial se arma solo, sin nada cargado a mano: apenas un partido llega a Final, calificamos automáticamente los picks que hicimos antes de que empezara.</div>`;
-      return;
-    }
-    listEl.innerHTML = graded.slice(0, 60).map(resultRowHTML).join("");
+    resultsGradedCache = history.graded ?? [];
+    resultsPendingCache = history.pending ?? [];
+    renderResultsSummary();
+    renderResultsList();
   } catch (e) {
     listEl.innerHTML = `<div class="error">No se pudo cargar el historial (${e.message}).</div>`;
   }
