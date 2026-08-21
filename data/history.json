@@ -763,6 +763,40 @@
       "edge": 0.149,
       "why": null,
       "recordedAt": "2026-08-21T14:55:07.978Z"
+    },
+    {
+      "id": "2026-08-21|823510|Pitcher Strikeouts O/U|Mason Fluharty|0.5|over",
+      "date": "2026-08-21",
+      "gamePk": 823510,
+      "game": "Toronto Blue Jays @ New York Yankees",
+      "market": "Pitcher Strikeouts O/U",
+      "player": "Mason Fluharty",
+      "playerId": 689254,
+      "line": 0.5,
+      "side": "over",
+      "odds": "1.29",
+      "bookmaker": "Bet365",
+      "ourProb": 1,
+      "edge": 0.225,
+      "why": null,
+      "recordedAt": "2026-08-21T16:53:35.985Z"
+    },
+    {
+      "id": "2026-08-21|824721|Home Runs O/U|Jarren Duran|0.5|over",
+      "date": "2026-08-21",
+      "gamePk": 824721,
+      "game": "San Francisco Giants @ Boston Red Sox",
+      "market": "Home Runs O/U",
+      "player": "Jarren Duran",
+      "playerId": 680776,
+      "line": 0.5,
+      "side": "over",
+      "odds": "9.50",
+      "bookmaker": "Bet365",
+      "ourProb": 0.185,
+      "edge": 0.08,
+      "why": "Fenway Park (favorece bateo (green monster)) · viento moderado entrando desde el jardín (7mph) · mejor de lo normal vs lanzadores derechos esta temporada · en racha en los últimos 15 partidos",
+      "recordedAt": "2026-08-21T16:53:35.985Z"
     }
   ],
   "graded": [
