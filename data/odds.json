@@ -1,17 +1,26 @@
 {
-  "updatedAt": "2026-08-21T01:59:12.581Z",
+  "updatedAt": "2026-08-21T03:17:41.957Z",
   "games": {
     "Atlanta Braves@Milwaukee Brewers@2026-08-21": {
       "home": "Milwaukee Brewers",
       "away": "Atlanta Braves",
       "date": "2026-08-21T20:10:00Z",
       "moneyline": {
+        "Bovada": {
+          "home": "1.68",
+          "away": "2.23"
+        },
         "Bet365": {
           "home": "1.66",
           "away": "2.25"
         }
       },
       "total": {
+        "Bovada": {
+          "line": 6,
+          "over": "1.83",
+          "under": "2.00"
+        },
         "Bet365": {
           "line": 6.5,
           "over": "1.95",
@@ -25,9 +34,9 @@
           "awayOdds": "1.51"
         },
         "Bet365": {
-          "homeLine": -2.5,
-          "homeOdds": "3.80",
-          "awayOdds": "1.25"
+          "homeLine": -1.5,
+          "homeOdds": "2.65",
+          "awayOdds": "1.50"
         }
       },
       "props": [
@@ -70,7 +79,36 @@
           "why": "🏆 2° en la pelea por el título de efectividad de Liga Nacional (2.16 vs 1.75 del líder)"
         }
       ],
-      "moneylinePicks": []
+      "moneylinePicks": [
+        {
+          "market": "Moneyline",
+          "kind": "moneyline",
+          "player": "Atlanta Braves",
+          "line": null,
+          "side": "gana",
+          "odds": "2.23",
+          "bookmaker": "Bovada",
+          "ourProb": 0.43,
+          "impliedProb": 0.448,
+          "edge": -0.018,
+          "isValue": false,
+          "why": "Atlanta Braves tiene menos lesionados en la lista (6 vs 9 de Milwaukee Brewers) · líder de su división"
+        },
+        {
+          "market": "Moneyline",
+          "kind": "moneyline",
+          "player": "Milwaukee Brewers",
+          "line": null,
+          "side": "gana",
+          "odds": "1.68",
+          "bookmaker": "Bovada",
+          "ourProb": 0.57,
+          "impliedProb": 0.595,
+          "edge": -0.025,
+          "isValue": false,
+          "why": "Milwaukee Brewers tiene mas lesionados en la lista (9 vs 6 de Atlanta Braves) — jugado a favor del rival · líder de su división"
+        }
+      ]
     },
     "Toronto Blue Jays@New York Yankees@2026-08-21": {
       "home": "New York Yankees",
@@ -148,8 +186,8 @@
       "date": "2026-08-21T23:10:00Z",
       "moneyline": {
         "Bovada": {
-          "home": "1.65",
-          "away": "2.30"
+          "home": "1.66",
+          "away": "2.27"
         },
         "Bet365": {
           "home": "1.66",
@@ -158,9 +196,9 @@
       },
       "total": {
         "Bovada": {
-          "line": 5.5,
-          "over": "1.27",
-          "under": "3.60"
+          "line": 6.5,
+          "over": "1.40",
+          "under": "2.85"
         },
         "Bet365": {
           "line": 8,
@@ -170,9 +208,9 @@
       },
       "spread": {
         "Bovada": {
-          "homeLine": -3.5,
-          "homeOdds": "4.10",
-          "awayOdds": "1.22"
+          "homeLine": -2.5,
+          "homeOdds": "3.05",
+          "awayOdds": "1.36"
         },
         "Bet365": {
           "homeLine": -1.5,
@@ -188,11 +226,11 @@
           "player": "Washington Nationals",
           "line": null,
           "side": "gana",
-          "odds": "2.30",
+          "odds": "2.27",
           "bookmaker": "Bovada",
-          "ourProb": 0.47,
-          "impliedProb": 0.435,
-          "edge": 0.035,
+          "ourProb": 0.431,
+          "impliedProb": 0.441,
+          "edge": -0.01,
           "isValue": false,
           "why": "Washington Nationals tiene mas lesionados en la lista (9 vs 8 de Miami Marlins) — jugado a favor del rival"
         },
@@ -202,11 +240,11 @@
           "player": "Miami Marlins",
           "line": null,
           "side": "gana",
-          "odds": "1.65",
+          "odds": "1.66",
           "bookmaker": "Bovada",
-          "ourProb": 0.53,
-          "impliedProb": 0.606,
-          "edge": -0.076,
+          "ourProb": 0.569,
+          "impliedProb": 0.602,
+          "edge": -0.033,
           "isValue": false,
           "why": "Miami Marlins tiene menos lesionados en la lista (8 vs 9 de Washington Nationals)"
         }
@@ -218,8 +256,8 @@
       "date": "2026-08-21T23:10:00Z",
       "moneyline": {
         "Bovada": {
-          "home": "1.55",
-          "away": "2.49"
+          "home": "1.54",
+          "away": "2.52"
         },
         "Bet365": {
           "home": "1.55",
@@ -227,6 +265,11 @@
         }
       },
       "total": {
+        "Bovada": {
+          "line": 8,
+          "over": "1.95",
+          "under": "1.87"
+        },
         "Bet365": {
           "line": 7.5,
           "over": "1.83",
@@ -241,8 +284,8 @@
         },
         "Bet365": {
           "homeLine": -1.5,
-          "homeOdds": "2.35",
-          "awayOdds": "1.62"
+          "homeOdds": "2.20",
+          "awayOdds": "1.71"
         }
       },
       "props": [
@@ -292,11 +335,11 @@
           "player": "San Francisco Giants",
           "line": null,
           "side": "gana",
-          "odds": "2.49",
+          "odds": "2.52",
           "bookmaker": "Bovada",
           "ourProb": 0.331,
-          "impliedProb": 0.402,
-          "edge": -0.071,
+          "impliedProb": 0.397,
+          "edge": -0.066,
           "isValue": false,
           "why": "San Francisco Giants tiene mas lesionados en la lista (14 vs 13 de Boston Red Sox) — jugado a favor del rival"
         },
@@ -306,11 +349,11 @@
           "player": "Boston Red Sox",
           "line": null,
           "side": "gana",
-          "odds": "1.55",
+          "odds": "1.54",
           "bookmaker": "Bovada",
           "ourProb": 0.669,
-          "impliedProb": 0.645,
-          "edge": 0.024,
+          "impliedProb": 0.649,
+          "edge": 0.02,
           "isValue": false,
           "why": "Boston Red Sox tiene menos lesionados en la lista (13 vs 14 de San Francisco Giants)"
         }
@@ -322,8 +365,8 @@
       "date": "2026-08-21T23:15:00Z",
       "moneyline": {
         "Bovada": {
-          "home": "1.72",
-          "away": "2.15"
+          "home": "1.75",
+          "away": "2.11"
         },
         "Bet365": {
           "home": "1.74",
@@ -332,9 +375,9 @@
       },
       "total": {
         "Bovada": {
-          "line": 5.5,
-          "over": "1.26",
-          "under": "3.70"
+          "line": 7.5,
+          "over": "1.67",
+          "under": "2.15"
         },
         "Bet365": {
           "line": 8.5,
@@ -344,9 +387,9 @@
       },
       "spread": {
         "Bovada": {
-          "homeLine": -4.5,
-          "homeOdds": "5.75",
-          "awayOdds": "1.12"
+          "homeLine": -1.5,
+          "homeOdds": "2.60",
+          "awayOdds": "1.54"
         },
         "Bet365": {
           "homeLine": -1.5,
@@ -362,11 +405,11 @@
           "player": "Tampa Bay Rays",
           "line": null,
           "side": "gana",
-          "odds": "2.15",
+          "odds": "2.11",
           "bookmaker": "Bovada",
           "ourProb": 0.548,
-          "impliedProb": 0.465,
-          "edge": 0.083,
+          "impliedProb": 0.474,
+          "edge": 0.074,
           "isValue": false,
           "why": "Tampa Bay Rays tiene mas lesionados en la lista (10 vs 8 de Baltimore Orioles) — jugado a favor del rival · líder de su división"
         },
@@ -376,11 +419,11 @@
           "player": "Baltimore Orioles",
           "line": null,
           "side": "gana",
-          "odds": "1.72",
+          "odds": "1.75",
           "bookmaker": "Bovada",
           "ourProb": 0.452,
-          "impliedProb": 0.581,
-          "edge": -0.13,
+          "impliedProb": 0.571,
+          "edge": -0.12,
           "isValue": false,
           "why": "Baltimore Orioles tiene menos lesionados en la lista (8 vs 10 de Tampa Bay Rays) · peleando de cerca por el comodín"
         }
@@ -392,8 +435,8 @@
       "date": "2026-08-21T23:40:00Z",
       "moneyline": {
         "Bovada": {
-          "home": "1.63",
-          "away": "2.34"
+          "home": "1.68",
+          "away": "2.24"
         },
         "Bet365": {
           "home": "1.66",
@@ -402,9 +445,9 @@
       },
       "total": {
         "Bovada": {
-          "line": 9.5,
-          "over": "2.65",
-          "under": "1.45"
+          "line": 6.5,
+          "over": "1.48",
+          "under": "2.55"
         },
         "Bet365": {
           "line": 8,
@@ -414,14 +457,14 @@
       },
       "spread": {
         "Bovada": {
-          "homeLine": -2.5,
-          "homeOdds": "3.15",
-          "awayOdds": "1.33"
+          "homeLine": -3,
+          "homeOdds": "3.95",
+          "awayOdds": "1.23"
         },
         "Bet365": {
-          "homeLine": 4.5,
-          "homeOdds": "1.07",
-          "awayOdds": "7.50"
+          "homeLine": 3.5,
+          "homeOdds": "1.13",
+          "awayOdds": "5.50"
         }
       },
       "props": [
@@ -471,11 +514,11 @@
           "player": "New York Mets",
           "line": null,
           "side": "gana",
-          "odds": "2.34",
+          "odds": "2.24",
           "bookmaker": "Bovada",
           "ourProb": 0.493,
-          "impliedProb": 0.427,
-          "edge": 0.065,
+          "impliedProb": 0.446,
+          "edge": 0.046,
           "isValue": false,
           "why": "New York Mets tiene menos lesionados en la lista (8 vs 11 de Chicago White Sox)"
         },
@@ -485,11 +528,11 @@
           "player": "Chicago White Sox",
           "line": null,
           "side": "gana",
-          "odds": "1.63",
+          "odds": "1.68",
           "bookmaker": "Bovada",
           "ourProb": 0.507,
-          "impliedProb": 0.613,
-          "edge": -0.106,
+          "impliedProb": 0.595,
+          "edge": -0.088,
           "isValue": false,
           "why": "Chicago White Sox tiene mas lesionados en la lista (11 vs 8 de New York Mets) — jugado a favor del rival · líder de su división"
         }
@@ -501,8 +544,8 @@
       "date": "2026-08-22T00:10:00Z",
       "moneyline": {
         "Bovada": {
-          "home": "1.50",
-          "away": "2.65"
+          "home": "1.51",
+          "away": "2.60"
         },
         "Bet365": {
           "home": "1.50",
@@ -523,17 +566,56 @@
       },
       "spread": {
         "Bovada": {
-          "homeLine": -4.5,
-          "homeOdds": "4.50",
-          "awayOdds": "1.18"
+          "homeLine": -3,
+          "homeOdds": "3.25",
+          "awayOdds": "1.32"
         },
         "Bet365": {
-          "homeLine": -1.5,
-          "homeOdds": "2.20",
-          "awayOdds": "1.71"
+          "homeLine": 1.5,
+          "homeOdds": "1.28",
+          "awayOdds": "3.50"
         }
       },
-      "props": [],
+      "props": [
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "Hayden Wesneski",
+          "line": 3.5,
+          "over": "1.25",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 669713,
+          "side": "over",
+          "odds": "1.25",
+          "ourProb": 0.658,
+          "impliedProb": 0.8,
+          "edge": -0.142,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "J.T. Ginn",
+          "why": null
+        },
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "J.T. Ginn",
+          "line": 3.5,
+          "over": "1.35",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 669372,
+          "side": "over",
+          "odds": "1.35",
+          "ourProb": 0.76,
+          "impliedProb": 0.741,
+          "edge": 0.019,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Hayden Wesneski",
+          "why": null
+        }
+      ],
       "moneylinePicks": [
         {
           "market": "Moneyline",
@@ -541,11 +623,11 @@
           "player": "Athletics",
           "line": null,
           "side": "gana",
-          "odds": "2.65",
+          "odds": "2.60",
           "bookmaker": "Bovada",
-          "ourProb": 0.245,
-          "impliedProb": 0.377,
-          "edge": -0.132,
+          "ourProb": 0.274,
+          "impliedProb": 0.385,
+          "edge": -0.111,
           "isValue": false,
           "why": "Athletics tiene mas lesionados en la lista (12 vs 4 de Houston Astros) — jugado a favor del rival"
         },
@@ -555,11 +637,11 @@
           "player": "Houston Astros",
           "line": null,
           "side": "gana",
-          "odds": "1.50",
+          "odds": "1.51",
           "bookmaker": "Bovada",
-          "ourProb": 0.755,
-          "impliedProb": 0.667,
-          "edge": 0.088,
+          "ourProb": 0.726,
+          "impliedProb": 0.662,
+          "edge": 0.064,
           "isValue": true,
           "why": "Houston Astros tiene menos lesionados en la lista (4 vs 12 de Athletics) · líder de su división"
         }
@@ -570,6 +652,10 @@
       "away": "Detroit Tigers",
       "date": "2026-08-22T00:10:00Z",
       "moneyline": {
+        "Bovada": {
+          "home": "2.04",
+          "away": "1.81"
+        },
         "Bet365": {
           "home": "2.00",
           "away": "1.83"
@@ -578,8 +664,8 @@
       "total": {
         "Bovada": {
           "line": 8.5,
-          "over": "1.87",
-          "under": "1.95"
+          "over": "2.00",
+          "under": "1.83"
         },
         "Bet365": {
           "line": 8.5,
@@ -600,7 +686,36 @@
         }
       },
       "props": [],
-      "moneylinePicks": []
+      "moneylinePicks": [
+        {
+          "market": "Moneyline",
+          "kind": "moneyline",
+          "player": "Detroit Tigers",
+          "line": null,
+          "side": "gana",
+          "odds": "1.81",
+          "bookmaker": "Bovada",
+          "ourProb": 0.432,
+          "impliedProb": 0.552,
+          "edge": -0.12,
+          "isValue": false,
+          "why": "Detroit Tigers tiene mas lesionados en la lista (14 vs 11 de Kansas City Royals) — jugado a favor del rival · peleando de cerca por el comodín"
+        },
+        {
+          "market": "Moneyline",
+          "kind": "moneyline",
+          "player": "Kansas City Royals",
+          "line": null,
+          "side": "gana",
+          "odds": "2.04",
+          "bookmaker": "Bovada",
+          "ourProb": 0.568,
+          "impliedProb": 0.49,
+          "edge": 0.078,
+          "isValue": true,
+          "why": "Kansas City Royals tiene menos lesionados en la lista (11 vs 14 de Detroit Tigers)"
+        }
+      ]
     },
     "Los Angeles Angels@Texas Rangers@2026-08-21": {
       "home": "Texas Rangers",
@@ -608,22 +723,36 @@
       "date": "2026-08-22T00:15:00Z",
       "moneyline": {
         "Bovada": {
-          "home": "1.67",
-          "away": "2.26"
+          "home": "1.69",
+          "away": "2.22"
+        },
+        "Bet365": {
+          "home": "1.66",
+          "away": "2.25"
         }
       },
       "total": {
         "Bovada": {
           "line": 7.5,
-          "over": "2.05",
-          "under": "1.80"
+          "over": "1.91",
+          "under": "1.91"
+        },
+        "Bet365": {
+          "line": 7.5,
+          "over": "1.95",
+          "under": "1.86"
         }
       },
       "spread": {
         "Bovada": {
           "homeLine": -1.5,
+          "homeOdds": "2.50",
+          "awayOdds": "1.57"
+        },
+        "Bet365": {
+          "homeLine": -1.5,
           "homeOdds": "2.55",
-          "awayOdds": "1.56"
+          "awayOdds": "1.54"
         }
       },
       "props": [],
@@ -634,11 +763,11 @@
           "player": "Los Angeles Angels",
           "line": null,
           "side": "gana",
-          "odds": "2.26",
+          "odds": "2.22",
           "bookmaker": "Bovada",
-          "ourProb": 0.467,
-          "impliedProb": 0.442,
-          "edge": 0.025,
+          "ourProb": 0.474,
+          "impliedProb": 0.45,
+          "edge": 0.023,
           "isValue": false,
           "why": null
         },
@@ -648,13 +777,13 @@
           "player": "Texas Rangers",
           "line": null,
           "side": "gana",
-          "odds": "1.67",
+          "odds": "1.69",
           "bookmaker": "Bovada",
-          "ourProb": 0.533,
-          "impliedProb": 0.599,
-          "edge": -0.066,
+          "ourProb": 0.526,
+          "impliedProb": 0.592,
+          "edge": -0.065,
           "isValue": false,
-          "why": "peleando de cerca por el comodín"
+          "why": "peleando de cerca por el título de división"
         }
       ]
     },
@@ -664,8 +793,8 @@
       "date": "2026-08-22T00:40:00Z",
       "moneyline": {
         "Bovada": {
-          "home": "2.30",
-          "away": "1.65"
+          "home": "2.27",
+          "away": "1.66"
         },
         "Bet365": {
           "home": "2.35",
@@ -674,9 +803,9 @@
       },
       "total": {
         "Bovada": {
-          "line": 7.5,
-          "over": "1.27",
-          "under": "3.60"
+          "line": 9.5,
+          "over": "1.56",
+          "under": "2.35"
         },
         "Bet365": {
           "line": 11,
@@ -686,9 +815,9 @@
       },
       "spread": {
         "Bovada": {
-          "homeLine": -2.5,
-          "homeOdds": "4.75",
-          "awayOdds": "1.17"
+          "homeLine": -1.5,
+          "homeOdds": "3.25",
+          "awayOdds": "1.32"
         },
         "Bet365": {
           "homeLine": 1.5,
@@ -704,11 +833,11 @@
           "player": "Cleveland Guardians",
           "line": null,
           "side": "gana",
-          "odds": "1.65",
+          "odds": "1.66",
           "bookmaker": "Bovada",
           "ourProb": 0.594,
-          "impliedProb": 0.606,
-          "edge": -0.012,
+          "impliedProb": 0.602,
+          "edge": -0.008,
           "isValue": false,
           "why": "Cleveland Guardians tiene menos lesionados en la lista (3 vs 10 de Colorado Rockies) · peleando de cerca por el comodín"
         },
@@ -718,11 +847,11 @@
           "player": "Colorado Rockies",
           "line": null,
           "side": "gana",
-          "odds": "2.30",
+          "odds": "2.27",
           "bookmaker": "Bovada",
           "ourProb": 0.406,
-          "impliedProb": 0.435,
-          "edge": -0.029,
+          "impliedProb": 0.441,
+          "edge": -0.034,
           "isValue": false,
           "why": "Colorado Rockies tiene mas lesionados en la lista (10 vs 3 de Cleveland Guardians) — jugado a favor del rival"
         }
@@ -734,8 +863,8 @@
       "date": "2026-08-22T01:40:00Z",
       "moneyline": {
         "Bovada": {
-          "home": "1.69",
-          "away": "2.21"
+          "home": "1.66",
+          "away": "2.27"
         },
         "Bet365": {
           "home": "1.71",
@@ -744,9 +873,9 @@
       },
       "total": {
         "Bovada": {
-          "line": 8.5,
-          "over": "1.95",
-          "under": "1.87"
+          "line": 6.5,
+          "over": "1.42",
+          "under": "2.75"
         },
         "Bet365": {
           "line": 8.5,
@@ -756,14 +885,14 @@
       },
       "spread": {
         "Bovada": {
-          "homeLine": -4.5,
-          "homeOdds": "5.00",
-          "awayOdds": "1.15"
+          "homeLine": -1.5,
+          "homeOdds": "2.40",
+          "awayOdds": "1.61"
         },
         "Bet365": {
-          "homeLine": 4.5,
-          "homeOdds": "1.08",
-          "awayOdds": "7.25"
+          "homeLine": -1.5,
+          "homeOdds": "2.55",
+          "awayOdds": "1.54"
         }
       },
       "props": [
@@ -771,16 +900,16 @@
           "market": "Pitcher Strikeouts O/U",
           "kind": "pitching",
           "player": "Eduardo Rodriguez",
-          "line": 0.5,
-          "over": "1.00",
+          "line": 1.5,
+          "over": "1.01",
           "under": null,
           "bookmaker": "Bet365",
           "playerId": 593958,
           "side": "over",
-          "odds": "1.00",
-          "ourProb": 0.986,
-          "impliedProb": 1,
-          "edge": -0.014,
+          "odds": "1.01",
+          "ourProb": 0.925,
+          "impliedProb": 0.99,
+          "edge": -0.066,
           "isValue": false,
           "pitcherHand": "L",
           "pitcherName": "Nick Lodolo",
@@ -790,16 +919,16 @@
           "market": "Pitcher Strikeouts O/U",
           "kind": "pitching",
           "player": "Nick Lodolo",
-          "line": 0.5,
-          "over": "1.01",
+          "line": 3.5,
+          "over": "1.58",
           "under": null,
           "bookmaker": "Bet365",
           "playerId": 666157,
           "side": "over",
-          "odds": "1.01",
-          "ourProb": 0.983,
-          "impliedProb": 0.99,
-          "edge": -0.007,
+          "odds": "1.58",
+          "ourProb": 0.58,
+          "impliedProb": 0.633,
+          "edge": -0.053,
           "isValue": false,
           "pitcherHand": "L",
           "pitcherName": "Eduardo Rodriguez",
@@ -813,13 +942,13 @@
           "player": "Cincinnati Reds",
           "line": null,
           "side": "gana",
-          "odds": "2.21",
+          "odds": "2.27",
           "bookmaker": "Bovada",
           "ourProb": 0.394,
-          "impliedProb": 0.452,
-          "edge": -0.059,
+          "impliedProb": 0.441,
+          "edge": -0.047,
           "isValue": false,
-          "why": "Cincinnati Reds tiene menos lesionados en la lista (6 vs 11 de Arizona Diamondbacks)"
+          "why": "Cincinnati Reds tiene menos lesionados en la lista (6 vs 12 de Arizona Diamondbacks)"
         },
         {
           "market": "Moneyline",
@@ -827,13 +956,13 @@
           "player": "Arizona Diamondbacks",
           "line": null,
           "side": "gana",
-          "odds": "1.69",
+          "odds": "1.66",
           "bookmaker": "Bovada",
           "ourProb": 0.606,
-          "impliedProb": 0.592,
-          "edge": 0.015,
+          "impliedProb": 0.602,
+          "edge": 0.004,
           "isValue": false,
-          "why": "Arizona Diamondbacks tiene mas lesionados en la lista (11 vs 6 de Cincinnati Reds) — jugado a favor del rival · peleando de cerca por el comodín"
+          "why": "Arizona Diamondbacks tiene mas lesionados en la lista (12 vs 6 de Cincinnati Reds) — jugado a favor del rival · peleando de cerca por el comodín"
         }
       ]
     },
@@ -843,8 +972,8 @@
       "date": "2026-08-22T02:10:00Z",
       "moneyline": {
         "Bovada": {
-          "home": "1.43",
-          "away": "2.90"
+          "home": "1.42",
+          "away": "2.95"
         },
         "Bet365": {
           "home": "1.41",
@@ -865,9 +994,9 @@
       },
       "spread": {
         "Bovada": {
-          "homeLine": -4.5,
-          "homeOdds": "4.10",
-          "awayOdds": "1.22"
+          "homeLine": -3,
+          "homeOdds": "2.90",
+          "awayOdds": "1.38"
         },
         "Bet365": {
           "homeLine": -1.5,
@@ -922,11 +1051,11 @@
           "player": "Pittsburgh Pirates",
           "line": null,
           "side": "gana",
-          "odds": "2.90",
+          "odds": "2.95",
           "bookmaker": "Bovada",
           "ourProb": 0.394,
-          "impliedProb": 0.345,
-          "edge": 0.05,
+          "impliedProb": 0.339,
+          "edge": 0.055,
           "isValue": false,
           "why": "Pittsburgh Pirates tiene menos lesionados en la lista (4 vs 13 de Los Angeles Dodgers)"
         },
@@ -936,11 +1065,11 @@
           "player": "Los Angeles Dodgers",
           "line": null,
           "side": "gana",
-          "odds": "1.43",
+          "odds": "1.42",
           "bookmaker": "Bovada",
           "ourProb": 0.606,
-          "impliedProb": 0.699,
-          "edge": -0.094,
+          "impliedProb": 0.704,
+          "edge": -0.099,
           "isValue": false,
           "why": "Los Angeles Dodgers tiene mas lesionados en la lista (13 vs 4 de Pittsburgh Pirates) — jugado a favor del rival · líder de su división"
         }
@@ -952,19 +1081,19 @@
       "date": "2026-08-22T02:10:00Z",
       "moneyline": {
         "Bovada": {
-          "home": "1.91",
-          "away": "1.91"
+          "home": "1.92",
+          "away": "1.90"
         },
         "Bet365": {
-          "home": "1.83",
-          "away": "2.00"
+          "home": "1.86",
+          "away": "1.95"
         }
       },
       "total": {
         "Bovada": {
-          "line": 5.5,
-          "over": "1.32",
-          "under": "3.25"
+          "line": 6.5,
+          "over": "1.45",
+          "under": "2.65"
         },
         "Bet365": {
           "line": 8,
@@ -974,14 +1103,14 @@
       },
       "spread": {
         "Bovada": {
-          "homeLine": -3.5,
-          "homeOdds": "5.25",
-          "awayOdds": "1.14"
+          "homeLine": 1.5,
+          "homeOdds": "1.56",
+          "awayOdds": "2.55"
         },
         "Bet365": {
-          "homeLine": -1.5,
-          "homeOdds": "2.60",
-          "awayOdds": "1.52"
+          "homeLine": -3.5,
+          "homeOdds": "5.50",
+          "awayOdds": "1.13"
         }
       },
       "props": [
@@ -1012,11 +1141,11 @@
           "player": "Chicago Cubs",
           "line": null,
           "side": "gana",
-          "odds": "1.91",
+          "odds": "1.90",
           "bookmaker": "Bovada",
           "ourProb": 0.563,
-          "impliedProb": 0.524,
-          "edge": 0.04,
+          "impliedProb": 0.526,
+          "edge": 0.037,
           "isValue": false,
           "why": "Chicago Cubs tiene mas lesionados en la lista (15 vs 9 de Seattle Mariners) — jugado a favor del rival"
         },
@@ -1026,18 +1155,73 @@
           "player": "Seattle Mariners",
           "line": null,
           "side": "gana",
-          "odds": "1.91",
+          "odds": "1.92",
           "bookmaker": "Bovada",
           "ourProb": 0.437,
-          "impliedProb": 0.524,
-          "edge": -0.087,
+          "impliedProb": 0.521,
+          "edge": -0.084,
           "isValue": false,
           "why": "Seattle Mariners tiene menos lesionados en la lista (9 vs 15 de Chicago Cubs) · peleando de cerca por el comodín"
         }
       ]
     }
   },
-  "parlays": [],
+  "parlays": [
+    {
+      "label": "Moneyline (2 picks)",
+      "category": "moneyline",
+      "bookmaker": "Bovada",
+      "legs": [
+        {
+          "player": "Kansas City Royals",
+          "market": "Moneyline",
+          "side": "gana",
+          "line": null,
+          "odds": "2.04",
+          "ourProb": 0.568,
+          "game": "Detroit Tigers @ Kansas City Royals"
+        },
+        {
+          "player": "Houston Astros",
+          "market": "Moneyline",
+          "side": "gana",
+          "line": null,
+          "odds": "1.51",
+          "ourProb": 0.726,
+          "game": "Athletics @ Houston Astros"
+        }
+      ],
+      "combinedOdds": 3.08,
+      "combinedProb": 0.412
+    },
+    {
+      "label": "Moneyline (3 picks)",
+      "category": "moneyline",
+      "bookmaker": "Bovada",
+      "legs": [
+        {
+          "player": "Kansas City Royals",
+          "market": "Moneyline",
+          "side": "gana",
+          "line": null,
+          "odds": "2.04",
+          "ourProb": 0.568,
+          "game": "Detroit Tigers @ Kansas City Royals"
+        },
+        {
+          "player": "Houston Astros",
+          "market": "Moneyline",
+          "side": "gana",
+          "line": null,
+          "odds": "1.51",
+          "ourProb": 0.726,
+          "game": "Athletics @ Houston Astros"
+        }
+      ],
+      "combinedOdds": 3.08,
+      "combinedProb": 0.412
+    }
+  ],
   "injuries": [
     {
       "name": "Giancarlo Stanton",
@@ -2181,6 +2365,15 @@
       "note": "Left hamstring strain.",
       "since": "2026-08-19",
       "eligibleReturn": "2026-08-29"
+    },
+    {
+      "name": "Ketel Marte",
+      "team": "Arizona Diamondbacks",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Left knee inflammation.",
+      "since": "2026-08-20",
+      "eligibleReturn": "2026-08-30"
     },
     {
       "name": "Mitchell Parker",
