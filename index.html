@@ -721,6 +721,20 @@
 const API = "https://statsapi.mlb.com/api/v1";
 const currentSeason = new Date().getFullYear();
 
+// Un partido nocturno en la costa oeste/central de EE.UU. arranca pasada la
+// medianoche UTC (ej: Rockies 20:40 hora local = 00:40 UTC del dia siguiente).
+// El calendario oficial de MLB sigue asignando ese partido al dia calendario en
+// que arranco en horario de EE.UU., no al dia UTC -- y data/odds.json ya guarda
+// sus props bajo esa misma fecha "real" (mismo ajuste que hace el pipeline).
+// Sin esto, el sitio buscaba las cuotas con la fecha UTC cruda, no encontraba el
+// partido en el mapa de cuotas, y la tarjeta quedaba sin props ni moneyline --
+// pasaba con cualquier partido nocturno de la costa oeste/central/montaña.
+function mlbDateKey(isoDateStr) {
+  const d = new Date(isoDateStr);
+  if (d.getUTCHours() < 10) d.setUTCDate(d.getUTCDate() - 1);
+  return d.toISOString().slice(0, 10);
+}
+
 const DIVISION_NAMES = {
   200: "AL Oeste", 201: "AL Este", 202: "AL Central",
   203: "NL Oeste", 204: "NL Este", 205: "NL Central"
@@ -873,7 +887,7 @@ function pitcherLine(team) {
 }
 
 function moneylineInline(away, home, gameDateISO, oddsMap) {
-  const key = `${away.team.name}@${home.team.name}@${gameDateISO.slice(0, 10)}`;
+  const key = `${away.team.name}@${home.team.name}@${mlbDateKey(gameDateISO)}`;
   const entry = oddsMap[key];
   const books = Object.keys(entry?.moneyline ?? {});
   if (!books.length) return "";
@@ -1059,7 +1073,7 @@ function shortTeamName(name) {
 }
 
 function getGameOddsEntry(away, home, gameDateISO, oddsMap) {
-  const key = `${away.team.name}@${home.team.name}@${gameDateISO.slice(0, 10)}`;
+  const key = `${away.team.name}@${home.team.name}@${mlbDateKey(gameDateISO)}`;
   return oddsMap[key] ?? null;
 }
 
@@ -1285,7 +1299,7 @@ function topPropsBlockHTML(title, emptyMsg, top) {
 }
 
 function propsSectionHTML(away, home, gameDateISO, oddsMap, awayPitcher, homePitcher) {
-  const key = `${away.team.name}@${home.team.name}@${gameDateISO.slice(0, 10)}`;
+  const key = `${away.team.name}@${home.team.name}@${mlbDateKey(gameDateISO)}`;
   const props = oddsMap[key]?.props ?? [];
   if (!props.length) return "";
   const pitcherNames = [awayPitcher?.fullName, homePitcher?.fullName].filter(Boolean);
@@ -1623,7 +1637,7 @@ let picksTodaysOddsMapCache = {};
 let selectedGameKeys = new Set();
 
 function gameKeyFor(g) {
-  return `${g.teams.away.team.name}@${g.teams.home.team.name}@${g.gameDate.slice(0, 10)}`;
+  return `${g.teams.away.team.name}@${g.teams.home.team.name}@${mlbDateKey(g.gameDate)}`;
 }
 
 function renderGameSelector() {
