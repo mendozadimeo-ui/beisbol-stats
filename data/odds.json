@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-22T03:09:08.321Z",
+  "updatedAt": "2026-08-22T04:52:04.340Z",
   "games": {
     "Toronto Blue Jays@New York Yankees@2026-08-22": {
       "home": "New York Yankees",
@@ -11,15 +11,15 @@
           "away": "1.97"
         },
         "Bet365": {
-          "home": "1.86",
-          "away": "1.95"
+          "home": "1.83",
+          "away": "2.00"
         }
       },
       "total": {
         "Bovada": {
-          "line": 6.5,
-          "over": "1.83",
-          "under": "2.00"
+          "line": 3.5,
+          "over": "1.16",
+          "under": "4.85"
         },
         "Bet365": {
           "line": 7,
@@ -30,13 +30,13 @@
       "spread": {
         "Bovada": {
           "homeLine": 1.5,
-          "homeOdds": "1.48",
-          "awayOdds": "2.75"
+          "homeOdds": "1.45",
+          "awayOdds": "2.80"
         },
         "Bet365": {
-          "homeLine": -1.5,
-          "homeOdds": "2.75",
-          "awayOdds": "1.47"
+          "homeLine": 2.5,
+          "homeOdds": "1.25",
+          "awayOdds": "3.75"
         }
       },
       "props": [],
@@ -99,17 +99,56 @@
       },
       "spread": {
         "Bovada": {
-          "homeLine": -1.5,
-          "homeOdds": "2.35",
-          "awayOdds": "1.63"
+          "homeLine": -2.5,
+          "homeOdds": "3.05",
+          "awayOdds": "1.36"
         },
         "Bet365": {
-          "homeLine": -1.5,
-          "homeOdds": "2.30",
-          "awayOdds": "1.64"
+          "homeLine": -5.5,
+          "homeOdds": "8.25",
+          "awayOdds": "1.06"
         }
       },
-      "props": [],
+      "props": [
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "Logan Henderson",
+          "line": 0.5,
+          "over": "1.00",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 701656,
+          "side": "over",
+          "odds": "1.00",
+          "ourProb": 0.999,
+          "impliedProb": 1,
+          "edge": -0.001,
+          "isValue": false,
+          "pitcherHand": "L",
+          "pitcherName": "Martín Pérez",
+          "why": null
+        },
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "Martin Perez",
+          "line": 1.5,
+          "over": "1.14",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 527048,
+          "side": "over",
+          "odds": "1.14",
+          "ourProb": 0.92,
+          "impliedProb": 0.877,
+          "edge": 0.043,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Logan Henderson",
+          "why": null
+        }
+      ],
       "moneylinePicks": [
         {
           "market": "Moneyline",
@@ -157,14 +196,14 @@
       },
       "total": {
         "Bovada": {
-          "line": 7.5,
-          "over": "1.80",
-          "under": "2.05"
+          "line": 8.5,
+          "over": "2.10",
+          "under": "1.69"
         },
         "Bet365": {
-          "line": 7.5,
-          "over": "1.83",
-          "under": "2.00"
+          "line": 8,
+          "over": "1.90",
+          "under": "1.90"
         }
       },
       "spread": {
@@ -174,9 +213,9 @@
           "awayOdds": "1.71"
         },
         "Bet365": {
-          "homeLine": 4.5,
-          "homeOdds": "1.06",
-          "awayOdds": "8.50"
+          "homeLine": 3.5,
+          "homeOdds": "1.11",
+          "awayOdds": "6.25"
         }
       },
       "props": [],
@@ -221,20 +260,20 @@
           "away": "2.11"
         },
         "Bet365": {
-          "home": "1.76",
-          "away": "2.10"
+          "home": "1.74",
+          "away": "2.15"
         }
       },
       "total": {
         "Bovada": {
           "line": 8.5,
-          "over": "1.91",
-          "under": "1.91"
+          "over": "1.87",
+          "under": "1.95"
         },
         "Bet365": {
-          "line": 8.5,
-          "over": "1.83",
-          "under": "2.00"
+          "line": 9,
+          "over": "1.90",
+          "under": "1.90"
         }
       },
       "spread": {
@@ -244,12 +283,32 @@
           "awayOdds": "1.51"
         },
         "Bet365": {
-          "homeLine": -1.5,
-          "homeOdds": "2.65",
-          "awayOdds": "1.50"
+          "homeLine": -3.5,
+          "homeOdds": "4.75",
+          "awayOdds": "1.16"
         }
       },
-      "props": [],
+      "props": [
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "Andrew Painter",
+          "line": 0.5,
+          "over": "1.01",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 691725,
+          "side": "over",
+          "odds": "1.01",
+          "ourProb": 0.981,
+          "impliedProb": 0.99,
+          "edge": -0.01,
+          "isValue": false,
+          "pitcherHand": null,
+          "pitcherName": null,
+          "why": null
+        }
+      ],
       "moneylinePicks": [
         {
           "market": "Moneyline",
@@ -263,7 +322,7 @@
           "impliedProb": 0.474,
           "edge": -0.121,
           "isValue": false,
-          "why": "St. Louis Cardinals tiene menos lesionados en la lista (3 vs 7 de Philadelphia Phillies) · peleando de cerca por el comodín"
+          "why": "St. Louis Cardinals tiene menos lesionados en la lista (3 vs 7 de Philadelphia Phillies)"
         },
         {
           "market": "Moneyline",
@@ -287,8 +346,8 @@
       "date": "2026-08-22T23:05:00Z",
       "moneyline": {
         "Bovada": {
-          "home": "2.07",
-          "away": "1.78"
+          "home": "2.09",
+          "away": "1.76"
         },
         "Bet365": {
           "home": "2.10",
@@ -297,21 +356,21 @@
       },
       "total": {
         "Bovada": {
-          "line": 8,
-          "over": "1.95",
-          "under": "1.87"
+          "line": 5.5,
+          "over": "1.31",
+          "under": "3.30"
         },
         "Bet365": {
-          "line": 8.5,
-          "over": "2.00",
-          "under": "1.83"
+          "line": 8,
+          "over": "1.90",
+          "under": "1.90"
         }
       },
       "spread": {
         "Bovada": {
-          "homeLine": 1.5,
-          "homeOdds": "1.63",
-          "awayOdds": "2.35"
+          "homeLine": -3.5,
+          "homeOdds": "5.75",
+          "awayOdds": "1.11"
         },
         "Bet365": {
           "homeLine": 1.5,
@@ -319,7 +378,27 @@
           "awayOdds": "2.30"
         }
       },
-      "props": [],
+      "props": [
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "Shane McClanahan",
+          "line": 0.5,
+          "over": "1.00",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 663556,
+          "side": "over",
+          "odds": "1.00",
+          "ourProb": 0.995,
+          "impliedProb": 1,
+          "edge": -0.005,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Brandon Young",
+          "why": "Baltimore Orioles se poncha mas que el promedio (24.4% vs liga 22.1%)"
+        }
+      ],
       "moneylinePicks": [
         {
           "market": "Moneyline",
@@ -327,11 +406,11 @@
           "player": "Tampa Bay Rays",
           "line": null,
           "side": "gana",
-          "odds": "1.78",
+          "odds": "1.76",
           "bookmaker": "Bovada",
           "ourProb": 0.45,
-          "impliedProb": 0.562,
-          "edge": -0.112,
+          "impliedProb": 0.568,
+          "edge": -0.118,
           "isValue": false,
           "why": "Tampa Bay Rays tiene mas lesionados en la lista (10 vs 8 de Baltimore Orioles) — jugado a favor del rival · líder de su división"
         },
@@ -341,15 +420,81 @@
           "player": "Baltimore Orioles",
           "line": null,
           "side": "gana",
-          "odds": "2.07",
+          "odds": "2.09",
           "bookmaker": "Bovada",
           "ourProb": 0.55,
-          "impliedProb": 0.483,
-          "edge": 0.067,
+          "impliedProb": 0.478,
+          "edge": 0.072,
           "isValue": true,
           "why": "Baltimore Orioles tiene menos lesionados en la lista (8 vs 10 de Tampa Bay Rays) · peleando de cerca por el comodín"
         }
       ]
+    },
+    "Los Angeles Angels@Texas Rangers@2026-08-22": {
+      "home": "Texas Rangers",
+      "away": "Los Angeles Angels",
+      "date": "2026-08-22T23:05:00Z",
+      "moneyline": {
+        "Bet365": {
+          "home": "1.60",
+          "away": "2.40"
+        }
+      },
+      "total": {
+        "Bet365": {
+          "line": 8,
+          "over": "1.86",
+          "under": "1.95"
+        }
+      },
+      "spread": {
+        "Bet365": {
+          "homeLine": -1.5,
+          "homeOdds": "2.35",
+          "awayOdds": "1.62"
+        }
+      },
+      "props": [
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "Cody Bradford",
+          "line": 0.5,
+          "over": "1.00",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 674003,
+          "side": "over",
+          "odds": "1.00",
+          "ourProb": 0.98,
+          "impliedProb": 1,
+          "edge": -0.02,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Ryan Johnson",
+          "why": "Los Angeles Angels se poncha mas que el promedio (25.2% vs liga 22.1%)"
+        },
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "Ryan Johnson",
+          "line": 0.5,
+          "over": "1.00",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 696270,
+          "side": "over",
+          "odds": "1.00",
+          "ourProb": 0.981,
+          "impliedProb": 1,
+          "edge": -0.019,
+          "isValue": false,
+          "pitcherHand": "L",
+          "pitcherName": "Cody Bradford",
+          "why": null
+        }
+      ],
+      "moneylinePicks": []
     },
     "Athletics@Houston Astros@2026-08-22": {
       "home": "Houston Astros",
@@ -379,17 +524,56 @@
       },
       "spread": {
         "Bovada": {
-          "homeLine": -1.5,
-          "homeOdds": "1.87",
-          "awayOdds": "1.95"
+          "homeLine": -3.5,
+          "homeOdds": "3.10",
+          "awayOdds": "1.34"
         },
         "Bet365": {
           "homeLine": -1.5,
-          "homeOdds": "1.95",
-          "awayOdds": "1.86"
+          "homeOdds": "1.90",
+          "awayOdds": "1.90"
         }
       },
-      "props": [],
+      "props": [
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "Hunter Brown",
+          "line": 0.5,
+          "over": "1.00",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 686613,
+          "side": "over",
+          "odds": "1.00",
+          "ourProb": 0.997,
+          "impliedProb": 1,
+          "edge": -0.003,
+          "isValue": false,
+          "pitcherHand": "L",
+          "pitcherName": "Jacob Lopez",
+          "why": null
+        },
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "Jacob Lopez",
+          "line": 0.5,
+          "over": "1.00",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 682052,
+          "side": "over",
+          "odds": "1.00",
+          "ourProb": 0.99,
+          "impliedProb": 1,
+          "edge": -0.01,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Hunter Brown",
+          "why": null
+        }
+      ],
       "moneylinePicks": [
         {
           "market": "Moneyline",
@@ -437,9 +621,9 @@
       },
       "total": {
         "Bovada": {
-          "line": 8.5,
-          "over": "2.05",
-          "under": "1.80"
+          "line": 11.5,
+          "over": "3.90",
+          "under": "1.23"
         },
         "Bet365": {
           "line": 8.5,
@@ -507,9 +691,9 @@
       },
       "total": {
         "Bovada": {
-          "line": 8.5,
-          "over": "2.05",
-          "under": "1.80"
+          "line": 7.5,
+          "over": "1.74",
+          "under": "2.05"
         },
         "Bet365": {
           "line": 8.5,
@@ -519,9 +703,9 @@
       },
       "spread": {
         "Bovada": {
-          "homeLine": -1.5,
-          "homeOdds": "2.05",
-          "awayOdds": "1.80"
+          "homeLine": 3.5,
+          "homeOdds": "1.07",
+          "awayOdds": "7.75"
         },
         "Bet365": {
           "homeLine": -1.5,
@@ -529,7 +713,46 @@
           "awayOdds": "1.80"
         }
       },
-      "props": [],
+      "props": [
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "Patrick Sandoval",
+          "line": 0.5,
+          "over": "1.00",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 663776,
+          "side": "over",
+          "odds": "1.00",
+          "ourProb": 0.991,
+          "impliedProb": 1,
+          "edge": -0.009,
+          "isValue": false,
+          "pitcherHand": "R",
+          "pitcherName": "Blade Tidwell",
+          "why": null
+        },
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "Blade Tidwell",
+          "line": 0.5,
+          "over": "1.01",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 694918,
+          "side": "over",
+          "odds": "1.01",
+          "ourProb": 0.999,
+          "impliedProb": 0.99,
+          "edge": 0.009,
+          "isValue": false,
+          "pitcherHand": "L",
+          "pitcherName": "Patrick Sandoval",
+          "why": null
+        }
+      ],
       "moneylinePicks": [
         {
           "market": "Moneyline",
@@ -571,15 +794,15 @@
           "away": "1.97"
         },
         "Bet365": {
-          "home": "1.86",
-          "away": "1.95"
+          "home": "1.90",
+          "away": "1.90"
         }
       },
       "total": {
         "Bovada": {
-          "line": 8.5,
-          "over": "1.83",
-          "under": "2.00"
+          "line": 6.5,
+          "over": "1.33",
+          "under": "3.15"
         },
         "Bet365": {
           "line": 8.5,
@@ -589,14 +812,14 @@
       },
       "spread": {
         "Bovada": {
-          "homeLine": 1.5,
-          "homeOdds": "1.54",
-          "awayOdds": "2.60"
+          "homeLine": -1.5,
+          "homeOdds": "2.70",
+          "awayOdds": "1.43"
         },
         "Bet365": {
-          "homeLine": -1.5,
-          "homeOdds": "2.80",
-          "awayOdds": "1.45"
+          "homeLine": 1.5,
+          "homeOdds": "1.54",
+          "awayOdds": "2.55"
         }
       },
       "props": [],
@@ -647,9 +870,9 @@
       },
       "total": {
         "Bovada": {
-          "line": 8,
-          "over": "1.95",
-          "under": "1.87"
+          "line": 7.5,
+          "over": "1.80",
+          "under": "2.05"
         },
         "Bet365": {
           "line": 7.5,
@@ -659,9 +882,9 @@
       },
       "spread": {
         "Bovada": {
-          "homeLine": 1.5,
-          "homeOdds": "1.48",
-          "awayOdds": "2.75"
+          "homeLine": 2.5,
+          "homeOdds": "1.27",
+          "awayOdds": "3.60"
         },
         "Bet365": {
           "homeLine": -1.5,
@@ -669,7 +892,27 @@
           "awayOdds": "1.45"
         }
       },
-      "props": [],
+      "props": [
+        {
+          "market": "Pitcher Strikeouts O/U",
+          "kind": "pitching",
+          "player": "David Peterson",
+          "line": 0.5,
+          "over": "1.01",
+          "under": null,
+          "bookmaker": "Bet365",
+          "playerId": 656849,
+          "side": "over",
+          "odds": "1.01",
+          "ourProb": 0.996,
+          "impliedProb": 0.99,
+          "edge": 0.006,
+          "isValue": false,
+          "pitcherHand": "L",
+          "pitcherName": "Kade Anderson",
+          "why": null
+        }
+      ],
       "moneylinePicks": [
         {
           "market": "Moneyline",
@@ -697,7 +940,7 @@
           "impliedProb": 0.546,
           "edge": -0.11,
           "isValue": false,
-          "why": "Seattle Mariners tiene menos lesionados en la lista (8 vs 14 de Chicago Cubs) · peleando de cerca por el comodín"
+          "why": "Seattle Mariners tiene menos lesionados en la lista (8 vs 14 de Chicago Cubs)"
         }
       ]
     },
@@ -717,9 +960,9 @@
       },
       "total": {
         "Bovada": {
-          "line": 7.5,
-          "over": "1.87",
-          "under": "1.95"
+          "line": 5.5,
+          "over": "1.33",
+          "under": "3.15"
         },
         "Bet365": {
           "line": 7.5,
@@ -735,8 +978,8 @@
         },
         "Bet365": {
           "homeLine": -1.5,
-          "homeOdds": "1.90",
-          "awayOdds": "1.90"
+          "homeOdds": "1.86",
+          "awayOdds": "1.95"
         }
       },
       "props": [],
@@ -783,9 +1026,9 @@
       },
       "total": {
         "Bovada": {
-          "line": 11,
-          "over": "1.87",
-          "under": "1.95"
+          "line": 8.5,
+          "over": "1.34",
+          "under": "3.10"
         },
         "Bet365": {
           "line": 11.5,
@@ -795,9 +1038,9 @@
       },
       "spread": {
         "Bovada": {
-          "homeLine": 1.5,
-          "homeOdds": "1.80",
-          "awayOdds": "2.05"
+          "homeLine": -2.5,
+          "homeOdds": "4.20",
+          "awayOdds": "1.21"
         },
         "Bet365": {
           "homeLine": 1.5,
@@ -824,9 +1067,9 @@
       },
       "total": {
         "Bovada": {
-          "line": 8.5,
-          "over": "2.00",
-          "under": "1.83"
+          "line": 5.5,
+          "over": "1.27",
+          "under": "3.60"
         },
         "Bet365": {
           "line": 8.5,
@@ -836,9 +1079,9 @@
       },
       "spread": {
         "Bovada": {
-          "homeLine": -1.5,
-          "homeOdds": "2.30",
-          "awayOdds": "1.67"
+          "homeLine": -4.5,
+          "homeOdds": "4.75",
+          "awayOdds": "1.17"
         },
         "Bet365": {
           "homeLine": -1.5,
@@ -856,9 +1099,9 @@
           "side": "gana",
           "odds": "2.45",
           "bookmaker": "Bovada",
-          "ourProb": 0.394,
+          "ourProb": 0.363,
           "impliedProb": 0.408,
-          "edge": -0.015,
+          "edge": -0.045,
           "isValue": false,
           "why": "Cincinnati Reds tiene menos lesionados en la lista (5 vs 12 de Arizona Diamondbacks)"
         },
@@ -870,9 +1113,9 @@
           "side": "gana",
           "odds": "1.56",
           "bookmaker": "Bovada",
-          "ourProb": 0.606,
+          "ourProb": 0.637,
           "impliedProb": 0.641,
-          "edge": -0.035,
+          "edge": -0.004,
           "isValue": false,
           "why": "Arizona Diamondbacks tiene mas lesionados en la lista (12 vs 5 de Cincinnati Reds) — jugado a favor del rival · peleando de cerca por el comodín"
         }
@@ -894,9 +1137,9 @@
       },
       "total": {
         "Bovada": {
-          "line": 8,
-          "over": "1.91",
-          "under": "1.91"
+          "line": 6.5,
+          "over": "1.43",
+          "under": "2.70"
         },
         "Bet365": {
           "line": 7.5,
@@ -906,9 +1149,9 @@
       },
       "spread": {
         "Bovada": {
-          "homeLine": -1.5,
-          "homeOdds": "2.30",
-          "awayOdds": "1.67"
+          "homeLine": -3.5,
+          "homeOdds": "4.10",
+          "awayOdds": "1.22"
         },
         "Bet365": {
           "homeLine": -1.5,
@@ -926,11 +1169,11 @@
           "side": "gana",
           "odds": "2.39",
           "bookmaker": "Bovada",
-          "ourProb": 0.434,
+          "ourProb": 0.367,
           "impliedProb": 0.418,
-          "edge": 0.016,
+          "edge": -0.052,
           "isValue": false,
-          "why": "peleando de cerca por el título de división"
+          "why": "peleando de cerca por el comodín"
         },
         {
           "market": "Moneyline",
@@ -940,9 +1183,9 @@
           "side": "gana",
           "odds": "1.61",
           "bookmaker": "Bovada",
-          "ourProb": 0.566,
+          "ourProb": 0.633,
           "impliedProb": 0.621,
-          "edge": -0.055,
+          "edge": 0.012,
           "isValue": false,
           "why": null
         }
@@ -996,7 +1239,7 @@
           "market": "Moneyline",
           "side": "gana",
           "line": null,
-          "odds": "2.07",
+          "odds": "2.09",
           "ourProb": 0.55,
           "game": "Tampa Bay Rays @ Baltimore Orioles"
         },
@@ -1010,7 +1253,7 @@
           "game": "Chicago Cubs @ Seattle Mariners"
         }
       ],
-      "combinedOdds": 7.28,
+      "combinedOdds": 7.35,
       "combinedProb": 0.201
     }
   ],
@@ -1196,6 +1439,15 @@
       "eligibleReturn": "2026-07-20"
     },
     {
+      "name": "Yusei Kikuchi",
+      "team": "Los Angeles Angels",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left shoulder inflammation.",
+      "since": "2026-05-22",
+      "eligibleReturn": "2026-07-21"
+    },
+    {
       "name": "Kutter Crawford",
       "team": "Boston Red Sox",
       "code": "D60",
@@ -1220,6 +1472,15 @@
       "description": "Injured 10-Day",
       "note": "Left index finger fracture.",
       "since": "2026-07-12",
+      "eligibleReturn": "2026-07-22"
+    },
+    {
+      "name": "Carter Baumler",
+      "team": "Texas Rangers",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right intercostal strain.",
+      "since": "2026-05-23",
       "eligibleReturn": "2026-07-22"
     },
     {
@@ -1340,6 +1601,15 @@
       "eligibleReturn": "2026-07-31"
     },
     {
+      "name": "Robert Garcia",
+      "team": "Texas Rangers",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": null,
+      "since": "2026-06-01",
+      "eligibleReturn": "2026-07-31"
+    },
+    {
       "name": "Andrew Nardi",
       "team": "Miami Marlins",
       "code": "D60",
@@ -1409,6 +1679,15 @@
       "description": "Injured 60-Day",
       "note": "Right shoulder impingement",
       "since": "2026-06-02",
+      "eligibleReturn": "2026-08-01"
+    },
+    {
+      "name": "Josh Jung",
+      "team": "Texas Rangers",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": "Left calf strain",
+      "since": "2026-07-22",
       "eligibleReturn": "2026-08-01"
     },
     {
@@ -1556,6 +1835,15 @@
       "eligibleReturn": "2026-08-06"
     },
     {
+      "name": "Yoán Moncada",
+      "team": "Los Angeles Angels",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right knee inflammation.",
+      "since": "2026-06-08",
+      "eligibleReturn": "2026-08-07"
+    },
+    {
       "name": "Jonathan Heasley",
       "team": "Tampa Bay Rays",
       "code": "D60",
@@ -1607,6 +1895,15 @@
       "description": "Injured 10-Day",
       "note": "Left adductor strain",
       "since": "2026-07-30",
+      "eligibleReturn": "2026-08-09"
+    },
+    {
+      "name": "Jack Kochanowicz",
+      "team": "Los Angeles Angels",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right elbow inflammation.",
+      "since": "2026-06-10",
       "eligibleReturn": "2026-08-09"
     },
     {
@@ -1799,6 +2096,24 @@
       "eligibleReturn": "2026-08-18"
     },
     {
+      "name": "Michael Helman",
+      "team": "Texas Rangers",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right finger fracture",
+      "since": "2026-06-19",
+      "eligibleReturn": "2026-08-18"
+    },
+    {
+      "name": "Sam Bachman",
+      "team": "Los Angeles Angels",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Right forearm radial nerve inflammation.",
+      "since": "2026-08-03",
+      "eligibleReturn": "2026-08-18"
+    },
+    {
       "name": "Tyler Freeman",
       "team": "Colorado Rockies",
       "code": "D10",
@@ -1934,6 +2249,15 @@
       "eligibleReturn": "2026-08-23"
     },
     {
+      "name": "Nathan Eovaldi",
+      "team": "Texas Rangers",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Right posterior elbow inflammation",
+      "since": "2026-08-09",
+      "eligibleReturn": "2026-08-24"
+    },
+    {
       "name": "Ryne Nelson",
       "team": "Arizona Diamondbacks",
       "code": "D60",
@@ -1959,6 +2283,15 @@
       "note": "Left wrist tendon inflammation.",
       "since": "2026-08-14",
       "eligibleReturn": "2026-08-24"
+    },
+    {
+      "name": "Shaun Anderson",
+      "team": "Los Angeles Angels",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Right shoulder inflammation",
+      "since": "2026-08-10",
+      "eligibleReturn": "2026-08-25"
     },
     {
       "name": "Kervin Castro",
@@ -2222,6 +2555,15 @@
       "eligibleReturn": "2026-09-01"
     },
     {
+      "name": "Samy Natera Jr.",
+      "team": "Los Angeles Angels",
+      "code": "D15",
+      "description": "Injured 15-Day",
+      "note": "Low back muscle spasms.",
+      "since": "2026-08-17",
+      "eligibleReturn": "2026-09-01"
+    },
+    {
       "name": "Edwin Díaz",
       "team": "Los Angeles Dodgers",
       "code": "D15",
@@ -2366,6 +2708,15 @@
       "eligibleReturn": "2026-09-17"
     },
     {
+      "name": "Jalen Beeks",
+      "team": "Texas Rangers",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": null,
+      "since": "2026-07-21",
+      "eligibleReturn": "2026-09-19"
+    },
+    {
       "name": "Will Smith",
       "team": "Los Angeles Dodgers",
       "code": "D60",
@@ -2418,6 +2769,15 @@
       "note": "Left forearm strain.",
       "since": "2026-07-25",
       "eligibleReturn": "2026-09-23"
+    },
+    {
+      "name": "Jose Corniell",
+      "team": "Texas Rangers",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": null,
+      "since": "2026-07-29",
+      "eligibleReturn": "2026-09-27"
     },
     {
       "name": "Mark Leiter Jr.",
@@ -2546,6 +2906,15 @@
       "eligibleReturn": "2026-10-05"
     },
     {
+      "name": "Jack Leiter",
+      "team": "Texas Rangers",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right ankle posterior impingement.",
+      "since": "2026-08-09",
+      "eligibleReturn": "2026-10-08"
+    },
+    {
       "name": "Blake Treinen",
       "team": "Los Angeles Dodgers",
       "code": "D60",
@@ -2598,6 +2967,15 @@
       "note": "Right elbow strain.",
       "since": "2026-08-13",
       "eligibleReturn": "2026-10-12"
+    },
+    {
+      "name": "Sebastián Rivero",
+      "team": "Los Angeles Angels",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left hamate fracture.",
+      "since": "2026-08-15",
+      "eligibleReturn": "2026-10-14"
     },
     {
       "name": "Justin Sterner",
@@ -2690,6 +3068,20 @@
       "eligibleReturn": "2026-10-20"
     },
     {
+      "name": "Kyle Higashioka",
+      "team": "Texas Rangers",
+      "code": "D10",
+      "description": "Injured 10-Day",
+      "note": null
+    },
+    {
+      "name": "Anthony Rendon",
+      "team": "Los Angeles Angels",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Left hip labrum surgery."
+    },
+    {
       "name": "Shelby Miller",
       "team": "Chicago Cubs",
       "code": "D60",
@@ -2716,6 +3108,13 @@
       "code": "D60",
       "description": "Injured 60-Day",
       "note": "Recovery from Tommy John surgery."
+    },
+    {
+      "name": "Robert Stephenson",
+      "team": "Los Angeles Angels",
+      "code": "D60",
+      "description": "Injured 60-Day",
+      "note": "Right elbow inflammation."
     },
     {
       "name": "Lucas Giolito",
