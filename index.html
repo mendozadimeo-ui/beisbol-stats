@@ -1316,10 +1316,19 @@ function propsSectionHTML(away, home, gameDateISO, oddsMap, awayPitcher, homePit
   const relevant = props.filter(p =>
     parseFloat(p.odds) >= 1.20 && (p.market === "Pitcher Strikeouts O/U" ? pitcherNames.includes(p.player) : true)
   );
-  // Para no saturar la tarjeta: abridores completos + hasta 8 props de bateadores con mas edge.
+  // Para no saturar la tarjeta: abridores completos (linea real de los
+  // confirmados, informativo aunque ronde el 50% -- asi se arman la mayoria
+  // de las lineas de K) + hasta 8 props de bateadores con mas edge.
+  //
+  // A los bateadores SI se les exige el mismo piso de probabilidad realista
+  // que a las listas de arriba (55% Hits/TB, 15% HR) -- eran el "menu" de
+  // opciones sin ningun filtro de calidad, solo ordenados por edge, y podia
+  // colar un bateador que reparte 2+ hits muy pocas veces en la temporada
+  // solo porque el mercado lo pagaba bien. El edge mide si el mercado se
+  // equivoca, no si el pick es realista -- las dos cosas hacen falta juntas.
   const pitcherProps = relevant.filter(p => p.market === "Pitcher Strikeouts O/U");
   const batterProps = relevant
-    .filter(p => p.market !== "Pitcher Strikeouts O/U")
+    .filter(p => p.market !== "Pitcher Strikeouts O/U" && p.ourProb >= minRealisticProb(p.market))
     .sort((a, b) => b.edge - a.edge)
     .slice(0, 8);
   const rows = [...pitcherProps, ...batterProps];
