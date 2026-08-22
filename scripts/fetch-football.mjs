@@ -1,42 +1,45 @@
 // Corre periodicamente (GitHub Actions) y guarda un snapshot estatico en data/football.json.
-// Fixtures/tabla vienen de Big Balls Sports Data (BBS). Cuotas vienen de odds-api.io
-// (misma cuenta que usamos para beisbol). El sitio nunca llama a ninguna de las dos
-// APIs directamente: todo el trabajo se hace aca cada 2 horas.
+// Fixtures, tabla de posiciones y stats de jugador vienen todos de ESPN (API no
+// documentada que usa su propia web, sin key, sin limite de cuota visible en las
+// pruebas). Cuotas reales (moneyline/total/eventual props) vienen de odds-api.io,
+// que ESPN no tiene -- es la unica pieza que sigue costando cuota de una API paga.
+// Antes fixtures/tabla venian de Big Balls Sports Data (BBS): confirmado en vivo que
+// nunca tuvo lineups ni stats de jugador cargadas para esta temporada, asi que se
+// reemplazo enteramente por ESPN (que si las tiene) para no depender de dos
+// proveedores con el mismo problema de cobertura. El sitio nunca llama a ESPN ni a
+// odds-api.io directamente: todo el trabajo se hace aca cada 2 horas.
 
-const BBS_API_KEY = process.env.BBS_API_KEY;
 const ODDS_API_KEY = process.env.ODDS_API_KEY;
-if (!BBS_API_KEY) {
-  console.error("Falta la variable de entorno BBS_API_KEY");
-  process.exit(1);
-}
 
-const BBS_BASE = "https://api.bigballsdata.com/v1";
 const ODDS_BASE = "https://api.odds-api.io/v3";
+const ESPN_SITE_BASE = "https://site.api.espn.com/apis/site/v2/sports/soccer";
+const ESPN_STANDINGS_BASE = "https://site.api.espn.com/apis/v2/sports/soccer";
+const ESPN_WEB_BASE = "https://site.web.api.espn.com/apis/common/v3/sports/soccer";
 
-// Ligas que mostramos, y su equivalente de liga en odds-api.io (si todavia no
-// arranco la temporada esa liga no tiene eventos ahi, y se maneja como "sin cuotas").
+// Ligas que mostramos: nombre para mostrar, slug de ESPN (fixtures/tabla/stats) y
+// slug(s) de liga en odds-api.io (para cuotas reales -- si la liga todavia no
+// arranco ahi, se maneja como "sin cuotas", no rompe nada).
 // Nota: "spain-la-liga" (guion) no existe en odds-api.io, el slug real es
 // "spain-laliga" -- estaba mal desde el principio, nunca trajo cuotas de La Liga.
-//
-// Europa League y Conference League llevan "source: odds-api" porque Big Balls
-// Sports Data (fixtures/tabla) no las tiene en su catalogo en absoluto (confirmado
-// contra la API real). Para esas dos armamos el fixture directo desde los eventos
-// de odds-api.io en vez de BBS -- por eso no van a tener tabla de posiciones,
-// la pestana de Posiciones lo va a mostrar como "sin tabla disponible", honesto.
 //
 // oddsLeagues es un array: en agosto las 3 copas UEFA todavia no arrancaron la
 // fase de liga (arranca en septiembre), asi que el slug base esta vacio y lo
 // unico con partidos reales es la variante "-playoff-round". Consultamos ambos
 // slugs y los combinamos -- asi se ve la fase de playoff ahora, y en septiembre
 // el slug base empieza a traer datos solo, sin tocar el codigo de nuevo.
+// UCL/UEL/UECL llevan "source: odds-api": probado en vivo que el scoreboard de ESPN
+// para esos 3 slugs devuelve 0 partidos en agosto (su calendario de "League Phase"
+// recien arranca en septiembre, y no tiene indexada la fase previa de clasificacion/
+// playoff que se juega ahora) -- mismo problema de fondo que ya tenia BBS con estas
+// 3 copas. odds-api.io si tiene esos partidos ahora mismo (via el slug
+// "-playoff-round"), asi que para estas 3 seguimos armando el fixture directo desde
+// ahi, igual que antes. Cuando ESPN indexe la fase de liga en septiembre esto se
+// puede revisar, pero no hay apuro: no rompe nada, solo sigue gastando algo de
+// cuota de odds-api.io para estas 3 en particular.
 const LEAGUES = {
-  epl: { name: "Premier League", oddsLeagues: ["england-premier-league"] },
-  laliga: { name: "La Liga", oddsLeagues: ["spain-laliga"] },
-  seriea: { name: "Serie A", oddsLeagues: ["italy-serie-a"] },
-  // UCL tambien via odds-api: el catalogo de BBS para esta liga esta desactualizado
-  // (devuelve fixtures y tabla de la temporada 2025-26 anterior, ya terminada --
-  // confirmado contra datos reales), asi que los partidos de la fase de playoff
-  // de esta semana no aparecian nunca.
+  epl: { name: "Premier League", espnLeague: "eng.1", oddsLeagues: ["england-premier-league"] },
+  laliga: { name: "La Liga", espnLeague: "esp.1", oddsLeagues: ["spain-laliga"] },
+  seriea: { name: "Serie A", espnLeague: "ita.1", oddsLeagues: ["italy-serie-a"] },
   ucl: {
     name: "Champions League",
     oddsLeagues: ["international-clubs-uefa-champions-league", "international-clubs-uefa-champions-league-playoff-round"],
@@ -63,11 +66,7 @@ async function getJSON(url, headers) {
 }
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-function bbsGet(path) {
-  return getJSON(`${BBS_BASE}${path}`, { Authorization: `Bearer ${BBS_API_KEY}` });
-}
-
-// Los dos proveedores no escriben los nombres de club igual ("Arsenal" vs "Arsenal FC",
+// Los proveedores no escriben los nombres de club igual ("Arsenal" vs "Arsenal FC",
 // "Atlético Madrid" vs "Atletico Madrid"). Sacamos acentos (NFD + quitar diacriticos)
 // antes de sacar sufijos comunes, si no "Atlético" y "Atletico" no cruzan nunca --
 // bug real que rompia el matching de cualquier equipo con tilde (La Liga, Serie A).
@@ -151,16 +150,11 @@ function extractFootballOdds(oddsResponse) {
 }
 
 // ---------- Props de jugador (ESPN) ----------
-// BBS (fixtures/tabla) no tiene lineups ni stats individuales cargadas todavia para
-// esta temporada -- confirmado en vivo contra la API real, no es un supuesto. ESPN
-// si tiene (misma API no documentada que usa su propia web, sin key): roster, stats
-// de temporada y "ultimos 5 partidos" por jugador (tiros, tiros al arco, goles,
-// asistencias, tarjetas). Mismo patron que Baseball Savant en MLB -- no es un
-// "proveedor" contratado, es un endpoint publico que se consulta con cuidado.
-const ESPN_SITE_BASE = "https://site.api.espn.com/apis/site/v2/sports/soccer";
-const ESPN_WEB_BASE = "https://site.web.api.espn.com/apis/common/v3/sports/soccer";
-const ESPN_LEAGUE_SLUGS = { epl: "eng.1", laliga: "esp.1", seriea: "ita.1" };
-
+// Roster, stats de temporada y "ultimos 5 partidos" por jugador (tiros, tiros al
+// arco, goles, asistencias, tarjetas), solo disponible para EPL/LaLiga/SerieA (las
+// copas UEFA no tienen roster de club consultable de la misma forma antes de que
+// arranque la fase de liga en septiembre).
+//
 // No tiene limite de cuota documentado, pero corre cada 2hs via GitHub Actions --
 // sin cache, en un dia con muchos partidos se puede terminar pidiendo cientos de
 // jugadores por corrida a un endpoint no oficial. Reusamos los stats de un equipo
@@ -492,18 +486,71 @@ function buildFootballParlays(matches) {
   return [toParlay(pickLegs(2), "Value picks (2)"), toParlay(pickLegs(3), "Value picks (3)")].filter(Boolean);
 }
 
-// ---------- Fixtures y tabla (BBS) ----------
-async function fetchLeagueData(leagueKey) {
-  const [matchesRes, standingsRes] = await Promise.all([
-    bbsGet(`/matches?sport=football&league=${leagueKey}`).catch(() => ({ data: [] })),
-    bbsGet(`/standings?sport=football&league=${leagueKey}`).catch(() => ({ data: null }))
-  ]);
-  return { matches: matchesRes.data ?? [], standings: standingsRes.data ?? null };
+// ---------- Fixtures y tabla (ESPN) ----------
+// Una sola llamada trae todo el rango de fechas (formato YYYYMMDD-YYYYMMDD, no hace
+// falta pedir dia por dia, y una ventana mas ancha no cuesta llamadas de mas).
+// Ventana: 5 dias para atras (para que Resultados/historial tengan partidos recien
+// terminados que calificar) y 30 para adelante (misma profundidad que daba BBS).
+function espnDateRange() {
+  const fmt = d => d.toISOString().slice(0, 10).replace(/-/g, "");
+  const from = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);
+  const to = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+  return `${fmt(from)}-${fmt(to)}`;
 }
 
-// ---------- Fixtures directo desde odds-api.io (ligas sin datos en BBS) ----------
+async function fetchEspnSchedule(espnLeague) {
+  try {
+    const data = await getJSON(`${ESPN_SITE_BASE}/${espnLeague}/scoreboard?dates=${espnDateRange()}`);
+    return (data.events ?? []).map(ev => {
+      const comp = ev.competitions?.[0];
+      const home = comp?.competitors?.find(c => c.homeAway === "home");
+      const away = comp?.competitors?.find(c => c.homeAway === "away");
+      // status.type.state es "pre" | "in" | "post" -- mas confiable que parsear
+      // el nombre (STATUS_FULL_TIME, STATUS_SECOND_HALF, etc, son decenas de valores).
+      const state = ev.status?.type?.state;
+      const status = state === "post" ? "finished" : state === "in" ? "live" : "scheduled";
+      const hasScore = status !== "scheduled" && home?.score != null && away?.score != null;
+      return {
+        id: ev.id,
+        home: home?.team?.displayName ?? "", homeLogo: home?.team?.logo ?? null,
+        away: away?.team?.displayName ?? "", awayLogo: away?.team?.logo ?? null,
+        kickoff: ev.date, status,
+        score: hasScore ? { home: parseInt(home.score, 10), away: parseInt(away.score, 10) } : null
+      };
+    });
+  } catch (e) {
+    console.error(`  ESPN schedule no disponible para ${espnLeague}:`, e.message);
+    return [];
+  }
+}
+
+async function fetchEspnStandings(espnLeague) {
+  try {
+    const data = await getJSON(`${ESPN_STANDINGS_BASE}/${espnLeague}/standings`);
+    const entries = data.children?.[0]?.standings?.entries ?? data.standings?.entries ?? [];
+    if (!entries.length) return null;
+    const statVal = (entry, name) => entry.stats?.find(s => s.name === name)?.value ?? 0;
+    const rows = entries.map(e => ({
+      team_name: e.team?.displayName ?? "",
+      logo_url: e.team?.logos?.[0]?.href ?? null,
+      games_played: statVal(e, "gamesPlayed"),
+      wins: statVal(e, "wins"),
+      ties: statVal(e, "ties"),
+      losses: statVal(e, "losses"),
+      points_for: statVal(e, "pointsFor"),
+      points_against: statVal(e, "pointsAgainst"),
+      rank: statVal(e, "rank") || null
+    })).sort((a, b) => (a.rank ?? 999) - (b.rank ?? 999));
+    return { standings: [{ season: data.season?.year ? String(data.season.year) : null, rows }] };
+  } catch (e) {
+    console.error(`  ESPN standings no disponible para ${espnLeague}:`, e.message);
+    return null;
+  }
+}
+
+// ---------- Fixtures directo desde odds-api.io (UCL/UEL/UECL, ver nota en LEAGUES) ----------
 // El mismo evento nos da equipos + fecha + cuotas en una sola pasada. No hay tabla
-// de posiciones posible por esta via (odds-api.io no la tiene).
+// de posiciones posible por esta via (odds-api.io no la tiene) ni stats de jugador.
 async function fetchOddsApiFixtures(oddsLeagueSlugs) {
   const seenIds = new Set();
   const soonEvents = [];
@@ -631,8 +678,9 @@ async function main() {
     console.log(`Trayendo ${cfg.name}...`);
 
     if (cfg.source === "odds-api") {
-      // Sin tabla de posiciones por esta via -> sin modelo de fuerza de equipos ->
-      // sin picks para estas 3 ligas. Mismo criterio de honestidad que con la tabla.
+      // UCL/UEL/UECL en agosto: ver nota en LEAGUES sobre por que estas 3 siguen
+      // usando odds-api.io para el fixture (ESPN no tiene la fase de clasificacion
+      // indexada todavia). Sin tabla de posiciones por esta via -> sin picks.
       output.standings[key] = null;
       const fresh = ODDS_API_KEY ? await fetchOddsApiFixtures(cfg.oddsLeagues) : [];
       output.matches[key] = fresh.length ? fresh : (previous?.matches?.[key] ?? []);
@@ -640,7 +688,8 @@ async function main() {
       continue;
     }
 
-    const { matches, standings } = await fetchLeagueData(key);
+    const fixtures = await fetchEspnSchedule(cfg.espnLeague);
+    const standings = await fetchEspnStandings(cfg.espnLeague);
     output.standings[key] = standings;
     const strength = computeLeagueStrength(standings);
 
@@ -649,33 +698,26 @@ async function main() {
       oddsByMatch = await fetchOddsForLeague(cfg.oddsLeagues);
     }
 
-    const leagueMatches = matches.map(m => {
-      const oddsKey = `${normalizeTeam(m.away.name)}|${normalizeTeam(m.home.name)}`;
+    const leagueMatches = fixtures.map(m => {
+      const oddsKey = `${normalizeTeam(m.away)}|${normalizeTeam(m.home)}`;
       const odds = oddsByMatch[oddsKey] ?? null;
-      const match = {
-        id: m.id,
-        home: m.home.name, homeLogo: m.home.logo_url,
-        away: m.away.name, awayLogo: m.away.logo_url,
-        kickoff: m.kickoff_utc, status: m.status, score: m.score,
-        odds
-      };
+      const match = { ...m, odds };
       match.picks = strength ? evaluateFootballPicks(match, strength) : [];
       return match;
     });
 
-    const espnLeague = ESPN_LEAGUE_SLUGS[key];
-    if (espnLeague) {
-      try {
-        output.playerStatsCache[key] = await fetchLeaguePlayerProps(
-          espnLeague, espnLeague, leagueMatches, previous?.playerStatsCache?.[key]
-        );
-      } catch (e) {
-        console.error(`  Props de jugador (ESPN) fallaron para ${cfg.name}:`, e.message);
-        output.playerStatsCache[key] = previous?.playerStatsCache?.[key] ?? {};
-      }
+    try {
+      output.playerStatsCache[key] = await fetchLeaguePlayerProps(
+        cfg.espnLeague, cfg.espnLeague, leagueMatches, previous?.playerStatsCache?.[key]
+      );
+    } catch (e) {
+      console.error(`  Props de jugador (ESPN) fallaron para ${cfg.name}:`, e.message);
+      output.playerStatsCache[key] = previous?.playerStatsCache?.[key] ?? {};
     }
 
-    output.matches[key] = leagueMatches;
+    // Si ESPN fallo por completo esta corrida, mantenemos el snapshot anterior en
+    // vez de vaciar la liga -- mismo criterio de robustez que ya tenia el codigo.
+    output.matches[key] = leagueMatches.length ? leagueMatches : (previous?.matches?.[key] ?? []);
     output.parlays[key] = buildFootballParlays(leagueMatches);
     recordPicks(key, cfg.name, leagueMatches, history);
   }
