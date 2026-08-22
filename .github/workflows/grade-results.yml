@@ -1,0 +1,32 @@
+name: Calificar resultados de picks (MLB)
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  grade-results:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Calificar picks pendientes (solo API de MLB, sin cuota de odds)
+        run: node scripts/grade-results.mjs
+
+      - name: Commit si cambio
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/history.json
+          git diff --cached --quiet && exit 0
+          git pull --rebase -q origin main
+          git commit -m "Calificar resultados [automatico]"
+          git push
