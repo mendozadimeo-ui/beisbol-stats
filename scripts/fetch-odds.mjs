@@ -870,6 +870,42 @@ function teamImpliedTotal(gameOdds, isHome) {
   return isHome ? homeRuns : total - homeRuns;
 }
 
+// ---------- CSW% (Called Strike + Whiff): mejor predictor de ponches que K/9 ----------
+// K/9 (lo que ya usabamos via kPerStart) es un resultado -- depende de cuantos
+// bateadores enfrento, la defensa detras, la suerte de pelotas en juego. CSW%
+// (strikes cantados + swings y fallos, sobre el total de lanzamientos) mide la
+// habilidad real de dominar la zona sin ese ruido, considerado en la comunidad
+// de sabermetria el mejor predictor individual de ponches futuros. Se saca del
+// mismo endpoint publico de Baseball Savant (custom leaderboard), sin
+// autenticacion.
+let pitcherCswCache = null;
+async function fetchPitcherCSW() {
+  if (pitcherCswCache) return pitcherCswCache;
+  const map = {};
+  let leagueAvgCsw = null;
+  try {
+    const res = await fetch(`https://baseballsavant.mlb.com/leaderboard/custom?year=${SEASON}&type=pitcher&filter=&min=10&selections=p_called_strike,p_swinging_strike,p_total_pitches&chart=false&x=p_called_strike&y=p_called_strike&r=no&chartType=beeswarm&csv=true`);
+    const text = await res.text();
+    const rows = text.trim().split("\n").slice(1);
+    let sum = 0, n = 0;
+    for (const row of rows) {
+      const cols = parseCsvLine(row);
+      const playerId = parseInt(cols[1], 10);
+      const calledStrike = parseInt(cols[3], 10);
+      const swingingStrike = parseInt(cols[4], 10);
+      const totalPitches = parseInt(cols[5], 10);
+      if (!playerId || !totalPitches || totalPitches < 100) continue;
+      const csw = (calledStrike + swingingStrike) / totalPitches;
+      map[playerId] = { csw, totalPitches };
+      sum += csw;
+      n++;
+    }
+    if (n > 0) leagueAvgCsw = sum / n;
+  } catch { /* seguimos sin este ajuste si Baseball Savant falla */ }
+  pitcherCswCache = { byPlayerId: map, leagueAvgCsw };
+  return pitcherCswCache;
+}
+
 // Combina parque + clima + split vs mano + historial puntual vs el abridor +
 // forma reciente en un solo multiplicador sobre la tasa base (HR o TB por
 // partido), mas un texto corto explicando que peso mas. Todo acotado para que
@@ -1089,11 +1125,21 @@ async function evaluateProp(prop, awayTeam, homeTeam, gameCtx) {
         }
       }
     }
+    let cswNote = null;
+    const cswStats = await fetchPitcherCSW();
+    const csw = cswStats.byPlayerId[proj.id];
+    if (csw && cswStats.leagueAvgCsw) {
+      const ratio = clamp(csw.csw / cswStats.leagueAvgCsw, 0.85, 1.2);
+      kMult *= ratio;
+      if (Math.abs(ratio - 1) >= 0.08) {
+        cswNote = `${ratio > 1 ? "domina" : "domina menos"} la zona de strike que el promedio (CSW ${(csw.csw * 100).toFixed(1)}% vs liga ${(cswStats.leagueAvgCsw * 100).toFixed(1)}%)`;
+      }
+    }
     ourProbOver = poissonProbOver(prop.line, proj.kPerStart * kMult);
     const boards = await fetchTitleLeaderboards();
     const eraNote = titleRaceNote(proj.id, "era", "efectividad", boards);
     const kNote = titleRaceNote(proj.id, "k", "ponches", boards);
-    why = [restNote, oppKNote, eraNote, kNote].filter(Boolean).join(" · ") || null;
+    why = [restNote, oppKNote, cswNote, eraNote, kNote].filter(Boolean).join(" · ") || null;
   } else if (prop.market === "Hits O/U" && !proj.isPitcher && proj.avg != null) {
     // Hits O/U casi siempre es linea 0.5 (al menos 1 hit) -- modelo ya afinado,
     // no le metemos los ajustes de parque/clima/matchup de HR y TB. Si algun dia
