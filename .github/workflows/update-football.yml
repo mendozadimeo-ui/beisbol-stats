@@ -28,6 +28,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/football.json
+          git add data/football.json data/football-history.json
           git diff --cached --quiet || git commit -m "Actualizar datos de futbol [automatico]"
           git push

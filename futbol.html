@@ -218,6 +218,17 @@
   .confidence-badge { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 11px; font-weight: 700; }
   .confidence-badge.alta { background: rgba(var(--accent-rgb),0.18); color: var(--accent); }
   .confidence-badge.media { background: rgba(234,179,8,0.18); color: #eab308; }
+
+  .match-card { cursor: pointer; transition: border-color .15s ease; }
+  .match-card:hover { border-color: var(--accent); }
+  .expand-hint { font-size: 11px; color: var(--accent); margin-top: 8px; }
+  .match-detail { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+  .player-stats-note { font-size: 11px; color: var(--muted); margin-bottom: 10px; line-height: 1.5; }
+  .player-stats-team-title { font-size: 12px; font-weight: 700; color: var(--accent); margin: 12px 0 6px; text-transform: uppercase; letter-spacing: 0.03em; }
+  .player-stats-team-title:first-child { margin-top: 0; }
+  .table-scroll { overflow-x: auto; }
+  .player-stats-table { font-size: 12px; min-width: 480px; }
+  .player-stats-table .pname { text-align: left; }
 </style>
 </head>
 <body>
@@ -242,7 +253,7 @@
 
   <section id="tab-scores" class="tab active">
     <div class="disclaimer">
-      Calendario y cuotas reales. Todavía no tenemos alineaciones ni estadísticas por jugador (tiros, pases, tarjetas) — el proveedor de datos no las cargó aún para la temporada actual. Se van a activar solas apenas estén disponibles.
+      Calendario y cuotas reales. Hacé clic en cualquier partido para ver estadísticas por jugador (tiros, tiros al arco, goles) de Premier League, La Liga y Serie A — se cargan automáticamente para los partidos de las próximas 36hs o que están en vivo. Todavía no hay cuota de mercado de props de jugador para comparar rentabilidad, así que por ahora es solo nuestra proyección propia a partir de datos reales (ESPN).
     </div>
     <div class="league-chips" id="scoresLeagueChips"></div>
     <div id="scoresList"><div class="loading">Cargando partidos…</div></div>
@@ -377,7 +388,7 @@ function formatMatch(m) {
   const kickoff = new Date(m.kickoff);
   const kickoffStr = kickoff.toLocaleString("es-AR", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
   return `
-    <div class="card">
+    <div class="card match-card" data-match-id="${m.id}">
       <div class="match-row">
         <div class="match-teams">
           <div class="team-line ${awayWin ? "winner" : ""}">
@@ -390,11 +401,93 @@ function formatMatch(m) {
           </div>
           <div class="kickoff-time">${kickoffStr}</div>
           ${matchOddsHTML(m.odds)}
+          <div class="expand-hint">📊 Ver estadísticas de jugadores ▾</div>
         </div>
         <div class="status ${m.status === "live" ? "live" : ""}">${statusLabel(m.status)}</div>
       </div>
+      <div class="match-detail" id="detail-${m.id}" style="display:none;"></div>
     </div>`;
 }
+
+// ---------- Estadisticas de jugador (ESPN) por partido, sin cuota de mercado ----------
+function findMatchById(id) {
+  for (const arr of Object.values(footballData?.matches ?? {})) {
+    const m = arr.find(x => String(x.id) === String(id));
+    if (m) return m;
+  }
+  return null;
+}
+
+function groupPlayerProps(playerProps) {
+  const byPlayer = new Map();
+  for (const p of playerProps) {
+    if (!byPlayer.has(p.playerId)) {
+      byPlayer.set(p.playerId, { player: p.player, team: p.team, recent: p.recent, season: p.season, sog: null, goal: null });
+    }
+    const entry = byPlayer.get(p.playerId);
+    if (p.market === "Tiros al arco O/U") entry.sog = p.ourProb;
+    if (p.market === "Anota gol O/U") entry.goal = p.ourProb;
+  }
+  return [...byPlayer.values()];
+}
+
+function playerStatsRowHTML(p) {
+  const shots = p.recent?.shotsPerGame ?? p.season?.shotsPerGame;
+  const sog = p.recent?.sogPerGame ?? p.season?.sogPerGame;
+  const goals = p.recent?.goalsPerGame ?? p.season?.goalsPerGame;
+  return `
+    <tr>
+      <td class="pname">${p.player}</td>
+      <td>${shots != null ? shots : "-"}</td>
+      <td>${sog != null ? sog : "-"}</td>
+      <td>${goals != null ? goals : "-"}</td>
+      <td>${p.sog != null ? Math.round(p.sog * 100) + "%" : "-"}</td>
+      <td>${p.goal != null ? Math.round(p.goal * 100) + "%" : "-"}</td>
+    </tr>`;
+}
+
+function teamPlayerStatsHTML(teamName, rows) {
+  if (!rows.length) return "";
+  return `
+    <div class="player-stats-team-title">${teamName}</div>
+    <div class="table-scroll">
+      <table class="player-stats-table">
+        <thead><tr><th class="pname">Jugador</th><th>Tiros/PJ</th><th>Al arco/PJ</th><th>Goles/PJ</th><th>Prob. tiro al arco</th><th>Prob. anota</th></tr></thead>
+        <tbody>${rows.map(playerStatsRowHTML).join("")}</tbody>
+      </table>
+    </div>`;
+}
+
+function matchDetailHTML(id) {
+  const m = findMatchById(id);
+  if (!m) return '<div class="muted">Sin datos para este partido.</div>';
+  const props = m.playerProps ?? [];
+  if (!props.length) {
+    return '<div class="muted">Todavía no hay estadísticas de jugador para este partido — se cargan solas cuando faltan menos de 36hs para que arranque (o mientras está en vivo). Solo disponible en Premier League, La Liga y Serie A por ahora.</div>';
+  }
+  const grouped = groupPlayerProps(props);
+  const away = grouped.filter(p => p.team === m.away).sort((a, b) => (b.goal ?? 0) - (a.goal ?? 0));
+  const home = grouped.filter(p => p.team === m.home).sort((a, b) => (b.goal ?? 0) - (a.goal ?? 0));
+  return `
+    <div class="player-stats-note">📊 Nuestra proyección propia a partir de datos reales de ESPN (últimos 5 partidos, pesado 65% junto con el promedio de la temporada actual, 35%). Todavía no hay cuota de mercado de props de jugador para comparar rentabilidad — cuando la consigamos se agrega acá al lado.</div>
+    ${teamPlayerStatsHTML(m.away, away)}
+    ${teamPlayerStatsHTML(m.home, home)}
+  `;
+}
+
+document.addEventListener("click", e => {
+  const card = e.target.closest(".match-card");
+  if (!card) return;
+  const id = card.dataset.matchId;
+  const detail = document.getElementById(`detail-${id}`);
+  if (!detail) return;
+  const isOpen = detail.style.display !== "none";
+  detail.style.display = isOpen ? "none" : "";
+  if (!isOpen && !detail.dataset.loaded) {
+    detail.innerHTML = matchDetailHTML(id);
+    detail.dataset.loaded = "1";
+  }
+});
 
 function pickLabel(p) {
   if (p.market === "Moneyline") return p.side === "draw" ? "Empate" : `Gana ${p.team}`;

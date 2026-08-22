@@ -150,13 +150,195 @@ function extractFootballOdds(oddsResponse) {
   return result;
 }
 
+// ---------- Props de jugador (ESPN) ----------
+// BBS (fixtures/tabla) no tiene lineups ni stats individuales cargadas todavia para
+// esta temporada -- confirmado en vivo contra la API real, no es un supuesto. ESPN
+// si tiene (misma API no documentada que usa su propia web, sin key): roster, stats
+// de temporada y "ultimos 5 partidos" por jugador (tiros, tiros al arco, goles,
+// asistencias, tarjetas). Mismo patron que Baseball Savant en MLB -- no es un
+// "proveedor" contratado, es un endpoint publico que se consulta con cuidado.
+const ESPN_SITE_BASE = "https://site.api.espn.com/apis/site/v2/sports/soccer";
+const ESPN_WEB_BASE = "https://site.web.api.espn.com/apis/common/v3/sports/soccer";
+const ESPN_LEAGUE_SLUGS = { epl: "eng.1", laliga: "esp.1", seriea: "ita.1" };
+
+// No tiene limite de cuota documentado, pero corre cada 2hs via GitHub Actions --
+// sin cache, en un dia con muchos partidos se puede terminar pidiendo cientos de
+// jugadores por corrida a un endpoint no oficial. Reusamos los stats de un equipo
+// si se pidieron hace menos de 20hs (alcanza de sobra: el "ultimos 5 partidos" de
+// un jugador no cambia entre dos corridas del mismo dia salvo que haya jugado).
+const ESPN_STATS_MAX_AGE_MS = 20 * 60 * 60 * 1000;
+
+async function fetchEspnTeamMap(espnLeague) {
+  const map = new Map(); // nombre normalizado -> id de equipo ESPN
+  try {
+    const data = await getJSON(`${ESPN_SITE_BASE}/${espnLeague}/teams?limit=40`);
+    const teams = data.sports?.[0]?.leagues?.[0]?.teams ?? [];
+    for (const t of teams) map.set(normalizeTeam(t.team.displayName), t.team.id);
+  } catch (e) {
+    console.error(`  ESPN teams no disponible para ${espnLeague}:`, e.message);
+  }
+  return map;
+}
+
+async function fetchTeamRoster(espnLeague, teamId) {
+  try {
+    const data = await getJSON(`${ESPN_SITE_BASE}/${espnLeague}/teams/${teamId}/roster`);
+    return (data.athletes ?? [])
+      .filter(a => a.position?.abbreviation !== "G") // arqueros no aportan a tiros/goles
+      .map(a => ({ id: a.id, name: a.fullName, position: a.position?.abbreviation ?? null }));
+  } catch (e) {
+    console.error(`  ESPN roster no disponible para equipo ${teamId}:`, e.message);
+    return [];
+  }
+}
+
+// El gameLog trae la columna "APP" como texto ("Started"/"Sub"), el resto son
+// numeros en string -- si no se distingue, parseFloat("Started") da NaN.
+function parseStatRow(labels, statsRow) {
+  const row = {};
+  labels.forEach((label, i) => {
+    const raw = statsRow[i];
+    row[label] = (raw === "Started" || raw === "Sub") ? 1 : (parseFloat(raw) || 0);
+  });
+  return row;
+}
+
+async function fetchAthleteFootballStats(espnLeague, athleteId, currentLeagueSlug) {
+  try {
+    const data = await getJSON(`${ESPN_WEB_BASE}/${espnLeague}/athletes/${athleteId}/overview`);
+    const gameLogStat = data.gameLog?.statistics?.[0];
+    const labels = gameLogStat?.labels ?? [];
+    const rows = (gameLogStat?.events ?? []).map(e => parseStatRow(labels, e.stats));
+    const gp = rows.length;
+    const sum = key => rows.reduce((acc, r) => acc + (r[key] ?? 0), 0);
+    const recent = gp ? {
+      games: gp,
+      shotsPerGame: Math.round((sum("SHOT") / gp) * 100) / 100,
+      sogPerGame: Math.round((sum("SOG") / gp) * 100) / 100,
+      goalsPerGame: Math.round((sum("G") / gp) * 100) / 100,
+      yellowRate: Math.round((sum("YC") / gp) * 100) / 100
+    } : null;
+
+    const seasonLabels = data.statistics?.labels ?? [];
+    const split = (data.statistics?.splits ?? []).find(s => s.leagueSlug === currentLeagueSlug);
+    let season = null;
+    if (split) {
+      const row = parseStatRow(seasonLabels, split.stats);
+      const gp2 = row.STRT || row.APP || 0;
+      if (gp2 > 0) {
+        season = {
+          games: gp2,
+          totalGoals: row.G ?? 0,
+          totalShots: row.SHOT ?? 0,
+          shotsPerGame: Math.round(((row.SHOT ?? 0) / gp2) * 100) / 100,
+          sogPerGame: Math.round(((row.SOG ?? 0) / gp2) * 100) / 100,
+          goalsPerGame: Math.round(((row.G ?? 0) / gp2) * 100) / 100
+        };
+      }
+    }
+    return { recent, season };
+  } catch {
+    return { recent: null, season: null };
+  }
+}
+
+// P(X >= k) via Poisson -- mismo enfoque que el HR de MLB: evento contable acotado
+// por partido, no una tasa libre.
+function poissonProbAtLeast(lambda, k) {
+  if (lambda <= 0) return 0;
+  let cdf = 0;
+  for (let i = 0; i < k; i++) cdf += poissonPMF(i, lambda);
+  return Math.max(0, Math.min(1, 1 - cdf));
+}
+
+// Forma reciente pesa mas que el promedio de toda la temporada (mismo criterio que
+// "ultimos 15 partidos" en MLB) -- 65/35. Si todavia no hay stats de liga actual
+// (arranque de temporada, jugador recien transferido) usamos solo lo reciente.
+function blendedLambda(recent, season, key) {
+  if (recent && season) return recent[key] * 0.65 + season[key] * 0.35;
+  if (recent) return recent[key];
+  if (season) return season[key];
+  return null;
+}
+
+function buildPlayerProps(player, stats, team, opponent) {
+  const { recent, season } = stats;
+  if (!recent && !season) return null;
+  const gamesSeen = recent?.games ?? season?.games ?? 0;
+  if (gamesSeen < 2) return null; // muestra insuficiente, no confiamos en la proyeccion
+  const sogLambda = blendedLambda(recent, season, "sogPerGame");
+  const goalLambda = blendedLambda(recent, season, "goalsPerGame");
+  const props = [];
+  if (sogLambda != null) {
+    props.push({
+      market: "Tiros al arco O/U", side: "over", line: 0.5, player: player.name, playerId: player.id,
+      team, opponent, ourProb: Math.round(poissonProbAtLeast(sogLambda, 1) * 1000) / 1000
+    });
+  }
+  if (goalLambda != null) {
+    props.push({
+      market: "Anota gol O/U", side: "over", line: 0.5, player: player.name, playerId: player.id,
+      team, opponent, ourProb: Math.round(poissonProbAtLeast(goalLambda, 1) * 1000) / 1000
+    });
+  }
+  props.forEach(p => {
+    p.recent = recent; p.season = season;
+  });
+  return props;
+}
+
+// Orquesta ESPN para una liga: resuelve equipo->id, trae roster+stats (con cache
+// de hasta 20hs) solo para los partidos de las proximas ~36hs, y arma playerProps
+// por partido. No se toca para partidos mas lejanos -- se calculan cuando entren
+// en esa ventana en una corrida posterior.
+async function fetchLeaguePlayerProps(espnLeague, leagueSlug, leagueMatches, previousCache) {
+  const cache = {};
+  const teamMap = await fetchEspnTeamMap(espnLeague);
+  const now = Date.now();
+  const upcoming = leagueMatches.filter(m => {
+    if (m.status === "finished") return false;
+    const kickoff = new Date(m.kickoff).getTime();
+    return kickoff - now < 36 * 60 * 60 * 1000 && kickoff - now > -3 * 60 * 60 * 1000;
+  });
+  if (!upcoming.length) return cache;
+
+  async function statsForTeam(teamName) {
+    const key = normalizeTeam(teamName);
+    const cached = previousCache?.[key];
+    if (cached && (now - new Date(cached.fetchedAt).getTime()) < ESPN_STATS_MAX_AGE_MS) {
+      cache[key] = cached;
+      return cached;
+    }
+    const teamId = teamMap.get(key);
+    if (!teamId) return null;
+    const roster = await fetchTeamRoster(espnLeague, teamId);
+    const candidates = roster.slice(0, 10); // acota llamadas a un endpoint no oficial, sin key ni cuota documentada
+    const players = [];
+    for (const p of candidates) {
+      await sleep(150);
+      const stats = await fetchAthleteFootballStats(espnLeague, p.id, leagueSlug);
+      if (stats.recent || stats.season) players.push({ id: p.id, name: p.name, position: p.position, recent: stats.recent, season: stats.season });
+    }
+    const entry = { teamId, fetchedAt: new Date().toISOString(), players };
+    cache[key] = entry;
+    return entry;
+  }
+
+  for (const m of upcoming) {
+    const [homeEntry, awayEntry] = await Promise.all([statsForTeam(m.home), statsForTeam(m.away)]);
+    const homeProps = (homeEntry?.players ?? []).flatMap(p => buildPlayerProps(p, { recent: p.recent, season: p.season }, m.home, m.away) ?? []);
+    const awayProps = (awayEntry?.players ?? []).flatMap(p => buildPlayerProps(p, { recent: p.recent, season: p.season }, m.away, m.home) ?? []);
+    m.playerProps = [...homeProps, ...awayProps];
+  }
+  return cache;
+}
+
 // ---------- Fuerza de equipos y modelo de Poisson (picks de valor) ----------
-// Futbol no tiene props de jugador confiables (BBS no da stats individuales), asi
-// que el modelo es a nivel de partido: fuerza de ataque/defensa de cada equipo
-// relativa al promedio de goles de la liga (estandar de la industria para
-// proyectar resultados de futbol), a partir de goles a favor/en contra reales de
-// la tabla de posiciones. Con eso, dos Poisson independientes (goles de local,
-// goles de visitante) dan la probabilidad de local/empate/visitante y de over/under.
+// A nivel de partido: fuerza de ataque/defensa de cada equipo relativa al promedio
+// de goles de la liga (estandar de la industria para proyectar resultados de
+// futbol), a partir de goles a favor/en contra reales de la tabla de posiciones.
+// Con eso, dos Poisson independientes (goles de local, goles de visitante) dan la
+// probabilidad de local/empate/visitante y de over/under.
 function poissonPMF(k, lambda) {
   let f = 1;
   for (let i = 2; i <= k; i++) f *= i;
@@ -441,7 +623,7 @@ async function main() {
     previous = JSON.parse(await fs.readFile("data/football.json", "utf8"));
   } catch { /* primera corrida, o archivo corrupto: segui sin fallback */ }
 
-  const output = { updatedAt: new Date().toISOString(), leagues: {}, matches: {}, standings: {}, parlays: {} };
+  const output = { updatedAt: new Date().toISOString(), leagues: {}, matches: {}, standings: {}, parlays: {}, playerStatsCache: {} };
   const history = await loadHistory();
 
   for (const [key, cfg] of Object.entries(LEAGUES)) {
@@ -480,6 +662,19 @@ async function main() {
       match.picks = strength ? evaluateFootballPicks(match, strength) : [];
       return match;
     });
+
+    const espnLeague = ESPN_LEAGUE_SLUGS[key];
+    if (espnLeague) {
+      try {
+        output.playerStatsCache[key] = await fetchLeaguePlayerProps(
+          espnLeague, espnLeague, leagueMatches, previous?.playerStatsCache?.[key]
+        );
+      } catch (e) {
+        console.error(`  Props de jugador (ESPN) fallaron para ${cfg.name}:`, e.message);
+        output.playerStatsCache[key] = previous?.playerStatsCache?.[key] ?? {};
+      }
+    }
+
     output.matches[key] = leagueMatches;
     output.parlays[key] = buildFootballParlays(leagueMatches);
     recordPicks(key, cfg.name, leagueMatches, history);
@@ -497,7 +692,8 @@ async function main() {
   const valuePicks = Object.values(output.matches).reduce((a, arr) => a + arr.reduce((b, m) => b + (m.picks ?? []).filter(p => p.isValue).length, 0), 0);
   const wins = history.graded.filter(p => p.result === "win").length;
   const losses = history.graded.filter(p => p.result === "loss").length;
-  console.log(`Listo: ${Object.keys(LEAGUES).length} ligas, ${totalMatches} partidos, ${withOdds} con cuotas, ${valuePicks} value picks. Historial: ${wins}-${losses} (${history.pending.length} pendientes).`);
+  const playerPropsCount = Object.values(output.matches).reduce((a, arr) => a + arr.reduce((b, m) => b + (m.playerProps?.length ?? 0), 0), 0);
+  console.log(`Listo: ${Object.keys(LEAGUES).length} ligas, ${totalMatches} partidos, ${withOdds} con cuotas, ${valuePicks} value picks, ${playerPropsCount} props de jugador (ESPN). Historial: ${wins}-${losses} (${history.pending.length} pendientes).`);
 }
 
 main().catch(e => {
