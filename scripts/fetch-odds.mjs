@@ -815,16 +815,20 @@ async function fetchBarrelStats() {
   return barrelStatsCache;
 }
 
-// ---------- K% del equipo rival (uno de los mejores predictores reales de ponches) ----------
-// Los libros suelen fijar la linea de ponches en base al promedio de temporada
-// del abridor solamente -- la brecha esta en no mirar que tan propenso a
-// poncharse es el rival puntual de hoy. Un equipo que se poncha 25%+ de sus
-// turnos es un objetivo real para el Over, uno disciplinado (bajo 20%) para el
-// Under. Se trae la liga completa en 1 sola llamada.
+// ---------- K% y carreras por partido de cada equipo (misma llamada) ----------
+// K%: los libros suelen fijar la linea de ponches en base al promedio de
+// temporada del abridor solamente -- la brecha esta en no mirar que tan
+// propenso a poncharse es el rival puntual de hoy. Un equipo que se poncha
+// 25%+ de sus turnos es un objetivo real para el Over, uno disciplinado (bajo
+// 20%) para el Under.
+// Carreras por partido: se usa mas abajo para comparar contra el total
+// implicito de hoy (ver teamImpliedTotal) y saber si el mercado espera un
+// partido mas o menos ofensivo de lo normal para ese equipo especificamente.
 let teamKRatesCache = null;
 async function fetchTeamKRates() {
   if (teamKRatesCache) return teamKRatesCache;
   const byTeamId = {};
+  const runsPerGameByTeamId = {};
   let leagueAvgKPct = null;
   try {
     const data = await getJSON(`${MLB_BASE}/teams/stats?stats=season&group=hitting&season=${SEASON}&sportId=1`);
@@ -834,11 +838,36 @@ async function fetchTeamKRates() {
       if (!pa) continue;
       byTeamId[s.team.id] = k / pa;
       sumK += k; sumPa += pa;
+      if (s.stat.gamesPlayed) runsPerGameByTeamId[s.team.id] = (s.stat.runs || 0) / s.stat.gamesPlayed;
     }
     if (sumPa > 0) leagueAvgKPct = sumK / sumPa;
   } catch { /* seguimos sin este ajuste si falla */ }
-  teamKRatesCache = { byTeamId, leagueAvgKPct };
+  teamKRatesCache = { byTeamId, leagueAvgKPct, runsPerGameByTeamId };
   return teamKRatesCache;
+}
+
+// ---------- Total implicito por equipo (Pitagoras 1.83 sobre el total real) ----------
+// El "team implied total" es citado como uno de los mejores predictores para
+// props ofensivas: refleja lo que el mercado espera que anote CADA equipo hoy
+// (no solo el partido en conjunto), y ya trae adentro parque/clima/calidad de
+// abridores/bullpen -- toda la informacion real que el mercado ya proceso. Se
+// calcula sacando el vig del moneyline real y repartiendo el total real entre
+// los dos equipos con el exponente de Pitagoras estandar de beisbol (1.83,
+// el mismo usado para expectativa de victorias real-diferencial de carreras).
+function teamImpliedTotal(gameOdds, isHome) {
+  const ml = gameOdds.moneyline?.Bovada ?? gameOdds.moneyline?.Bet365;
+  const total = gameOdds.total?.Bovada?.line ?? gameOdds.total?.Bet365?.line;
+  if (!ml || total == null) return null;
+  const homeImplied = decimalToImpliedProb(ml.home);
+  const awayImplied = decimalToImpliedProb(ml.away);
+  if (homeImplied == null || awayImplied == null) return null;
+  const sum = homeImplied + awayImplied;
+  const homeNoVig = homeImplied / sum;
+  const awayNoVig = awayImplied / sum;
+  const exp = 1.83;
+  const homeShare = Math.pow(homeNoVig, exp) / (Math.pow(homeNoVig, exp) + Math.pow(awayNoVig, exp));
+  const homeRuns = total * homeShare;
+  return isHome ? homeRuns : total - homeRuns;
 }
 
 // Combina parque + clima + split vs mano + historial puntual vs el abridor +
@@ -916,6 +945,17 @@ function buildAdjustment(statKey, seasonPerAB, ctx) {
   if (ctx.bullpenFatigueIP != null && ctx.bullpenFatigueIP >= 6) {
     mult *= 1.05;
     why.push(`bullpen rival con carga alta los últimos 2 días (${ctx.bullpenFatigueIP.toFixed(1)} IP)`);
+  }
+  // Total implicito de hoy para el equipo del bateador vs su promedio real de
+  // carreras por partido -- ya trae adentro parque/clima/calidad de bullpen
+  // que el mercado proceso, es una segunda fuente real (no nuestro propio
+  // modelo) de que tan ofensivo va a ser el partido para ese equipo puntual.
+  if (ctx.impliedTotal != null && ctx.teamRunsPerGame) {
+    const ratio = clamp(ctx.impliedTotal / ctx.teamRunsPerGame, 0.75, 1.3);
+    mult *= ratio;
+    if (Math.abs(ratio - 1) >= 0.1) {
+      why.push(`el mercado espera ${ratio > 1 ? "mas" : "menos"} carreras de lo normal para su equipo hoy (${ctx.impliedTotal.toFixed(1)} vs ${ctx.teamRunsPerGame.toFixed(1)} de promedio)`);
+    }
   }
 
   return { mult: clamp(mult, 0.6, 1.8), why: why.length ? why.join(" · ") : null };
@@ -1065,21 +1105,25 @@ async function evaluateProp(prop, awayTeam, homeTeam, gameCtx) {
   } else if (prop.market === "Home Runs O/U" && !proj.isPitcher && proj.hrPerGame != null) {
     const seasonHrPerAB = abPerGame > 0 ? proj.hrPerGame / abPerGame : 0;
     const isHome = proj.team === homeTeam;
-    const [handSplit, matchup, recentRate, expectedStats, barrelStats, bullpenFatigueIP, homeAwaySplit] = await Promise.all([
+    const [handSplit, matchup, recentRate, expectedStats, barrelStats, bullpenFatigueIP, homeAwaySplit, teamKRates, teamIds] = await Promise.all([
       opposingPitcher?.hand ? getBatterSplitVsHand(proj.id, opposingPitcher.hand) : null,
       opposingPitcher?.id ? getMatchup(proj.id, opposingPitcher.id) : null,
       getBatterRecentRate(proj.id),
       fetchExpectedStats(),
       fetchBarrelStats(),
       opposingBullpenFatigue(),
-      getBatterHomeAwaySplit(proj.id, isHome)
+      getBatterHomeAwaySplit(proj.id, isHome),
+      fetchTeamKRates(),
+      getTeamIdMap()
     ]);
+    const impliedTotal = gameCtx?.gameOdds ? teamImpliedTotal(gameCtx.gameOdds, isHome) : null;
+    const teamRunsPerGame = proj.team ? teamKRates.runsPerGameByTeamId[teamIds[proj.team]] : null;
     const adj = buildAdjustment("hr", seasonHrPerAB, {
       venue: gameCtx?.venue, weather: gameCtx?.weather, handSplit, matchup, recentRate,
       pitcherHand: opposingPitcher?.hand, pitcherName: opposingPitcher?.name,
       xStat: expectedStats[proj.id],
       barrel: barrelStats.byPlayerId[proj.id], leagueAvgBrlPa: barrelStats.leagueAvgBrlPa,
-      bullpenFatigueIP, homeAwaySplit, isHome
+      bullpenFatigueIP, homeAwaySplit, isHome, impliedTotal, teamRunsPerGame
     });
     ourProbOver = poissonProbOver(prop.line, proj.hrPerGame * adj.mult);
     const hrTitleNote = titleRaceNote(proj.id, "hr", "HR", await fetchTitleLeaderboards());
@@ -1093,18 +1137,22 @@ async function evaluateProp(prop, awayTeam, homeTeam, gameCtx) {
   } else if (prop.market === "Total Bases O/U" && !proj.isPitcher && proj.tbPerGame != null) {
     const seasonTbPerAB = abPerGame > 0 ? proj.tbPerGame / abPerGame : 0;
     const isHome = proj.team === homeTeam;
-    const [handSplit, recentRate, expectedStats, bullpenFatigueIP, homeAwaySplit] = await Promise.all([
+    const [handSplit, recentRate, expectedStats, bullpenFatigueIP, homeAwaySplit, teamKRates, teamIds] = await Promise.all([
       opposingPitcher?.hand ? getBatterSplitVsHand(proj.id, opposingPitcher.hand) : null,
       getBatterRecentRate(proj.id),
       fetchExpectedStats(),
       opposingBullpenFatigue(),
-      getBatterHomeAwaySplit(proj.id, isHome)
+      getBatterHomeAwaySplit(proj.id, isHome),
+      fetchTeamKRates(),
+      getTeamIdMap()
     ]);
+    const impliedTotal = gameCtx?.gameOdds ? teamImpliedTotal(gameCtx.gameOdds, isHome) : null;
+    const teamRunsPerGame = proj.team ? teamKRates.runsPerGameByTeamId[teamIds[proj.team]] : null;
     const adj = buildAdjustment("tb", seasonTbPerAB, {
       venue: gameCtx?.venue, weather: gameCtx?.weather, handSplit, matchup: null, recentRate,
       pitcherHand: opposingPitcher?.hand, pitcherName: opposingPitcher?.name,
       xStat: expectedStats[proj.id],
-      bullpenFatigueIP, homeAwaySplit, isHome
+      bullpenFatigueIP, homeAwaySplit, isHome, impliedTotal, teamRunsPerGame
     });
     // Se escala cada tasa de hit por el mismo multiplicador contextual (parque,
     // clima, matchup, forma reciente) que antes se aplicaba directo al promedio
@@ -1517,7 +1565,7 @@ async function main() {
         return { id: p.id, name: p.name, hand: await getPitcherHand(p.id) };
       }
       const gameCtx = {
-        venue, weather, date: dateISO,
+        venue, weather, date: dateISO, gameOdds,
         awayPitcher: await withHand(pitcherPair.away),
         homePitcher: await withHand(pitcherPair.home),
         awayLineup: pitcherPair.awayLineup ?? null,
