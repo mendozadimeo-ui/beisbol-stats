@@ -447,6 +447,28 @@
     border-radius: 999px;
     text-transform: uppercase;
   }
+  .pick-checkbox { accent-color: var(--accent); cursor: pointer; margin-top: 3px; flex-shrink: 0; }
+  .combo-bar {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 150;
+    background: var(--panel);
+    border-top: 1px solid var(--accent);
+    box-shadow: 0 -8px 24px rgba(0,0,0,0.25);
+    padding: 10px 16px 14px;
+    max-height: 42vh;
+    overflow-y: auto;
+  }
+  .combo-bar-header { display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 13px; margin-bottom: 6px; }
+  .combo-bar-header button { background: none; border: 1px solid var(--border); color: var(--loss); border-radius: 999px; padding: 3px 10px; font-size: 11px; cursor: pointer; }
+  .combo-legs { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; }
+  .combo-leg { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 12px; background: var(--panel-2); border-radius: 6px; padding: 4px 8px; }
+  .combo-leg button { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 13px; line-height: 1; }
+  .combo-leg button:hover { color: var(--loss); }
+  .combo-bar-footer { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; font-weight: 600; }
+  .combo-bar-footer b { color: var(--accent); }
+  .market-toggle-wrap { margin-bottom: 14px; }
+  .market-toggle-wrap .props-title { margin-bottom: 8px; }
   .parlays-grid { display: grid; gap: 12px; margin-bottom: 20px; }
   .parlay-card {
     background: var(--panel);
@@ -621,6 +643,7 @@
     <div id="heroPickSection"></div>
     <div id="gameSelectorSection" class="game-selector"></div>
     <div id="picksFilterSection"></div>
+    <div id="batterMarketToggle" class="market-toggle-wrap"></div>
     <div id="picksList"><div class="loading">Calculando señales…</div></div>
   </section>
 
@@ -1143,17 +1166,96 @@ function statLineHTML(prop) {
   return "";
 }
 
-function propRow(prop) {
+// ---------- "Mi combinada": el usuario arma su propia combinada tildando
+// props sueltos (de cualquier tarjeta o lista), en vez de solo ver las
+// combinadas ya armadas automaticamente. La identidad de un pick (para saber
+// si el mismo prop tildado en dos lugares distintos de la pagina es "el
+// mismo") es mercado+jugador+linea+lado+partido -- no depende de la casa de
+// apuestas, que puede variar entre listas.
+let propRegistry = new Map(); // pickKey -> prop (con .game siempre presente)
+let selectedPickKeys = new Set();
+
+function pickKey(p) {
+  return `${p.market}|${p.player}|${p.line}|${p.side}|${p.game ?? ""}`;
+}
+
+function pickCheckboxHTML(prop) {
+  const pk = pickKey(prop);
+  propRegistry.set(pk, prop);
+  const checked = selectedPickKeys.has(pk);
+  return `<input type="checkbox" class="pick-checkbox" data-key="${pk}" ${checked ? "checked" : ""} title="Agregar a mi combinada">`;
+}
+
+document.addEventListener("change", e => {
+  const cb = e.target.closest(".pick-checkbox");
+  if (!cb) return;
+  const pk = cb.dataset.key;
+  if (cb.checked) selectedPickKeys.add(pk);
+  else selectedPickKeys.delete(pk);
+  document.querySelectorAll(`.pick-checkbox[data-key="${CSS.escape(pk)}"]`).forEach(other => { other.checked = cb.checked; });
+  renderComboBar();
+});
+
+document.addEventListener("click", e => {
+  const rm = e.target.closest(".combo-remove");
+  if (rm) {
+    const pk = rm.dataset.key;
+    selectedPickKeys.delete(pk);
+    document.querySelectorAll(`.pick-checkbox[data-key="${CSS.escape(pk)}"]`).forEach(cb => { cb.checked = false; });
+    renderComboBar();
+    return;
+  }
+  if (e.target.closest("#comboClearBtn")) {
+    selectedPickKeys.clear();
+    document.querySelectorAll(".pick-checkbox").forEach(cb => { cb.checked = false; });
+    renderComboBar();
+  }
+});
+
+function renderComboBar() {
+  let el = document.getElementById("comboBar");
+  if (!el) {
+    el = document.createElement("div");
+    el.id = "comboBar";
+    el.className = "combo-bar";
+    document.body.appendChild(el);
+  }
+  const picks = [...selectedPickKeys].map(pk => propRegistry.get(pk)).filter(Boolean);
+  if (!picks.length) { el.innerHTML = ""; el.style.display = "none"; return; }
+  el.style.display = "";
+  const combinedOdds = picks.reduce((acc, p) => acc * parseFloat(p.odds), 1);
+  const combinedProb = picks.reduce((acc, p) => acc * p.ourProb, 1);
+  const oneInN = combinedProb > 0 ? Math.round(1 / combinedProb) : "-";
+  el.innerHTML = `
+    <div class="combo-bar-header">
+      <span>🎯 Mi combinada (${picks.length})</span>
+      <button id="comboClearBtn">✕ Limpiar</button>
+    </div>
+    <div class="combo-legs">
+      ${picks.map(p => `<div class="combo-leg"><span><b>${legLabel(p)}</b> <span class="muted">(${p.game ?? ""})</span></span><button class="combo-remove" data-key="${pickKey(p)}" title="Quitar">✕</button></div>`).join("")}
+    </div>
+    <div class="combo-bar-footer">
+      <span>Cuota combinada: <b>${formatOdds(String(combinedOdds))}</b></span>
+      <span>Probabilidad combinada: <b>${Math.round(combinedProb * 100)}%</b> (~1 de cada ${oneInN})</span>
+    </div>
+    <div class="disclaimer" style="margin-top:6px;">Asume que los picks son independientes entre sí — simplificación; picks del mismo partido (ej. dos bateadores del mismo equipo) pueden estar correlacionados entre sí.</div>`;
+}
+
+function propRow(prop, game) {
+  const full = game ? { ...prop, game } : prop;
   const label = MARKET_LABELS[prop.market] ?? prop.market;
   const sideLabel = prop.side === "over" ? "Over" : "Under";
   const pct = Math.round(prop.ourProb * 100);
   return `
     <div class="prop-row">
-      <div>
-        <span class="prop-desc"><b>${prop.player}</b> — ${label} ${sideLabel} ${prop.line} <span class="muted">(${pct}% seg. nuestra proyección)</span></span>
-        ${matchupLine(prop)}
-        ${statLineHTML(prop)}
-        ${prop.why ? `<div class="matchup-line">📊 ${prop.why}</div>` : ""}
+      <div style="display:flex; align-items:flex-start; gap:8px; flex:1; min-width:0;">
+        ${pickCheckboxHTML(full)}
+        <div style="min-width:0;">
+          <span class="prop-desc"><b>${prop.player}</b> — ${label} ${sideLabel} ${prop.line} <span class="muted">(${pct}% seg. nuestra proyección)</span></span>
+          ${matchupLine(prop)}
+          ${statLineHTML(prop)}
+          ${prop.why ? `<div class="matchup-line">📊 ${prop.why}</div>` : ""}
+        </div>
       </div>
       <span class="prop-odds">
         ${prop.isValue ? '<span class="value-tag">Value</span>' : ""}
@@ -1167,12 +1269,15 @@ function topPropRow(prop) {
   const pct = Math.round(prop.ourProb * 100);
   return `
     <div class="prop-row" style="align-items:flex-start;">
-      <div style="flex:1; min-width:0;">
-        <span class="prop-desc"><b>${pickLabel(prop)}</b> <span class="muted">(${prop.game})</span> — ${pct}%</span>
-        <div class="prob-meter"><div class="prob-meter-fill" style="width:${pct}%"></div></div>
-        ${matchupLine(prop)}
-        ${statLineHTML(prop)}
-        ${prop.why ? `<div class="matchup-line">📊 ${prop.why}</div>` : ""}
+      <div style="display:flex; align-items:flex-start; gap:8px; flex:1; min-width:0;">
+        ${pickCheckboxHTML(prop)}
+        <div style="min-width:0;">
+          <span class="prop-desc"><b>${pickLabel(prop)}</b> <span class="muted">(${prop.game})</span> — ${pct}%</span>
+          <div class="prob-meter"><div class="prob-meter-fill" style="width:${pct}%"></div></div>
+          ${matchupLine(prop)}
+          ${statLineHTML(prop)}
+          ${prop.why ? `<div class="matchup-line">📊 ${prop.why}</div>` : ""}
+        </div>
       </div>
       <span class="prop-odds">
         ${prop.isValue ? '<span class="value-tag">Value</span>' : ""}
@@ -1306,6 +1411,39 @@ function topPropsBlockHTML(title, emptyMsg, top) {
     </div>`;
 }
 
+// Barra "Mostrar en las tarjetas" -- antes la tarjeta mezclaba todos los
+// mercados ordenados por edge, y como HR tiene un piso de probabilidad mas
+// bajo (15%, es un evento raro por naturaleza) terminaba inundando la
+// tarjeta y tapando props de Hits/Bases Totales/RBI mas creibles. Este
+// filtro deja elegir un solo mercado a la vez (o "Todos") para que la
+// pagina no colapse de informacion.
+const MARKET_FILTER_OPTIONS = [
+  { key: "all", label: "Todos" },
+  { key: "Pitcher Strikeouts O/U", label: "🔥 Ponches" },
+  { key: "Home Runs O/U", label: "🚀 HR" },
+  { key: "Hits O/U", label: "🥎 Hits" },
+  { key: "Total Bases O/U", label: "📊 Bases Totales" }
+];
+let batterMarketFilter = localStorage.getItem("batterMarketFilter") || "all";
+
+function renderBatterMarketToggle() {
+  const el = document.getElementById("batterMarketToggle");
+  if (!el) return;
+  el.innerHTML = `
+    <div class="props-title">Mostrar en las tarjetas</div>
+    <div class="group-toggle" id="batterMarketToggleGroup">
+      ${MARKET_FILTER_OPTIONS.map(o => `<button data-market="${o.key}" class="${o.key === batterMarketFilter ? "active" : ""}">${o.label}</button>`).join("")}
+    </div>`;
+}
+document.addEventListener("click", e => {
+  const btn = e.target.closest("#batterMarketToggleGroup button");
+  if (!btn) return;
+  batterMarketFilter = btn.dataset.market;
+  localStorage.setItem("batterMarketFilter", batterMarketFilter);
+  renderBatterMarketToggle();
+  if (picksGamesCache.length) renderPicksForSelection();
+});
+
 function propsSectionHTML(away, home, gameDateISO, oddsMap, awayPitcher, homePitcher) {
   const key = `${away.team.name}@${home.team.name}@${mlbDateKey(gameDateISO)}`;
   const props = oddsMap[key]?.props ?? [];
@@ -1316,10 +1454,6 @@ function propsSectionHTML(away, home, gameDateISO, oddsMap, awayPitcher, homePit
   const relevant = props.filter(p =>
     parseFloat(p.odds) >= 1.20 && (p.market === "Pitcher Strikeouts O/U" ? pitcherNames.includes(p.player) : true)
   );
-  // Para no saturar la tarjeta: abridores completos (linea real de los
-  // confirmados, informativo aunque ronde el 50% -- asi se arman la mayoria
-  // de las lineas de K) + hasta 8 props de bateadores con mas edge.
-  //
   // A los bateadores SI se les exige el mismo piso de probabilidad realista
   // que a las listas de arriba (55% Hits/TB, 15% HR) -- eran el "menu" de
   // opciones sin ningun filtro de calidad, solo ordenados por edge, y podia
@@ -1327,16 +1461,27 @@ function propsSectionHTML(away, home, gameDateISO, oddsMap, awayPitcher, homePit
   // solo porque el mercado lo pagaba bien. El edge mide si el mercado se
   // equivoca, no si el pick es realista -- las dos cosas hacen falta juntas.
   const pitcherProps = relevant.filter(p => p.market === "Pitcher Strikeouts O/U");
-  const batterProps = relevant
-    .filter(p => p.market !== "Pitcher Strikeouts O/U" && p.ourProb >= minRealisticProb(p.market))
-    .sort((a, b) => b.edge - a.edge)
-    .slice(0, 8);
-  const rows = [...pitcherProps, ...batterProps];
+  const batterProps = relevant.filter(p => p.market !== "Pitcher Strikeouts O/U" && p.ourProb >= minRealisticProb(p.market));
+
+  let rows;
+  if (batterMarketFilter === "all") {
+    // Con "Todos": abridores completos (linea real de los confirmados,
+    // informativo aunque ronde el 50%) + hasta 8 props de bateadores con
+    // mas edge, para no saturar la tarjeta.
+    rows = [...pitcherProps, ...batterProps.sort((a, b) => b.edge - a.edge).slice(0, 8)];
+  } else if (batterMarketFilter === "Pitcher Strikeouts O/U") {
+    rows = pitcherProps;
+  } else {
+    // Un solo mercado elegido: ya no compite por espacio contra los demas,
+    // asi que se muestran mas opciones de ese tipo especifico.
+    rows = batterProps.filter(p => p.market === batterMarketFilter).sort((a, b) => b.edge - a.edge).slice(0, 12);
+  }
   if (!rows.length) return "";
+  const game = `${away.team.name} @ ${home.team.name}`;
   return `
     <div class="props-section">
       <div class="props-title">Props (línea real vs. nuestra proyección)</div>
-      ${rows.map(propRow).join("")}
+      ${rows.map(p => propRow(p, game)).join("")}
     </div>`;
 }
 
@@ -1780,6 +1925,7 @@ document.addEventListener("click", e => {
 async function loadPicks(date) {
   const el = document.getElementById("picksList");
   el.innerHTML = '<div class="loading">Calculando señales…</div>';
+  renderBatterMarketToggle();
   try {
     const [scheduleData, standingsMap, oddsSnapshot] = await Promise.all([
       getJSON(`${API}/schedule?sportId=1&date=${date}&hydrate=probablePitcher`),
