@@ -1279,16 +1279,24 @@ function computeTopProps(oddsMap, matchFn, limit = 15) {
   all.sort((a, b) => b.ourProb - a.ourProb);
   return all.slice(0, limit);
 }
-function computeTopMoneyline(oddsMap, limit = 15) {
+// A diferencia de los props (HR/Hits/TB/Pitcheo), el moneyline se muestra para
+// TODOS los partidos del dia, no solo los que superan un piso de probabilidad
+// o de cuota jugable -- siempre hay un favorito real en cada partido, y el
+// usuario quiere verlo aunque su cuota sea muy corta para dejar ganancia (ej.
+// -500) o la probabilidad no llegue al 50% "realista" (partidos muy parejos).
+// El badge "Value" (ya calculado en el pipeline) sigue marcando cuales de estos
+// son ademas una oportunidad real de mercado, sin que eso decida si aparecen.
+function computeAllMoneyline(oddsMap) {
   const all = [];
   for (const [key, game] of Object.entries(oddsMap)) {
     const [awayName, homeName] = key.split("@");
-    for (const p of game.moneylinePicks ?? []) {
-      if (p.ourProb >= minRealisticProb("Moneyline") && parseFloat(p.odds) >= 1.20) all.push({ ...p, game: `${awayName} @ ${homeName}` });
-    }
+    const legs = game.moneylinePicks ?? [];
+    if (!legs.length) continue;
+    const favored = legs.reduce((best, p) => (!best || p.ourProb > best.ourProb) ? p : best, null);
+    all.push({ ...favored, game: `${awayName} @ ${homeName}` });
   }
   all.sort((a, b) => b.ourProb - a.ourProb);
-  return all.slice(0, limit);
+  return all;
 }
 function topPropsBlockHTML(title, emptyMsg, top) {
   return `
@@ -1564,7 +1572,7 @@ function renderPicksFilterContent() {
   const f = picksCategoryFilter;
   const blocks = [];
   if (f === "todos" || f === "moneyline") {
-    if (currentTopMoneyline.length) blocks.push(topPropsBlockHTML("💰 Mejores Moneyline de Hoy", "", currentTopMoneyline));
+    if (currentTopMoneyline.length) blocks.push(topPropsBlockHTML("💰 Moneyline de Todos los Partidos de Hoy", "", currentTopMoneyline));
     blocks.push(parlaysGridHTML("moneyline"));
   }
   if (f === "todos" || f === "hits") {
@@ -1736,7 +1744,7 @@ async function renderPicksForSelection() {
     : picksTodaysOddsMapCache;
   renderPicksFilterSection(
     parlaysToShow,
-    computeTopMoneyline(oddsMapForProps),
+    computeAllMoneyline(oddsMapForProps),
     computeTopProps(oddsMapForProps, isHitsTopProp),
     computeTopProps(oddsMapForProps, isHrTopProp),
     computeTopProps(oddsMapForProps, isTbTopProp),
@@ -1796,7 +1804,7 @@ async function loadPicks(date) {
     renderHeroPick(todaysOddsMap);
     renderPicksFilterSection(
       picksServerParlaysCache,
-      computeTopMoneyline(todaysOddsMap),
+      computeAllMoneyline(todaysOddsMap),
       computeTopProps(todaysOddsMap, isHitsTopProp),
       computeTopProps(todaysOddsMap, isHrTopProp),
       computeTopProps(todaysOddsMap, isTbTopProp),
