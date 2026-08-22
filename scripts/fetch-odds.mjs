@@ -585,6 +585,31 @@ async function getBatterSplitVsHand(batterId, hand) {
   }
 }
 
+// Split local/visitante del bateador, temporada actual. Muchos bateadores
+// rinden bastante distinto en su propio estadio que de gira (no solo por el
+// factor de parque generico, tambien comodidad/rutina/clima local). Mismo
+// piso de muestra (15+ AB) que el split por mano.
+const batterHomeAwayCache = new Map();
+async function getBatterHomeAwaySplit(batterId, isHome) {
+  const sitCode = isHome ? "h" : "r";
+  const key = `${batterId}-${sitCode}`;
+  if (batterHomeAwayCache.has(key)) return batterHomeAwayCache.get(key);
+  try {
+    const data = await getJSON(
+      `${MLB_BASE}/people/${batterId}/stats?stats=statSplits&group=hitting&season=${SEASON}&sitCodes=${sitCode}`
+    );
+    const stat = data.stats?.[0]?.splits?.[0]?.stat;
+    const result = stat && stat.atBats >= 15
+      ? { hrPerAB: (stat.homeRuns || 0) / stat.atBats, tbPerAB: (stat.totalBases || 0) / stat.atBats, atBats: stat.atBats }
+      : null;
+    batterHomeAwayCache.set(key, result);
+    return result;
+  } catch {
+    batterHomeAwayCache.set(key, null);
+    return null;
+  }
+}
+
 // Forma reciente: promedio de los ultimos 15 partidos jugados, para pesarlo un
 // poco junto al promedio de toda la temporada (una racha caliente o fria real).
 const recentRateCache = new Map();
@@ -609,6 +634,66 @@ async function getBatterRecentRate(batterId) {
     recentRateCache.set(batterId, null);
     return null;
   }
+}
+
+// Descanso corto (3 dias o menos entre aperturas, poco comun en la rotacion
+// moderna de 5 dias) suele rendir algo peor -- investigacion de sabermetria
+// estandar. No ajustamos por descanso largo (6+ dias): la evidencia de que
+// "oxida" al abridor es mucho mas debil, no queremos inventar un efecto sin
+// buen respaldo solo para tener mas factores.
+const pitcherRestCache = new Map();
+async function getPitcherRestDays(pitcherId, gameDateISO) {
+  const key = `${pitcherId}|${gameDateISO}`;
+  if (pitcherRestCache.has(key)) return pitcherRestCache.get(key);
+  let result = null;
+  try {
+    const data = await getJSON(`${MLB_BASE}/people/${pitcherId}/stats?stats=gameLog&group=pitching&season=${SEASON}`);
+    const starts = (data.stats?.[0]?.splits ?? []).filter(s => s.stat.gamesStarted === 1);
+    const last = starts.slice(-1)[0];
+    if (last) {
+      result = Math.round((new Date(gameDateISO) - new Date(last.date)) / (24 * 60 * 60 * 1000));
+    }
+  } catch { /* seguimos sin este ajuste si falla */ }
+  pitcherRestCache.set(key, result);
+  return result;
+}
+
+// Bullpen cansado (mucha carga los ultimos 2 dias) suele dar mas contacto/bases
+// cuando le toca salir -- brazos menos frescos, mas pelotazos dejados arriba en
+// la zona. Suma las entradas de TODOS los relevistas (no el abridor) de los
+// ultimos 2 partidos ya jugados del equipo rival. Es un numero crudo a nivel de
+// equipo (no sabemos que relevista especifico va a enfrentar cada bateador),
+// asi que el ajuste que produce es deliberadamente chico.
+const bullpenFatigueCache = new Map();
+async function getBullpenFatigue(teamId, gameDateISO) {
+  const key = `${teamId}|${gameDateISO}`;
+  if (bullpenFatigueCache.has(key)) return bullpenFatigueCache.get(key);
+  let result = null;
+  try {
+    const lookbackStart = new Date(gameDateISO);
+    lookbackStart.setUTCDate(lookbackStart.getUTCDate() - 2);
+    const dayBefore = new Date(new Date(gameDateISO).getTime() - 24 * 60 * 60 * 1000);
+    const startStr = lookbackStart.toISOString().slice(0, 10);
+    const endStr = dayBefore.toISOString().slice(0, 10);
+    const sched = await getJSON(`${MLB_BASE}/schedule?sportId=1&teamId=${teamId}&startDate=${startStr}&endDate=${endStr}`);
+    let bullpenIP = 0;
+    for (const day of sched.dates ?? []) {
+      for (const g of day.games ?? []) {
+        if (g.status.abstractGameState !== "Final") continue;
+        const box = await getJSON(`${MLB_BASE}/game/${g.gamePk}/boxscore`);
+        const side = g.teams.home.team.id === teamId ? box.teams.home : box.teams.away;
+        for (const id of side.pitchers ?? []) {
+          const p = side.players[`ID${id}`];
+          const st = p?.stats?.pitching;
+          if (!st?.inningsPitched || st.gamesStarted === 1) continue;
+          bullpenIP += parseFloat(st.inningsPitched) || 0;
+        }
+      }
+    }
+    result = bullpenIP;
+  } catch { /* seguimos sin este ajuste si falla */ }
+  bullpenFatigueCache.set(key, result);
+  return result;
 }
 
 function clamp(x, lo, hi) { return Math.max(lo, Math.min(hi, x)); }
@@ -678,6 +763,41 @@ async function fetchExpectedStats() {
   return expectedStatsCache;
 }
 
+// ---------- Statcast: tasa de barrels (mejor predictor especifico de HR) ----------
+// SLG esperado (arriba) mezcla dobles/triples/HR -- barrel% es mas puntual: un
+// "barrel" es un batazo con la combinacion de velocidad de salida + angulo que
+// casi siempre termina en HR o extrabase, sin importar donde cayo. Comparamos
+// contra el promedio real de las Mayores (calculado del mismo CSV, no un numero
+// fijo) para saber si el bateador tiene mas o menos poder crudo que el
+// promedio, mas alla de cuantos HR le tocaron pegar esta temporada.
+let barrelStatsCache = null;
+async function fetchBarrelStats() {
+  if (barrelStatsCache) return barrelStatsCache;
+  const map = {};
+  let leagueAvgBrlPa = null;
+  try {
+    const res = await fetch(`https://baseballsavant.mlb.com/leaderboard/statcast?type=batter&year=${SEASON}&position=&team=&min=1&csv=true`);
+    const text = await res.text();
+    const rows = text.trim().split("\n").slice(1);
+    let sum = 0, n = 0;
+    for (const row of rows) {
+      const cols = parseCsvLine(row);
+      const playerId = parseInt(cols[1], 10);
+      const attempts = parseInt(cols[2], 10);
+      const brlPa = parseFloat(cols[17]);
+      if (!playerId || Number.isNaN(brlPa)) continue;
+      if (attempts >= 25) {
+        map[playerId] = { attempts, brlPa };
+        sum += brlPa;
+        n++;
+      }
+    }
+    if (n > 0) leagueAvgBrlPa = sum / n;
+  } catch { /* seguimos sin este ajuste si Baseball Savant falla */ }
+  barrelStatsCache = { byPlayerId: map, leagueAvgBrlPa };
+  return barrelStatsCache;
+}
+
 // Combina parque + clima + split vs mano + historial puntual vs el abridor +
 // forma reciente en un solo multiplicador sobre la tasa base (HR o TB por
 // partido), mas un texto corto explicando que peso mas. Todo acotado para que
@@ -707,6 +827,14 @@ function buildAdjustment(statKey, seasonPerAB, ctx) {
       why.push(`${ratio > 1 ? "mejor" : "peor"} de lo normal vs lanzadores ${handLabel} esta temporada`);
     }
   }
+  if (ctx.homeAwaySplit && seasonPerAB > 0) {
+    const splitRate = statKey === "hr" ? ctx.homeAwaySplit.hrPerAB : ctx.homeAwaySplit.tbPerAB;
+    const ratio = clamp(splitRate / seasonPerAB, 0.8, 1.25);
+    mult *= ratio;
+    if (Math.abs(ratio - 1) >= 0.1) {
+      why.push(`${ratio > 1 ? "mejor" : "peor"} de lo normal ${ctx.isHome ? "en casa" : "de visita"} esta temporada`);
+    }
+  }
   if (ctx.matchup && ctx.matchup.ab >= 8 && statKey === "hr" && seasonPerAB > 0) {
     const matchupRate = ctx.matchup.hr / ctx.matchup.ab;
     const ratio = clamp(matchupRate / seasonPerAB, 0.85, 1.2);
@@ -728,6 +856,23 @@ function buildAdjustment(statKey, seasonPerAB, ctx) {
     if (Math.abs(ratio - 1) >= 0.06) {
       why.push(`Statcast: contacto real ${ratio > 1 ? "mejor" : "peor"} que sus resultados (SLG esperado ${ctx.xStat.estSlg.toFixed(3)} vs real ${ctx.xStat.slg.toFixed(3)})`);
     }
+  }
+  // Solo para HR: tasa de barrels vs el promedio real de las Mayores (no un
+  // numero fijo). Poder crudo mas puntual que SLG esperado -- mezcla menos con
+  // dobles/triples. Solo con 25+ batazos en juego, muestra minima razonable.
+  if (statKey === "hr" && ctx.barrel && ctx.barrel.attempts >= 25 && ctx.leagueAvgBrlPa) {
+    const ratio = clamp(ctx.barrel.brlPa / ctx.leagueAvgBrlPa, 0.75, 1.3);
+    mult *= ratio;
+    if (Math.abs(ratio - 1) >= 0.1) {
+      why.push(`${ratio > 1 ? "mas" : "menos"} poder crudo que el promedio de las Mayores (barrel% ${ctx.barrel.brlPa.toFixed(1)} vs liga ${ctx.leagueAvgBrlPa.toFixed(1)})`);
+    }
+  }
+  // Bullpen rival con mucha carga en los ultimos 2 dias -- ajuste chico y
+  // acotado, es una señal a nivel de equipo, no sabemos que relevista puntual
+  // le va a tocar a cada bateador.
+  if (ctx.bullpenFatigueIP != null && ctx.bullpenFatigueIP >= 6) {
+    mult *= 1.05;
+    why.push(`bullpen rival con carga alta los últimos 2 días (${ctx.bullpenFatigueIP.toFixed(1)} IP)`);
   }
 
   return { mult: clamp(mult, 0.6, 1.8), why: why.length ? why.join(" · ") : null };
@@ -825,13 +970,30 @@ async function evaluateProp(prop, awayTeam, homeTeam, gameCtx) {
   let statLine = {};
   const opposingPitcher = gameCtx && (proj.team === homeTeam ? gameCtx.awayPitcher : gameCtx.homePitcher);
   const abPerGame = proj.abPerGame || 4;
+  async function opposingBullpenFatigue() {
+    if (!gameCtx?.date || !proj.team) return null;
+    const opposingTeamName = proj.team === homeTeam ? awayTeam : homeTeam;
+    const teamIds = await getTeamIdMap();
+    const opposingTeamId = teamIds[opposingTeamName];
+    if (opposingTeamId == null) return null;
+    return getBullpenFatigue(opposingTeamId, gameCtx.date);
+  }
 
   if (prop.market === "Pitcher Strikeouts O/U" && proj.isPitcher && proj.kPerStart) {
-    ourProbOver = poissonProbOver(prop.line, proj.kPerStart);
+    let kMult = 1;
+    let restNote = null;
+    if (gameCtx?.date) {
+      const restDays = await getPitcherRestDays(proj.id, gameCtx.date);
+      if (restDays != null && restDays <= 3) {
+        kMult = 0.90;
+        restNote = `descanso corto (${restDays} días desde su última apertura)`;
+      }
+    }
+    ourProbOver = poissonProbOver(prop.line, proj.kPerStart * kMult);
     const boards = await fetchTitleLeaderboards();
     const eraNote = titleRaceNote(proj.id, "era", "efectividad", boards);
     const kNote = titleRaceNote(proj.id, "k", "ponches", boards);
-    why = [eraNote, kNote].filter(Boolean).join(" · ") || null;
+    why = [restNote, eraNote, kNote].filter(Boolean).join(" · ") || null;
   } else if (prop.market === "Hits O/U" && !proj.isPitcher && proj.avg != null) {
     // Hits O/U casi siempre es linea 0.5 (al menos 1 hit) -- modelo ya afinado,
     // no le metemos los ajustes de parque/clima/matchup de HR y TB. Si algun dia
@@ -842,16 +1004,22 @@ async function evaluateProp(prop, awayTeam, homeTeam, gameCtx) {
     why = titleRaceNote(proj.id, "avg", "bateo", await fetchTitleLeaderboards());
   } else if (prop.market === "Home Runs O/U" && !proj.isPitcher && proj.hrPerGame != null) {
     const seasonHrPerAB = abPerGame > 0 ? proj.hrPerGame / abPerGame : 0;
-    const [handSplit, matchup, recentRate, expectedStats] = await Promise.all([
+    const isHome = proj.team === homeTeam;
+    const [handSplit, matchup, recentRate, expectedStats, barrelStats, bullpenFatigueIP, homeAwaySplit] = await Promise.all([
       opposingPitcher?.hand ? getBatterSplitVsHand(proj.id, opposingPitcher.hand) : null,
       opposingPitcher?.id ? getMatchup(proj.id, opposingPitcher.id) : null,
       getBatterRecentRate(proj.id),
-      fetchExpectedStats()
+      fetchExpectedStats(),
+      fetchBarrelStats(),
+      opposingBullpenFatigue(),
+      getBatterHomeAwaySplit(proj.id, isHome)
     ]);
     const adj = buildAdjustment("hr", seasonHrPerAB, {
       venue: gameCtx?.venue, weather: gameCtx?.weather, handSplit, matchup, recentRate,
       pitcherHand: opposingPitcher?.hand, pitcherName: opposingPitcher?.name,
-      xStat: expectedStats[proj.id]
+      xStat: expectedStats[proj.id],
+      barrel: barrelStats.byPlayerId[proj.id], leagueAvgBrlPa: barrelStats.leagueAvgBrlPa,
+      bullpenFatigueIP, homeAwaySplit, isHome
     });
     ourProbOver = poissonProbOver(prop.line, proj.hrPerGame * adj.mult);
     const hrTitleNote = titleRaceNote(proj.id, "hr", "HR", await fetchTitleLeaderboards());
@@ -864,15 +1032,19 @@ async function evaluateProp(prop, awayTeam, homeTeam, gameCtx) {
     };
   } else if (prop.market === "Total Bases O/U" && !proj.isPitcher && proj.tbPerGame != null) {
     const seasonTbPerAB = abPerGame > 0 ? proj.tbPerGame / abPerGame : 0;
-    const [handSplit, recentRate, expectedStats] = await Promise.all([
+    const isHome = proj.team === homeTeam;
+    const [handSplit, recentRate, expectedStats, bullpenFatigueIP, homeAwaySplit] = await Promise.all([
       opposingPitcher?.hand ? getBatterSplitVsHand(proj.id, opposingPitcher.hand) : null,
       getBatterRecentRate(proj.id),
-      fetchExpectedStats()
+      fetchExpectedStats(),
+      opposingBullpenFatigue(),
+      getBatterHomeAwaySplit(proj.id, isHome)
     ]);
     const adj = buildAdjustment("tb", seasonTbPerAB, {
       venue: gameCtx?.venue, weather: gameCtx?.weather, handSplit, matchup: null, recentRate,
       pitcherHand: opposingPitcher?.hand, pitcherName: opposingPitcher?.name,
-      xStat: expectedStats[proj.id]
+      xStat: expectedStats[proj.id],
+      bullpenFatigueIP, homeAwaySplit, isHome
     });
     // Se escala cada tasa de hit por el mismo multiplicador contextual (parque,
     // clima, matchup, forma reciente) que antes se aplicaba directo al promedio
@@ -1285,7 +1457,7 @@ async function main() {
         return { id: p.id, name: p.name, hand: await getPitcherHand(p.id) };
       }
       const gameCtx = {
-        venue, weather,
+        venue, weather, date: dateISO,
         awayPitcher: await withHand(pitcherPair.away),
         homePitcher: await withHand(pitcherPair.home),
         awayLineup: pitcherPair.awayLineup ?? null,
