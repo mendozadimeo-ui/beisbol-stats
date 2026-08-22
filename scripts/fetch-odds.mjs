@@ -535,11 +535,17 @@ async function fetchProbablePitchers(dateISO) {
       const away = g.teams.away.probablePitcher;
       const home = g.teams.home.probablePitcher;
       const lineups = g.lineups ?? {};
+      // El mismo array de la alineacion confirmada ya viene en orden real al
+      // bate (indice 0 = primero) -- ademas de para excluir bateadores fuera
+      // del lineup, sirve para saber cuantos turnos extra le tocan hoy a un
+      // primer bate vs un noveno.
       map[`${g.teams.away.team.name}@${g.teams.home.team.name}`] = {
         away: away ? { id: away.id, name: away.fullName } : null,
         home: home ? { id: home.id, name: home.fullName } : null,
         awayLineup: lineups.awayPlayers?.length ? new Set(lineups.awayPlayers.map(p => p.id)) : null,
-        homeLineup: lineups.homePlayers?.length ? new Set(lineups.homePlayers.map(p => p.id)) : null
+        homeLineup: lineups.homePlayers?.length ? new Set(lineups.homePlayers.map(p => p.id)) : null,
+        awayOrder: lineups.awayPlayers?.length ? new Map(lineups.awayPlayers.map((p, i) => [p.id, i + 1])) : null,
+        homeOrder: lineups.homePlayers?.length ? new Map(lineups.homePlayers.map((p, i) => [p.id, i + 1])) : null
       };
     }
   } catch { /* seguimos sin ajuste de abridor/lineup si falla */ }
@@ -698,6 +704,17 @@ async function getBullpenFatigue(teamId, gameDateISO) {
 
 function clamp(x, lo, hi) { return Math.max(lo, Math.min(hi, x)); }
 
+// Un primer bate le gana ~0.1 turnos al bate por partido a alguien que batea
+// noveno (investigacion real de DFS/sabermetria: cada escalon del orden vale
+// unas 15-20 PA de mas en toda la temporada). Solo se aplica cuando la
+// alineacion de HOY ya esta confirmada -- si el bateador siempre batea en la
+// misma posicion, su abPerGame de temporada ya lo refleja de por si, asi que
+// el ajuste queda chico y acotado a proposito.
+function battingOrderAbMult(order) {
+  if (order == null) return 1;
+  return clamp(1 + (5 - order) * 0.025, 0.9, 1.1);
+}
+
 // Viento saliendo hacia el jardin central ayuda a la pelota a volar (mas HR/TB),
 // viento entrando la frena -- pero solo importa la componente alineada con el eje
 // real del estadio (home plate -> jardin central), no la velocidad del viento sola
@@ -796,6 +813,32 @@ async function fetchBarrelStats() {
   } catch { /* seguimos sin este ajuste si Baseball Savant falla */ }
   barrelStatsCache = { byPlayerId: map, leagueAvgBrlPa };
   return barrelStatsCache;
+}
+
+// ---------- K% del equipo rival (uno de los mejores predictores reales de ponches) ----------
+// Los libros suelen fijar la linea de ponches en base al promedio de temporada
+// del abridor solamente -- la brecha esta en no mirar que tan propenso a
+// poncharse es el rival puntual de hoy. Un equipo que se poncha 25%+ de sus
+// turnos es un objetivo real para el Over, uno disciplinado (bajo 20%) para el
+// Under. Se trae la liga completa en 1 sola llamada.
+let teamKRatesCache = null;
+async function fetchTeamKRates() {
+  if (teamKRatesCache) return teamKRatesCache;
+  const byTeamId = {};
+  let leagueAvgKPct = null;
+  try {
+    const data = await getJSON(`${MLB_BASE}/teams/stats?stats=season&group=hitting&season=${SEASON}&sportId=1`);
+    let sumK = 0, sumPa = 0;
+    for (const s of data.stats?.[0]?.splits ?? []) {
+      const pa = s.stat.plateAppearances, k = s.stat.strikeOuts;
+      if (!pa) continue;
+      byTeamId[s.team.id] = k / pa;
+      sumK += k; sumPa += pa;
+    }
+    if (sumPa > 0) leagueAvgKPct = sumK / sumPa;
+  } catch { /* seguimos sin este ajuste si falla */ }
+  teamKRatesCache = { byTeamId, leagueAvgKPct };
+  return teamKRatesCache;
 }
 
 // Combina parque + clima + split vs mano + historial puntual vs el abridor +
@@ -969,7 +1012,10 @@ async function evaluateProp(prop, awayTeam, homeTeam, gameCtx) {
   let why = null;
   let statLine = {};
   const opposingPitcher = gameCtx && (proj.team === homeTeam ? gameCtx.awayPitcher : gameCtx.homePitcher);
-  const abPerGame = proj.abPerGame || 4;
+  const myOrder = gameCtx && !proj.isPitcher
+    ? (proj.team === homeTeam ? gameCtx.homeOrder : gameCtx.awayOrder)?.get(proj.id)
+    : null;
+  const abPerGame = (proj.abPerGame || 4) * battingOrderAbMult(myOrder);
   async function opposingBullpenFatigue() {
     if (!gameCtx?.date || !proj.team) return null;
     const opposingTeamName = proj.team === homeTeam ? awayTeam : homeTeam;
@@ -989,11 +1035,25 @@ async function evaluateProp(prop, awayTeam, homeTeam, gameCtx) {
         restNote = `descanso corto (${restDays} días desde su última apertura)`;
       }
     }
+    let oppKNote = null;
+    if (proj.team) {
+      const opposingTeamName = proj.team === homeTeam ? awayTeam : homeTeam;
+      const [teamIds, teamKRates] = await Promise.all([getTeamIdMap(), fetchTeamKRates()]);
+      const opposingTeamId = teamIds[opposingTeamName];
+      const oppKPct = opposingTeamId != null ? teamKRates.byTeamId[opposingTeamId] : null;
+      if (oppKPct != null && teamKRates.leagueAvgKPct) {
+        const ratio = clamp(oppKPct / teamKRates.leagueAvgKPct, 0.85, 1.2);
+        kMult *= ratio;
+        if (Math.abs(ratio - 1) >= 0.08) {
+          oppKNote = `${opposingTeamName} ${ratio > 1 ? "se poncha mas" : "se poncha menos"} que el promedio (${(oppKPct * 100).toFixed(1)}% vs liga ${(teamKRates.leagueAvgKPct * 100).toFixed(1)}%)`;
+        }
+      }
+    }
     ourProbOver = poissonProbOver(prop.line, proj.kPerStart * kMult);
     const boards = await fetchTitleLeaderboards();
     const eraNote = titleRaceNote(proj.id, "era", "efectividad", boards);
     const kNote = titleRaceNote(proj.id, "k", "ponches", boards);
-    why = [restNote, eraNote, kNote].filter(Boolean).join(" · ") || null;
+    why = [restNote, oppKNote, eraNote, kNote].filter(Boolean).join(" · ") || null;
   } else if (prop.market === "Hits O/U" && !proj.isPitcher && proj.avg != null) {
     // Hits O/U casi siempre es linea 0.5 (al menos 1 hit) -- modelo ya afinado,
     // no le metemos los ajustes de parque/clima/matchup de HR y TB. Si algun dia
@@ -1461,7 +1521,9 @@ async function main() {
         awayPitcher: await withHand(pitcherPair.away),
         homePitcher: await withHand(pitcherPair.home),
         awayLineup: pitcherPair.awayLineup ?? null,
-        homeLineup: pitcherPair.homeLineup ?? null
+        homeLineup: pitcherPair.homeLineup ?? null,
+        awayOrder: pitcherPair.awayOrder ?? null,
+        homeOrder: pitcherPair.homeOrder ?? null
       };
 
       const evaluatedProps = [];
